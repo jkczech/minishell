@@ -1,6 +1,6 @@
 END = \033[0m
 RED = \033[31;1m
-GREEN = \033[32;1m
+GREEN = \033[38;5;082;1m
 ORANGE = \033[38;5;208;1m
 
 NAME = libft.a
@@ -23,18 +23,19 @@ BSRCS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 
 OBJ_DIR = object
 OBJS = $(addprefix object/, $(SRCS:.c=.o))
-BOBJS = $(addprefix object/, $(SRCS:.c=.o))
+BOBJS = $(addprefix object/, $(BSRCS:.c=.o))
 
 #.SILENT:
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(BOBJS)
 	printf "$(ORANGE).$(END)";
 	$(AR) $@ $?
 
 bonus: $(OBJS) $(BOBJS)
 	$(AR) $(NAME) $(OBJS) $(BOBJS)
+	printf "\r$(GREEN)🚀 ./$(NAME)     created                        \n$(END)"
 
 object/%.o: source/%.c 
 	mkdir -p $(dir $@)
