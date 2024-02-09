@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/09 12:19:04 by jkoupy           ###   ########.fr       */
+/*   Created: 2023/09/09 13:34:49 by jkoupy            #+#    #+#             */
+/*   Updated: 2023/11/15 15:31:10 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/libft.h"
 
-int main(int argc, char **argv)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-    if (argc < 1)
-        return (1);
-    printf("1st arg is: %s\n", argv[1]);
-    return (0);
+	size_t	slen;
+	size_t	i;
+	char	*res;
+
+	if (!s)
+		return (0);
+	slen = ft_strlen(s);
+	res = malloc((slen + 1) * sizeof(char));
+	if (!res)
+		return (0);
+	i = 0;
+	while (s[i])
+	{
+		res[i] = f(i, s[i]);
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
 }

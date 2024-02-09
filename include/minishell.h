@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/09 12:19:04 by jkoupy           ###   ########.fr       */
+/*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
+/*   Updated: 2024/02/09 12:11:41 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-int main(int argc, char **argv)
-{
-    if (argc < 1)
-        return (1);
-    printf("1st arg is: %s\n", argv[1]);
-    return (0);
-}
+# include "../library/libft/include/libft.h"
+# include "../library/get_next_line/include/get_next_line.h"
+# include "../library/pipex/include/pipex.h"
+
+#endif

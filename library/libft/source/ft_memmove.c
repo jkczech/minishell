@@ -1,21 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/09 12:19:04 by jkoupy           ###   ########.fr       */
+/*   Created: 2023/09/07 09:31:04 by jkoupy            #+#    #+#             */
+/*   Updated: 2023/11/15 15:30:31 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/libft.h"
 
-int main(int argc, char **argv)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-    if (argc < 1)
-        return (1);
-    printf("1st arg is: %s\n", argv[1]);
-    return (0);
+	size_t		i;
+	char		*ddest;
+	const char	*ssrc;
+
+	ddest = (char *)dest;
+	ssrc = (const char *)src;
+	i = 0;
+	if (ddest < ssrc)
+	{
+		while (i < n)
+		{
+			ddest[i] = ssrc[i];
+			i++;
+		}
+	}
+	else if (ddest > ssrc)
+	{
+		while (i < n)
+		{
+			ddest[n - i - 1] = ssrc[n - i - 1];
+			i++;
+		}
+	}
+	return (dest);
 }

@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   t_list.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/09 12:19:04 by jkoupy           ###   ########.fr       */
+/*   Created: 2023/12/17 02:44:17 by jkoupy            #+#    #+#             */
+/*   Updated: 2023/12/17 02:45:56 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#ifndef T_LIST_H
+# define T_LIST_H
 
-int main(int argc, char **argv)
+typedef struct s_list
 {
-    if (argc < 1)
-        return (1);
-    printf("1st arg is: %s\n", argv[1]);
-    return (0);
-}
+	char			*content;
+	struct s_list	*next;
+}	t_list;
+
+#endif

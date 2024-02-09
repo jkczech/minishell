@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/09 12:19:04 by jkoupy           ###   ########.fr       */
+/*   Created: 2023/09/09 18:56:53 by jkoupy            #+#    #+#             */
+/*   Updated: 2023/11/15 15:30:16 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/libft.h"
 
-int main(int argc, char **argv)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-    if (argc < 1)
-        return (1);
-    printf("1st arg is: %s\n", argv[1]);
-    return (0);
+	t_list	*node;
+	t_list	*head;
+
+	if (!lst || !f || !del)
+		return (0);
+	head = NULL;
+	while (lst)
+	{
+		node = ft_lstnew((*f)(lst->content));
+		if (!node)
+		{
+			ft_lstclear(&lst, del);
+			return (0);
+		}
+		ft_lstadd_back(&head, node);
+		lst = lst->next;
+	}
+	return (head);
 }
