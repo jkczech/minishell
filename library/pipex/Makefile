@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/11 12:07:05 by jkoupy            #+#    #+#              #
-#    Updated: 2024/02/09 12:27:27 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/02/09 15:33:28 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,75 +21,50 @@ WHITE = \033[38;5;231;1m
 BROWN = \033[38;5;137;1m
 END = \033[0m
 
-NAME = pipex
-BNAME = pipex_bonus
+NAME = pipex.a
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 DEPFLAGS =-MT $@ -MMD -MP -MF $(OBJ_DIR)/$*.d
+AR = ar rcs
 RM = rm -rf
 
-LIBFT = 	../libft/libft.a
-GETNEXTLINE = 	../get_next_line/getnextline.a
+LIBFT = 	    ../libft/libft.a
 
-MSRCS = main.c free.c parse.c child.c error.c pipex.c here_doc.c
-BSRCS = main_bonus.c free.c parse.c child.c error.c pipex.c here_doc.c
+SRCS = free.c parse.c child.c error.c pipex.c here_doc.c
 OBJ_DIR = object/
-MOBJS =  $(addprefix $(OBJ_DIR), $(MSRCS:.c=.o))
-BOBJS = $(addprefix $(OBJ_DIR), $(BSRCS:.c=.o))
-DEPS = $(addprefix $(OBJ_DIR), $(MSRCS:.c=.d))
+OBJS =  $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
-all: $(LIBFT) $(GETNEXTLINE) $(NAME)
-
-bonus: $(LIBFT) $(GETNEXTLINE) $(BNAME)
-
-both: all bonus
+all: $(LIBFT) $(NAME)
 
 object/%.o: source/%.c 
 	@mkdir -p $(dir $@)
 	@printf "$(ORANGE).$(END)";
-	@$(CC) -c $(CFLAGS) $< -o $@
+	@$(CC) -c $(CFLAGS) $(DEPFLAGS) $< -o $@
 
-$(NAME):	$(LIBFT) $(MOBJS) 
-	@$(CC) $(MOBJS) $(CC_FLAGS) $(LIBFT) $(GETNEXTLINE) -o $(NAME)
-	@printf "\r$(GREEN)🚀 ./$(NAME)       created              \n$(END)"
-
-$(BNAME): $(LIBFT) $(BOBJS)
-	@$(CC) $(BOBJS) $(CC_FLAGS) $(LIBFT) $(GETNEXTLINE) -o $(BNAME)
-	@printf "\r$(GREEN)🚀 ./$(BNAME) created                    \n$(END)"
+$(NAME): $(LIBFT) $(OBJS)
+	@$(AR) $@ $(OBJS)
+	@printf "\r$(GREEN)🚀 ./$(NAME)     created			\n$(END)"
 
 $(LIBFT):
 	@printf "$(ORANGE)🔁 ./$(NAME) \t compiling$(END)"
 	@make bonus -sC ../libft
 
-$(GETNEXTLINE):
-	@printf "$(ORANGE).$(END)"
-	@make -sC ../get_next_line
-
 clean:
 	@$(RM) $(OBJ_DIR)
 	@make clean -sC ../libft
-	@make clean -sC ../get_next_line
 	@printf "$(RED)💥 object files\t removed\n$(END)"
 
 fclean: clean
-	@make fclean -sC ../libft
-	@make fclean -sC ../get_next_line
 	@$(RM) $(NAME) $(BNAME)
+	@make fclean -sC ../libft
 	@printf "$(RED)💥 ./$(NAME) \t removed\n$(END)"
-
-cleanf:
-	@printf "$(RED)💥 test files \t removed\n$(END)"
-	@find . -type f ! -name 'Makefile' ! -name $(NAME) ! -name $(BNAME) -delete
 
 re: _rebuild fclean all
 
 _rebuild:
 	@printf "$(ORANGE)🚧 ./$(NAME)\t rebuild\n$(END)"
 
-nothing:
-	@printf "💩$(BROWN) made $(RED)n$(ORANGE)o$(YELLOW)t$(GREEN)h$(BLUE)i$(INDIGO)n$(VIOLET)g\n$(END)"
-
 -include $(DEPS)
 
-.PHONY: all bonus both clean fclean cleanf re _rebuild nothing
+.PHONY: all bonus both clean fclean re _rebuild

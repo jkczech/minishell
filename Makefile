@@ -6,10 +6,9 @@
 #    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/02/09 13:20:37 by jseidere         ###   ########.fr        #
+#    Updated: 2024/02/09 15:46:26 by jseidere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 RED = \033[38;5;196;1m
 ORANGE = \033[38;5;208;1m
@@ -30,28 +29,25 @@ RFLAGS = -lreadline
 DEPFLAGS =-MT $@ -MMD -MP -MF $(OBJ_DIR)/$*.d
 RM = rm -rf
 
-LIBFT = 	library/libft/libft.a
+LIBFT = 	    library/libft/libft.a
 GETNEXTLINE = 	library/get_next_line/getnextline.a
+PIPEX =         library/pipex/pipex.a
 
-MSRCS = main.c
+SRCS = main_pipex.c
 OBJ_DIR = object/
-MOBJS =  $(addprefix $(OBJ_DIR), $(MSRCS:.c=.o))
-DEPS = $(addprefix $(OBJ_DIR), $(MSRCS:.c=.d))
+OBJS =  $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
+DEPS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.d))
 
 all: $(LIBFT) $(GETNEXTLINE) $(PIPEX) $(NAME)
 
-object/%.o: source/%.c 
+object/%.o: source/%.c
 	@mkdir -p $(dir $@)
 	@printf "$(ORANGE).$(END)";
-	@$(CC) -c $(CFLAGS) $< -o $@
+	@$(CC) -c $(CFLAGS) $(DEPFLAGS) $< -o $@
 
-$(NAME):	$(LIBFT) $(MOBJS) 
-	@$(CC) $(MOBJS) $(CC_FLAGS) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
-	@printf "\r$(GREEN)🚀 ./$(NAME)   created              \n$(END)"
-
-$(BNAME): $(LIBFT) $(BOBJS)
-	@$(CC) $(BOBJS) $(CC_FLAGS) $(LIBFT) $(GETNEXTLINE) -o $(BNAME)
-	@printf "\r$(GREEN)🚀 ./$(BNAME) created                    \n$(END)"
+$(NAME):	$(LIBFT) $(OBJS) 
+	@$(CC) $(OBJS) $(CFLAGS) $(PIPEX) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
+	@printf "\r$(GREEN)🚀 ./$(NAME)   created			\n$(END)"
 
 $(LIBFT):
 	@printf "$(ORANGE)🔁 ./$(NAME) \t compiling$(END)"
