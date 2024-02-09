@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
+#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/02/09 12:26:52 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/02/09 13:20:37 by jseidere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ NAME = minishell
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
+RFLAGS = -lreadline
 DEPFLAGS =-MT $@ -MMD -MP -MF $(OBJ_DIR)/$*.d
 RM = rm -rf
 
@@ -35,7 +36,6 @@ GETNEXTLINE = 	library/get_next_line/getnextline.a
 MSRCS = main.c
 OBJ_DIR = object/
 MOBJS =  $(addprefix $(OBJ_DIR), $(MSRCS:.c=.o))
-BOBJS = $(addprefix $(OBJ_DIR), $(BSRCS:.c=.o))
 DEPS = $(addprefix $(OBJ_DIR), $(MSRCS:.c=.d))
 
 all: $(LIBFT) $(GETNEXTLINE) $(PIPEX) $(NAME)
@@ -46,7 +46,7 @@ object/%.o: source/%.c
 	@$(CC) -c $(CFLAGS) $< -o $@
 
 $(NAME):	$(LIBFT) $(MOBJS) 
-	@$(CC) $(MOBJS) $(CC_FLAGS) $(LIBFT) $(GETNEXTLINE) -o $(NAME)
+	@$(CC) $(MOBJS) $(CC_FLAGS) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
 	@printf "\r$(GREEN)🚀 ./$(NAME)   created              \n$(END)"
 
 $(BNAME): $(LIBFT) $(BOBJS)

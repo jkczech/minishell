@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/09 12:11:41 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/09 13:12:39 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,10 @@
 # include "../library/libft/include/libft.h"
 # include "../library/get_next_line/include/get_next_line.h"
 # include "../library/pipex/include/pipex.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <stdbool.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 #endif
