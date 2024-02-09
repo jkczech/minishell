@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/02/09 12:21:03 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/02/09 12:26:52 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 DEPFLAGS =-MT $@ -MMD -MP -MF $(OBJ_DIR)/$*.d
 RM = rm -rf
 
-LIBFT = 	library/libft/build/libft.a
-GETNEXTLINE = 	library/get_next_line/build/getnextline.a
+LIBFT = 	library/libft/libft.a
+GETNEXTLINE = 	library/get_next_line/getnextline.a
 
 MSRCS = main.c
 OBJ_DIR = object/
@@ -55,11 +55,11 @@ $(BNAME): $(LIBFT) $(BOBJS)
 
 $(LIBFT):
 	@printf "$(ORANGE)🔁 ./$(NAME) \t compiling$(END)"
-	@make bonus -sC library/libft/build
+	@make bonus -sC library/libft
 
 $(GETNEXTLINE):
 	@printf "$(ORANGE).$(END)"
-	@make -sC library/get_next_line/build
+	@make -sC library/get_next_line
 
 $(PIPEX):
 	@printf "$(ORANGE).$(END)"
@@ -67,14 +67,14 @@ $(PIPEX):
 
 clean:
 	@$(RM) $(OBJ_DIR)
-	@make clean -sC library/libft/build
-	@make clean -sC library/get_next_line/build
+	@make clean -sC library/libft
+	@make clean -sC library/get_next_line
 	@make clean -sC library/pipex
 	@printf "$(RED)💥 object files\t removed\n$(END)"
 
 fclean: clean
-	@make fclean -sC library/libft/build
-	@make fclean -sC library/get_next_line/build
+	@make fclean -sC library/libft
+	@make fclean -sC library/get_next_line
 	@make fclean -sC library/pipex
 	@$(RM) $(NAME)
 	@printf "$(RED)💥 ./$(NAME) \t removed\n$(END)"
