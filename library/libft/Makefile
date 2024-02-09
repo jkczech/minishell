@@ -23,13 +23,13 @@ BSRCS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 
 OBJ_DIR = object
 OBJS = $(addprefix object/, $(SRCS:.c=.o))
-BOBJS = $(addprefix object/, $(SRCS:.c=.o))
+BOBJS = $(addprefix object/, $(BSRCS:.c=.o))
 
 #.SILENT:
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(BOBJS) $(OBJS)
 	printf "$(ORANGE).$(END)";
 	$(AR) $@ $?
 

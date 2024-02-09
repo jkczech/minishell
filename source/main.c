@@ -6,11 +6,20 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/09 13:27:09 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:39:29 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void print_list(t_list *list)
+{
+	while(list)
+	{
+		printf("%s\n", list->content);
+		list = list->next;
+	}
+}
 
 bool ft_is_seperator(char c)
 {
@@ -73,19 +82,30 @@ void check_input (char *str)
 	}
 }
 
-void minishell(char **envp)
+void envp_into_list(char **envp, t_list *env_list)
+{
+	int i;
+
+	i = 0;
+	env_list = NULL;
+	while(envp[i])
+	{
+		ft_lstadd_back(&env_list, ft_lstnew(envp[i]));
+		i++;
+	}
+	//print_list(env_list);
+}
+
+void minishell(char **envp, t_list *env_list)
 {
 	char *input;
 	char *prompt;
 	int i;
 
+	env_list = NULL;
 	i = 0;
 	prompt = "Mini🐚: ";
-	while (*envp)
-	{
-		printf("%s\n", *envp);
-		envp++;
-	}
+	envp_into_list(envp, env_list);
 	while(1)
 	{
 		input = readline(prompt);
@@ -95,6 +115,8 @@ void minishell(char **envp)
 				rl_clear_history();
 			else if(strcmp(input, "exit") == 0)
 				exit(1);
+			else if(strcmp(input, "env") == 0)
+				print_list(env_list);
 			add_history(input);
 			free(input);
 		}
@@ -107,7 +129,10 @@ int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	minishell(envp);	
+	t_list *env_list;
+
+	env_list = NULL;
+	minishell(envp, env_list);	
 }
 
 /* int	main(int argc, char **argv)
