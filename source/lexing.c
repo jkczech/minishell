@@ -51,12 +51,38 @@ int token_count(char *str)
     return count;
 }
 
+void count_chars(char *str)
+{
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while(str[i])
+	{
+		if(str[i] == ' ' || str[i] == '\t')
+		{
+			while(str[i] == ' ' || str[i] == '\t')
+				i++;
+		}
+		if(str[i] != ' ' || str[i] != '\t')
+		{
+			count++;
+			while(str[i] == ' ' || str[i] == '\t')
+				i++;
+		}
+		i++;
+	}
+	printf("Char count: %d\n", count);
+}
+
 void check_input (char *str)
 {
 	int i;
 
 	i = 0;
 	token_count(str);
+	count_chars(str);
 	while(str[i])
 	{
 		while((str[i] >= 9 && str[i] <= 13) && str[i] == ' ')
