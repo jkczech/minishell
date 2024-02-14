@@ -81,7 +81,7 @@ void check_input (char *str)
 		i++;
 	}
 }
-
+//Jakob
 void envp_into_list(char **envp, t_list *env_list)
 {
 	int i;
@@ -100,10 +100,10 @@ void minishell(char **envp, t_list *env_list)
 {
 	char *input;
 	char *prompt;
-	int i;
+	//int i;
 
 	env_list = NULL;
-	i = 0;
+	//i = 0;
 	prompt = "Mini🐚: ";
 	envp_into_list(envp, env_list);
 	while(1)
@@ -128,7 +128,7 @@ void minishell(char **envp, t_list *env_list)
 int main(int argc, char **argv, char **envp) 
 {
 	(void)argc;
-	(void)argv;
+	(void)**argv;
 	t_list *env_list;
 
 	env_list = NULL;
