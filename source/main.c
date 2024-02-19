@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/09 15:39:29 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:25:54 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,67 +21,6 @@ void print_list(t_list *list)
 	}
 }
 
-bool ft_is_seperator(char c)
-{
-	char *operator = ";&|><'=!{}()[]";
-	int i;
-
-	i = 0;
-	while(operator[i])
-	{
-		if(operator[i] == c)
-			return (true);
-		else
-			i++;
-	}
-	return (false);
-}
-
-void skip_spaces(char *str)
-{
-	int i;
-
-	i = 0;
-	while(str[i] == ' ' || str[i] == '\t')
-		i++;
-}
-
-void word_count(char *str)
-{
-	int i;
-	int count;
-
-	i = 0;
-	count = 0;
-	while(str[i])
-	{
-		if(str[i] == ' ' || str[i] == '\t')
-		{
-			count++;
-			while(str[i] == ' ' || str[i] == '\t')
-				i++;
-		}
-		i++;
-	}
-	printf("Word count: %d\n", count);
-}
-
-void check_input (char *str)
-{
-	int i;
-
-	i = 0;
-	while(str[i])
-	{
-		while((str[i] >= 9 && str[i] <= 13) && str[i] == ' ')
-			i++;
-		printf("Str[i]: %c\n", str[i]);
-		if(ft_is_seperator(str[i]))
-			printf("Seperator/Operator found!\n");
-		i++;
-	}
-}
-//Jakob
 void envp_into_list(char **envp, t_list *env_list)
 {
 	int i;
@@ -111,6 +50,7 @@ void minishell(char **envp, t_list *env_list)
 		input = readline(prompt);
 		if(input)
 		{
+			check_input(input);
 			if(strcmp(input, "history -c") == 0)
 				rl_clear_history();
 			else if(strcmp(input, "exit") == 0)
