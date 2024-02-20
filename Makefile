@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
+#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/02/09 15:46:26 by jseidere         ###   ########.fr        #
+#    Updated: 2024/02/20 14:50:47 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ LIBFT = 	    library/libft/libft.a
 GETNEXTLINE = 	library/get_next_line/getnextline.a
 PIPEX =         library/pipex/pipex.a
 
-SRCS = main_pipex.c
+SRCS = main_pipex.c cmds.c
 OBJ_DIR = object/
 OBJS =  $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 DEPS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.d))
@@ -42,7 +42,7 @@ all: $(LIBFT) $(GETNEXTLINE) $(PIPEX) $(NAME)
 
 object/%.o: source/%.c
 	@mkdir -p $(dir $@)
-	@printf "$(ORANGE).$(END)";
+	@printf "$(ORANGE). $(END)";
 	@$(CC) -c $(CFLAGS) $(DEPFLAGS) $< -o $@
 
 $(NAME):	$(LIBFT) $(OBJS) 
