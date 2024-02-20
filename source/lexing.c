@@ -2,7 +2,7 @@
 
 bool ft_is_seperator(char c)
 {
-	char *operator = ";&|><'=!{}()[]";
+	char *operator = ";&|><'=!%";
 	int i;
 
 	i = 0;
@@ -16,14 +16,6 @@ bool ft_is_seperator(char c)
 	return (false);
 }
 
-void skip_spaces(char *str)
-{
-	int i;
-
-	i = 0;
-	while(str[i] == ' ' || str[i] == '\t')
-		i++;
-}
 
 bool check_doubles_seperators(char *str)
 {
@@ -62,7 +54,7 @@ int token_count(char *str)
         }
 		if((str[i] == '|' && str[i + 1] == '|') || (str[i] == '&' && str[i + 1] == '&') || (str[i] == '>' && str[i + 1] == '>') || (str[i] == '<' && str[i + 1] == '<'))
 			i++;
-		if(ft_is_seperator(str[i]) /* || (ft_is_seperator(str[i + 1]) && ft_is_seperator(str[i])) */)
+		if(ft_is_seperator(str[i]))
 		{
 			count++;
 			i++;
@@ -111,7 +103,17 @@ char *norm_input(char *str, int wc, int tc)
 		return (NULL);
 	while(i < (wc + tc))
 	{
-		if((ft_is_seperator(str[j]) && !ft_is_seperator(str[j - 1])) && str[j - 1] != ' ' && j != 0)
+		if(str[j] == '"')
+		{
+			while(str[j] == '"')	
+					j++;
+		}
+		if(str[j] == ' ' && str[j + 1] == ' ')
+		{
+			while(str[j] == ' ' && str[j + 1] == ' ')
+				j++;
+		}
+		if(((ft_is_seperator(str[j]) && !ft_is_seperator(str[j - 1])) || str[j] == '-') && str[j - 1] != ' ' && j != 0)
 		{
 			result[i] = ' ';
 			i++;
@@ -119,7 +121,7 @@ char *norm_input(char *str, int wc, int tc)
 		result[i] = str[j];
 		i++;
 		j++;
-		if(!ft_is_seperator(str[j]) && ft_is_seperator(str[j - 1]))
+		if((!ft_is_seperator(str[j]) && ft_is_seperator(str[j - 1])) && str[j] != ' ')
 		{
 			result[i] = ' ';
 			i++;
@@ -130,7 +132,7 @@ char *norm_input(char *str, int wc, int tc)
 	return (result);
 }
 
-void check_input (char *str)
+void check_input(char *str)
 {
 	int i;
 	char *norm_str;
@@ -139,16 +141,33 @@ void check_input (char *str)
 	norm_str = norm_input(str, token_count(str), count_chars(str));
 	if(!norm_str)
 		return ;
-	while(str[i])
+	while(norm_str[i])
 	{
-		while((str[i] >= 9 && str[i] <= 13) && str[i] == ' ')
+		if(ft_is_seperator(norm_str[i]) && ft_is_seperator(norm_str[i + 1]))
+		{
+			printf("Operator: %c%c\n", norm_str[i], norm_str[i + 1]);
 			i++;
-		//printf("Str[i]: %c\n", str[i]);
-		/* if(ft_is_seperator(str[i]))
-			printf("Seperator/Operator found!\n"); */
-		i++;
+			i++;
+		}
+		else if(ft_is_seperator(norm_str[i]))
+		{
+			printf("Operator: %c\n", norm_str[i]);
+			i++;
+		}
+		else
+		{
+			printf("Word: ");
+			while(norm_str[i] != ' ' && norm_str[i])
+			{
+				printf("%c", norm_str[i]);
+				i++;
+			}
+			printf("\n");
+		}
+		while(norm_str[i] == ' ' && norm_str[i] != '\0')
+			i++;
 	}
-	free(norm_str);
+	//free(norm_str);
 }
 
 

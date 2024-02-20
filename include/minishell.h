@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/19 12:35:56 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:54:10 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,25 @@
 # define SEMICOLON 2
 # define REDIR_IN 3
 # define REDIR_OUT 4
-# define APPEND 5
+# define AMPERSAND 5
 # define HEREDOC 6
 # define END 7
 
-typedef struct s_lst
+typedef struct s_token
 {
     char			*content;
     int            token;
-    struct s_lst	*next;
-}				t_lst;
+    struct s_token	*next;
+}				t_token;
 
+//Lexing
 void check_input (char *str);
+int count_chars(char *str);
+int token_count(char *str);
+char *norm_input(char *str, int wc, int tc);
+
+//Tokenizing
+bool ft_is_word(char *str);
+int ft_detect_operator(char *str);
 
 #endif
