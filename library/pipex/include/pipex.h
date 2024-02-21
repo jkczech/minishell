@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:27:19 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/20 14:46:13 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/21 15:10:40 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_simple_cmd
 {
 	char				*path;
 	char				**args;
+	int					input;
+	int					output;
 	struct s_simple_cmd	*next;
 }	t_simple_cmd;
 

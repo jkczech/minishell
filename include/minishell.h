@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/20 14:46:07 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/21 15:31:09 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,14 @@ bool			init_s_cmds(t_pipex *pipex);
 t_simple_cmd	*cmd_new(t_token *token);
 void			cmd_add(t_simple_cmd **cmd_table, t_simple_cmd *cmd);
 t_simple_cmd	*cmd_last(t_simple_cmd *cmd);
+
+typedef struct s_shell
+{
+	char			**envp;
+	char			*line;
+	t_token			**tokens;
+	t_list			*history;
+	t_pipex			pipex;
+}	t_shell;
 
 #endif
