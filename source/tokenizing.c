@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/02/20 17:55:00 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/21 11:01:03 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool ft_is_word(char *str)
     return (true);
 }
 
-int ft_detect_operator(char c)
+/* int ft_detect_operator(char *str)
 {
     int i;
 
@@ -49,9 +49,27 @@ int ft_detect_operator(char c)
         i++;
     }
     return (END);
+} */
+
+int ft_detect_operator(char c, char d)
+{
+    if(c == '|' && !d)
+        return (PIPE);
+    else if(c == ';')
+        return (SEMICOLON);
+    else if(c == '<' && d == '<')
+        return (HEREDOC);
+    else if(c == '>')
+        return (REDIR_OUT);
+    else if(c == '<')
+        return (REDIR_IN);
+    else if(c == '&')
+        return (AMPERSAND);
+ 
+    return (END);
 }
 
-int main(int argc, char **argv)
+/* int main(int argc, char **argv)
 {
     int i;
 
@@ -85,4 +103,4 @@ int main(int argc, char **argv)
             i++;
         }
     }
-} 
+}  */

@@ -16,27 +16,6 @@ bool ft_is_seperator(char c)
 	return (false);
 }
 
-
-bool check_doubles_seperators(char *str)
-{
-	int i;
-
-	i = 0;
-	while(str[i])
-	{
-		if(str[i] == '|' && str[i + 1] == '|')
-			return (true);
-		else if (str[i] == '&' && str[i + 1] == '&')
-			return (true);
-		else if (str[i] == '>' && str[i + 1] == '>')
-			return (true);
-		else if (str[i] == '<' && str[i + 1] == '<')
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
 int token_count(char *str)
 {
     int i = 0;
@@ -132,48 +111,60 @@ char *norm_input(char *str, int wc, int tc)
 	return (result);
 }
 
-void check_input(char *str)
+void tokenizing(char *str)
 {
 	int i;
-	char *norm_str;
 
 	i = 0;
-	norm_str = norm_input(str, token_count(str), count_chars(str));
-	if(!norm_str)
-		return ;
-	while(norm_str[i])
+	while(str[i])
 	{
-		if(ft_is_seperator(norm_str[i]) && ft_is_seperator(norm_str[i + 1]))
+		if(ft_is_seperator(str[i]) && ft_is_seperator(str[i + 1]))
 		{
-			printf("Operator: %c%c\n", norm_str[i], norm_str[i + 1]);
+			printf("Operator: %c%c\n", str[i], str[i + 1]);
+			printf("Op: %d\n", ft_detect_operator(str[i], str[i + 1]));
 			i++;
 			i++;
 		}
-		else if(ft_is_seperator(norm_str[i]))
+		else if(ft_is_seperator(str[i]))
 		{
-			printf("Operator: %c\n", norm_str[i]);
+			printf("Operator: %c\n", str[i]);
+			printf("Op: %d\n", ft_detect_operator(str[i], 0));
 			i++;
 		}
-		else
+		else if(ft_is_word(str))
 		{
 			printf("Word: ");
-			while(norm_str[i] != ' ' && norm_str[i])
+			while(str[i] != ' ' && str[i])
 			{
-				printf("%c", norm_str[i]);
+				printf("%c", str[i]);
 				i++;
 			}
 			printf("\n");
 		}
-		while(norm_str[i] == ' ' && norm_str[i] != '\0')
+		while(str[i] == ' ' && str[i] != '\0')
 			i++;
 	}
+}
+
+
+void check_input(char *str)
+{
+	char *norm_str;
+	//t_token *token;
+
+	norm_str = norm_input(str, token_count(str), count_chars(str));
+	if(!norm_str)
+		return ;
+	tokenizing(norm_str);
+	
 	//free(norm_str);
 }
 
 
 
 /* int main(int argc, char **argv)
-{
+{rintf("Operator: %c%c\n", norm_str[i], norm_str[i + 1]);
+			printf("Op: %d\n", ft_detect_operator(nor
     if (argc < 1)
     {
         return (1);

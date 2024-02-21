@@ -6,7 +6,7 @@
 #    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/02/19 10:49:41 by jseidere         ###   ########.fr        #
+#    Updated: 2024/02/21 10:55:56 by jseidere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ LIBFT = 	    library/libft/libft.a
 GETNEXTLINE = 	library/get_next_line/getnextline.a
 PIPEX =         library/pipex/pipex.a
 
-SRCS = main.c lexing.c
+SRCS = main.c lexing.c tokenizing.c
 OBJ_DIR = object/
 OBJS =  $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 DEPS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.d))

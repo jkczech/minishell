@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/20 15:54:10 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/21 10:54:16 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ char *norm_input(char *str, int wc, int tc);
 
 //Tokenizing
 bool ft_is_word(char *str);
-int ft_detect_operator(char *str);
+int ft_detect_operator(char c, char d);
 
 #endif
