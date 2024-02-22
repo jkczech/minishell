@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/02/20 14:50:47 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/02/22 15:15:10 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ LIBFT = 	    library/libft/libft.a
 GETNEXTLINE = 	library/get_next_line/getnextline.a
 PIPEX =         library/pipex/pipex.a
 
-SRCS = main_pipex.c cmds.c
+SRCS = main_pipex.c cmds.c dlist.c print.c 
 OBJ_DIR = object/
 OBJS =  $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 DEPS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.d))
