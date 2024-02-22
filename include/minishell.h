@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/21 10:54:16 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:25:36 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ typedef struct s_token
 void check_input (char *str);
 int count_chars(char *str);
 int token_count(char *str);
+bool ft_is_seperator(char c);
 char *norm_input(char *str, int wc, int tc);
 
 //Tokenizing
+t_token	*create_node(char *str, int token, int len);
 bool ft_is_word(char *str);
 int ft_detect_operator(char c, char d);
+char *ft_detect_string(char *str);
 
 #endif

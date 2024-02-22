@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/19 17:25:54 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:14:45 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ void minishell(char **envp, t_list *env_list)
 {
 	char *input;
 	char *prompt;
-	//int i;
 
 	env_list = NULL;
-	//i = 0;
 	prompt = "Mini🐚: ";
 	envp_into_list(envp, env_list);
 	while(1)

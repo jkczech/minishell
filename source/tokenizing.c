@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/02/21 11:01:03 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:19:38 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,38 @@ bool ft_is_word(char *str)
     i = 0;
     while (str[i] && str[i] != ' ')
     {
+        /* if(str[i] == ' ' && ft_isalpha(str[i + 1]))
+            i++; */
         if (!ft_isalpha(str[i]))
             return (false);
         i++;
     }
     return (true);
 }
+
+char *ft_detect_string(char *str)
+{
+    int strlen;
+    int i;
+    char *result;
+
+    strlen = 0;
+    i = 0;
+    while(!ft_is_seperator(str[strlen]))
+        strlen++;
+    if(!str)
+        return (NULL);
+    result = malloc(strlen + 1);
+    
+    while(i < strlen)
+    {
+        result[i] = str[i];
+        i++;
+    }
+    result[i] = '\0';
+    return (result);
+}
+
 
 /* int ft_detect_operator(char *str)
 {
