@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:54:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/22 13:10:12 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/22 14:46:27 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	destroy_token(t_token *token)
 	if (token != NULL)
 	{
 		free(token->content);
-		free(token->next);
-		free(token->prev);
 		free(token);
 	}
 }
