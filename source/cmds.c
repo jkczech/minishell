@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/20 14:58:28 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/22 13:49:05 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,18 @@ t_simple_cmd	*cmd_new(t_token *token)
 	if (!cmd)
 		return (NULL);
 	cmd->args = ft_split(token->content, ' ');
+	if (token->prev && token->prev->token == INPUT)
+		cmd->input = open(token->prev->content, O_RDONLY);
+	else
+		cmd->input = -1;
+	if (token->next && token->next->token == OUTPUT)
+		cmd->output = open(token->next->content,
+				O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (token->next && token->next->token == APPEND)
+		cmd->output = open(token->next->content,
+				O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		cmd->output = -1;
 	cmd->next = NULL;
 	return (cmd);
 }
