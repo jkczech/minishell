@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/22 15:11:38 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/22 17:08:35 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	print_tokens(t_token **tokens)
 			ft_putstr_fd("\033[0;36m", 1);
 		ft_putstr_fd(token->content, 1);
 		ft_putstr_fd("\033[0m", 1);
-		ft_putstr_fd(" ", 1);
+		ft_putstr_fd("+", 1);
 		token = token->next;
 	}
 	ft_putstr_fd("\n", 1);

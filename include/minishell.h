@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/22 16:29:50 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:05:42 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,14 @@
 # define OUTPUT 2
 # define HEREDOC 3
 # define APPEND 4
-
-# define WORD 0
-# define INPUT 1
-# define OUTPUT 2
-# define HEREDOC 3
-# define APPEND 4
-
-//Token
-
-# define WORD 0
-# define PIPE 1
-# define SEMICOLON 2
-# define REDIR_IN 3
-# define REDIR_OUT 4
-# define AMPERSAND 5
-# define HEREDOC 6
-# define END 7
+# define PIPE 5
 
 typedef struct s_token
 {
     char			*content;
     int            token;
     struct s_token	*next;
+	struct s_token	*prev;
 }				t_token;
 
 //Lexing

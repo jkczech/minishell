@@ -132,13 +132,14 @@ void check_input(char *str)
 	head = split_and_store(norm_str, " ");
 	if(head)
 	{
-		print_list(head);
+		/* print_list(head);
 		while (head) 
 		{
 		printf("%d\n", head->token);
 		head = head->next;
 		}
-		ft_free_list(head);
+		ft_free_list(head); */
+		print_tokens(&head);
 	}
 		
 	//free(norm_str);

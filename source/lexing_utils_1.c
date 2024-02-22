@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:22:02 by jseidere          #+#    #+#             */
-/*   Updated: 2024/02/22 16:17:10 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:26:48 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,13 @@ int is_delimiter(char c, const char *delim)
 int determine_token_type(char *token)
 {
 	if (ft_strncmp(token, ">", 1) == 0)
-		return (REDIR_OUT);
+		return (OUTPUT);
 	else if (ft_strncmp(token, "<", 1) == 0)
-		return (REDIR_IN);
+		return (INPUT);
 	else if (ft_strncmp(token, "|", 1) == 0)
 		return (PIPE);
-	else if (ft_strncmp(token, ";", 1) == 0)
-		return (SEMICOLON);
-	else if (ft_strncmp(token, "&&", 2) == 0)
-		return (AMPERSAND);
 	else if (ft_strncmp(token, "||", 2) == 0)
-		return (AMPERSAND);
+		return (APPEND);
 	else if (ft_strncmp(token, "<<", 2) == 0)
 		return (HEREDOC);
 	else
@@ -174,6 +170,41 @@ char *ft_strtok(char *str, const char *delim)
 	s = NULL;
 	return (begin);
 }
+/* char *detect_token(char *str)
+{
+	static char *s;
+	int i;
+	int token_type;
+	char *begin;
+	char *end;
+
+	i = 0;
+	if (str)
+		s = str;
+	if (!s)
+		return (NULL);
+
+	while (*s && is_delimiter(*s, " "))
+		s++;
+	begin = s;
+	while(s[i])
+	{
+		if(is_delimiter(s[i], "<>|"))
+		{
+			if(s[i] == '<' && s[i + 1] == '<')
+				token_type = HEREDOC;
+			else if(s[i] == '>' && s[i + 1] == '>')
+				token_type = APPEND;			
+			else if(s[i] == '<')
+				token_type = INPUT;
+			else if(s[i] == '>') 
+				token_type = OUTPUT;
+			else if(s[i] == '|')
+				token_type = PIPE;
+		}
+	}
+} */
+
 
 t_token *split_and_store(char *input, char *delimiter)
 {
