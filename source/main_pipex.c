@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:34:37 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/09 13:42:24 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/21 15:27:25 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../library/pipex/include/pipex.h"
+#include "../include/minishell.h"
 
 //the difference from main.c is the argc check
 int	main(int argc, char **argv, char **envp)
@@ -40,17 +40,21 @@ bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp)
 	pipex->infile = -1;
 	pipex->outfile = -1;
 	pipex->cmds = NULL;
+	pipex->s_cmds = NULL;
 	pipex->pipes = NULL;
 	pipex->argv = argv;
 	pipex->envp = envp;
 	pipex->child_pids = NULL;
 	pipex->exitcode = EXIT_SUCCESS;
 	pipex->heredoc = false;
+	pipex->tokens = NULL; //get_tokens
 	if (ft_strncmp(pipex->argv[1], "here_doc", 9) == 0
 		&& ft_strncmp(pipex->argv[0], "./pipex_bonus", 14) == 0)
 		pipex->heredoc = true;
 	pipex->size = argc - 3 - pipex->heredoc;
 	if (!init_cmds(pipex))
+		return (false);
+	if (!init_s_cmds(pipex))
 		return (false);
 	return (true);
 }

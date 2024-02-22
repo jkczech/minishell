@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:27:19 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/09 14:02:48 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/22 12:52:40 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,38 @@ typedef struct s_cmd
 	char	**args;
 }	t_cmd;
 
+typedef struct s_simple_cmd
+{
+	char				*path;
+	char				**args;
+	int					input;
+	int					output;
+	struct s_simple_cmd	*next;
+}	t_simple_cmd;
+
+typedef struct s_token
+{
+	char			*content;
+	int				token;
+	struct s_token	*next;
+	struct s_token	*prev;
+}	t_token;
+
 typedef struct s_pipex
 {
-	int		size;
-	int		infile;
-	int		outfile;
-	t_cmd	*cmds;
-	int		**pipes;
-	char	**paths;
-	char	**argv;
-	char	**envp;
-	int		*child_pids;
-	bool	heredoc;
-	int		exitcode;
+	int				size;
+	int				infile;
+	int				outfile;
+	t_cmd			*cmds;
+	t_simple_cmd	**s_cmds;
+	int				**pipes;
+	char			**paths;
+	char			**argv;
+	char			**envp;
+	int				*child_pids;
+	bool			heredoc;
+	int				exitcode;
+	t_token			**tokens;
 }	t_pipex;
 
 //error messages
@@ -79,7 +98,6 @@ void	here_doc(t_pipex *pipex);
 
 //main.c or main_bonus.c
 
-//int		main(int argc, char **argv, char **envp);
 bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp);
 bool	init_cmds(t_pipex *pipex);
 
