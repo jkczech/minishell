@@ -121,141 +121,25 @@ int tokenlen(char *str)
 	return (i);
 }
 
-void create_single_operator_node(char *str, int i, t_token *token)
-{
-	token->content = malloc(sizeof(char) * 2);
-	token->content[0] = str[i];
-	token->content[1] = '\0';
-	token->token = ft_detect_operator(str[i], 0);
-}
-
-void create_double_operator_node(char *str, int i, t_token *token)
-{
-	token->content = malloc(sizeof(char) * 2);
-	token->content[0] = str[i];
-	token->content[1] = str[i + 1];
-	token->content[2] = '\0';
-	token->token = ft_detect_operator(str[i], str[i + 1]);
-}
-
-void create_word_node(char *str, int i, t_token *token)
-{
-	int j;
-
-	j = 0;
-	token->content = malloc(sizeof(char) * tokenlen(&str[i]) + 1);
-	token->token = WORD;
-	while(!ft_is_seperator(str[i]) && str[i] != '\0')
-	{
-		token->content[j] = str[i];
-		j++;
-		i++;
-	}
-	token->content[j] = '\0';
-	token->token = WORD;
-}
-
-char *create_str(char *str)
-{
-	int i;
-	int j;
-	char *result;
-
-	i = 0;
-	j = 0;
-	printf("Tokenlen: %d\n", tokenlen(str));
-	result = malloc(sizeof(char) * tokenlen(str) + 1);
-	while(!ft_is_seperator(str[i]) && str[i] != '\0')
-	{
-		result[j] = str[i];
-		j++;
-		i++;
-	}
-	result[j] = '\0';
-	return (result);
-}
-
-
-t_list *tokenizing(char *str)
-{
-	int i;
-	int j;
-	t_token *token;
-	t_list *list;
-
-	list = NULL;
-	token = malloc(sizeof(t_token));
-	i = 0;
-	j = 0;
-	while(str[i])
-	{
-		if(ft_is_seperator(str[i]) && !ft_is_seperator(str[i + 1]))
-		{
-			create_single_operator_node(str, i, token);
-			ft_lstadd_back(&list, ft_lstnew(token));
-			i++;
-		}
-		else if(ft_is_seperator(str[i]) && ft_is_seperator(str[i + 1]))
-		{
-			create_double_operator_node(str, i, token);
-			ft_lstadd_back(&list, ft_lstnew(token));
-			i += 2;
-		}
-		else if(!ft_is_seperator(str[i]))
-		{
-			create_word_node(str, i, token);
-			ft_lstadd_back(&list, ft_lstnew(token));
-			i++;
-		}
-		while(str[i] == ' ' && str[i] != '\0')
-			i++;
-	}
-	free(token->content);
-	return (list);
-}
-
-
-/* void tokenizing(char *str)
-{
-	static int *i;
-	int j;
-	t_token *token;
-
-	token = malloc(sizeof(t_token));
-	i = 0;
-	j = 0;
-	while(str[*i])
-	{
-		if(ft_is_seperator(str[*i]))
-		{
-			create_single_operator_node(str, &i, token);
-			i++;
-		}
-		else if(!ft_is_seperator(str[*i]))
-		{
-			create_word_node(str, i, token);
-			i++;
-		}
-		while(str[*i] == ' ' && str[*i] != '\0')
-			i++;
-	}
-	free(token->content);
-} */
-
-
 void check_input(char *str)
 {
 	char *norm_str;
-	//t_list *list;
+	t_token *head;
 
 	norm_str = norm_input(str, token_count(str), count_chars(str));
 	if(!norm_str)
 		return ;
-	//list = tokenizing(norm_str);
-	
-	char *str_token = create_str(norm_str);
-
-	printf("Token: %s\n", str_token);
-	
+	head = split_and_store(norm_str, " ");
+	if(head)
+	{
+		print_list(head);
+		while (head) 
+		{
+		printf("%d\n", head->token);
+		head = head->next;
+		}
+		ft_free_list(head);
+	}
+		
 	//free(norm_str);
 }

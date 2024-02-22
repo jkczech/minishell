@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/21 16:25:36 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:32:21 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,17 @@ int token_count(char *str);
 bool ft_is_seperator(char c);
 char *norm_input(char *str, int wc, int tc);
 
+//Utils
+void print_list(t_token *head);
+
 //Tokenizing
-t_token	*create_node(char *str, int token, int len);
+t_token *create_node(char *content);
 bool ft_is_word(char *str);
 int ft_detect_operator(char c, char d);
 char *ft_detect_string(char *str);
+t_token *split_and_store(char *input, char *delimiter);
+
+//Free
+void ft_free_list(t_token *head);
 
 #endif
