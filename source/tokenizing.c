@@ -6,7 +6,7 @@
 /*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/02/23 14:54:59 by jakob            ###   ########.fr       */
+/*   Updated: 2024/02/23 18:26:36 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ void process_token(char *str, int *index, int token_type, t_token **head)
     token_content[j] = '\0';
     new_token = create_token(token_content, token_type);
     add_token(head, new_token);
-    free(token_content);
+    printf("Token content: %s\n", new_token->content);
+    printf("Node content: %s\n", (*head)->content);
+    //free(token_content);
 }
 
 void print_list(t_token *head)
@@ -112,8 +114,7 @@ t_token *assign_token_types(char *str)
         }
         i++;
     }
-    printf("Tokens:%s\n", head->content);
-    //print_tokens(&head);
+    print_tokens(&head);
     return (head);
 }
 
