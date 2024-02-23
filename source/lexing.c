@@ -111,15 +111,7 @@ char *norm_input(char *str, int wc, int tc)
 	return (result);
 }
 
-int tokenlen(char *str)
-{
-	int i;
 
-	i = 0;
-	while(str[i] && (!ft_is_seperator(str[i]) && !ft_is_seperator(str[i + 1])))
-				i++;
-	return (i);
-}
 
 void check_input(char *str)
 {
@@ -129,18 +121,10 @@ void check_input(char *str)
 	norm_str = norm_input(str, token_count(str), count_chars(str));
 	if(!norm_str)
 		return ;
-	head = split_and_store(norm_str, " ");
+	head = assign_token_types(norm_str);
 	if(head)
-	{
-		/* print_list(head);
-		while (head) 
-		{
-		printf("%d\n", head->token);
-		head = head->next;
-		}
-		ft_free_list(head); */
 		print_tokens(&head);
-	}
-		
-	//free(norm_str);
+	/* head = split_and_store(norm_str, " ");
+	if(head)
+		print_tokens(&head); */
 }

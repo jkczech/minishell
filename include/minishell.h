@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/22 18:05:42 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/23 14:11:38 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@
 # define APPEND 4
 # define PIPE 5
 
-typedef struct s_token
+/* typedef struct s_token
 {
     char			*content;
     int            token;
     struct s_token	*next;
 	struct s_token	*prev;
-}				t_token;
+}				t_token; */
 
 //Lexing
 void check_input (char *str);
@@ -47,13 +47,10 @@ char *norm_input(char *str, int wc, int tc);
 
 //Utils
 void print_list(t_token *head);
+void print_tokens(t_token **tokens);
 
 //Tokenizing
-t_token *create_node(char *content);
-bool ft_is_word(char *str);
-int ft_detect_operator(char c, char d);
-char *ft_detect_string(char *str);
-t_token *split_and_store(char *input, char *delimiter);
+t_token *assign_token_types(char *str);
 
 //Free
 void ft_free_list(t_token *head);

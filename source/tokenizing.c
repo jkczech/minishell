@@ -3,130 +3,122 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/02/22 16:37:39 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/23 14:54:59 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-bool ft_is_word(char *str)
+int is_delimiter(char c, const char *delim)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (str[i] && str[i] != ' ')
-    {
-        /* if(str[i] == ' ' && ft_isalpha(str[i + 1]))
-            i++; */
-        if (!ft_isalpha(str[i]))
-            return (false);
-        i++;
-    }
-    return (true);
+	i = 0;
+	while (delim[i])
+	{
+		if (delim[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-char *ft_detect_string(char *str)
+int token_len(char *str, int index, const char *delim)
 {
-    int strlen;
-    int i;
-    char *result;
+	int i;
+    int len;
 
-    strlen = 0;
-    i = 0;
-    while(!ft_is_seperator(str[strlen]))
-        strlen++;
-    if(!str)
-        return (NULL);
-    result = malloc(strlen + 1);
-    
-    while(i < strlen)
+	i = index;
+    len = 0;
+	while(str[i] && !is_delimiter(str[i], delim))
     {
-        result[i] = str[i];
+        len++;
         i++;
     }
-    result[i] = '\0';
-    return (result);
+	return (len);
 }
 
-
-/* int ft_detect_operator(char *str)
+void skip_spaces(char *str, int *index)
 {
-    int i;
+    while (str[*index] && str[*index] == ' ')
+        (*index)++;
+}
 
-    i = 0;
-
-    while(str[i] && str[i] != ' ')
-    {
-        if(str[i] == '|')
-            return (PIPE);
-        else if(str[i] == ';')
-            return (SEMICOLON);
-        else if(str[i] == '<' && str[i + 1] == '<')
-            return (HEREDOC);
-        else if(str[i] == '>')
-            return (REDIR_OUT);
-        else if(str[i] == '<')
-            return (REDIR_IN);
-        else if(str[i] == '&')
-            return (AMPERSAND);
-        i++;
-    }
-    return (END);
-} */
-
-/* int ft_detect_operator(char c, char d)
+void process_token(char *str, int *index, int token_type, t_token **head)
 {
-    if(c == '|' && !d)
-        return (PIPE);
-    else if(c == ';')
-        return (SEMICOLON);
-    else if(c == '<' && d == '<')
-        return (HEREDOC);
-    else if(c == '>')
-        return (REDIR_OUT);
-    else if(c == '<')
-        return (REDIR_IN);
-    else if(c == '&')
-        return (AMPERSAND);
- 
-    return (END);
-} */
+    t_token *new_token;
+    int len;
+    char *token_content;
 
-/* int main(int argc, char **argv)
+    new_token = NULL;
+    len = token_len(str, *index, " |<>");
+    token_content = malloc(sizeof(char) * (len + 1));
+    if (token_content == NULL)
+        return;
+    int j = 0;
+    while (str[*index] && !is_delimiter(str[*index], " |<>"))
+        token_content[j++] = str[(*index)++];
+    token_content[j] = '\0';
+    new_token = create_token(token_content, token_type);
+    add_token(head, new_token);
+    free(token_content);
+}
+
+void print_list(t_token *head)
 {
-    int i;
+	while (head) {
+		printf("%s\n", head->content);
+		head = head->next;
+	}
+}
 
-    i = 1;
+t_token *assign_token_types(char *str)
+{
+    int i = 0;
+    t_token *head = NULL;
 
-    if(argc < 2)
-    {
-        printf("Error: wrong number of arguments\n");
-        return (1);
-    }
-    else
-    {
-        while (argv[i])
+    while (str[i]) {
+        if (str[i] == '<' && str[i + 1] == '<')
         {
-            if(ft_is_word(argv[i]))
-                printf("WORD\n");
-            else if(ft_detect_operator(argv[i]) == PIPE)
-                printf("PIPE\n");
-            else if(ft_detect_operator(argv[i]) == SEMICOLON)
-                printf("SEMICOLON\n");
-            else if(ft_detect_operator(argv[i]) == REDIR_IN)
-                printf("REDIR_IN\n");
-            else if(ft_detect_operator(argv[i]) == REDIR_OUT)
-                printf("REDIR_OUT\n");
-            else if(ft_detect_operator(argv[i]) == AMPERSAND)
-                printf("AMPERSAND\n");
-            else if(ft_detect_operator(argv[i]) == HEREDOC)
-                printf("HEREDOC\n");
-            else
-                printf("ERROR\n");
-            i++;
+            i += 2;
+            skip_spaces(str, &i);
+            process_token(str, &i, HEREDOC, &head);
         }
+        else if (str[i] == '>' && str[i + 1] == '>')
+        {
+            i += 2;
+            skip_spaces(str, &i);
+            process_token(str, &i, APPEND, &head);
+        } else if (str[i] == '<')
+        {
+            i++;
+            skip_spaces(str, &i);
+            process_token(str, &i, INPUT, &head);
+        } else if (str[i] == '>')
+        {
+            i++;
+            skip_spaces(str, &i);
+            process_token(str, &i, OUTPUT, &head);
+        } else if (str[i] == '|')
+        {
+            i++;
+            skip_spaces(str, &i);
+            process_token(str, &i, WORD, &head);
+        } else {
+            process_token(str, &i, WORD, &head);
+        }
+        i++;
     }
-}  */
+    printf("Tokens:%s\n", head->content);
+    //print_tokens(&head);
+    return (head);
+}
+
+/* int main() {
+    char input[] = "< Input cat -l >> Append | grep \"Hello\" | Servus << Again > Output";
+    assign_token_types(input);
+    return 0;
+} */
