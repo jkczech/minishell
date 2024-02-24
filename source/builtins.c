@@ -6,12 +6,13 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/21 16:23:34 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/24 16:04:15 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
 bool	copy_envp(t_shell *shell, char **envp)
 {
 	int	i;
@@ -100,16 +101,4 @@ void	free_tokens(t_token **tokens)
 	}
 	*tokens = NULL;
 }
-
-void print_envp(char **envp, char *name)
-{
-	int i;
-
-	i = 0;
-	while (envp && envp[i])
-	{
-		if (ft_strncmp(envp[i], name, ft_strlen(name)) == 0)
-			printf("%s\n", envp[i]);
-		i++;
-	}
-}
+*/

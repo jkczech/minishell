@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:34:37 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/21 15:27:25 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/24 14:32:19 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **envp)
 }
 
 //initialize pipex structure
+//get_tokens to pipex->tokens
 bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp)
 {
 	pipex->paths = NULL;
@@ -47,7 +48,7 @@ bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp)
 	pipex->child_pids = NULL;
 	pipex->exitcode = EXIT_SUCCESS;
 	pipex->heredoc = false;
-	pipex->tokens = NULL; //get_tokens
+	pipex->tokens = NULL;
 	if (ft_strncmp(pipex->argv[1], "here_doc", 9) == 0
 		&& ft_strncmp(pipex->argv[0], "./pipex_bonus", 14) == 0)
 		pipex->heredoc = true;

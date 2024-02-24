@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/22 17:08:35 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/24 16:11:58 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/*# define WORD 0
-# define INPUT 1
-# define OUTPUT 2
-# define HEREDOC 3
-# define APPEND 4*/
 
 //print tokens in colors depending on token type in one line separated by spaces
 void	print_tokens(t_token **tokens)
@@ -42,4 +36,29 @@ void	print_tokens(t_token **tokens)
 		token = token->next;
 	}
 	ft_putstr_fd("\n", 1);
+}
+
+//prints a list of tokens
+//alternative to print_tokens
+void	print_list(t_token *head)
+{
+	while (head)
+	{
+		printf("%s\n", head->content);
+		head = head->next;
+	}
+}
+
+//print envp variables
+void	print_envp(char **envp, char *name)
+{
+	int	i;
+
+	i = 0;
+	while (envp && envp[i])
+	{
+		if (ft_strncmp(envp[i], name, ft_strlen(name)) == 0)
+			printf("%s\n", envp[i]);
+		i++;
+	}
 }

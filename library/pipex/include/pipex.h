@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:27:19 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/22 12:52:40 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/24 14:24:16 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_simple_cmd
 	int					input;
 	int					output;
 	struct s_simple_cmd	*next;
-}	t_simple_cmd;
+}	t_s_cmd;
 
 typedef struct s_token
 {
@@ -56,7 +56,7 @@ typedef struct s_pipex
 	int				infile;
 	int				outfile;
 	t_cmd			*cmds;
-	t_simple_cmd	**s_cmds;
+	t_s_cmd			**s_cmds;
 	int				**pipes;
 	char			**paths;
 	char			**argv;

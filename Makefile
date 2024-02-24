@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jakob <jakob@student.42.fr>                +#+  +:+       +#+         #
+#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/02/23 13:11:40 by jakob            ###   ########.fr        #
+#    Updated: 2024/02/24 16:00:31 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,14 @@ LIBFT = 	    library/libft/libft.a
 GETNEXTLINE = 	library/get_next_line/getnextline.a
 PIPEX =         library/pipex/pipex.a
 
-SRCS = main.c lexing.c tokenizing.c cmds.c dlist.c print.c 
+SRCS = main.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c
 OBJ_DIR = object/
 OBJS =  $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 DEPS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.d))
+
+TEST_SRCS = testing.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c
+TEST_OBJS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.o))
+TEST_DEPS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.d))
 
 all: $(LIBFT) $(GETNEXTLINE) $(PIPEX) $(NAME)
 
@@ -48,6 +52,10 @@ object/%.o: source/%.c
 $(NAME):	$(LIBFT) $(OBJS) 
 	@$(CC) $(OBJS) $(CFLAGS) $(PIPEX) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
 	@printf "\r$(GREEN)🚀 ./$(NAME)   created			\n$(END)"
+
+test: $(LIBFT) $(GETNEXTLINE) $(PIPEX) $(TEST_OBJS)
+	@$(CC) $(TEST_OBJS) $(CFLAGS) $(PIPEX) $(LIBFT) $(GETNEXTLINE) -o test $(RFLAGS)
+	@printf "\r$(GREEN)🚀 ./test   created			\n$(END)"
 
 $(LIBFT):
 	@printf "$(ORANGE)🔁 ./$(NAME) \t compiling$(END)"
@@ -73,6 +81,7 @@ fclean: clean
 	@make fclean -sC library/get_next_line
 	@make fclean -sC library/pipex
 	@$(RM) $(NAME)
+	@$(RM) test
 	@printf "$(RED)💥 ./$(NAME) \t removed\n$(END)"
 
 re: _rebuild fclean all

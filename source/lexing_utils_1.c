@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_utils_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:22:02 by jseidere          #+#    #+#             */
-/*   Updated: 2024/02/23 13:09:26 by jakob            ###   ########.fr       */
+/*   Updated: 2024/02/24 15:11:20 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int is_delimiter(char c, const char *delim)
+int	is_delimiter(char c, const char *delim)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (delim[i])
@@ -54,7 +54,7 @@ int is_delimiter(char c, const char *delim)
 	return (begin);
 } */
 
-int determine_token_type(char *token)
+int	determine_token_type(char *token)
 {
 	if (ft_strncmp(token, ">", 1) == 0)
 		return (OUTPUT);
@@ -68,7 +68,6 @@ int determine_token_type(char *token)
 		return (HEREDOC);
 	else
 		return (WORD);
-
 }
 
 /* char *ft_strtok(char *str, const char *delim)
@@ -111,20 +110,22 @@ int determine_token_type(char *token)
 	return (begin);
 } */
 
-
-
-t_token *create_node(char *content)
+/* 
+t_token	*create_node(char *content)
 {
-    t_token *node = malloc(sizeof(t_token));
-    if (node) {
-        node->content = ft_strdup(content);
-        node->next = NULL;
+	t_token	*node;
+
+	node = malloc(sizeof(t_token));
+	if (node)
+	{
+		node->content = ft_strdup(content);
+		node->next = NULL;
 		//node->prev = NULL;
-    }
-    return node;
+	}
+	return node;
 }
 
-void ft_free_list(t_token *head)
+void	ft_free_list(t_token *head)
 {
 	t_token *tmp;
 	while (head) {
@@ -135,19 +136,20 @@ void ft_free_list(t_token *head)
 	}
 }
 
-void print_list(t_token *head)
+void	print_list(t_token *head)
 {
 	while (head) {
 		printf("%s\n", head->content);
 		head = head->next;
 	}
-}
+} 
+*/
 
-char *ft_strtok(char *str, const char *delim)
+char	*ft_strtok(char *str, const char *delim)
 {
-	static char *s;
-	char *begin;
-	char *end;
+	static char	*s;
+	char		*begin;
+	char		*end;
 
 	if (str)
 		s = str;
@@ -205,34 +207,57 @@ char *ft_strtok(char *str, const char *delim)
 	}
 } */
 
-
-t_token *split_and_store(char *input, char *delimiter)
+//Check witch delimiter is current and save it in token
+t_token	*split_and_store(char *input, char *delimiter)
 {
-	t_token *head = NULL;
-	t_token *node;
-	t_token *current;
-	
-	//Check witch delimiter is current and safe it in token
-	char *token = ft_strtok(input, delimiter);
-	while(token)
+	t_token	*head;
+	t_token	*node;
+	char	*token;
+
+	head = NULL;
+	token = ft_strtok(input, delimiter);
+	while (token)
 	{
 		node = create_node(token);
-		if(node == NULL)
+		if (node == NULL)
+			return (free_token_list(head), NULL);
+		add_token(&head, node);
+		token = ft_strtok(NULL, delimiter);
+	}
+	return (head);
+}
+
+/*
+previous split_and_store
+
+t_token	*split_and_store(char *input, char *delimiter)
+{
+	t_token	*head;
+	t_token	*node;
+	t_token	*current;
+	char	*token;
+
+	head = NULL;
+	token = ft_strtok(input, delimiter);
+	while (token)
+	{
+		node = create_node(token);
+		if (node == NULL)
 		{
 			ft_free_list(head);
-			return NULL;
+			return (NULL);
 		}
-		if(head == NULL)
+		if (head == NULL)
 			head = node;
 		else
 		{
 			current = head;
-			while(current->next)
+			while (current->next)
 				current = current->next;
 			current->next = node;
 		}
 		token = ft_strtok(NULL, delimiter);
 	}
-	return(head);
+	return (head);
 }
-
+*/

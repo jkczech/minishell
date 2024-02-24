@@ -3,65 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/22 12:06:45 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/24 15:55:32 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void envp_into_list(char **envp, t_list *env_list)
+//print_list(env_list);
+void	envp_into_list(char **envp, t_list *env_list)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	env_list = NULL;
-	while(envp[i])
+	while (envp[i])
 	{
 		ft_lstadd_back(&env_list, ft_lstnew(envp[i]));
 		i++;
 	}
-	//print_list(env_list);
 }
 
-void minishell(char **envp, t_list *env_list)
+/* else if(strcmp(input, "env") == 0)
+	print_list(env_list); */
+void	minishell(char **envp, t_list *env_list)
 {
-	char *input;
-	char *prompt;
+	char	*input;
 
 	env_list = NULL;
-	prompt = "🤏🐚: ";
 	envp_into_list(envp, env_list);
-	while(1)
+	while (true)
 	{
-		input = readline(prompt);
-		if(input)
+		input = readline(PROMPT);
+		if (input)
 		{
 			check_input(input);
-			if(strcmp(input, "history -c") == 0)
+			if (strcmp(input, "history -c") == 0)
 				rl_clear_history();
-			else if(strcmp(input, "exit") == 0)
+			else if (strcmp(input, "exit") == 0)
 				exit(1);
-			/* else if(strcmp(input, "env") == 0)
-				print_list(env_list); */
 			add_history(input);
 			free(input);
 		}
 		else
-			break;
+			break ;
 	}
 }
 
-int main(int argc, char **argv, char **envp) 
+int	main(int argc, char **argv, char **envp)
 {
-	(void)argc;
-	(void)**argv;
-	t_list *env_list;
+	t_list	*env_list;
 
+	if (argc < 0 || !argv)
+		return (1);
 	env_list = NULL;
-	minishell(envp, env_list);	
+	minishell(envp, env_list);
 }
 
 /* int	main(int argc, char **argv)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmds.c                                             :+:      :+:    :+:   */
+/*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/22 13:49:05 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/24 14:24:56 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_simple_cmd
 	char		*path;
 	char		**args;
 	s_simple_cmd *next;
-}	t_simple_cmd;
+}	t_s_cmd;
 */
 
 //help pipex init
@@ -28,8 +28,8 @@ typedef struct s_simple_cmd
 
 bool	init_s_cmds(t_pipex *pipex)
 {
-	t_simple_cmd	*temp;
-	t_token			*token;
+	t_s_cmd	*temp;
+	t_token	*token;
 
 	if (!pipex->tokens)
 		return (false);
@@ -49,13 +49,13 @@ bool	init_s_cmds(t_pipex *pipex)
 	return (true);
 }
 
-t_simple_cmd	*cmd_new(t_token *token)
+t_s_cmd	*cmd_new(t_token *token)
 {
-	t_simple_cmd	*cmd;
+	t_s_cmd	*cmd;
 
 	if (!token)
 		return (NULL);
-	cmd = (t_simple_cmd *)malloc(sizeof(t_simple_cmd));
+	cmd = (t_s_cmd *)malloc(sizeof(t_s_cmd));
 	if (!cmd)
 		return (NULL);
 	cmd->args = ft_split(token->content, ' ');
@@ -75,9 +75,9 @@ t_simple_cmd	*cmd_new(t_token *token)
 	return (cmd);
 }
 
-void	cmd_add(t_simple_cmd **cmd_table, t_simple_cmd *cmd)
+void	cmd_add(t_s_cmd **cmd_table, t_s_cmd *cmd)
 {
-	t_simple_cmd	*temp;
+	t_s_cmd	*temp;
 
 	if (!cmd_table || !cmd)
 		return ;
@@ -91,7 +91,7 @@ void	cmd_add(t_simple_cmd **cmd_table, t_simple_cmd *cmd)
 		temp->next = cmd;
 }
 
-t_simple_cmd	*cmd_last(t_simple_cmd *cmd)
+t_s_cmd	*cmd_last(t_s_cmd *cmd)
 {
 	if (!cmd)
 		return (NULL);
