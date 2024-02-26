@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   testing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:47:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 15:53:49 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/26 15:41:28 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ int	main(void)
 {
 	char	*input;
 
-	strcpy(input, "< In cat -l >> App | grep \"Hello\" | Ser << Again > Out");
-	assign_token_types(input);
+    input = malloc(sizeof(char) * 100);
+
+    strcpy(input, "< In cat -l >> App | grep Hello | Ser << Again > Out");
+    assign_token_types(input);
 	return (0);
 }
 

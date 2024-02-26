@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 15:55:32 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/26 16:09:41 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	minishell(char **envp, t_list *env_list)
 	while (true)
 	{
 		input = readline(PROMPT);
+		if (!input)
+			break ;
 		if (input)
 		{
 			check_input(input);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/02/24 16:16:19 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/26 17:18:44 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 	token_content[j] = '\0';
 	new_token = create_token(token_content, token_type);
 	add_token(head, new_token);
-	printf("Token content: %s\n", new_token->content);
-	printf("Node content: %s\n", (*head)->content);
 }
 
 //assigns token types, returns a list of tokens
@@ -49,13 +47,12 @@ t_token	*assign_token_types(char *str)
 		token_type = what_token(str, i);
 		if (token_type == HEREDOC || token_type == APPEND)
 			i += 2;
-		else
+		else if (token_type != WORD)
 			i++;
 		skip_spaces(str, &i);
 		process_token(str, &i, token_type, &head);
 		i++;
 	}
-	print_tokens(&head);
 	return (head);
 }
 

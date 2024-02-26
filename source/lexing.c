@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 16:22:00 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/26 18:12:25 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-bool	ft_is_seperator(char c)
+bool	is_sep(char c)
 {
 	int	i;
 
@@ -38,11 +38,11 @@ int	token_count(char *str)
 	{
 		while (str[i] == ' ' || str[i] == '\t')
 			i++;
-		if (str[i] != '\0' && !ft_is_seperator(str[i]))
+		if (str[i] != '\0' && !is_sep(str[i]))
 		{
 			count++;
 			while (str[i] != ' ' && str[i] != '\t'
-				&& str[i] != '\0' && !ft_is_seperator(str[i]))
+				&& str[i] != '\0' && !is_sep(str[i]))
 				i++;
 		}
 		if ((str[i] == '|' && str[i + 1] == '|')
@@ -50,13 +50,9 @@ int	token_count(char *str)
 			|| (str[i] == '>' && str[i + 1] == '>')
 			|| (str[i] == '<' && str[i + 1] == '<'))
 			i++;
-		if (ft_is_seperator(str[i]))
-		{
+		if (is_sep(str[i++]))
 			count++;
-			i++;
-		}
 	}
-	printf ("Token count: %d\n", count);
 	return (count);
 }
 
@@ -82,11 +78,40 @@ int	count_chars(char *str)
 		}
 		i++;
 	}
-	printf("Char count: %d\n", count);
 	return (count);
 }
 
-char	*norm_input(char *str, int wc, int tc)
+bool	quotes_checker(char *str)
+{
+	int	i;
+	int	quote;
+
+	i = 0;
+	quote = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+			quote++;
+		i++;
+	}
+	if (quote % 2 != 0)
+		return (false);
+	return (true);
+}
+
+void handle_quotes(char *str)
+{
+	if(quotes_checker(str))
+		printf("Quotes are balanced\n");
+	else
+	{
+		printf("Quotes are not balanced\n");
+		return ;
+	}
+}
+
+
+char	*norm_input(char *str, int len)
 {
 	int		i;
 	int		j;
@@ -94,36 +119,25 @@ char	*norm_input(char *str, int wc, int tc)
 
 	i = 0;
 	j = 0;
-	result = malloc(sizeof(char) * (wc + tc + 1));
+	result = malloc(sizeof(char) * (len + 1));
 	if (!result)
 		return (NULL);
-	while (i < (wc + tc))
+	if(!quotes_checker(str))
+		return (NULL);
+	while (i < len)
 	{
-		if (str[j] == '"')
-		{
-			while (str[j] == '"')
-				j++;
-		}
 		if (str[j] == ' ' && str[j + 1] == ' ')
 		{
 			while (str[j] == ' ' && str[j + 1] == ' ')
 				j++;
 		}
-		if (((ft_is_seperator(str[j]) && !ft_is_seperator(str[j - 1]))
-				|| str[j] == '-') && str[j - 1] != ' ' && j != 0)
-		{
-			result[i] = ' ';
-			i++;
-		}
-		result[i] = str[j];
-		i++;
-		j++;
-		if (j > 0 && (!ft_is_seperator(str[j])
-				&& ft_is_seperator(str[j - 1])) && str[j] != ' ')
-		{
-			result[i] = ' ';
-			i++;
-		}
+		if (((j > 0 && (is_sep(str[j]) && !is_sep(str[j - 1])))
+				|| str[j] == '-') && str[j - 1] != ' ')
+			result[i++] = ' ';
+		result[i++] = str[j++];
+		if ((j > 0 && j < i) && (!is_sep(str[j])
+				&& is_sep(str[j - 1])) && str[j] != ' ')
+			result[i++] = ' ';
 	}
 	result[i] = '\0';
 	printf("Normed input: %s\n", result);
@@ -139,7 +153,7 @@ void	check_input(char *str)
 	char	*norm_str;
 	t_token	*head;
 
-	norm_str = norm_input(str, token_count(str), count_chars(str));
+	norm_str = norm_input(str, token_count(str) + count_chars(str));
 	if (!norm_str)
 		return ;
 	head = assign_token_types(norm_str);

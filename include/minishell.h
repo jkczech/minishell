@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 16:16:33 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/02/26 16:26:17 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ char	*ft_strtok(char *str, const char *delim);
 t_token	*split_and_store(char *input, char *delimiter);
 
 //lexing.c
-bool	ft_is_seperator(char c);
+bool	is_sep(char c);
 int		token_count(char *str);
 int		count_chars(char *str);
-char	*norm_input(char *str, int wc, int tc);
+char	*norm_input(char *str, int len);
 void	check_input(char *str);
 
 //print.c

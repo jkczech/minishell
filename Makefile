@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
+#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/02/24 16:00:31 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/02/26 12:18:49 by jseidere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ object/%.o: source/%.c
 	@printf "$(ORANGE). $(END)";
 	@$(CC) -c $(CFLAGS) $(DEPFLAGS) $< -o $@
 
-$(NAME):	$(LIBFT) $(OBJS) 
+$(NAME):	$(LIBFT) $(GETNEXTLINE) $(PIPEX) $(OBJS) 
 	@$(CC) $(OBJS) $(CFLAGS) $(PIPEX) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
 	@printf "\r$(GREEN)🚀 ./$(NAME)   created			\n$(END)"
 
