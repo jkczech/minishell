@@ -3,30 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/26 18:12:25 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:53:24 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-bool	is_sep(char c)
+//checks if a character is a double separator
+bool	double_sep(char *str, int i)
 {
-	int	i;
-
-	i = 0;
-	while (OPERATOR[i])
-	{
-		if (OPERATOR[i] == c)
-			return (true);
-		else
-			i++;
-	}
+	if ((str[i] == '|' && str[i + 1] == '|')
+		|| (str[i] == '&' && str[i + 1] == '&')
+		|| (str[i] == '>' && str[i + 1] == '>')
+		|| (str[i] == '<' && str[i + 1] == '<'))
+		return (true);
 	return (false);
 }
 
+//counts the number of tokens in a string
 int	token_count(char *str)
 {
 	int	i;
@@ -45,17 +42,18 @@ int	token_count(char *str)
 				&& str[i] != '\0' && !is_sep(str[i]))
 				i++;
 		}
-		if ((str[i] == '|' && str[i + 1] == '|')
-			|| (str[i] == '&' && str[i + 1] == '&')
-			|| (str[i] == '>' && str[i + 1] == '>')
-			|| (str[i] == '<' && str[i + 1] == '<'))
+		if (double_sep(str, i))
 			i++;
-		if (is_sep(str[i++]))
+		if (is_sep(str[i]))
+		{
+			i++;
 			count++;
+		}
 	}
 	return (count);
 }
 
+//counts the number of characters in a string
 int	count_chars(char *str)
 {
 	int	i;
@@ -81,36 +79,27 @@ int	count_chars(char *str)
 	return (count);
 }
 
-bool	quotes_checker(char *str)
+//processes a character
+void	process_character(char *str, char *result, int *i, int *j)
 {
-	int	i;
-	int	quote;
-
-	i = 0;
-	quote = 0;
-	while (str[i])
+	if (((*j > 0 && (is_sep(str[*j]) && !is_sep(str[*j - 1])))
+			|| str[*j] == '-') && str[*j - 1] != ' ')
 	{
-		if (str[i] == '"')
-			quote++;
-		i++;
+		result[(*i)] = ' ';
+		(*i)++;
 	}
-	if (quote % 2 != 0)
-		return (false);
-	return (true);
-}
-
-void handle_quotes(char *str)
-{
-	if(quotes_checker(str))
-		printf("Quotes are balanced\n");
-	else
+	result[*i] = str[*j];
+	(*i)++;
+	(*j)++;
+	if (((*j > 0 && *j < *i) && (!is_sep(str[*j]) && is_sep(str[*j - 1])))
+		&& str[*j] != ' ')
 	{
-		printf("Quotes are not balanced\n");
-		return ;
+		result[(*i)] = ' ';
+		(*i)++;
 	}
 }
 
-
+//get input and return a normed input
 char	*norm_input(char *str, int len)
 {
 	int		i;
@@ -122,41 +111,13 @@ char	*norm_input(char *str, int len)
 	result = malloc(sizeof(char) * (len + 1));
 	if (!result)
 		return (NULL);
-	if(!quotes_checker(str))
+	if (!quotes_checker(str))
 		return (NULL);
 	while (i < len)
 	{
-		if (str[j] == ' ' && str[j + 1] == ' ')
-		{
-			while (str[j] == ' ' && str[j + 1] == ' ')
-				j++;
-		}
-		if (((j > 0 && (is_sep(str[j]) && !is_sep(str[j - 1])))
-				|| str[j] == '-') && str[j - 1] != ' ')
-			result[i++] = ' ';
-		result[i++] = str[j++];
-		if ((j > 0 && j < i) && (!is_sep(str[j])
-				&& is_sep(str[j - 1])) && str[j] != ' ')
-			result[i++] = ' ';
+		process_character(str, result, &i, &j);
 	}
 	result[i] = '\0';
 	printf("Normed input: %s\n", result);
 	return (result);
-}
-
-/* head = split_and_store(norm_str, " ");
-	if(head)
-	print_tokens(&head); */
-
-void	check_input(char *str)
-{
-	char	*norm_str;
-	t_token	*head;
-
-	norm_str = norm_input(str, token_count(str) + count_chars(str));
-	if (!norm_str)
-		return ;
-	head = assign_token_types(norm_str);
-	if (head)
-		print_tokens(&head);
 }

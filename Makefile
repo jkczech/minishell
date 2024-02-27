@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
+#    By: jakob <jakob@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/02/26 12:18:49 by jseidere         ###   ########.fr        #
+#    Updated: 2024/02/27 15:13:06 by jakob            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ LIBFT = 	    library/libft/libft.a
 GETNEXTLINE = 	library/get_next_line/getnextline.a
 PIPEX =         library/pipex/pipex.a
 
-SRCS = main.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c
+SRCS = main.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c check_input.c
 OBJ_DIR = object/
 OBJS =  $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 DEPS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.d))

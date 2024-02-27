@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/26 16:26:17 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:54:13 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,11 @@ void	free_token_list(t_token **head);
 void	add_token(t_token **head, t_token *new_token);
 
 //lexing_utils.c
-int		is_delimiter(char c, const char *delim);
-int		determine_token_type(char *token);
-char	*ft_strtok(char *str, const char *delim);
-t_token	*split_and_store(char *input, char *delimiter);
 
 //lexing.c
-bool	is_sep(char c);
 int		token_count(char *str);
 int		count_chars(char *str);
+void	process_token(char *str, int *index, int token_type, t_token **head);
 char	*norm_input(char *str, int len);
 void	check_input(char *str);
 
@@ -98,6 +94,11 @@ void	process_token(char *str, int *index, int token_type, t_token **head);
 t_token	*assign_token_types(char *str);
 int		what_token(char *str, int index);
 int		is_delimiter(char c, const char *delim);
+
+//check_input.c
+bool	is_sep(char c);
+bool	quotes_checker(char *str);
+void	check_input(char *str);
 
 //lexing_utils_1.c
 //are these functions used?
