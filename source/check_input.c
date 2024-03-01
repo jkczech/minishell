@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/02/27 16:15:18 by jakob            ###   ########.fr       */
+/*   Updated: 2024/03/01 10:49:26 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ bool	is_sep(char c)
 	int	i;
 
 	i = 0;
-	while (OPERATOR[i])
+	while (SEPARATOR[i])
 	{
-		if (OPERATOR[i] == c)
+		if (SEPARATOR[i] == c)
 			return (true);
 		else
 			i++;
@@ -47,15 +47,17 @@ bool	quotes_checker(char *str)
 	return (true);
 }
 
+//skips quotes at the end and beginning of a string
 char	*skip_quotes(char *str)
 {
 	size_t	i;
 	char	*result;
 
 	i = 0;
+	result = NULL;
 	if (!quotes_checker(str))
 		return (NULL);
-	if (str[0] == '"')
+	if (str[0] == 34)
 	{
 		result = malloc(sizeof(char) * (ft_strlen(str) - 1));
 		if (!result)
@@ -74,14 +76,19 @@ char	*skip_quotes(char *str)
 	return (result);
 }
 
+//checks the input and prints the tokens if
 void	check_input(char *str)
 {
 	char	*norm_str;
 	t_token	*head;
 
-	str = skip_quotes(str);
-	if (!str)
-		return ;
+	if(str[0] == '"')
+	{
+		str = skip_quotes(str);
+		if (!str)
+			return ;
+	
+	}
 	norm_str = norm_input(str, token_count(str) + count_chars(str));
 	if (!norm_str)
 		return ;

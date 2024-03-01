@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jakob <jakob@student.42.fr>                +#+  +:+       +#+         #
+#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/02/27 15:13:06 by jakob            ###   ########.fr        #
+#    Updated: 2024/02/29 15:39:59 by jseidere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,12 +33,12 @@ LIBFT = 	    library/libft/libft.a
 GETNEXTLINE = 	library/get_next_line/getnextline.a
 PIPEX =         library/pipex/pipex.a
 
-SRCS = main.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c check_input.c
+SRCS = main.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c check_input.c shell.c
 OBJ_DIR = object/
 OBJS =  $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 DEPS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.d))
 
-TEST_SRCS = testing.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c
+TEST_SRCS = testing.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c check_input.c shell.c
 TEST_OBJS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.o))
 TEST_DEPS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.d))
 

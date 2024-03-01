@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/27 15:54:13 by jakob            ###   ########.fr       */
+/*   Updated: 2024/03/01 10:49:30 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 # define PROMPT "🤏🏼🐚: "
 # define DELIMITER " <>|"
-# define OPERATOR "&|><'=%"
+# define SEPARATOR "&|><'=%"
 
 /* typedef struct s_token
 {
@@ -100,9 +100,12 @@ bool	is_sep(char c);
 bool	quotes_checker(char *str);
 void	check_input(char *str);
 
+//shell.c
+void	envp_into_list(char **envp, t_list *env_list);
+void	minishell(char **envp, t_list *env_list);
+
 //lexing_utils_1.c
 //are these functions used?
 //do they need to be included in the header file?
 //these questions were written by Copilot
-
 #endif
