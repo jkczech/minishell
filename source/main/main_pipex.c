@@ -6,12 +6,12 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:34:37 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 14:32:19 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:55:03 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
+#include "../../include/minishell.h"
+/* 
 //the difference from main.c is the argc check
 int	main(int argc, char **argv, char **envp)
 {
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **envp)
 	free_pipex(&pipex);
 	return (pipex.exitcode);
 }
-
+ */
 //initialize pipex structure
 //get_tokens to pipex->tokens
 bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp)

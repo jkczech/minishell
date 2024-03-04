@@ -6,22 +6,23 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:47:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 15:53:49 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:55:07 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 #include <string.h>
-
+/* 
 int	main(void)
 {
 	char	*input;
 
+    input = NULL;
 	strcpy(input, "< In cat -l >> App | grep \"Hello\" | Ser << Again > Out");
 	assign_token_types(input);
 	return (0);
 }
-
+ */
 /* char *assign_token_types(char *str)
 {
     int i;

@@ -6,13 +6,13 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:07:18 by jkoupy            #+#    #+#             */
-/*   Updated: 2023/11/15 15:30:14 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:29:11 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_list	*ft_lstlast_l(t_list *lst)
 {
 	t_list	*temp;
 

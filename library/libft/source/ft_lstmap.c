@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 18:56:53 by jkoupy            #+#    #+#             */
-/*   Updated: 2023/11/15 15:30:16 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:29:50 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	head = NULL;
 	while (lst)
 	{
-		node = ft_lstnew((*f)(lst->content));
+		node = ft_lstnew_l((*f)(lst->content));
 		if (!node)
 		{
 			ft_lstclear(&lst, del);

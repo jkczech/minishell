@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:54:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/22 14:46:27 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 11:07:38 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 t_token	*create_token(char *content, int token)
 {

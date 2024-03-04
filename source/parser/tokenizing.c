@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/02/24 16:16:19 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:54:58 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 //creates a token
 void	process_token(char *str, int *index, int token_type, t_token **head)

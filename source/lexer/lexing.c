@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 16:22:00 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:55:14 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 bool	ft_is_seperator(char c)
 {

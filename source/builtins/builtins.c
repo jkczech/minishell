@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 16:04:15 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:55:27 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 /*
 bool	copy_envp(t_shell *shell, char **envp)

@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 16:11:58 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:54:46 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 //print tokens in colors depending on token type in one line separated by spaces
 void	print_tokens(t_token **tokens)

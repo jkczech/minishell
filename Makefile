@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/02/24 16:00:31 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/03/04 11:07:28 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,18 +31,45 @@ RM = rm -rf
 
 LIBFT = 	    library/libft/libft.a
 GETNEXTLINE = 	library/get_next_line/getnextline.a
-PIPEX =         library/pipex/pipex.a
 
-SRCS = main.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c
+BUITLINS = builtins/builtins.c
+
+# to be split into different folders
+# used to be my pipex
+# EXECUTOR =	source/executor/child.c \
+#			source/executor/error.c \
+#			source/executor/free.c \
+#			source/executor/here_doc.c \
+#			source/executor/parse.c \
+#			source/executor/pipex.c
+
+EXPANDER = expander/expander.c
+
+INIT = init/init.c
+
+LEXER = lexer/lexing.c
+
+MAIN = main/main.c
+#      main/main_pipex.c
+#      main/testing.c
+
+PARSER = parser/cmd_utils.c \
+ 		 parser/tokenizing_utils.c \
+		 parser/tokenizing.c
+
+SIGNALS = signals/signals.c
+
+UTILS = utils/dlist.c \
+		utils/print.c
+
+SRCS =	$(BUILTINS) $(EXECUTOR) $(EXPANDER) $(INIT) $(LEXER) \
+        $(MAIN) $(PARSER) $(SIGNALS) $(UTILS)
+			
 OBJ_DIR = object/
 OBJS =  $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
-DEPS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.d))
+DEPS = 	$(addprefix $(OBJ_DIR), $(SRCS:.c=.d))
 
-TEST_SRCS = testing.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c
-TEST_OBJS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.o))
-TEST_DEPS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.d))
-
-all: $(LIBFT) $(GETNEXTLINE) $(PIPEX) $(NAME)
+all: $(LIBFT) $(GETNEXTLINE) $(NAME)
 
 object/%.o: source/%.c
 	@mkdir -p $(dir $@)
@@ -50,12 +77,12 @@ object/%.o: source/%.c
 	@$(CC) -c $(CFLAGS) $(DEPFLAGS) $< -o $@
 
 $(NAME):	$(LIBFT) $(OBJS) 
-	@$(CC) $(OBJS) $(CFLAGS) $(PIPEX) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
+	@$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
 	@printf "\r$(GREEN)🚀 ./$(NAME)   created			\n$(END)"
 
-test: $(LIBFT) $(GETNEXTLINE) $(PIPEX) $(TEST_OBJS)
-	@$(CC) $(TEST_OBJS) $(CFLAGS) $(PIPEX) $(LIBFT) $(GETNEXTLINE) -o test $(RFLAGS)
-	@printf "\r$(GREEN)🚀 ./test   created			\n$(END)"
+#test: $(LIBFT) $(GETNEXTLINE) $(TEST_OBJS)
+#	@$(CC) $(TEST_OBJS) $(CFLAGS) $(LIBFT) $(GETNEXTLINE) -o test $(RFLAGS)
+#	@printf "\r$(GREEN)🚀 ./test   created			\n$(END)"
 
 $(LIBFT):
 	@printf "$(ORANGE)🔁 ./$(NAME) \t compiling$(END)"
@@ -65,21 +92,15 @@ $(GETNEXTLINE):
 	@printf "$(ORANGE).$(END)"
 	@make -sC library/get_next_line
 
-$(PIPEX):
-	@printf "$(ORANGE).$(END)"
-	@make -sC library/pipex
-
 clean:
 	@$(RM) $(OBJ_DIR)
 	@make clean -sC library/libft
 	@make clean -sC library/get_next_line
-	@make clean -sC library/pipex
 	@printf "$(RED)💥 object files\t removed\n$(END)"
 
 fclean: clean
 	@make fclean -sC library/libft
 	@make fclean -sC library/get_next_line
-	@make fclean -sC library/pipex
 	@$(RM) $(NAME)
 	@$(RM) test
 	@printf "$(RED)💥 ./$(NAME) \t removed\n$(END)"

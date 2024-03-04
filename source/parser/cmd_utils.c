@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 14:24:56 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:54:54 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 /*
 typedef struct s_simple_cmd

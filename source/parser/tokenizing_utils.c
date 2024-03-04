@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 16:00:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 16:00:41 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:54:56 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 //checks if a character is a delimiter
 int	is_delimiter(char c, const char *delim)

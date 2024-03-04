@@ -6,13 +6,13 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:49:12 by jkoupy            #+#    #+#             */
-/*   Updated: 2023/11/15 15:30:18 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:29:29 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew_l(void *content)
 {
 	t_list	*list;
 

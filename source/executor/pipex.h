@@ -6,15 +6,15 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:27:19 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 14:24:16 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:13:36 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "../../libft/include/libft.h"
-# include "../../get_next_line/include/get_next_line.h"
+# include "../../library/libft/include/libft.h"
+# include "../../library/get_next_line/include/get_next_line.h"
 
 # include <fcntl.h>		//open, close, read, write
 # include <stdlib.h>	//malloc, free

@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:23:11 by jkoupy            #+#    #+#             */
-/*   Updated: 2023/12/23 19:13:29 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:13:20 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
 //check if command is valid, if so, saves it into pipex
 bool	is_command(t_pipex *pipex, char *command, int i)

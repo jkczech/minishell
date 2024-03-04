@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 15:55:32 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:45:24 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 //print_list(env_list);
 void	envp_into_list(char **envp, t_list *env_list)
@@ -21,7 +21,7 @@ void	envp_into_list(char **envp, t_list *env_list)
 	env_list = NULL;
 	while (envp[i])
 	{
-		ft_lstadd_back(&env_list, ft_lstnew(envp[i]));
+		ft_lstadd_back(&env_list, ft_lstnew_l(envp[i]));
 		i++;
 	}
 }

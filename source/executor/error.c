@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:46:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2023/12/16 18:19:22 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:13:29 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
 //printing error in the zsh format (also lower capitalized)
 void	error_message(char *file)

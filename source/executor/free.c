@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:55:44 by jkoupy            #+#    #+#             */
-/*   Updated: 2023/12/21 21:15:05 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:13:27 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
 //close all the pipes created, free pipes, and free the pipe array
 //also close infile and outfile

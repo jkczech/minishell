@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/01/17 10:16:52 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 10:13:17 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
 //create all pipes needed
 //pipex.pipes is not NULL terminated
