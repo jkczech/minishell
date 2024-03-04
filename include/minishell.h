@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/02/24 16:16:33 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 09:50:59 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define APPEND 4
 # define PIPE 5
 
-# define PROMPT "🤏🏼🐚: "
+# define PROMPT "🤏🐚: "
 # define DELIMITER " <>|"
 # define OPERATOR "&|><'=%"
 
