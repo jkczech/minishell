@@ -6,7 +6,7 @@
 #    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/03/04 11:22:30 by jseidere         ###   ########.fr        #
+#    Updated: 2024/03/04 11:31:25 by jseidere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,9 +47,11 @@ EXPANDER = expander/expander.c
 
 INIT = init/init.c
 
-LEXER = lexer/lexing.c
+LEXER = lexer/lexing.c \
+		lexer/check_input.c
 
-MAIN = main/main.c
+MAIN = 	main/main.c \
+		main/shell.c
 #      main/main_pipex.c
 #      main/testing.c
 

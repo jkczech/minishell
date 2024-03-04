@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 11:22:57 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:39:18 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	count_chars(char *str)
 void	process_character(char *str, char *result, int *i, int *j)
 {
 	if (((*j > 0 && (is_sep(str[*j]) && !is_sep(str[*j - 1])))
-			|| str[*j] == '-') && str[*j - 1] != ' ')
+			|| str[*j] == '-') && str[*j - 1] != ' ' && str[*j] != '\0')
 	{
 		result[(*i)] = ' ';
 		(*i)++;
@@ -100,6 +100,8 @@ void	process_character(char *str, char *result, int *i, int *j)
 		result[(*i)] = ' ';
 		(*i)++;
 	}
+	printf("i: %d, j: %d\n", *i, *j);
+	printf("Result: %zu\n", ft_strlen(result));
 }
 
 //get input and return a normed input
@@ -116,6 +118,7 @@ char	*norm_input(char *str, int len)
 		return (NULL);
 	if (!quotes_checker(str))
 		return (NULL);
+	printf("Len: %d\n", len);
 	while (i < len)
 	{
 		process_character(str, result, &i, &j);

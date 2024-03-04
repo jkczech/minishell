@@ -6,11 +6,11 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/03/01 10:49:26 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/04 11:31:50 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 //checks if a character is a separator
 bool	is_sep(char c)
