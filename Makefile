@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
+#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/03/04 11:07:28 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/03/04 11:22:30 by jseidere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,11 @@ SRCS =	$(BUILTINS) $(EXECUTOR) $(EXPANDER) $(INIT) $(LEXER) \
 			
 OBJ_DIR = object/
 OBJS =  $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
-DEPS = 	$(addprefix $(OBJ_DIR), $(SRCS:.c=.d))
+DEPS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.d))
+
+TEST_SRCS = testing.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c
+TEST_OBJS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.o))
+TEST_DEPS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.d))
 
 all: $(LIBFT) $(GETNEXTLINE) $(NAME)
 

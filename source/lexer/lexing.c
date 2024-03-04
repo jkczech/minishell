@@ -3,30 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 10:55:14 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 11:22:57 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool	ft_is_seperator(char c)
+//checks if a character is a double separator
+bool	double_sep(char *str, int i)
 {
-	int	i;
-
-	i = 0;
-	while (OPERATOR[i])
-	{
-		if (OPERATOR[i] == c)
-			return (true);
-		else
-			i++;
-	}
+	if ((str[i] == '|' && str[i + 1] == '|')
+		|| (str[i] == '&' && str[i + 1] == '&')
+		|| (str[i] == '>' && str[i + 1] == '>')
+		|| (str[i] == '<' && str[i + 1] == '<'))
+		return (true);
 	return (false);
 }
 
+//counts the number of tokens in a string
 int	token_count(char *str)
 {
 	int	i;
@@ -38,28 +35,26 @@ int	token_count(char *str)
 	{
 		while (str[i] == ' ' || str[i] == '\t')
 			i++;
-		if (str[i] != '\0' && !ft_is_seperator(str[i]))
+		if (str[i] != '\0' && !is_sep(str[i]))
 		{
 			count++;
 			while (str[i] != ' ' && str[i] != '\t'
-				&& str[i] != '\0' && !ft_is_seperator(str[i]))
+				&& str[i] != '\0' && !is_sep(str[i]))
 				i++;
 		}
-		if ((str[i] == '|' && str[i + 1] == '|')
-			|| (str[i] == '&' && str[i + 1] == '&')
-			|| (str[i] == '>' && str[i + 1] == '>')
-			|| (str[i] == '<' && str[i + 1] == '<'))
+		if (double_sep(str, i))
 			i++;
-		if (ft_is_seperator(str[i]))
+		if (is_sep(str[i]))
 		{
-			count++;
 			i++;
+			count++;
 		}
 	}
-	printf ("Token count: %d\n", count);
+	printf("Token_count: %d\n", count);
 	return (count);
 }
 
+//counts the number of characters in a string
 int	count_chars(char *str)
 {
 	int	i;
@@ -82,11 +77,33 @@ int	count_chars(char *str)
 		}
 		i++;
 	}
-	printf("Char count: %d\n", count);
+	printf("Char_count: %d\n", count);
 	return (count);
 }
+//bool qotations_checker(char *str)
 
-char	*norm_input(char *str, int wc, int tc)
+//processes a character
+void	process_character(char *str, char *result, int *i, int *j)
+{
+	if (((*j > 0 && (is_sep(str[*j]) && !is_sep(str[*j - 1])))
+			|| str[*j] == '-') && str[*j - 1] != ' ')
+	{
+		result[(*i)] = ' ';
+		(*i)++;
+	}
+	result[*i] = str[*j];
+	(*i)++;
+	(*j)++;
+	if ((*j > 0 && (!is_sep(str[*j]) && is_sep(str[*j - 1])))
+		&& str[*j] != ' ' && str[*j] != '\0')
+	{
+		result[(*i)] = ' ';
+		(*i)++;
+	}
+}
+
+//get input and return a normed input
+char	*norm_input(char *str, int len)
 {
 	int		i;
 	int		j;
@@ -94,55 +111,16 @@ char	*norm_input(char *str, int wc, int tc)
 
 	i = 0;
 	j = 0;
-	result = malloc(sizeof(char) * (wc + tc + 1));
+	result = malloc(sizeof(char) * (len + 1));
 	if (!result)
 		return (NULL);
-	while (i < (wc + tc))
+	if (!quotes_checker(str))
+		return (NULL);
+	while (i < len)
 	{
-		if (str[j] == '"')
-		{
-			while (str[j] == '"')
-				j++;
-		}
-		if (str[j] == ' ' && str[j + 1] == ' ')
-		{
-			while (str[j] == ' ' && str[j + 1] == ' ')
-				j++;
-		}
-		if (((ft_is_seperator(str[j]) && !ft_is_seperator(str[j - 1]))
-				|| str[j] == '-') && str[j - 1] != ' ' && j != 0)
-		{
-			result[i] = ' ';
-			i++;
-		}
-		result[i] = str[j];
-		i++;
-		j++;
-		if (j > 0 && (!ft_is_seperator(str[j])
-				&& ft_is_seperator(str[j - 1])) && str[j] != ' ')
-		{
-			result[i] = ' ';
-			i++;
-		}
+		process_character(str, result, &i, &j);
 	}
 	result[i] = '\0';
 	printf("Normed input: %s\n", result);
 	return (result);
-}
-
-/* head = split_and_store(norm_str, " ");
-	if(head)
-	print_tokens(&head); */
-
-void	check_input(char *str)
-{
-	char	*norm_str;
-	t_token	*head;
-
-	norm_str = norm_input(str, token_count(str), count_chars(str));
-	if (!norm_str)
-		return ;
-	head = assign_token_types(norm_str);
-	if (head)
-		print_tokens(&head);
 }

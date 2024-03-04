@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 11:04:24 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/04 11:20:35 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 # define PROMPT "🤏🐚: "
 # define DELIMITER " <>|"
-# define OPERATOR "&|><'=%"
+# define SEPARATOR "&|><'=%"
 
 /* typedef struct s_token
 {
@@ -71,16 +71,12 @@ void	free_token_list(t_token **head);
 void	add_token(t_token **head, t_token *new_token);
 
 //lexing_utils.c
-int		is_delimiter(char c, const char *delim);
-int		determine_token_type(char *token);
-char	*ft_strtok(char *str, const char *delim);
-t_token	*split_and_store(char *input, char *delimiter);
 
 //lexing.c
-bool	ft_is_seperator(char c);
 int		token_count(char *str);
 int		count_chars(char *str);
-char	*norm_input(char *str, int wc, int tc);
+void	process_token(char *str, int *index, int token_type, t_token **head);
+char	*norm_input(char *str, int len);
 void	check_input(char *str);
 
 //print.c
@@ -99,9 +95,17 @@ t_token	*assign_token_types(char *str);
 int		what_token(char *str, int index);
 int		is_delimiter(char c, const char *delim);
 
+//check_input.c
+bool	is_sep(char c);
+bool	quotes_checker(char *str);
+void	check_input(char *str);
+
+//shell.c
+void	envp_into_list(char **envp, t_list *env_list);
+void	minishell(char **envp, t_list *env_list);
+
 //lexing_utils_1.c
 //are these functions used?
 //do they need to be included in the header file?
 //these questions were written by Copilot
-
 #endif
