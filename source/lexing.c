@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/01 15:55:41 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/04 11:15:08 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,6 @@ int	token_count(char *str)
 	{
 		while (str[i] == ' ' || str[i] == '\t')
 			i++;
-		/* if(str[i] == '"')
-		{
-			printf("Str[i]: %c\n", str[i]);
-			while (str[i] != '"' && str[i] != '\0')
-				i++;
-			i++;
-			count++;
-		} */
 		if (str[i] != '\0' && !is_sep(str[i]))
 		{
 			count++;
@@ -103,7 +95,7 @@ void	process_character(char *str, char *result, int *i, int *j)
 	(*i)++;
 	(*j)++;
 	if ((*j > 0 && (!is_sep(str[*j]) && is_sep(str[*j - 1])))
-		&& str[*j] != ' ')
+		&& str[*j] != ' ' && str[*j] != '\0')
 	{
 		result[(*i)] = ' ';
 		(*i)++;
