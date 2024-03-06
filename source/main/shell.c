@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/06 12:40:18 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:26:49 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,24 @@ void	envp_into_list(char **envp, t_list *env_list)
 	}
 }
 //void minishell(t_shell shell)
-void	minishell(char **envp, t_list *env_list)
+void	minishell(t_shell *shell)
 {
-	char	*input;
+	//char	*input;
 
-	env_list = NULL;
-	envp_into_list(envp, env_list);
+	shell->env_list = NULL;
+	envp_into_list(shell->envp, shell->env_list);
 	while (true)
 	{
-		input = readline(PROMPT);
-		if (!input)
+		shell->input = readline(PROMPT);
+		if (!shell->input)
 			break ;
-		if (input)
+		if (shell->input)
 		{
-			check_input(input);
-			if (strcmp(input, "history -c") == 0)
+			check_input(shell);
+			if (strcmp(shell->input, "history -c") == 0)
 				rl_clear_history();
-			add_history(input);
-			free(input);
+			add_history(shell->input);
+			free(shell->input);
 		}
 		else
 			break ;

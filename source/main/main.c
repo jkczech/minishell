@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/06 11:45:14 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/06 15:45:49 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_shell		shell;
+	t_shell		*shell;
 	t_list	*env_list;
+
+	shell = malloc(sizeof(t_shell));
+	init_shell(shell, envp);
 
 	if (argc < 0 || !argv)
 		return (1);
 	env_list = NULL;
-	//minishell(shell);
-	minishell(envp, env_list);
+	shell->envp = envp;
+	minishell(shell);
 }
 
 /* int	main(int argc, char **argv)

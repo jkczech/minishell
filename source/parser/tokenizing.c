@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/05 11:58:27 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:16:17 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 }
 
 //assigns token types, returns a list of tokens
-t_token	*assign_token_types(char *str)
+t_token	*assign_token_types(t_shell *shell)
 {
 	int		i;
 	t_token	*head;
@@ -54,26 +54,26 @@ t_token	*assign_token_types(char *str)
 
 	i = 0;
 	head = NULL;
-	while (str[i])
+	while (shell->norm_input[i])
 	{	
-		token_type = what_token(str, i);
+		token_type = what_token(shell->norm_input, i);
 		if (token_type == HEREDOC || token_type == APPEND)
 			i += 2;
 		else if (token_type != WORD)
 			i++;
 		if (token_type == PIPE)
 		{
-			if (str[i] == ' ')
+			if (shell->norm_input[i] == ' ')
 				i++;
-			if (is_sep(str[i]))
+			if (is_sep(shell->norm_input[i]))
 			{
-				process_token(str, &i, token_type, &head);
+				process_token(shell->norm_input, &i, token_type, &head);
 				continue ;
 			}
 		}
-		skip_spaces(str, &i);
-		process_token(str, &i, token_type, &head);
-		if (str[i] != 0)
+		skip_spaces(shell->norm_input, &i);
+		process_token(shell->norm_input, &i, token_type, &head);
+		if (shell->norm_input[i] != 0)
 			i++;
 	}
 	return (head);

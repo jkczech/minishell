@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/05 14:58:27 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/06 15:34:34 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //initialize pipex structure
 //get_tokens to pipex->tokens
-bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp)
+/* bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp)
 {
 	pipex->paths = NULL;
 	pipex->infile = -1;
@@ -58,3 +58,4 @@ bool	init_cmds(t_pipex *pipex)
 	}
 	return (true);
 }
+ */

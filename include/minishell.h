@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/06 12:40:12 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:16:31 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ typedef struct s_pipex
 	t_s_cmd			**s_cmds;
 	int				**pipes;
 	char			**paths;
-	char			**argv;
 	char			**envp;
 	int				*child_pids;
 	bool			heredoc;
@@ -106,7 +105,7 @@ typedef struct s_pipex
 
 typedef struct s_shell
 {
-	char			**envp;
+	char			**envp; //check if needed
 	t_list			*env_list;
 	char			*input;
 	char			*norm_input;
@@ -122,9 +121,9 @@ typedef struct s_shell
 /////////////////////////////////BUILTINS///////////////////////////////////////
 
 //builtins.c
+bool	init_shell(t_shell *shell, char **envp);
 bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
-bool	init_shell(t_shell *shell, char **envp);
 void	free_shell(t_shell *shell);
 //void	free_tokens(t_shell *shell);
 
@@ -181,94 +180,22 @@ bool	init_cmds(t_pipex *pipex);
 
 //check_input.c
 bool	is_sep(char c);
+bool	double_sep(char *str, int i);
 bool	quotes_checker(char *str);
-void	check_input(char *str);
+bool	check_input(t_shell *shell);
 
 //lexing.c
-void token_count_util(char *str, int *i, int *count);
-int		token_count(char *str);
-int		count_chars(char *str);
+void	token_count_util(char *str, int *i, int *count);
+int		token_count(t_shell *shell);
+int		count_chars(t_shell *shell);
 void	process_token(char *str, int *index, int token_type, t_token **head);
-char	*norm_input(char *str, int len);
-void	check_input(char *str);
+void	norm_input(t_shell *shell, int len);
 
 /////////////////////////////////MAIN///////////////////////////////////////////
 
 //shell.c
 void	envp_into_list(char **envp, t_list *env_list);
-void	minishell(char **envp, t_list *env_list);
-
-////////////////////////////////PARSER//////////////////////////////////////////
-
-////////////////////////////////EXECUTOR////////////////////////////////////////
-
-//child.c
-
-void	redirect(t_pipex pipex, int input, int output);
-void	children(t_pipex pipex, int i);
-void	child(t_pipex pipex, int i, int input, int output);
-
-//error.c
-
-void	error_message(char *file);
-void	cmd_not_found(t_pipex *pipex, int i);
-
-//free.c
-
-bool	close_all_fds(t_pipex *pipex);
-bool	free_pipex(t_pipex *pipex);
-bool	free_array(char **array);
-
-//here_doc_bonus.c
-
-void	open_here_doc(t_pipex *pipex);
-void	here_doc(t_pipex *pipex);
-
-//parse.c
-
-bool	is_command(t_pipex *pipex, char *command, int i);
-void	find_command(t_pipex *pipex, int i);
-void	find_paths(t_pipex *pipex);
-void	open_files(t_pipex *pipex);
-bool	parse_input(t_pipex *pipex);
-
-//pipex.c
-
-bool	create_pipes(t_pipex *pipex);
-bool	wait_pids(t_pipex *pipex);
-bool	allocate_pids(t_pipex *pipex);
-bool	execute(t_pipex *pipex);
-
-////////////////////////////////EXPANDER////////////////////////////////////////
-
-//SO FAR M-PTY
-
-//////////////////////////////////INIT//////////////////////////////////////////
-
-//init.c
-bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp);
-bool	init_cmds(t_pipex *pipex);
-
-////////////////////////////////LEXER///////////////////////////////////////////
-
-//check_input.c
-bool	is_sep(char c);
-bool	quotes_checker(char *str);
-void	check_input(char *str);
-
-//lexing.c
-void token_count_util(char *str, int *i, int *count);
-int		token_count(char *str);
-int		count_chars(char *str);
-void	process_token(char *str, int *index, int token_type, t_token **head);
-char	*norm_input(char *str, int len);
-void	check_input(char *str);
-
-/////////////////////////////////MAIN///////////////////////////////////////////
-
-//shell.c
-void	envp_into_list(char **envp, t_list *env_list);
-void	minishell(char **envp, t_list *env_list);
+void	minishell(t_shell *shell/* char **envp, t_list *env_list */);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 
@@ -285,7 +212,7 @@ void	skip_spaces(char *str, int *index);
 
 //tokenizing.c
 void	process_token(char *str, int *index, int token_type, t_token **head);
-t_token	*assign_token_types(char *str);
+t_token	*assign_token_types(t_shell *shell);
 int		what_token(char *str, int index);
 int		is_delimiter(char c, const char *delim);
 
@@ -296,15 +223,6 @@ t_token	*create_token(char *content, int token);
 void	destroy_token(t_token *token);
 void	free_token_list(t_token **head);
 void	add_token(t_token **head, t_token *new_token);
-//check_input.c
-bool	double_sep(char *str, int i);
-bool	is_sep(char c);
-bool	quotes_checker(char *str);
-void	check_input(char *str);
-
-//shell.c
-void	envp_into_list(char **envp, t_list *env_list);
-void	minishell(char **envp, t_list *env_list);
 
 //print.c
 void	print_tokens(t_token **tokens);
