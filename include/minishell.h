@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/05 14:57:39 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/06 11:45:47 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,9 @@ typedef struct s_pipex
 typedef struct s_shell
 {
 	char			**envp;
-	char			*line;
+	t_list			*env_list;
+	char			*input;
+	char			*norm_input;
 	t_token			**tokens;
 	t_list			*history;
 	t_pipex			pipex;
@@ -117,7 +119,7 @@ typedef struct s_shell
 ///////////////////////////////PROTOTYPES///////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-/////////////////////////////////BUILTINS//////////////////////////////////////
+/////////////////////////////////BUILTINS///////////////////////////////////////
 
 //builtins.c
 bool	copy_envp(t_shell *shell, char **envp);
