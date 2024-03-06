@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 10:55:27 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/05 14:23:22 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*
+
 bool	copy_envp(t_shell *shell, char **envp)
 {
 	int	i;
@@ -86,7 +86,7 @@ void	free_shell(t_shell *shell)
 	free_pipex(&shell->pipex);
 }
 
-void	free_tokens(t_token **tokens)
+/* void	free_tokens(t_token **tokens)
 {
 	t_token	*tmp;
 	t_token	*next;
@@ -100,5 +100,6 @@ void	free_tokens(t_token **tokens)
 		tmp = next;
 	}
 	*tokens = NULL;
-}
-*/
+} */
+
+

@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:47:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 11:24:03 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:33:18 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	main(void)
 
     input = malloc(sizeof(char) * 100);
 
-    strcpy(input, "< In "cat -l" >> App | grep Hello | > Ser << Again > Out");
+    strcpy(input, "< In "cat -l" >> App | grep Hello | > Ser << Again > Out"); 14 Spaces
     assign_token_types(input);
 	return (0);
 }
- */
+*/
 /* char *assign_token_types(char *str)
 {
     int i;

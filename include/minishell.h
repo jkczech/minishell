@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 11:20:35 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/06 11:06:10 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,6 @@
 # define DELIMITER " <>|"
 # define SEPARATOR "&|><'=%"
 
-/* typedef struct s_token
-{
-    char			*content;
-    int            token;
-    struct s_token	*next;
-	struct s_token	*prev;
-}				t_token; */
-
 typedef struct s_shell
 {
 	char			**envp;
@@ -56,7 +48,7 @@ bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
 bool	init_shell(t_shell *shell, char **envp);
 void	free_shell(t_shell *shell);
-void	free_tokens(t_shell *shell);
+//void	free_tokens(t_shell *shell);
 
 //cmd_utils.c
 bool	init_s_cmds(t_pipex *pipex);
@@ -73,6 +65,7 @@ void	add_token(t_token **head, t_token *new_token);
 //lexing_utils.c
 
 //lexing.c
+void token_count_util(char *str, int *i, int *count);
 int		token_count(char *str);
 int		count_chars(char *str);
 void	process_token(char *str, int *index, int token_type, t_token **head);
@@ -96,6 +89,7 @@ int		what_token(char *str, int index);
 int		is_delimiter(char c, const char *delim);
 
 //check_input.c
+bool	double_sep(char *str, int i);
 bool	is_sep(char c);
 bool	quotes_checker(char *str);
 void	check_input(char *str);

@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/04 11:31:58 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/06 10:55:20 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	minishell(char **envp, t_list *env_list)
 			check_input(input);
 			if (strcmp(input, "history -c") == 0)
 				rl_clear_history();
-			else if (strcmp(input, "exit") == 0)
-				exit(1);
 			add_history(input);
 			free(input);
 		}

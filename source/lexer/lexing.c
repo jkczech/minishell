@@ -6,21 +6,32 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 12:39:18 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:17:34 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//checks if a character is a double separator
-bool	double_sep(char *str, int i)
+//additionnal function for token_count
+void token_count_util(char *str, int *i, int *count)
 {
-	if ((str[i] == '|' && str[i + 1] == '|')
-		|| (str[i] == '&' && str[i + 1] == '&')
-		|| (str[i] == '>' && str[i + 1] == '>')
-		|| (str[i] == '<' && str[i + 1] == '<'))
-		return (true);
-	return (false);
+	if (str[*i] != '\0' && !is_sep(str[*i]))
+	{
+		(*count)++;
+		if(str[*i] == '"')
+			while (str[++(*i)] != '"')
+				;
+		while (str[*i] != ' ' && str[*i] != '\t'
+			&& str[*i] != '\0' && !is_sep(str[*i]))
+			(*i)++;
+	}
+	if (double_sep(str, *i))
+		(*i)++;
+	if (is_sep(str[*i]))
+	{
+		(*i)++;
+		(*count)++;
+	}
 }
 
 //counts the number of tokens in a string
@@ -35,20 +46,7 @@ int	token_count(char *str)
 	{
 		while (str[i] == ' ' || str[i] == '\t')
 			i++;
-		if (str[i] != '\0' && !is_sep(str[i]))
-		{
-			count++;
-			while (str[i] != ' ' && str[i] != '\t'
-				&& str[i] != '\0' && !is_sep(str[i]))
-				i++;
-		}
-		if (double_sep(str, i))
-			i++;
-		if (is_sep(str[i]))
-		{
-			i++;
-			count++;
-		}
+		token_count_util(str, &i, &count);
 	}
 	printf("Token_count: %d\n", count);
 	return (count);
@@ -70,17 +68,18 @@ int	count_chars(char *str)
 				i++;
 		}
 		if (str[i] != ' ' || str[i] != '\t')
-		{
 			count++;
-			while (str[i] == ' ' || str[i] == '\t')
-				i++;
+		if (str[i] == '"')
+		{
+			count ++;
+			while (str[++i] != '"')
+				count++;
 		}
 		i++;
 	}
 	printf("Char_count: %d\n", count);
 	return (count);
 }
-//bool qotations_checker(char *str)
 
 //processes a character
 void	process_character(char *str, char *result, int *i, int *j)
@@ -100,8 +99,6 @@ void	process_character(char *str, char *result, int *i, int *j)
 		result[(*i)] = ' ';
 		(*i)++;
 	}
-	printf("i: %d, j: %d\n", *i, *j);
-	printf("Result: %zu\n", ft_strlen(result));
 }
 
 //get input and return a normed input
@@ -113,16 +110,13 @@ char	*norm_input(char *str, int len)
 
 	i = 0;
 	j = 0;
+	if (!quotes_checker(str))
+		return (NULL);
 	result = malloc(sizeof(char) * (len + 1));
 	if (!result)
 		return (NULL);
-	if (!quotes_checker(str))
-		return (NULL);
-	printf("Len: %d\n", len);
-	while (i < len)
-	{
+	while (i < len && j < len)
 		process_character(str, result, &i, &j);
-	}
 	result[i] = '\0';
 	printf("Normed input: %s\n", result);
 	return (result);

@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/03/04 11:31:50 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/06 11:56:54 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@ bool	is_sep(char c)
 		else
 			i++;
 	}
+	return (false);
+}
+
+//checks if a character is a double separator
+bool	double_sep(char *str, int i)
+{
+	if ((str[i] == '|' && str[i + 1] == '|')
+		|| (str[i] == '&' && str[i + 1] == '&')
+		|| (str[i] == '>' && str[i + 1] == '>')
+		|| (str[i] == '<' && str[i + 1] == '<'))
+		return (true);
 	return (false);
 }
 
@@ -82,14 +93,13 @@ void	check_input(char *str)
 	char	*norm_str;
 	t_token	*head;
 
-	if(str[0] == '"')
+	if (str[0] == '"')
 	{
 		str = skip_quotes(str);
 		if (!str)
 			return ;
-	
 	}
-	norm_str = norm_input(str, token_count(str) + count_chars(str));
+	norm_str = norm_input(str, token_count(str) - 1 + count_chars(str));
 	if (!norm_str)
 		return ;
 	head = assign_token_types(norm_str);

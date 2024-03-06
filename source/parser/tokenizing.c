@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/04 11:24:24 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/05 11:58:27 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 	if (token_content == NULL)
 		return ;
 	j = 0;
-	if(str[*index] == '"')
+	if (str[*index] == '"')
 	{
 		token_content[j++] = '"';
-		while(str[++(*index)] != '"')
+		while (str[(*index)++] != '"')
 			token_content[j++] = str[*index];
 	}
-	if(token_type == PIPE && is_delimiter(str[*index], DELIMITER))
+	if (/*new_token &&*/token_type == PIPE && is_delimiter(str[*index], DELIMITER))
 	{
 		new_token = create_token(NULL, token_type);
 		add_token(head, new_token);
@@ -55,17 +55,17 @@ t_token	*assign_token_types(char *str)
 	i = 0;
 	head = NULL;
 	while (str[i])
-	{			
+	{	
 		token_type = what_token(str, i);
 		if (token_type == HEREDOC || token_type == APPEND)
 			i += 2;
 		else if (token_type != WORD)
 			i++;
-		if(token_type == PIPE)
+		if (token_type == PIPE)
 		{
-			if(str[i] == ' ')
+			if (str[i] == ' ')
 				i++;
-			if(is_sep(str[i]))
+			if (is_sep(str[i]))
 			{
 				process_token(str, &i, token_type, &head);
 				continue ;
@@ -73,7 +73,8 @@ t_token	*assign_token_types(char *str)
 		}
 		skip_spaces(str, &i);
 		process_token(str, &i, token_type, &head);
-		i++;
+		if (str[i] != 0)
+			i++;
 	}
 	return (head);
 }
