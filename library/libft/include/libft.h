@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 10:54:04 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 10:26:17 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/05 14:56:21 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_list
 //Bonus list functions
 # ifndef T_LIST_FUNCTIONS
 #  define T_LIST_FUNCTIONS
+
 t_list	*ft_lstnew_l(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
