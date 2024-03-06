@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:55:44 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 10:13:27 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/05 14:56:56 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../include/minishell.h"
 
 //close all the pipes created, free pipes, and free the pipe array
 //also close infile and outfile

@@ -6,11 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 10:13:31 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/05 14:57:22 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../include/minishell.h"
 
 //redirect input to stdin and output to stdout
 //close input and output fds of all other unused pipes in current process
