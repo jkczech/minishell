@@ -6,15 +6,26 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/05 14:58:27 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/06 14:46:49 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+bool	init_shell(t_shell *shell, char **envp)
+{
+	shell->env_list = NULL;
+	shell->envp = envp;
+	shell->env_list = NULL;
+	shell->envp = NULL;
+	return (true);
+}
+
 //initialize pipex structure
 //get_tokens to pipex->tokens
-bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp)
+// pipex->heredoc = false;
+// pipex->heredoc = true;
+bool	pipex_init(t_pipex *pipex, char **envp)
 {
 	pipex->paths = NULL;
 	pipex->infile = -1;
@@ -22,16 +33,11 @@ bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp)
 	pipex->cmds = NULL;
 	pipex->s_cmds = NULL;
 	pipex->pipes = NULL;
-	pipex->argv = argv;
 	pipex->envp = envp;
 	pipex->child_pids = NULL;
 	pipex->exitcode = EXIT_SUCCESS;
-	pipex->heredoc = false;
 	pipex->tokens = NULL;
-	if (ft_strncmp(pipex->argv[1], "here_doc", 9) == 0
-		&& ft_strncmp(pipex->argv[0], "./pipex_bonus", 14) == 0)
-		pipex->heredoc = true;
-	pipex->size = argc - 3 - pipex->heredoc;
+	pipex->size = -1; //calculate
 	if (!init_cmds(pipex))
 		return (false);
 	if (!init_s_cmds(pipex))

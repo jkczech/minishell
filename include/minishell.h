@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/06 11:45:47 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/06 13:03:14 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ bool	execute(t_pipex *pipex);
 //////////////////////////////////INIT//////////////////////////////////////////
 
 //init.c
-bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp);
+bool	pipex_init(t_pipex *pipex, char **envp);
 bool	init_cmds(t_pipex *pipex);
 
 ////////////////////////////////LEXER///////////////////////////////////////////
@@ -195,7 +195,7 @@ void	check_input(char *str);
 
 //shell.c
 void	envp_into_list(char **envp, t_list *env_list);
-void	minishell(char **envp, t_list *env_list);
+void	minishell(t_shell *shell);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 
