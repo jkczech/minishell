@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/06 15:26:49 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:52:26 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	envp_into_list(char **envp, t_list *env_list)
 		i++;
 	}
 }
-//void minishell(t_shell shell)
 void	minishell(t_shell *shell)
 {
 	//char	*input;
