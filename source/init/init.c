@@ -6,12 +6,13 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/07 10:28:58 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/07 10:32:36 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/*
 bool	init_shell(t_shell *shell, char **envp)
 {
 	shell->env_list = NULL;
@@ -20,6 +21,7 @@ bool	init_shell(t_shell *shell, char **envp)
 	shell->envp = NULL;
 	return (true);
 }
+*/
 
 //initialize pipex structure
 //get_tokens to pipex->tokens

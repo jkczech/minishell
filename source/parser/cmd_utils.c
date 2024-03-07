@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 10:54:54 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/07 10:46:11 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,25 @@ typedef struct s_simple_cmd
 //help pipex init
 //allocate memory for simple commands table
 
-bool	init_s_cmds(t_pipex *pipex)
+bool	init_s_cmds(t_shell *shell)
 {
 	t_s_cmd	*temp;
 	t_token	*token;
 
-	if (!pipex->tokens)
+	if (!shell->tokens)
 		return (false);
-	token = *pipex->tokens;
-	*pipex->s_cmds = NULL;
+	token = *shell->tokens;
+	*shell->s_cmds = NULL;
 	while (token)
 	{
 		if (token->token == WORD)
 		{
 			temp = cmd_new(token);
-			cmd_add(pipex->s_cmds, temp);
+			cmd_add(shell->s_cmds, temp);
 		}
 		token = token->next;
 	}
-	if (!pipex->s_cmds || !*pipex->s_cmds)
+	if (!shell->s_cmds || !*shell->s_cmds)
 		return (false);
 	return (true);
 }

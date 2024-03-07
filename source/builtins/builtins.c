@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/07 09:46:07 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:45:15 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ bool	init_shell(t_shell *shell, char **envp)
 	shell->history = NULL;
 	if (!copy_envp(shell, envp))
 		return (false);
-	shell->pipex.paths = ft_split(get_path(shell), ':');
-	if (!shell->pipex.paths)
+	shell->paths = ft_split(get_path(shell), ':');
+	if (!shell->paths)
 		return (false);
 	return (true);
 }
