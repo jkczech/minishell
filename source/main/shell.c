@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/06 12:59:42 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/07 10:29:32 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,25 @@ void	envp_into_list(char **envp, t_list *env_list)
 		i++;
 	}
 }
+//void minishell(t_shell shell)
 void	minishell(t_shell *shell)
 {
-	char	*input;
+	//char	*input;
 
 	shell->env_list = NULL;
 	envp_into_list(shell->envp, shell->env_list);
 	while (true)
 	{
-		input = readline(PROMPT);
-		if (!input)
+		shell->input = readline(PROMPT);
+		if (!shell->input)
 			break ;
-		if (input)
+		if (shell->input)
 		{
-			check_input(input);
-			if (strcmp(input, "history -c") == 0)
+			check_input(shell);
+			if (strcmp(shell->input, "history -c") == 0)
 				rl_clear_history();
-			else if (strcmp(input, "exit") == 0)
-				exit(1);
-			add_history(input);
-			free(input);
+			add_history(shell->input);
+			free(shell->input);
 		}
 		else
 			break ;

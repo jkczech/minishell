@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/03/04 11:31:50 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/07 09:57:16 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@ bool	is_sep(char c)
 		else
 			i++;
 	}
+	return (false);
+}
+
+//checks if a character is a double separator
+bool	double_sep(char *str, int i)
+{
+	if ((str[i] == '|' && str[i + 1] == '|')
+		|| (str[i] == '&' && str[i + 1] == '&')
+		|| (str[i] == '>' && str[i + 1] == '>')
+		|| (str[i] == '<' && str[i + 1] == '<'))
+		return (true);
 	return (false);
 }
 
@@ -77,22 +88,22 @@ char	*skip_quotes(char *str)
 }
 
 //checks the input and prints the tokens if
-void	check_input(char *str)
+bool	check_input(t_shell *shell)
 {
-	char	*norm_str;
 	t_token	*head;
-
-	if(str[0] == '"')
+	if (shell->input[0] == '"')
 	{
-		str = skip_quotes(str);
-		if (!str)
-			return ;
-	
+		shell->input = skip_quotes(shell->input);
+		if (!shell->input)
+			return (false);
 	}
-	norm_str = norm_input(str, token_count(str) + count_chars(str));
-	if (!norm_str)
-		return ;
-	head = assign_token_types(norm_str);
-	if (head)
-		print_tokens(&head);
+	norm_input(shell, token_count(shell) - 1 + count_chars(shell));
+	if (!shell->norm_input)
+		return (false);
+	//assign_token_types(shell);
+	head = assign_token_types(shell);
+	shell->tokens = &head;
+	if (shell->tokens)
+		print_tokens(shell->tokens);
+	return(true);
 }

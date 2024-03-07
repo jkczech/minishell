@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/06 14:46:49 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/07 10:28:58 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ bool	init_shell(t_shell *shell, char **envp)
 
 //initialize pipex structure
 //get_tokens to pipex->tokens
-// pipex->heredoc = false;
-// pipex->heredoc = true;
-bool	pipex_init(t_pipex *pipex, char **envp)
+/* bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp)
 {
 	pipex->paths = NULL;
 	pipex->infile = -1;
@@ -64,3 +62,4 @@ bool	init_cmds(t_pipex *pipex)
 	}
 	return (true);
 }
+ */

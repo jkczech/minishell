@@ -3,16 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 10:55:27 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/07 09:46:07 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*
+bool	init_shell(t_shell *shell, char **envp)
+{
+	//shell->envp = envp;
+	shell->input = NULL;
+	shell->norm_input = NULL;
+	shell->tokens = NULL;
+	shell->history = NULL;
+	if (!copy_envp(shell, envp))
+		return (false);
+	shell->pipex.paths = ft_split(get_path(shell), ':');
+	if (!shell->pipex.paths)
+		return (false);
+	return (true);
+}
+
 bool	copy_envp(t_shell *shell, char **envp)
 {
 	int	i;
@@ -56,21 +70,9 @@ char	*get_path(t_shell *shell)
 	return (NULL);
 }
 
-bool	init_shell(t_shell *shell, char **envp)
-{
-	shell->envp = NULL;
-	shell->line = NULL;
-	shell->tokens = NULL;
-	shell->history = NULL;
-	if (!copy_envp(shell, envp))
-		return (false);
-	shell->pipex.paths = ft_split(get_path(shell), ':');
-	if (!shell->pipex.paths)
-		return (false);
-	return (true);
-}
 
-void	free_shell(t_shell *shell)
+
+/* void	free_shell(t_shell *shell)
 {
 	int	i;
 
@@ -81,12 +83,12 @@ void	free_shell(t_shell *shell)
 		i++;
 	}
 	free(shell->envp);
-	free(shell->line);
-	free_tokens(shell->tokens);
+	free(shell->norm_input);
+	//free_tokens(shell->tokens);
 	free_pipex(&shell->pipex);
-}
+} */
 
-void	free_tokens(t_token **tokens)
+/* void	free_tokens(t_token **tokens)
 {
 	t_token	*tmp;
 	t_token	*next;
@@ -100,5 +102,6 @@ void	free_tokens(t_token **tokens)
 		tmp = next;
 	}
 	*tokens = NULL;
-}
-*/
+} */
+
+
