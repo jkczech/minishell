@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/07 11:51:56 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:02:39 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,31 +87,24 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
-typedef struct s_pipex
-{
-	int				size;
-	int				infile;
-	int				outfile;
-	t_cmd			*cmds;
-	t_s_cmd			**s_cmds;
-	int				**pipes;
-	char			**paths;
-	char			**envp;
-	int				*child_pids;
-	bool			heredoc;
-	int				exitcode;
-	t_token			**tokens;
-}	t_pipex;
-
 typedef struct s_shell
 {
-	char			**envp; //check if needed
+	char			**envp;
 	t_list			*env_list;
 	char			*input;
 	char			*norm_input;
 	t_token			**tokens;
 	t_list			*history;
-	t_pipex			pipex;
+	//int				size;
+	//int				infile;
+	//int				outfile;
+	t_cmd			*cmds;
+	t_s_cmd			**s_cmds;
+	int				**pipes;
+	char			**paths;
+	int				*child_pids;
+	bool			heredoc;
+	int				exitcode;
 }	t_shell;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -131,40 +124,40 @@ void	free_shell(t_shell *shell);
 
 //child.c
 
-void	redirect(t_pipex pipex, int input, int output);
-void	children(t_pipex pipex, int i);
-void	child(t_pipex pipex, int i, int input, int output);
+void	redirect(t_shell shell, int input, int output);
+void	children(t_shell shell, int i);
+void	child(t_shell shell, int i, int input, int output);
 
 //error.c
 
 void	error_message(char *file);
-void	cmd_not_found(t_pipex *pipex, int i);
+void	cmd_not_found(t_shell *shell, int i);
 
 //free.c
 
-bool	close_all_fds(t_pipex *pipex);
-bool	free_pipex(t_pipex *pipex);
+bool	close_all_fds(t_shell *shell);
+bool	free_pipex(t_shell *shell);
 bool	free_array(char **array);
 
 //here_doc_bonus.c
 
-void	open_here_doc(t_pipex *pipex);
-void	here_doc(t_pipex *pipex);
+void	open_here_doc(t_shell *shell);
+void	here_doc(t_shell *shell);
 
 //parse.c
 
-bool	is_command(t_pipex *pipex, char *command, int i);
-void	find_command(t_pipex *pipex, int i);
-void	find_paths(t_pipex *pipex);
-void	open_files(t_pipex *pipex);
-bool	parse_input(t_pipex *pipex);
+bool	is_command(t_shell *shell, char *command, int i);
+void	find_command(t_shell *shell, int i);
+void	find_paths(t_shell *shell);
+void	open_files(t_shell *shell);
+bool	parse_input(t_shell *shell);
 
 //pipex.c
 
-bool	create_pipes(t_pipex *pipex);
-bool	wait_pids(t_pipex *pipex);
-bool	allocate_pids(t_pipex *pipex);
-bool	execute(t_pipex *pipex);
+bool	create_pipes(t_shell *shell);
+bool	wait_pids(t_shell *shell);
+bool	allocate_pids(t_shell *shell);
+bool	execute(t_shell *shell);
 
 ////////////////////////////////EXPANDER////////////////////////////////////////
 
@@ -173,8 +166,8 @@ bool	execute(t_pipex *pipex);
 //////////////////////////////////INIT//////////////////////////////////////////
 
 //init.c
-bool	pipex_init(t_pipex *pipex, char **envp);
-bool	init_cmds(t_pipex *pipex);
+bool	pipex_init(t_shell *shell, char **envp);
+bool	init_cmds(t_shell *shell);
 
 ////////////////////////////////LEXER///////////////////////////////////////////
 
@@ -200,7 +193,7 @@ void	minishell(t_shell *shell);
 ////////////////////////////////PARSER//////////////////////////////////////////
 
 //cmd_utils.c
-bool	init_s_cmds(t_pipex *pipex);
+bool	init_s_cmds(t_shell *shell);
 t_s_cmd	*cmd_new(t_token *token);
 void	cmd_add(t_s_cmd **cmd_table, t_s_cmd *cmd);
 t_s_cmd	*cmd_last(t_s_cmd *cmd);
