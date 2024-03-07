@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/06 15:50:03 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:54:57 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //additionnal function for token_count
-void token_count_util(char *str, int *i, int *count)
+void	token_count_util(char *str, int *i, int *count)
 {
 	if (str[*i] != '\0' && !is_sep(str[*i]))
 	{
 		(*count)++;
-		if(str[*i] == '"')
+		if (str[*i] == '"')
 			while (str[++(*i)] != '"')
 				;
 		while (str[*i] != ' ' && str[*i] != '\t'
@@ -106,7 +106,7 @@ void	norm_input(t_shell *shell, int len)
 {
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	j = 0;
 	if (!quotes_checker(shell->input))

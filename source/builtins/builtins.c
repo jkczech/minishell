@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/07 10:45:15 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/07 10:51:23 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 bool	init_shell(t_shell *shell, char **envp)
 {
-	//shell->envp = envp;
 	shell->input = NULL;
 	shell->norm_input = NULL;
 	shell->tokens = NULL;
@@ -70,8 +69,6 @@ char	*get_path(t_shell *shell)
 	return (NULL);
 }
 
-
-
 /* void	free_shell(t_shell *shell)
 {
 	int	i;
@@ -103,5 +100,3 @@ char	*get_path(t_shell *shell)
 	}
 	*tokens = NULL;
 } */
-
-

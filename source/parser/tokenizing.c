@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/07 09:53:49 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:55:46 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 		while (str[(*index)++] != '"')
 			token_content[j++] = str[*index];
 	}
-	if (/*new_token &&*/token_type == PIPE && is_delimiter(str[*index], DELIMITER))
+	if (token_type == PIPE && is_delimiter(str[*index], DELIMITER))
 	{
 		new_token = create_token(NULL, token_type);
 		add_token(head, new_token);
@@ -55,7 +55,7 @@ t_token	*assign_token_types(t_shell *shell)
 	i = 0;
 	head = NULL;
 	while (shell->norm_input[i])
-	{	
+	{
 		token_type = what_token(shell->norm_input, i);
 		if (token_type == HEREDOC || token_type == APPEND)
 			i += 2;
