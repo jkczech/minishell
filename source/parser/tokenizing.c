@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/07 10:55:46 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/07 11:43:40 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 	}
 	if (token_type == PIPE && is_delimiter(str[*index], DELIMITER))
 	{
+		free(token_content);
 		new_token = create_token(NULL, token_type);
 		add_token(head, new_token);
 		return ;
