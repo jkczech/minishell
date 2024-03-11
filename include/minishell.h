@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/07 12:02:39 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:00:14 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,14 @@ bool	init_shell(t_shell *shell, char **envp);
 bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
 void	free_shell(t_shell *shell);
-//void	free_tokens(t_shell *shell);
+void	free_tokens(t_token **tokens);
+
+//exit.c
+void	exit_shell_status(t_shell *shell, int status);
+void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status);
+bool	check_amount_of_args(char **args);
+bool	is_numeric(char *str);
+void	exit_shell(t_shell *shell);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 

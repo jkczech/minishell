@@ -3,15 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/07 10:51:23 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/11 11:59:29 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+//init path in pipex
+bool init_path(t_shell *shell)
+{
+	char *path;
+
+	path = get_path(shell);
+	if (!path)
+		return (false);
+	shell->pipex.paths = ft_split(path, ':');
+	if(path)
+		free(path);
+	if (!shell->pipex.paths)
+		return (false);
+	return (true);
+}
+
+//init all the shell variables
 bool	init_shell(t_shell *shell, char **envp)
 {
 	shell->input = NULL;
@@ -20,9 +37,7 @@ bool	init_shell(t_shell *shell, char **envp)
 	shell->history = NULL;
 	if (!copy_envp(shell, envp))
 		return (false);
-	shell->paths = ft_split(get_path(shell), ':');
-	if (!shell->paths)
-		return (false);
+	init_path(shell);
 	return (true);
 }
 
@@ -69,23 +84,44 @@ char	*get_path(t_shell *shell)
 	return (NULL);
 }
 
-/* void	free_shell(t_shell *shell)
+void ft_free_list(t_list *list)
+{
+	t_list	*tmp;
+
+	while (list)
+	{
+		tmp = list->next;
+		free(list->content);
+		free(list);
+		list = tmp;
+	}
+}
+
+void	free_shell(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
-	while (shell->envp[i])
+	if(shell->envp && shell->envp[i])
+		ft_free_list(shell->env_list);
+	if(shell->norm_input)
+		free(shell->norm_input);
+	if(shell->tokens)
+		free_tokens(shell->tokens);
+	if(shell->pipex.paths)
 	{
-		free(shell->envp[i]);
-		i++;
+		while (shell->pipex.paths[i])
+		{
+			free(shell->pipex.paths[i]);
+			i++;
+		}
+		free(shell->pipex.paths);
 	}
-	free(shell->envp);
-	free(shell->norm_input);
-	//free_tokens(shell->tokens);
-	free_pipex(&shell->pipex);
-} */
+	//free_pipex(&shell->pipex);
+	free(shell);
+}
 
-/* void	free_tokens(t_token **tokens)
+void	free_tokens(t_token **tokens)
 {
 	t_token	*tmp;
 	t_token	*next;
@@ -100,3 +136,5 @@ char	*get_path(t_shell *shell)
 	}
 	*tokens = NULL;
 } */
+
+

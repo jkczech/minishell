@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/06 11:11:26 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/07 18:21:50 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ bool is_numeric(char *str)
 // Exit shell without exit status
 void    exit_shell(t_shell *shell)
 {
-    free_shell(shell);
+    printf("exit\n");
+    if(shell)
+        free_shell(shell);
     exit(0);
 }
 
@@ -71,7 +73,7 @@ void   exit_command(t_shell *shell, char **args)
         perror("exit");
         exit_shell(shell);
     }
-    else if (!&check_amount_of_args)
+    else if (!check_amount_of_args(args))
     {
         if(!is_numeric(args[1]))
             exit_error_msg(shell, "numeric argument required\n", args[1], 2);
