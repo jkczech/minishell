@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/11 12:00:50 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:03:17 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell		*shell;
-	t_list	*env_list;
+	//t_list	*env_list;
 
 	//env_list = NULL;
 	shell = malloc(sizeof(t_shell));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/07 11:43:40 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/11 17:00:05 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,22 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 
 	new_token = NULL;
 	len = token_len(str, *index, DELIMITER);
+	if(str[*index] == '"')
+		len = token_len(str, *index, "<>|");
 	token_content = malloc(sizeof(char) * (len + 1));
 	if (token_content == NULL)
 		return ;
 	j = 0;
 	if (str[*index] == '"')
 	{
-		token_content[j++] = '"';
-		while (str[(*index)++] != '"')
+		token_content[j] = str[*index];
+		j++;
+		(*index)++;
+		while (str[(*index)] != '"')
+		{
 			token_content[j++] = str[*index];
+			(*index)++;
+		}
 	}
 	if (token_type == PIPE && is_delimiter(str[*index], DELIMITER))
 	{

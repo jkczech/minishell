@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/11 11:59:29 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/11 15:50:25 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ bool init_path(t_shell *shell)
 	path = get_path(shell);
 	if (!path)
 		return (false);
-	shell->pipex.paths = ft_split(path, ':');
+	shell->paths = ft_split(path, ':');
 	if(path)
 		free(path);
-	if (!shell->pipex.paths)
+	if (!shell->paths)
 		return (false);
 	return (true);
 }
@@ -108,14 +108,14 @@ void	free_shell(t_shell *shell)
 		free(shell->norm_input);
 	if(shell->tokens)
 		free_tokens(shell->tokens);
-	if(shell->pipex.paths)
+	if(shell->paths)
 	{
-		while (shell->pipex.paths[i])
+		while (shell->paths[i])
 		{
-			free(shell->pipex.paths[i]);
+			free(shell->paths[i]);
 			i++;
 		}
-		free(shell->pipex.paths);
+		free(shell->paths);
 	}
 	//free_pipex(&shell->pipex);
 	free(shell);
@@ -124,17 +124,17 @@ void	free_shell(t_shell *shell)
 void	free_tokens(t_token **tokens)
 {
 	t_token	*tmp;
-	t_token	*next;
 
 	tmp = *tokens;
 	while (tmp)
 	{
-		next = tmp->next;
-		free(tmp->content);
+		if(tmp->content)
+			free(tmp->content);
 		free(tmp);
-		tmp = next;
+		tmp = tmp->next;
 	}
+	free(*tokens);
 	*tokens = NULL;
-} */
+}
 
 
