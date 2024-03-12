@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/11 12:00:14 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:15:43 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	exit_shell_status(t_shell *shell, int status);
 void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status);
 bool	check_amount_of_args(char **args);
 bool	is_numeric(char *str);
-void	exit_shell(t_shell *shell);
+void	easy_exit(t_shell *shell);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 

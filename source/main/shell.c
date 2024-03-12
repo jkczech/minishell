@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/11 12:00:34 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:15:34 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	minishell(t_shell *shell)
 		if (shell->input)
 		{
 			if(strcmp(shell->input, "exit") == 0)
-				exit_shell(shell);
+				easy_exit(shell);
 			check_input(shell);
 			if (strcmp(shell->input, "history -c") == 0)
 				rl_clear_history();
