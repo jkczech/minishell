@@ -6,26 +6,26 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 10:42:03 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/12 12:58:46 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /*
-typedef struct s_simple_cmd
+typedef struct s_cmd
 {
 	int			allocated;
 	int			argc;
 	char		*path;
 	char		**args;
-	s_simple_cmd *next;
+	s_cmd *next;
 }	t_cmd;
 */
 
 //help pipex init
-//allocate memory for simple commands table
-
+//allocate memory for commands table
+/* 
 bool	init_cmds(t_shell *shell)
 {
 	t_cmd	*temp;
@@ -47,9 +47,9 @@ bool	init_cmds(t_shell *shell)
 	if (!shell->s_cmds || !*shell->s_cmds)
 		return (false);
 	return (true);
-}
+} */
 
-t_cmd	*cmd_new(t_token *token)
+/* t_cmd	*cmd_new(t_token *token)
 {
 	t_cmd	*cmd;
 
@@ -73,8 +73,8 @@ t_cmd	*cmd_new(t_token *token)
 		cmd->output = -1;
 	cmd->next = NULL;
 	return (cmd);
-}
-
+} */
+/* 
 void	cmd_add(t_cmd **cmd_table, t_cmd *cmd)
 {
 	t_cmd	*temp;
@@ -98,4 +98,4 @@ t_cmd	*cmd_last(t_cmd *cmd)
 	while (cmd->next)
 		cmd = cmd->next;
 	return (cmd);
-}
+} */

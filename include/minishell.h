@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 10:43:52 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/12 12:57:46 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,8 @@ bool	execute(t_shell *shell);
 //////////////////////////////////INIT//////////////////////////////////////////
 
 //init.c
-bool	pipex_init(t_shell *shell, char **envp);
-bool	init_cmds(t_shell *shell);
+
+//so far m-pty
 
 ////////////////////////////////LEXER///////////////////////////////////////////
 
@@ -191,6 +191,11 @@ bool	init_cmds(t_shell *shell);
 t_cmd	*cmd_new(t_token *token);
 void	cmd_add(t_cmd **cmd_table, t_cmd *cmd);
 t_cmd	*cmd_last(t_cmd *cmd);
+
+//parse.c
+void	parse(t_shell *shell);
+void	get_tokens(t_shell *shell);
+void	get_size(t_shell *shell);
 
 //tokenizing_utils.c
 int		is_delimiter(char c, const char *delim);

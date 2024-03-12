@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/03/11 13:19:07 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/03/12 12:45:24 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ MAIN = 	main/main.c \
 #      main/testing.c			
 
 PARSER = parser/cmd_utils.c \
+		 parser/parse.c \
  		 parser/tokenizing_utils.c \
 		 parser/tokenizing.c
 
