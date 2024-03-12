@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/07 10:56:25 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/12 11:25:32 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	envp_into_list(char **envp, t_list *env_list)
 	}
 }
 
-//void minishell(t_shell shell)
+//main shell loop, that reads input, checks it and executes it
 void	minishell(t_shell *shell)
 {
 	shell->env_list = NULL;
@@ -42,8 +42,28 @@ void	minishell(t_shell *shell)
 				rl_clear_history();
 			add_history(shell->input);
 			free(shell->input);
+			get_size(shell);
+			execute(shell);
 		}
 		else
 			break ;
 	}
+}
+
+void	get_size(t_shell *shell)
+{
+	t_token	*token;
+	int		size;
+
+	token = *(shell->tokens);
+	if (!token)
+		return ;
+	size = 0;
+	while (token)
+	{
+		if (token->token == PIPE)
+			size++;
+		token = token->next;
+	}
+	shell->size = size + 1;
 }
