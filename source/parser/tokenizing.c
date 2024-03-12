@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/12 10:18:07 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:37:56 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 
 	new_token = NULL;
 	len = token_len(str, *index, DELIMITER);
-	if(str[*index] == '"')
+	if (str[*index] == '"')
 		len = token_len(str, *index, "<>|");
 	token_content = malloc(sizeof(char) * (len + 1));
 	if (token_content == NULL)

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:23:11 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/11 13:23:45 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/12 13:37:35 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	find_paths(t_shell *pipex)
 }
 
 //open infile and outfile, show errors respectively
-void	open_files(/* t_shell *pipex */)
-{
+//void	open_files(/* t_shell *pipex */)
+//{
 	// pipex->infile = open(pipex->argv[1], O_RDONLY);
 	// if (pipex->infile == -1)
 	// {
@@ -90,7 +90,7 @@ void	open_files(/* t_shell *pipex */)
 	//	else
 	//		ft_putstr_fd(ERR_OUT, 2);
 	//}
-}
+//}
 
 //read all the commands, infile, outfile, opens fd's for files
 //return value: if any error false at first error, else true

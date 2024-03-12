@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/11 15:50:25 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:42:13 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //init path in pipex
-bool init_path(t_shell *shell)
+bool	init_path(t_shell *shell)
 {
-	char *path;
+	char	*path;
 
 	path = get_path(shell);
 	if (!path)
 		return (false);
 	shell->paths = ft_split(path, ':');
-	if(path)
+	if (path)
 		free(path);
 	if (!shell->paths)
 		return (false);
@@ -84,7 +84,7 @@ char	*get_path(t_shell *shell)
 	return (NULL);
 }
 
-void ft_free_list(t_list *list)
+void	ft_free_list(t_list *list)
 {
 	t_list	*tmp;
 
@@ -102,13 +102,13 @@ void	free_shell(t_shell *shell)
 	int	i;
 
 	i = 0;
-	if(shell->envp && shell->envp[i])
+	if (shell->envp && shell->envp[i])
 		ft_free_list(shell->env_list);
-	if(shell->norm_input)
+	if (shell->norm_input)
 		free(shell->norm_input);
-	if(shell->tokens)
+	if (shell->tokens)
 		free_tokens(shell->tokens);
-	if(shell->paths)
+	if (shell->paths)
 	{
 		while (shell->paths[i])
 		{
@@ -117,7 +117,6 @@ void	free_shell(t_shell *shell)
 		}
 		free(shell->paths);
 	}
-	//free_pipex(&shell->pipex);
 	free(shell);
 }
 
@@ -128,7 +127,7 @@ void	free_tokens(t_token **tokens)
 	tmp = *tokens;
 	while (tmp)
 	{
-		if(tmp->content)
+		if (tmp->content)
 			free(tmp->content);
 		free(tmp);
 		tmp = tmp->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/11 16:37:51 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:40:29 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,10 @@ int	count_chars(t_shell *shell)
 	return (count);
 }
 
-
 //processes a character
 void	process_character(char *str, char *result, int *i, int *j)
 {
-	if(str[*j] == ' ')
+	if (str[*j] == ' ')
 	{
 		while (str[*j] == ' ' && str[*j + 1] == ' ')
 			(*j)++;
@@ -120,7 +119,7 @@ void	norm_input(t_shell *shell, int len)
 	shell->norm_input = malloc(sizeof(char) * (len + 1));
 	if (!shell->norm_input)
 		return ;
-	while (i < len /* && j < len */)
+	while (i < len/* && j < len */)
 		process_character(shell->input, shell->norm_input, &i, &j);
 	shell->norm_input[i] = '\0';
 	printf("Normed input: %s\n", shell->norm_input);

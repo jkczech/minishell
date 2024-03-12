@@ -6,25 +6,25 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 12:58:03 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/12 13:39:14 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void    parse(t_shell *shell)
+void	parse(t_shell *shell)
 {
-    get_tokens(shell);
+	get_tokens(shell);
 	get_size(shell);
     //get_commands(shell);
 }
 
 //assigns token types to the tokens
-void    get_tokens(t_shell *shell)
+void	get_tokens(t_shell *shell)
 {
-    t_token *head;
-    
-    head = assign_token_types(shell);
+	t_token	*head;
+
+	head = assign_token_types(shell);
 	shell->tokens = &head;
 	if (shell->tokens)
 		print_tokens(shell->tokens);
