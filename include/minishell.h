@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 10:15:43 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:32:41 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ t_s_cmd	*cmd_last(t_s_cmd *cmd);
 int		is_delimiter(char c, const char *delim);
 int		token_len(char *str, int index, const char *delim);
 void	skip_spaces(char *str, int *index);
+int		what_token(char *str, int index);
 
 //tokenizing.c
 void	process_token(char *str, int *index, int token_type, t_token **head);
