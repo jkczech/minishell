@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/07 10:44:56 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/12 10:43:52 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,13 @@
 
 typedef struct s_cmd
 {
-	bool	found;
-	char	*path;
-	char	**args;
-}	t_cmd;
-
-typedef struct s_simple_cmd
-{
+	bool				found; //
 	char				*path;
 	char				**args;
 	int					input;
 	int					output;
-	struct s_simple_cmd	*next;
-}	t_s_cmd;
+	struct s_cmd		*next;
+}	t_cmd;
 
 typedef struct s_token
 {
@@ -95,11 +89,11 @@ typedef struct s_shell
 	char			*norm_input;
 	t_token			**tokens;
 	t_list			*history;
-	//int				size;
-	//int				infile;
-	//int				outfile;
+	int				size;
+	int				infile; //
+	int				outfile; //
 	t_cmd			*cmds;
-	t_s_cmd			**s_cmds;
+	t_cmd			**s_cmds;
 	int				**pipes;
 	char			**paths;
 	int				*child_pids;
@@ -193,10 +187,10 @@ void	minishell(t_shell *shell);
 ////////////////////////////////PARSER//////////////////////////////////////////
 
 //cmd_utils.c
-bool	init_s_cmds(t_shell *shell);
-t_s_cmd	*cmd_new(t_token *token);
-void	cmd_add(t_s_cmd **cmd_table, t_s_cmd *cmd);
-t_s_cmd	*cmd_last(t_s_cmd *cmd);
+bool	init_cmds(t_shell *shell);
+t_cmd	*cmd_new(t_token *token);
+void	cmd_add(t_cmd **cmd_table, t_cmd *cmd);
+t_cmd	*cmd_last(t_cmd *cmd);
 
 //tokenizing_utils.c
 int		is_delimiter(char c, const char *delim);

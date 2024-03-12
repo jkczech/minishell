@@ -6,14 +6,14 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:23:11 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/05 14:56:51 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/11 13:23:45 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //check if command is valid, if so, saves it into pipex
-bool	is_command(t_pipex *pipex, char *command, int i)
+bool	is_command(t_shell *pipex, char *command, int i)
 {
 	if (!command)
 		return (false);
@@ -31,7 +31,7 @@ bool	is_command(t_pipex *pipex, char *command, int i)
 }
 
 //search for command in pipex.cmd[i], and search for path
-void	find_command(t_pipex *pipex, int i)
+void	find_command(t_shell *pipex, int i)
 {
 	char	*command;
 	int		j;
@@ -55,7 +55,7 @@ void	find_command(t_pipex *pipex, int i)
 }
 
 //find PATH in environment variables and saves it into pipex
-void	find_paths(t_pipex *pipex)
+void	find_paths(t_shell *pipex)
 {
 	int	i;
 
@@ -69,32 +69,32 @@ void	find_paths(t_pipex *pipex)
 }
 
 //open infile and outfile, show errors respectively
-void	open_files(t_pipex *pipex)
+void	open_files(/* t_shell *pipex */)
 {
-	pipex->infile = open(pipex->argv[1], O_RDONLY);
-	if (pipex->infile == -1)
-	{
-		if (access(pipex->argv[1], F_OK) != 0)
-			error_message(pipex->argv[1]);
-		else if (access(pipex->argv[1], R_OK) != 0)
-			error_message(pipex->argv[1]);
-		else
-			ft_putstr_fd(ERR_IN, 2);
-	}
-	pipex->outfile = open(pipex->argv[pipex->size + 2],
-			O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (pipex->outfile == -1)
-	{
-		if (access(pipex->argv[pipex->size + 2], W_OK) != 0)
-			error_message(pipex->argv[pipex->size + 2]);
-		else
-			ft_putstr_fd(ERR_OUT, 2);
-	}
+	// pipex->infile = open(pipex->argv[1], O_RDONLY);
+	// if (pipex->infile == -1)
+	// {
+	// 	if (access(pipex->argv[1], F_OK) != 0)
+	// 		error_message(pipex->argv[1]);
+	// 	else if (access(pipex->argv[1], R_OK) != 0)
+	// 		error_message(pipex->argv[1]);
+	// 	else
+	// 		ft_putstr_fd(ERR_IN, 2);
+	// }
+	// pipex->outfile = open(pipex->argv[pipex->size + 2],
+	// 		O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	// if (pipex->outfile == -1)
+	//{
+	//	if (access(pipex->argv[pipex->size + 2], W_OK) != 0)
+	//		error_message(pipex->argv[pipex->size + 2]);
+	//	else
+	//		ft_putstr_fd(ERR_OUT, 2);
+	//}
 }
 
 //read all the commands, infile, outfile, opens fd's for files
 //return value: if any error false at first error, else true
-bool	parse_input(t_pipex *pipex)
+bool	parse_input(t_shell *pipex)
 {
 	int	i;
 
@@ -107,8 +107,8 @@ bool	parse_input(t_pipex *pipex)
 	while (i < pipex->size)
 	{
 		pipex->cmds[i].found = false;
-		pipex->cmds[i].args = \
-			ft_split(pipex->argv[i + 2 + pipex->heredoc], ' ');
+		//pipex->cmds[i].args = \
+			//ft_split(pipex->argv[i + 2 + pipex->heredoc], ' ');
 		if (!pipex->cmds[i].args)
 			return (false);
 		if (!(i == 0 && pipex->infile == -1)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
+#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 12:03:11 by jkoupy            #+#    #+#              #
-#    Updated: 2024/03/06 15:13:57 by jseidere         ###   ########.fr        #
+#    Updated: 2024/03/11 13:19:07 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,12 @@ BUILTINS = builtins/builtins.c
 
 # to be split into different folders
 # used to be my pipex
-# EXECUTOR =	source/executor/child.c \
-#			source/executor/error.c \
-#			source/executor/free.c \
-#			source/executor/here_doc.c \
-#			source/executor/parse.c \
-#			source/executor/pipex.c
+EXECUTOR =	executor/pipex.c \
+			executor/error.c \
+			executor/free.c \
+			executor/here_doc.c \
+			executor/parse.c \
+			executor/child.c
 
 EXPANDER = expander/expander.c
 
@@ -84,7 +84,7 @@ object/%.o: source/%.c
 
 $(NAME):	$(LIBFT) $(OBJS) 
 	@$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
-	@printf "\r$(GREEN)🚀 ./$(NAME)   created			\n$(END)"
+	@printf "\r$(GREEN)🚀 ./$(NAME)   created              \n$(END)"
 
 #test: $(LIBFT) $(GETNEXTLINE) $(TEST_OBJS)
 #	@$(CC) $(TEST_OBJS) $(CFLAGS) $(LIBFT) $(GETNEXTLINE) -o test $(RFLAGS)

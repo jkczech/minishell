@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/07 10:46:11 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/12 10:42:03 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ typedef struct s_simple_cmd
 	char		*path;
 	char		**args;
 	s_simple_cmd *next;
-}	t_s_cmd;
+}	t_cmd;
 */
 
 //help pipex init
 //allocate memory for simple commands table
 
-bool	init_s_cmds(t_shell *shell)
+bool	init_cmds(t_shell *shell)
 {
-	t_s_cmd	*temp;
+	t_cmd	*temp;
 	t_token	*token;
 
 	if (!shell->tokens)
@@ -49,13 +49,13 @@ bool	init_s_cmds(t_shell *shell)
 	return (true);
 }
 
-t_s_cmd	*cmd_new(t_token *token)
+t_cmd	*cmd_new(t_token *token)
 {
-	t_s_cmd	*cmd;
+	t_cmd	*cmd;
 
 	if (!token)
 		return (NULL);
-	cmd = (t_s_cmd *)malloc(sizeof(t_s_cmd));
+	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
 	cmd->args = ft_split(token->content, ' ');
@@ -75,9 +75,9 @@ t_s_cmd	*cmd_new(t_token *token)
 	return (cmd);
 }
 
-void	cmd_add(t_s_cmd **cmd_table, t_s_cmd *cmd)
+void	cmd_add(t_cmd **cmd_table, t_cmd *cmd)
 {
-	t_s_cmd	*temp;
+	t_cmd	*temp;
 
 	if (!cmd_table || !cmd)
 		return ;
@@ -91,7 +91,7 @@ void	cmd_add(t_s_cmd **cmd_table, t_s_cmd *cmd)
 		temp->next = cmd;
 }
 
-t_s_cmd	*cmd_last(t_s_cmd *cmd)
+t_cmd	*cmd_last(t_cmd *cmd)
 {
 	if (!cmd)
 		return (NULL);

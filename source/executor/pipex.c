@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/05 14:56:49 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/12 10:47:22 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //create all pipes needed
 //pipex.pipes is not NULL terminated
-bool	create_pipes(t_pipex *pipex)
+bool	create_pipes(t_shell *pipex)
 {
 	int	i;
 
@@ -35,8 +35,14 @@ bool	create_pipes(t_pipex *pipex)
 }
 
 //waiting for all the child processes to finish
-//setting exitcode depending on last process
-bool	wait_pids(t_pipex *pipex)
+//todo - exitcode handling
+/* if (pipex->outfile == -1)
+		pipex->exitcode = 1;
+	else if (!pipex->cmds[i - 1].found)
+		pipex->exitcode = 127;
+	else
+		pipex->exitcode = 0; */
+bool	wait_pids(t_shell *pipex)
 {
 	int	i;
 
@@ -46,17 +52,11 @@ bool	wait_pids(t_pipex *pipex)
 		waitpid(pipex->child_pids[i], NULL, 0);
 		i++;
 	}
-	if (pipex->outfile == -1)
-		pipex->exitcode = 1;
-	else if (!pipex->cmds[i - 1].found)
-		pipex->exitcode = 127;
-	else
-		pipex->exitcode = 0;
 	return (true);
 }
 
 //allocate array of ints for the pids of child processes
-bool	allocate_pids(t_pipex *pipex)
+bool	allocate_pids(t_shell *pipex)
 {
 	int	i;
 
@@ -73,26 +73,26 @@ bool	allocate_pids(t_pipex *pipex)
 }
 
 //fork, pipe, execute in child processes
-bool	execute(t_pipex *pipex)
+bool	execute(t_shell *shell)
 {
 	int	pid;
 	int	i;
 
-	if (!allocate_pids(pipex))
+	if (!allocate_pids(shell))
 		return (false);
 	i = 0;
-	while (i < pipex->size)
+	while (i < shell->size)
 	{
 		pid = fork();
 		if (pid == 0)
-			children(*pipex, i);
+			children(*shell, i);
 		else if (pid > 0)
-			pipex->child_pids[i] = pid;
+			shell->child_pids[i] = pid;
 		else
-			return (close_all_fds(pipex), false);
+			return (close_all_fds(shell), false);
 		i++;
 	}
-	close_all_fds(pipex);
-	wait_pids(pipex);
+	close_all_fds(shell);
+	wait_pids(shell);
 	return (true);
 }
