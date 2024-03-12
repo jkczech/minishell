@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 00:51:53 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/05 14:56:54 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/11 13:21:54 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //use get_next_line to read here_doc from command line
 //ending with eof will result in same message as in bash
-void	here_doc(t_pipex *pipex)
+void	here_doc(t_shell *pipex)
 {
 	char	*buf;
 
@@ -27,13 +27,13 @@ void	here_doc(t_pipex *pipex)
 			write(1, "\n", 1);
 			write(2, "pipex: warning - file delimited by end-of-file ", 47);
 			write(2, "(wanted \"", 9);
-			write(2, pipex->argv[2], ft_strlen(pipex->argv[2]));
+		//	write(2, pipex->argv[2], ft_strlen(pipex->argv[2]));
 			write(2, "\")\n", 3);
 			break ;
 		}
-		if (ft_strlen(pipex->argv[2]) == ft_strlen(buf) - 1 && \
-			ft_strncmp(pipex->argv[2], buf, ft_strlen(pipex->argv[2])) == 0)
-			break ;
+		//if (ft_strlen(pipex->argv[2]) == ft_strlen(buf) - 1 && \
+		//	ft_strncmp(pipex->argv[2], buf, ft_strlen(pipex->argv[2])) == 0)
+		//	break ;
 		write(pipex->infile, buf, ft_strlen(buf) - 1);
 		write(pipex->infile, "\n", 1);
 		free(buf);
@@ -42,7 +42,7 @@ void	here_doc(t_pipex *pipex)
 }
 
 //opens infile and outfile like with << and >>
-void	open_here_doc(t_pipex *pipex)
+void	open_here_doc(t_shell *pipex)
 {
 	pipex->infile = open(".here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0000644);
 	if (pipex->infile == -1)
@@ -55,13 +55,13 @@ void	open_here_doc(t_pipex *pipex)
 		unlink(".here_doc");
 		error_message(NULL);
 	}
-	pipex->outfile = open(pipex->argv[pipex->size + 3],
-			O_WRONLY | O_CREAT | O_APPEND, 0777);
-	if (pipex->outfile == -1)
-	{
-		if (access(pipex->argv[pipex->size + 2], W_OK) != 0)
-			error_message(pipex->argv[pipex->size + 2]);
-		else
-			ft_putstr_fd("Error: outfile undefined\n", 2);
-	}
+	//pipex->outfile = open(pipex->argv[pipex->size + 3],
+	//		O_WRONLY | O_CREAT | O_APPEND, 0777);
+	//if (pipex->outfile == -1)
+	//{
+	//	if (access(pipex->argv[pipex->size + 2], W_OK) != 0)
+	//		error_message(pipex->argv[pipex->size + 2]);
+	//	else
+	//		ft_putstr_fd("Error: outfile undefined\n", 2);
+	//}
 }

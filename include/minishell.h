@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 10:15:43 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:02:59 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,13 @@
 
 typedef struct s_cmd
 {
-	bool	found;
-	char	*path;
-	char	**args;
-}	t_cmd;
-
-typedef struct s_simple_cmd
-{
+	bool				found; //
 	char				*path;
 	char				**args;
 	int					input;
 	int					output;
-	struct s_simple_cmd	*next;
-}	t_s_cmd;
+	struct s_cmd		*next;
+}	t_cmd;
 
 typedef struct s_token
 {
@@ -95,11 +89,11 @@ typedef struct s_shell
 	char			*norm_input;
 	t_token			**tokens;
 	t_list			*history;
-	//int				size;
-	//int				infile;
-	//int				outfile;
+	int				size;
+	int				infile; //
+	int				outfile; //
 	t_cmd			*cmds;
-	t_s_cmd			**s_cmds;
+	t_cmd			**s_cmds;
 	int				**pipes;
 	char			**paths;
 	int				*child_pids;
@@ -173,8 +167,8 @@ bool	execute(t_shell *shell);
 //////////////////////////////////INIT//////////////////////////////////////////
 
 //init.c
-bool	pipex_init(t_shell *shell, char **envp);
-bool	init_cmds(t_shell *shell);
+
+//so far m-pty
 
 ////////////////////////////////LEXER///////////////////////////////////////////
 
@@ -200,10 +194,15 @@ void	minishell(t_shell *shell);
 ////////////////////////////////PARSER//////////////////////////////////////////
 
 //cmd_utils.c
-bool	init_s_cmds(t_shell *shell);
-t_s_cmd	*cmd_new(t_token *token);
-void	cmd_add(t_s_cmd **cmd_table, t_s_cmd *cmd);
-t_s_cmd	*cmd_last(t_s_cmd *cmd);
+bool	init_cmds(t_shell *shell);
+t_cmd	*cmd_new(t_token *token);
+void	cmd_add(t_cmd **cmd_table, t_cmd *cmd);
+t_cmd	*cmd_last(t_cmd *cmd);
+
+//parse.c
+void	parse(t_shell *shell);
+void	get_tokens(t_shell *shell);
+void	get_size(t_shell *shell);
 
 //tokenizing_utils.c
 int		is_delimiter(char c, const char *delim);

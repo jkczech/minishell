@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/03/07 11:45:08 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/12 12:56:12 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,10 @@ char	*skip_quotes(char *str)
 	return (result);
 }
 
-//checks the input and prints the tokens if
+//checks the input and saves it in a list of tokens
+//if the input is invalid, returns false
 bool	check_input(t_shell *shell)
 {
-	t_token	*head;
-
 	if (shell->input[0] == '"')
 	{
 		shell->input = skip_quotes(shell->input);
@@ -101,9 +100,5 @@ bool	check_input(t_shell *shell)
 	norm_input(shell, token_count(shell) - 1 + count_chars(shell));
 	if (!shell->norm_input)
 		return (false);
-	head = assign_token_types(shell);
-	shell->tokens = &head;
-	if (shell->tokens)
-		print_tokens(shell->tokens);
 	return (true);
 }

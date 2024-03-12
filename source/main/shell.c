@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/12 10:15:34 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:02:43 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,9 @@ void	envp_into_list(char **envp, t_list *env_list)
 	}
 }
 
-//void minishell(t_shell shell)
+//main shell loop, that reads input, checks it and executes it
 void	minishell(t_shell *shell)
 {
-	shell->env_list = NULL;
-	envp_into_list(shell->envp, shell->env_list);
-	while(shell->env_list)
-	{
-		printf("%s\n", shell->env_list->content);
-		shell->env_list = shell->env_list->next;
-	}
 	while (true)
 	{
 		shell->input = readline(PROMPT);
@@ -46,8 +39,15 @@ void	minishell(t_shell *shell)
 				easy_exit(shell);
 			check_input(shell);
 			if (strcmp(shell->input, "history -c") == 0)
+			{
 				rl_clear_history();
+				free(shell->input);
+				continue ;
+			}
 			add_history(shell->input);
+			check_input(shell);
+			parse(shell);
+			//execute(shell);
 			free(shell->input);
 		}
 		else

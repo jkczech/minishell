@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/05 14:57:22 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/11 13:24:24 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //redirect input to stdin and output to stdout
 //close input and output fds of all other unused pipes in current process
-void	redirect(t_pipex pipex, int input, int output)
+void	redirect(t_shell pipex, int input, int output)
 {
 	if (dup2(input, STDIN_FILENO) == -1)
 	{
@@ -33,7 +33,7 @@ void	redirect(t_pipex pipex, int input, int output)
 }
 
 //handling different kinds of child processes, first, middle, last
-void	children(t_pipex pipex, int i)
+void	children(t_shell pipex, int i)
 {
 	if (!pipex.cmds[i].found)
 	{
@@ -50,7 +50,7 @@ void	children(t_pipex pipex, int i)
 }
 
 //handle child processes, execute commands, else error message
-void	child(t_pipex pipex, int i, int input, int output)
+void	child(t_shell pipex, int i, int input, int output)
 {
 	redirect(pipex, input, output);
 	close_all_fds(&pipex);

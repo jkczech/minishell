@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:55:44 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/05 14:56:56 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/11 13:19:50 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //close all the pipes created, free pipes, and free the pipe array
 //also close infile and outfile
-bool	close_all_fds(t_pipex *pipex)
+bool	close_all_fds(t_shell *pipex)
 {
 	int	i;
 
@@ -39,7 +39,7 @@ bool	close_all_fds(t_pipex *pipex)
 
 //free allocated pipex elements, all cmds, paths
 //close infile and outfile, unlink .here_doc
-bool	free_pipex(t_pipex *pipex)
+bool	free_pipex(t_shell *pipex)
 {
 	int	i;
 
