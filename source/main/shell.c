@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/13 15:14:28 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/13 15:30:30 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int	minishell(t_shell *shell)
 			break ;
 		if (shell->input)
 		{
-			if (strcmp(shell->input, "exit") == 0)
-				easy_exit(shell);
+			exit_command(shell);
 			if (strcmp(shell->input, "history -c") == 0)
 			{
 				rl_clear_history();

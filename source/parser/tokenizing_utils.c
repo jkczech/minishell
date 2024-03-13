@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 16:00:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/04 11:24:07 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:32:18 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,21 @@ void	skip_spaces(char *str, int *index)
 {
 	while (str[*index] && str[*index] == ' ')
 		(*index)++;
+}
+
+//returns the type of a token
+int	what_token(char *str, int index)
+{
+	if (str[index] == '<' && str[index + 1] == '<')
+		return (HEREDOC);
+	else if (str[index] == '>' && str[index + 1] == '>')
+		return (APPEND);
+	else if (str[index] == '<')
+		return (INPUT);
+	else if (str[index] == '>')
+		return (OUTPUT);
+	else if (str[index] == '|')
+		return (PIPE);
+	else
+		return (WORD);
 }

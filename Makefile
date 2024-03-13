@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/13 14:24:15 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/03/13 15:32:52 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ LIBFT = 	    library/libft/libft.a
 GETNEXTLINE = 	library/get_next_line/getnextline.a
 
 BUILTINS =	builtins/builtins.c \
-			builtins/exit.c
+			builtins/exit.c \
+			builtins/exit_util.c
 
 # to be split into different folders
 # used to be my pipex

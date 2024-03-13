@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/13 15:07:57 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/13 15:32:03 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,13 @@ void	free_tokens(t_token **tokens);
 //exit.c
 void	exit_shell_status(t_shell *shell, int status);
 void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status);
+void	easy_exit(t_shell *shell);
+void	exit_command(t_shell *shell);
+
+//exit_util.c
 bool	check_amount_of_args(char **args);
 bool	is_numeric(char *str);
-void	easy_exit(t_shell *shell);
+char	**convert_input(t_shell *shell);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 
@@ -214,6 +218,7 @@ void	get_commands(t_shell *shell);
 int		is_delimiter(char c, const char *delim);
 int		token_len(char *str, int index, const char *delim);
 void	skip_spaces(char *str, int *index);
+int		what_token(char *str, int index);
 
 //tokenizing.c
 void	process_token(char *str, int *index, int token_type, t_token **head);
