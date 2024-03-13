@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 13:02:59 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/13 10:19:39 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,7 @@ void	get_size(t_shell *shell);
 int		is_delimiter(char c, const char *delim);
 int		token_len(char *str, int index, const char *delim);
 void	skip_spaces(char *str, int *index);
+int		what_token(char *str, int index);
 
 //tokenizing.c
 void	process_token(char *str, int *index, int token_type, t_token **head);
