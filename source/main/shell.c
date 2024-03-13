@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/12 14:59:55 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/13 15:14:28 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	envp_into_list(char **envp, t_list *env_list)
 }
 
 //main shell loop, that reads input, checks it and executes it
-void	minishell(t_shell *shell)
+//TODO: free input into free_shell
+int	minishell(t_shell *shell)
 {
 	while (true)
 	{
@@ -46,10 +47,18 @@ void	minishell(t_shell *shell)
 			add_history(shell->input);
 			check_input(shell);
 			parse(shell);
-			//execute(shell);
+			// if (!create_pipes(shell))
+			// 	return (free_pipex(shell), error_message(NULL), EXIT_FAILURE);
+			// printf("got here\n");
+			// if (!execute(shell))
+			// 	return (free_pipex(shell), error_message(NULL), shell->exitcode);
+			// printf("got here2\n");
+			// free_pipex(shell);
 			free(shell->input);
 		}
 		else
 			break ;
 	}
+	//printf("got here3\n");
+	return (EXIT_SUCCESS);
 }

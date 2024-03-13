@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/13 14:41:47 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/13 15:07:57 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void	norm_input(t_shell *shell, int len);
 
 //shell.c
 void	envp_into_list(char **envp, t_list *env_list);
-void	minishell(t_shell *shell);
+int		minishell(t_shell *shell);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 

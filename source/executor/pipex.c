@@ -6,28 +6,28 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 10:47:22 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/13 15:06:24 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //create all pipes needed
-//pipex.pipes is not NULL terminated
-bool	create_pipes(t_shell *pipex)
+//shell.pipes is not NULL terminated
+bool	create_pipes(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
-	pipex->pipes = malloc((pipex->size) * sizeof(int *));
-	if (!pipex->pipes)
+	shell->pipes = malloc((shell->size) * sizeof(int *));
+	if (!shell->pipes)
 		return (false);
-	while (i < pipex->size)
+	while (i < shell->size)
 	{
-		pipex->pipes[i] = malloc(2 * sizeof(int));
-		if (!pipex->pipes[i])
+		shell->pipes[i] = malloc(2 * sizeof(int));
+		if (!shell->pipes[i])
 			return (false);
-		if (pipe(pipex->pipes[i]) == -1)
+		if (pipe(shell->pipes[i]) == -1)
 			return (false);
 		i++;
 	}
@@ -36,37 +36,37 @@ bool	create_pipes(t_shell *pipex)
 
 //waiting for all the child processes to finish
 //todo - exitcode handling
-/* if (pipex->outfile == -1)
-		pipex->exitcode = 1;
-	else if (!pipex->cmds[i - 1].found)
-		pipex->exitcode = 127;
+/* if (shell->outfile == -1)
+		shell->exitcode = 1;
+	else if (!shell->cmds[i - 1].found)
+		shell->exitcode = 127;
 	else
-		pipex->exitcode = 0; */
-bool	wait_pids(t_shell *pipex)
+		shell->exitcode = 0; */
+bool	wait_pids(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
-	while (i < pipex->size && pipex->child_pids[i] > 0)
+	while (i < shell->size && shell->child_pids[i] > 0)
 	{
-		waitpid(pipex->child_pids[i], NULL, 0);
+		waitpid(shell->child_pids[i], NULL, 0);
 		i++;
 	}
 	return (true);
 }
 
 //allocate array of ints for the pids of child processes
-bool	allocate_pids(t_shell *pipex)
+bool	allocate_pids(t_shell *shell)
 {
 	int	i;
 
-	pipex->child_pids = malloc(pipex->size * sizeof(int));
-	if (!pipex->child_pids)
+	shell->child_pids = malloc(shell->size * sizeof(int));
+	if (!shell->child_pids)
 		return (false);
 	i = 0;
-	while (i < pipex->size)
+	while (i < shell->size)
 	{
-		pipex->child_pids[i] = -1;
+		shell->child_pids[i] = -1;
 		i++;
 	}
 	return (true);
