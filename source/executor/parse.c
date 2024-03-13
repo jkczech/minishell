@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:23:11 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 13:37:35 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/13 12:34:52 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ bool	parse_input(t_shell *pipex)
 	find_paths(pipex);
 	if (pipex->heredoc)
 		open_here_doc(pipex);
-	else
-		open_files(pipex);
+	/* else
+		open_files(pipex); */
 	i = 0;
 	while (i < pipex->size)
 	{
