@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:23:11 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/13 14:10:56 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/13 14:52:19 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,53 +68,53 @@ void	find_paths(t_shell *pipex)
 		pipex->paths = ft_split(pipex->envp[i] + 5, ':');
 }
 
-// //open infile and outfile, show errors respectively
-// void	open_files(t_shell *pipex)
-// {
-// 	pipex->infile = open(pipex->argv[1], O_RDONLY);
-// 	if (pipex->infile == -1)
-// 	{
-// 		if (access(pipex->argv[1], F_OK) != 0)
-// 			error_message(pipex->argv[1]);
-// 		else if (access(pipex->argv[1], R_OK) != 0)
-// 			error_message(pipex->argv[1]);
-// 		else
-// 			ft_putstr_fd(ERR_IN, 2);
-// 	}
-// 	pipex->outfile = open(pipex->argv[pipex->size + 2],
-// 			O_WRONLY | O_CREAT | O_TRUNC, 0777);
-// 	if (pipex->outfile == -1)
-// 	{
-// 		if (access(pipex->argv[pipex->size + 2], W_OK) != 0)
-// 			error_message(pipex->argv[pipex->size + 2]);
-// 		else
-// 			ft_putstr_fd(ERR_OUT, 2);
-// 	}
-// }
+/* //open infile and outfile, show errors respectively
+void	open_files(t_shell *pipex)
+{
+	pipex->infile = open(pipex->argv[1], O_RDONLY);
+	if (pipex->infile == -1)
+	{
+		if (access(pipex->argv[1], F_OK) != 0)
+			error_message(pipex->argv[1]);
+		else if (access(pipex->argv[1], R_OK) != 0)
+			error_message(pipex->argv[1]);
+		else
+			ft_putstr_fd(ERR_IN, 2);
+	}
+	pipex->outfile = open(pipex->argv[pipex->size + 2],
+			O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (pipex->outfile == -1)
+	{
+		if (access(pipex->argv[pipex->size + 2], W_OK) != 0)
+			error_message(pipex->argv[pipex->size + 2]);
+		else
+			ft_putstr_fd(ERR_OUT, 2);
+	}
+}
 
-//read all the commands, infile, outfile, opens fd's for files
-//return value: if any error false at first error, else true
-// bool	parse_input(t_shell *pipex)
-// {
-// 	int	i;
+read all the commands, infile, outfile, opens fd's for files
+return value: if any error false at first error, else true
+bool	parse_input(t_shell *pipex)
+{
+	int	i;
 
-// 	find_paths(pipex);
-// 	// if (pipex->heredoc)
-// 	// 	open_here_doc(pipex);
-// 	// else
-// 	// 	open_files(pipex);
-// 	i = 0;
-// 	while (i < pipex->size)
-// 	{
-// 		pipex->cmds[i].found = false;
-// 		//pipex->cmds[i].args = \
-// 			//ft_split(pipex->argv[i + 2 + pipex->heredoc], ' ');
-// 		if (!pipex->cmds[i].args)
-// 			return (false);
-// 		if (!(i == 0 && pipex->infile == -1)
-// 			&& !(i == pipex->size - 1 && pipex->outfile == -1))
-// 			find_command(pipex, i);
-// 		i++;
-// 	}
-// 	return (true);
-// }
+	find_paths(pipex);
+	// if (pipex->heredoc)
+	// 	open_here_doc(pipex);
+	// else
+	// 	open_files(pipex);
+	i = 0;
+	while (i < pipex->size)
+	{
+		pipex->cmds[i].found = false;
+		//pipex->cmds[i].args = \
+			//ft_split(pipex->argv[i + 2 + pipex->heredoc], ' ');
+		if (!pipex->cmds[i].args)
+			return (false);
+		if (!(i == 0 && pipex->infile == -1)
+			&& !(i == pipex->size - 1 && pipex->outfile == -1))
+			find_command(pipex, i);
+		i++;
+	}
+	return (true);
+} */

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 13:42:13 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/13 14:55:01 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,17 +123,17 @@ void	free_shell(t_shell *shell)
 void	free_tokens(t_token **tokens)
 {
 	t_token	*tmp;
+	t_token	*next;
 
 	tmp = *tokens;
 	while (tmp)
 	{
 		if (tmp->content)
 			free(tmp->content);
+		next = tmp->next;
 		free(tmp);
-		tmp = tmp->next;
+		tmp = next;
 	}
-	free(*tokens);
-	*tokens = NULL;
 }
 
 
