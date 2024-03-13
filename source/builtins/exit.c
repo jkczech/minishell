@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/12 10:16:08 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/13 10:07:30 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void   exit_command(t_shell *shell, char **args)
     else if (!check_amount_of_args(args))
     {
         if(!is_numeric(args[1]))
-            exit_error_msg(shell, "numeric argument required\n", args[1], 2);
+            exit_error_msg(shell, "numeric argument required\n", args[0], 2);
         else if (is_numeric(args[1]))
             exit_error_msg(shell, "too many arguments\n", NULL, 1);
     }
