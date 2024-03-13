@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dlist.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:54:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/06 17:16:01 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:06:32 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	add_token(t_token **head, t_token *new_token)
 		new_token->prev = current;
 	}
 }
-/*
+
 void	remove_token(t_token **head, t_token *token)
 {
 	if (*head == token)
@@ -77,4 +77,3 @@ void	remove_token(t_token **head, t_token *token)
 		token->prev->next = token->next;
 	destroy_token(token);
 }
-*/

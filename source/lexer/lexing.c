@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 13:40:29 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/13 12:14:18 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	token_count(t_shell *shell)
 			i++;
 		token_count_util(shell->input, &i, &count);
 	}
-	printf("Token_count: %d\n", count);
+	//printf("Token_count: %d\n", count);
 	return (count);
 }
 
@@ -77,7 +77,7 @@ int	count_chars(t_shell *shell)
 		}
 		i++;
 	}
-	printf("Char_count: %d\n", count);
+	//printf("Char_count: %d\n", count);
 	return (count);
 }
 
@@ -122,5 +122,5 @@ void	norm_input(t_shell *shell, int len)
 	while (i < len/* && j < len */)
 		process_character(shell->input, shell->norm_input, &i, &j);
 	shell->norm_input[i] = '\0';
-	printf("Normed input: %s\n", shell->norm_input);
+	//printf("Normed input: %s\n", shell->norm_input);
 }

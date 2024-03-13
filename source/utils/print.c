@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/07 09:29:57 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:17:49 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,36 @@ void	print_envp(char **envp, char *name)
 	{
 		if (ft_strncmp(envp[i], name, ft_strlen(name)) == 0)
 			printf("%s\n", envp[i]);
+		i++;
+	}
+}
+
+//print cmd list
+//index, content, input, output
+void	print_cmds(t_shell *shell)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	printf("\033[1mCommands:\n\033[0m");
+	while (i < shell->size)
+	{
+		printf("index: %d\nargs: ", i);
+		j = 0;
+		if (!shell->cmds[i].args)
+		{
+			printf("null %c\n", i++);
+			continue ;
+		}
+		while (shell->cmds[i].args && shell->cmds[i].args[j])
+			printf("\033[0;32m%s\033[0m ", shell->cmds[i].args[j++]);
+		if (!shell->cmds[i].args[0])
+			printf("(null)");
+		printf("\n");
+		printf("input: %d\n", shell->cmds[i].input);
+		printf("output: %d\n", shell->cmds[i].output);
+		printf("\n");
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 13:02:59 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/13 14:41:47 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,15 +194,21 @@ void	minishell(t_shell *shell);
 ////////////////////////////////PARSER//////////////////////////////////////////
 
 //cmd_utils.c
-bool	init_cmds(t_shell *shell);
-t_cmd	*cmd_new(t_token *token);
-void	cmd_add(t_cmd **cmd_table, t_cmd *cmd);
-t_cmd	*cmd_last(t_cmd *cmd);
+void	init_cmds(t_shell *shell);
+void	add_args(t_cmd *cmd, char *arg);
+int		count_args(char **args, char **new_args);
+
+//open_utils.c
+int		open_input(char *file);
+int		open_output(char *file);
+int		open_heredoc(char *file);
+int		open_append(char *file);
 
 //parse.c
 void	parse(t_shell *shell);
 void	get_tokens(t_shell *shell);
 void	get_size(t_shell *shell);
+void	get_commands(t_shell *shell);
 
 //tokenizing_utils.c
 int		is_delimiter(char c, const char *delim);
@@ -222,10 +228,12 @@ t_token	*create_token(char *content, int token);
 void	destroy_token(t_token *token);
 void	free_token_list(t_token **head);
 void	add_token(t_token **head, t_token *new_token);
+void	remove_token(t_token **head, t_token *token);
 
 //print.c
 void	print_tokens(t_token **tokens);
 void	print_list(t_token *head);
 void	print_envp(char **envp, char *name);
+void	print_cmds(t_shell *shell);
 
 #endif

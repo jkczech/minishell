@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 15:27:22 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/13 14:41:04 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ void	parse(t_shell *shell)
 {
 	get_tokens(shell);
 	get_size(shell);
-    get_commands(shell);
+	get_commands(shell);
 }
 
 //assigns token types to the tokens
+//TODO: malloc into init_shell
 void	get_tokens(t_shell *shell)
 {
-	t_token	*head;
-
-	head = assign_token_types(shell);
-	shell->tokens = &head;
+	shell->tokens = malloc(sizeof(t_token *));
+	*shell->tokens = assign_token_types(shell);
 	if (shell->tokens)
 		print_tokens(shell->tokens);
 }
 
+//counts the number of commands needed
 void	get_size(t_shell *shell)
 {
 	t_token	*token;
@@ -46,7 +46,9 @@ void	get_size(t_shell *shell)
 		token = token->next;
 	}
 	shell->size = size + 1;
+	printf("size: %d\n", shell->size);
 }
+
 //creates command table
 void	get_commands(t_shell *shell)
 {
@@ -54,34 +56,46 @@ void	get_commands(t_shell *shell)
 	int		i;
 
 	token = *(shell->tokens);
-	if (!token)
-		return ;
-	shell->cmds = malloc(sizeof(t_cmd) * shell->size);
+	init_cmds(shell);
 	i = 0;
-	while (i < shell->size)
-	{
-		shell->cmds[i].args = NULL;
-		shell->cmds[i].path = NULL;
-		shell->cmds[i].found = false;
-		shell->cmds[i].input = -1;
-		shell->cmds[i].output = -1;
-		i++;
-	}
-	i = 0;
-	while (token)
+	while (token && i < shell->size)
 	{
 		if (token->token == PIPE)
-			i++;
+			shell->cmds[++i].args = ft_split(token->content, ' ');
 		else if (token->token == WORD)
-			shell->cmds[i].args = token->content;
+			add_args(&shell->cmds[i], token->content);
 		else if (token->token == INPUT)
-			shell->cmds[i].input = open(token->content, O_RDONLY);
+			shell->cmds[i].input = open_input(token->content);
 		else if (token->token == OUTPUT)
-			shell->cmds[i].output = open(token->content, O_WRONLY | O_CREAT, 0644);
+			shell->cmds[i].output = open_output(token->content);
 		else if (token->token == HEREDOC)
-			shell->cmds[i].input = open(token->content, O_RDONLY);
+			shell->cmds[i].input = open_heredoc(token->content);
 		else if (token->token == APPEND)
-			shell->cmds[i].output = open(token->content, O_WRONLY | O_APPEND | O_CREAT, 0644);
+			shell->cmds[i].output = open_append(token->content);
 		token = token->next;
 	}
+	print_cmds(shell);
 }
+
+/* void	add_args(char **args, char *arg)
+{
+	int		i;
+	char	**tmp;
+
+	i = 0;
+	while (args[i])
+		i++;
+	tmp = malloc(sizeof(char *) * (i + 2));
+	if (!tmp)
+		return ;
+	i = 0;
+	while (args[i])
+	{
+		tmp[i] = args[i];
+		i++;
+	}
+	tmp[i] = arg;
+	tmp[i + 1] = NULL;
+	free(args);
+	args = tmp;
+} */

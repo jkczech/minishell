@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/12 13:00:34 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/03/13 14:24:15 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ MAIN = 	main/main.c \
 #      main/testing.c			
 
 PARSER = parser/cmd_utils.c \
+		 parser/open_utils.c \
 		 parser/parse.c \
  		 parser/tokenizing_utils.c \
 		 parser/tokenizing.c
@@ -87,7 +88,7 @@ object/%.o: source/%.c
 
 $(NAME):	$(LIBFT) $(OBJS) 
 	@$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
-	@printf "\r$(GREEN)🚀 ./$(NAME)   created              \n$(END)"
+	@printf "\r$(GREEN)🚀 ./$(NAME)   created                                \n$(END)"
 
 #test: $(LIBFT) $(GETNEXTLINE) $(TEST_OBJS)
 #	@$(CC) $(TEST_OBJS) $(CFLAGS) $(LIBFT) $(GETNEXTLINE) -o test $(RFLAGS)
