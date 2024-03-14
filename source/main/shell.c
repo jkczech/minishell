@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/13 15:30:30 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/14 10:36:47 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	minishell(t_shell *shell)
 			break ;
 		if (shell->input)
 		{
-			exit_command(shell);
 			if (strcmp(shell->input, "history -c") == 0)
 			{
 				rl_clear_history();
@@ -46,6 +45,7 @@ int	minishell(t_shell *shell)
 			add_history(shell->input);
 			check_input(shell);
 			parse(shell);
+			exit_command(shell);
 			// if (!create_pipes(shell))
 			// 	return (free_pipex(shell), error_message(NULL), EXIT_FAILURE);
 			// printf("got here\n");

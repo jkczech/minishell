@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/13 15:32:03 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/14 10:39:33 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,12 @@ typedef struct s_shell
 bool	init_shell(t_shell *shell, char **envp);
 bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
+
+//builtins_utils.c
+void	free_double_pointer(char **ptr);
 void	free_shell(t_shell *shell);
 void	free_tokens(t_token **tokens);
+void	ft_free_list(t_list *list);
 
 //exit.c
 void	exit_shell_status(t_shell *shell, int status);

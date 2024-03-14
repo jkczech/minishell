@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/13 14:55:01 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/14 10:39:14 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,57 +83,3 @@ char	*get_path(t_shell *shell)
 	}
 	return (NULL);
 }
-
-void	ft_free_list(t_list *list)
-{
-	t_list	*tmp;
-
-	while (list)
-	{
-		tmp = list->next;
-		free(list->content);
-		free(list);
-		list = tmp;
-	}
-}
-
-void	free_shell(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	if (shell->envp && shell->envp[i])
-		ft_free_list(shell->env_list);
-	if (shell->norm_input)
-		free(shell->norm_input);
-	if (shell->tokens)
-		free_tokens(shell->tokens);
-	if (shell->paths)
-	{
-		while (shell->paths[i])
-		{
-			free(shell->paths[i]);
-			i++;
-		}
-		free(shell->paths);
-	}
-	free(shell);
-}
-
-void	free_tokens(t_token **tokens)
-{
-	t_token	*tmp;
-	t_token	*next;
-
-	tmp = *tokens;
-	while (tmp)
-	{
-		if (tmp->content)
-			free(tmp->content);
-		next = tmp->next;
-		free(tmp);
-		tmp = next;
-	}
-}
-
-
