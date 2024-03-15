@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/15 11:39:54 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:45:10 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,17 @@ int	minishell(t_shell *shell)
 			check_input(shell);
 			parse(shell);
 			exit_command(shell);
-			// if (!create_pipes(shell))
-			// 	return (free_pipex(shell), error_message(NULL), EXIT_FAILURE);
-			// printf("got here\n");
-			// if (!execute(shell))
-			// 	return (free_pipex(shell), error_message(NULL), shell->exitcode);
-			// printf("got here2\n");
-			// free_pipex(shell);
 			free(shell->input);
 		}
 		else
 			break ;
 	}
-	//printf("got here3\n");
 	return (EXIT_SUCCESS);
 }
+// if (!create_pipes(shell))
+// 	return (free_pipex(shell), error_message(NULL), EXIT_FAILURE);
+// printf("got here\n");
+// if (!execute(shell))
+// 	return (free_pipex(shell), error_message(NULL), shell->exitcode);
+// printf("got here2\n");
+// free_pipex(shell);

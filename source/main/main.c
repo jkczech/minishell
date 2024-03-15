@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/15 11:40:11 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:44:46 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	shell->envp = envp;
 	shell->env_list = NULL;
+	minishell(shell);
+}
+
 //	envp_into_list(shell->envp, shell->env_list);
 //	while (shell->env_list)
 //	{
 //		printf("%s\n", shell->env_list->content);
 //		shell->env_list = shell->env_list->next;
 //	}
-	minishell(shell);
-}
 
 /* int	main(int argc, char **argv)
 {
