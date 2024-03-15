@@ -6,24 +6,24 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/15 11:38:17 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:39:54 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	envp_into_list(char **envp, t_list *env_list)
-{
-	int	i;
+// void	envp_into_list(char **envp, t_list *env_list)
+// {
+// 	int	i;
 
-	i = 0;
-	env_list = NULL;
-	while (envp[i])
-	{
-		ft_lstadd_back(&env_list, ft_lstnew(envp[i]));
-		i++;
-	}
-}
+// 	i = 0;
+// 	env_list = NULL;
+// 	while (envp[i])
+// 	{
+// 		ft_lstadd_back(&env_list, ft_lstnew(envp[i]));
+// 		i++;
+// 	}
+// }
 
 //main shell loop, that reads input, checks it and executes it
 //TODO: free input into free_shell
