@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/13 14:55:01 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/15 10:51:35 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ bool	init_shell(t_shell *shell, char **envp)
 	shell->norm_input = NULL;
 	shell->tokens = NULL;
 	shell->history = NULL;
-	if (!copy_envp(shell, envp))
-		return (false);
+	shell->envp = envp;
+	//if (!copy_envp(shell, envp))
+	//	return (false);
 	init_path(shell);
 	return (true);
 }
 
+/* 
 bool	copy_envp(t_shell *shell, char **envp)
 {
 	int	i;
@@ -63,6 +65,7 @@ bool	copy_envp(t_shell *shell, char **envp)
 	shell->envp[i] = NULL;
 	return (true);
 }
+ */
 
 char	*get_path(t_shell *shell)
 {
