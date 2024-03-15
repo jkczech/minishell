@@ -6,7 +6,7 @@
 #    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/13 16:43:23 by jseidere         ###   ########.fr        #
+#    Updated: 2024/03/14 10:51:19 by jseidere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ GETNEXTLINE = 	library/get_next_line/getnextline.a
 BUILTINS =	builtins/builtins.c \
 			builtins/builtins_utils.c \
 			builtins/exit.c \
-			builtins/exit_util.c
+			builtins/exit_util.c \
+			builtins/echo.c \
 
 # to be split into different folders
 # used to be my pipex

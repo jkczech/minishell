@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/14 10:39:33 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/14 10:49:03 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_shell
 bool	init_shell(t_shell *shell, char **envp);
 bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
+void	handle_commands(t_shell *shell);
 
 //builtins_utils.c
 void	free_double_pointer(char **ptr);
@@ -128,6 +129,10 @@ void	exit_command(t_shell *shell);
 bool	check_amount_of_args(char **args);
 bool	is_numeric(char *str);
 char	**convert_input(t_shell *shell);
+
+//echo.c
+void	echo_command(t_shell *shell);
+void	echo(t_shell *shell);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 
