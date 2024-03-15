@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/15 14:16:39 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/15 15:36:29 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ void	ft_free_list(t_list *list);
 //exit.c
 void	exit_shell_status(t_shell *shell, int status);
 void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status);
-void	easy_exit(t_shell *shell);
-void	exit_command(t_shell *shell);
+void	easy_exit(t_shell *shell, int status);
+void	exit_command(t_shell *shell, t_cmd *cmd);
 
 //exit_util.c
 bool	check_amount_of_args(char **args);
