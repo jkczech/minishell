@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/13 15:21:14 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/15 12:52:56 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	add_args(t_cmd *cmd, char *arg)
 	while (new_args[j])
 		res[i++] = new_args[j++];
 	res[i] = NULL;
+	free(new_args);
 	free(cmd->args);
 	cmd->args = res;
 }
@@ -75,4 +76,21 @@ int	count_args(char **args, char **new_args)
 	while (new_args[j])
 		j++;
 	return (i + j);
+}
+
+//frees the commands table
+void	free_cmds(t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (i < shell->size)
+	{
+		if (shell->cmds[i].args)
+			free_array(shell->cmds[i].args);
+		if (shell->cmds[i].path)
+			free(shell->cmds[i].path);
+		i++;
+	}
+	free(shell->cmds);
 }

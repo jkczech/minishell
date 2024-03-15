@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/13 17:35:10 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:04:01 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status)
 //Exit shell without exit status
 void	easy_exit(t_shell *shell)
 {
+	free_iter(shell);
 	printf("exit\n");
 	if (shell)
 		free_shell(shell);
@@ -39,22 +40,22 @@ void	easy_exit(t_shell *shell)
 //check if exit command is called
 void	exit_command(t_shell *shell)
 {
-	char	**args;
+	// char	**args;
 
-	args = NULL;
-	if (strcmp(shell->input, "exit") == 0)
-		easy_exit (shell);
-	else
-		args = convert_input(shell);
-	if (strcmp(args[0], "exit") == 0)
-	{
-		if (!check_amount_of_args(args))
-			exit_error_msg (shell, "too many arguments", NULL, 1);
-		if (!is_numeric(args[1]))
-			exit_error_msg (shell, "numeric argument required", args[1], 255);
-		free_double_pointer(args);
+	// args = NULL;
+	if (shell->input && ft_strncmp(shell->input, "exit", 4) == 0)
 		easy_exit(shell);
-	}
+	// else
+	// 	args = convert_input(shell);
+	// if (args[0] && strcmp(args[0], "exit") == 0)
+	// {
+	// 	if (!check_amount_of_args(args))
+	// 		exit_error_msg (shell, "too many arguments", NULL, 1);
+	// 	if (!is_numeric(args[1]))
+	// 		exit_error_msg (shell, "numeric argument required", args[1], 255);
+	// 	free_array(args);
+	// 	easy_exit(shell);
+	// }
 }
 
 //Possible cases for exit command

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/14 10:49:03 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/15 14:16:39 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ typedef struct s_token
 	char			*content;
 	int				token;
 	struct s_token	*next;
-	struct s_token	*prev;
 }	t_token;
 
 typedef struct s_shell
@@ -190,6 +189,7 @@ bool	is_sep(char c);
 bool	double_sep(char *str, int i);
 bool	quotes_checker(char *str);
 bool	check_input(t_shell *shell);
+void	del_quotes(char **str);
 
 //lexing.c
 void	token_count_util(char *str, int *i, int *count);
@@ -201,8 +201,9 @@ void	norm_input(t_shell *shell, int len);
 /////////////////////////////////MAIN///////////////////////////////////////////
 
 //shell.c
-void	envp_into_list(char **envp, t_list *env_list);
+//void	envp_into_list(char **envp, t_list *env_list);
 int		minishell(t_shell *shell);
+void	free_iter(t_shell *shell);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 
@@ -210,6 +211,7 @@ int		minishell(t_shell *shell);
 void	init_cmds(t_shell *shell);
 void	add_args(t_cmd *cmd, char *arg);
 int		count_args(char **args, char **new_args);
+void	free_cmds(t_shell *shell);
 
 //open_utils.c
 int		open_input(char *file);

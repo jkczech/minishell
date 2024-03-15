@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/15 11:45:10 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/15 14:27:18 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,29 @@ int	minishell(t_shell *shell)
 			break ;
 		if (shell->input)
 		{
-			if (strcmp(shell->input, "history -c") == 0)
-			{
-				rl_clear_history();
-				free(shell->input);
-				continue ;
-			}
 			add_history(shell->input);
 			check_input(shell);
 			parse(shell);
 			exit_command(shell);
-			free(shell->input);
+			free_iter(shell);
 		}
 		else
 			break ;
 	}
 	return (EXIT_SUCCESS);
 }
+
+//frees things needed to be freed after every iteration
+void	free_iter(t_shell *shell)
+{
+	if (shell->input && strcmp(shell->input, "exit") != 0)
+		free(shell->input);
+	if (shell->norm_input)
+		free(shell->norm_input);
+	free_tokens(shell->tokens);
+	free_cmds(shell);
+}
+
 // if (!create_pipes(shell))
 // 	return (free_pipex(shell), error_message(NULL), EXIT_FAILURE);
 // printf("got here\n");

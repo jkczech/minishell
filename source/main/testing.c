@@ -6,9 +6,13 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:47:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/07 11:48:35 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/15 14:23:23 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+"< In "cat -l" >> App | grep Hello | > Ser << Again > Out"
+*/
 
 #include "../../include/minishell.h"
 #include <string.h>

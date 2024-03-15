@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/15 11:44:46 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/15 13:09:18 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	shell->envp = envp;
 	shell->env_list = NULL;
+	shell->exitcode = 99;
 	minishell(shell);
 }
 

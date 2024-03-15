@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/03/12 12:56:12 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/15 14:32:34 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,42 +58,39 @@ bool	quotes_checker(char *str)
 	return (true);
 }
 
-//skips quotes at the end and beginning of a string
-char	*skip_quotes(char *str)
+//deletes quotes at the beginning and the end of a str
+void	del_quotes(char **str)
 {
-	size_t	i;
-	char	*result;
+	char	*tmp;
+	int		i;
+	int		len;
 
 	i = 0;
-	result = NULL;
-	if (!quotes_checker(str))
-		return (NULL);
-	if (str[0] == 34)
+	len = ft_strlen(*str);
+	printf("len: %d\n", len);
+	tmp = (char *)malloc(sizeof(char) * (len - 1));
+	if (!tmp)
+		return ;
+	while ((*str)[i + 1])
 	{
-		result = malloc(sizeof(char) * (ft_strlen(str) - 1));
-		if (!result)
-			return (NULL);
+		tmp[i] = (*str)[i + 1];
 		i++;
-		if (str[ft_strlen(str) - 1] == '"')
-		{
-			while (i < ft_strlen(str) - 1)
-			{
-				result[i - 1] = str[i];
-				i++;
-			}
-		}
-		result[i - 1] = '\0';
 	}
-	return (result);
+	tmp[i - 1] = '\0';
+	free(*str);
+	*str = tmp;
 }
 
 //checks the input and saves it in a list of tokens
 //if the input is invalid, returns false
 bool	check_input(t_shell *shell)
 {
-	if (shell->input[0] == '"')
+	if (!quotes_checker(shell->input))
+		return (NULL);
+	while (shell->input[0] == '"' && \
+		shell->input[ft_strlen(shell->input) - 1] == '"')
 	{
-		shell->input = skip_quotes(shell->input);
+		del_quotes(&shell->input);
 		if (!shell->input)
 			return (false);
 	}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dlist.c                                            :+:      :+:    :+:   */
+/*   tlist.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:54:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/13 14:06:32 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/15 14:32:08 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_token	*create_token(char *content, int token)
 	{
 		new_token->content = content;
 		new_token->token = token;
-		new_token->prev = NULL;
 		new_token->next = NULL;
 	}
 	return (new_token);
@@ -63,17 +62,23 @@ void	add_token(t_token **head, t_token *new_token)
 		while (current->next != NULL)
 			current = current->next;
 		current->next = new_token;
-		new_token->prev = current;
 	}
 }
 
 void	remove_token(t_token **head, t_token *token)
 {
+	t_token	*current;
+
+	if (*head == NULL || token == NULL)
+		return ;
 	if (*head == token)
 		*head = token->next;
-	if (token->next != NULL)
-		token->next->prev = token->prev;
-	if (token->prev != NULL)
-		token->prev->next = token->next;
+	else
+	{
+		current = *head;
+		while (current->next != token)
+			current = current->next;
+		current->next = token->next;
+	}
 	destroy_token(token);
 }

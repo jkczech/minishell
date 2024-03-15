@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
+#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/14 10:51:19 by jseidere         ###   ########.fr        #
+#    Updated: 2024/03/15 12:23:01 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ PARSER = parser/cmd_utils.c \
 
 SIGNALS = signals/signals.c
 
-UTILS = utils/dlist.c \
+UTILS = utils/tlist.c \
 		utils/print.c
 
 SRCS =	$(BUILTINS) $(EXECUTOR) $(EXPANDER) $(INIT) $(LEXER) \

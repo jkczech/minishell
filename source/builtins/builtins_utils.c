@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:42:26 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/13 17:31:35 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:30:52 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //free double pointer
-void	free_double_pointer(char **ptr)
-{
-	int	i;
+// void	free_double_pointer(char **ptr)
+// {
+// 	int	i;
 
-	i = 0;
-	printf("HERE\n");
-	while (ptr[i])
-	{
-		free(ptr[i]);
-		i++;
-	}
-	free(ptr);
-}
+// 	i = 0;
+// 	printf("HERE\n");
+// 	while (ptr[i])
+// 	{
+// 		free(ptr[i]);
+// 		i++;
+// 	}
+// 	free(ptr);
+// }
 
 void	ft_free_list(t_list *list)
 {
@@ -47,10 +47,6 @@ void	free_shell(t_shell *shell)
 	i = 0;
 	if (shell->envp && shell->envp[i])
 		ft_free_list(shell->env_list);
-	if (shell->norm_input)
-		free(shell->norm_input);
-	if (shell->tokens)
-		free_tokens(shell->tokens);
 	if (shell->paths)
 	{
 		while (shell->paths[i])
@@ -77,4 +73,5 @@ void	free_tokens(t_token **tokens)
 		free(tmp);
 		tmp = next;
 	}
+	free(tokens);
 }
