@@ -15,7 +15,7 @@
 // Exit shell with exit status
 void	exit_shell_status(t_shell *shell, int status)
 {
-	ft_putstr_fd("exit\n", 2);
+	//ft_putstr_fd("exit\n", 2);
 	free_shell(shell);
 	printf("Exit status: %d\n", status);
 	exit(status);
@@ -41,6 +41,41 @@ void	easy_exit(t_shell *shell, int status)
 	exit(status);
 }
 
+int convert_exit_status(t_cmd *cmd)
+{
+	int exit_status;
+
+	exit_status = 0;
+	if(cmd->args[1][0] == '-')
+	{
+		exit_status = ft_atoi(cmd->args[1]);
+		if(exit_status < 0)
+			exit_status = 256 + exit_status;
+	}
+	else if(is_numeric(cmd->args[1]))
+	{
+		exit_status = ft_atoi(cmd->args[1]);
+		if(exit_status > 255)
+			exit_status = exit_status % 256;
+	}
+	return (exit_status);
+}
+
+//Exit with argument
+void exit_argument(t_shell *shell, t_cmd *cmd)
+{
+	if (!is_numeric(cmd->args[1])) // handle exit asd && exit asd asd && exit asd 123
+		exit_error_msg (shell, "numeric argument required", cmd->args[1], 2);
+	else if(cmd->args[2] && (is_numeric(cmd->args[1]) && !is_numeric(cmd->args[2]))) // handle exit 123 asd
+	{
+		ft_putstr_fd("exit\n", 2);
+		printf("%sexit: to many arguments\n", PROMPT);
+		shell->exitcode = 1;
+	}
+	else
+		easy_exit(shell, convert_exit_status(cmd));
+}
+
 //check if exit command is called
 void	exit_command(t_shell *shell, t_cmd *cmd)
 {
@@ -51,20 +86,9 @@ void	exit_command(t_shell *shell, t_cmd *cmd)
 	if (cmd && ft_strncmp(cmd->args[0], "exit", 4) == 0)
 	{
 		if(!cmd->args[1])
-			easy_exit(shell, exit_status);
-		else if (cmd->args[1] && !cmd->args[2])
-		{
-			if (!is_numeric(cmd->args[1]))
-				exit_error_msg (shell, "numeric argument required", cmd->args[1], 255);
-			else
-				exit_shell_status(shell, ft_atoi(cmd->args[1]));
-		}
-		else if(is_numeric(cmd->args[1]) && !is_numeric(cmd->args[2]))
-		{
-			ft_putstr_fd("exit\n", 2);
-			printf("%s exit: to many arguments\n", PROMPT);
-			shell->exitcode = 1;
-		}
+			easy_exit(shell, 0);
+		else if (cmd->args[1])
+			exit_argument(shell, cmd);
 	}
 }
 

@@ -33,6 +33,8 @@ bool	is_numeric(char *str)
 	i = 0;
 	while (str[i])
 	{
+		if(i == 0 && str[i] == '-')
+			i++;
 		if (!ft_isdigit(str[i]))
 			return (false);
 		i++;
