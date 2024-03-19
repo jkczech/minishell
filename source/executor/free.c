@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:55:44 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/11 13:19:50 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/19 14:42:22 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,22 @@
 
 //close all the pipes created, free pipes, and free the pipe array
 //also close infile and outfile
-bool	close_all_fds(t_shell *pipex)
+bool	close_all_fds(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
-	if (!pipex->pipes)
+	if (!shell->pipes)
 		return (false);
-	while (i < pipex->size && pipex->pipes[i])
+	while (i < shell->size - 1 && shell->pipes[i])
 	{
-		close(pipex->pipes[i][0]);
-		close(pipex->pipes[i][1]);
-		if (pipex->pipes[i])
-			free(pipex->pipes[i]);
+		close(shell->pipes[i][0]);
+		close(shell->pipes[i][1]);
+		if (shell->pipes[i])
+			free(shell->pipes[i]);
 		i++;
 	}
-	free(pipex->pipes);
-	if (pipex->infile != -1)
-		close(pipex->infile);
-	if (pipex->outfile != -1)
-		close(pipex->outfile);
+	free(shell->pipes);
 	return (true);
 }
 
@@ -54,10 +50,6 @@ bool	free_pipex(t_shell *pipex)
 	free(pipex->cmds);
 	if (pipex->paths)
 		free_array(pipex->paths);
-	if (pipex->infile != -1)
-		close(pipex->infile);
-	if (pipex->outfile != -1)
-		close(pipex->outfile);
 	if (pipex->child_pids)
 		free(pipex->child_pids);
 	if (pipex->heredoc)

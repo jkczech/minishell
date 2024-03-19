@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/15 14:27:18 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/19 14:17:03 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 //main shell loop, that reads input, checks it and executes it
 //TODO: free input into free_shell
+//TODO: error handling
+//TODO: exit_command() into execute()
 int	minishell(t_shell *shell)
 {
 	while (true)
@@ -40,6 +42,10 @@ int	minishell(t_shell *shell)
 			check_input(shell);
 			parse(shell);
 			exit_command(shell);
+			if (!create_pipes(shell))
+				return (free_pipex(shell), error_message(NULL), EXIT_FAILURE);
+			if (!execute(shell))
+				return (free_pipex(shell), error_message(NULL), shell->exitcode);
 			free_iter(shell);
 		}
 		else
@@ -58,11 +64,3 @@ void	free_iter(t_shell *shell)
 	free_tokens(shell->tokens);
 	free_cmds(shell);
 }
-
-// if (!create_pipes(shell))
-// 	return (free_pipex(shell), error_message(NULL), EXIT_FAILURE);
-// printf("got here\n");
-// if (!execute(shell))
-// 	return (free_pipex(shell), error_message(NULL), shell->exitcode);
-// printf("got here2\n");
-// free_pipex(shell);

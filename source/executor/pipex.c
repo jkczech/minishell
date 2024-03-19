@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/13 15:06:24 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/19 14:36:33 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,15 @@ bool	create_pipes(t_shell *shell)
 	int	i;
 
 	i = 0;
-	shell->pipes = malloc((shell->size) * sizeof(int *));
+	shell->pipes = malloc((shell->size - 1) * sizeof(int *));
 	if (!shell->pipes)
-		return (false);
-	while (i < shell->size)
 	{
+		printf("malloc failed\n");
+		return (false);
+	}
+	while (i < shell->size - 1)
+	{
+		printf("mallocing pipe %d\n", i);
 		shell->pipes[i] = malloc(2 * sizeof(int));
 		if (!shell->pipes[i])
 			return (false);

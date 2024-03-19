@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/11 13:24:24 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/19 14:42:02 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	children(t_shell pipex, int i)
 		exit(1);
 	}
 	if (i == 0)
-		child(pipex, i, pipex.infile, pipex.pipes[i][1]);
+		child(pipex, i, pipex.cmds[i].input, pipex.pipes[i][1]);
 	else if (i != pipex.size - 1)
 		child(pipex, i, pipex.pipes[i - 1][0], pipex.pipes[i][1]);
 	else
-		child(pipex, i, pipex.pipes[i - 1][0], pipex.outfile);
+		child(pipex, i, pipex.pipes[i - 1][0], pipex.cmds[i].output);
 }
 
 //handle child processes, execute commands, else error message
