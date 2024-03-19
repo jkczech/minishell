@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/19 15:07:30 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/03/19 15:53:03 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ RFLAGS = -lreadline
 DEPFLAGS =-MT $@ -MMD -MP -MF $(OBJ_DIR)/$*.d
 RM = rm -rf
 
-LIBFT = 	    library/libft/libft.a
+LIBFT =	library/libft/libft.a
 GETNEXTLINE = 	library/get_next_line/getnextline.a
 
 BUILTINS =	builtins/builtins.c \
@@ -40,7 +40,6 @@ BUILTINS =	builtins/builtins.c \
 			builtins/echo.c \
 
 # to be split into different folders
-# used to be my pipex
 EXECUTOR =	executor/pipex.c \
 			executor/error.c \
 			executor/free.c \
@@ -56,9 +55,7 @@ LEXER = lexer/lexing.c \
 		lexer/check_input.c
 
 MAIN = 	main/main.c \
-		main/shell.c
-#      main/main_pipex.c
-#      main/testing.c			
+		main/shell.c		
 
 PARSER = parser/cmd_utils.c \
 		 parser/open_utils.c \
@@ -89,16 +86,11 @@ object/%.o: source/%.c
 	@printf "$(ORANGE). $(END)";
 	@$(CC) -c $(CFLAGS) $(DEPFLAGS) $< -o $@
 
-$(NAME):	$(LIBFT) $(OBJS) 
+$(NAME): _compiling $(LIBFT) $(OBJS) 
 	@$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
-	@printf "\r$(GREEN)🚀 ./$(NAME)   created                                \n$(END)"
-
-#test: $(LIBFT) $(GETNEXTLINE) $(TEST_OBJS)
-#	@$(CC) $(TEST_OBJS) $(CFLAGS) $(LIBFT) $(GETNEXTLINE) -o test $(RFLAGS)
-#	@printf "\r$(GREEN)🚀 ./test   created			\n$(END)"
+	@printf "\r$(GREEN)🚀 ./$(NAME)          created                                                                     \n$(END)"
 
 $(LIBFT):
-	@printf "$(ORANGE)🔁 ./$(NAME) \t compiling$(END)"
 	@make bonus -sC library/libft
 
 $(GETNEXTLINE):
@@ -109,23 +101,22 @@ clean:
 	@$(RM) $(OBJ_DIR)
 	@make clean -sC library/libft
 	@make clean -sC library/get_next_line
-	@printf "$(RED)💥 object files\t removed\n$(END)"
+	@printf "$(RED)💥 object files\t\tremoved\n$(END)"
 
-fclean: clean
+fclean: clean cleanf
 	@make fclean -sC library/libft
 	@make fclean -sC library/get_next_line
 	@$(RM) $(NAME)
 	@$(RM) test
-	@printf "$(RED)💥 ./$(NAME) \t removed\n$(END)"
-
-cleanf:
-	@find . -name ".git" -prune -o -maxdepth 1 -type f ! -name "*.c" ! -name ".h" ! -name ".json" ! -name "minishell" ! -name "README.md" ! -name ".gitignore" ! -name Makefile -delete
-	@printf "$(RED)💥 Test and other non-essential files removed\n$(END)"
+	@printf "$(RED)💥 ./$(NAME) \t\tremoved\n$(END)"
 
 re: _rebuild fclean all
 
 _rebuild:
-	@printf "$(ORANGE)🚧 ./$(NAME)\t rebuild\n$(END)"
+	@printf "$(ORANGE)🚧 ./$(NAME)\t\trebuild\n$(END)"
+
+_compiling:
+	@printf "$(ORANGE)🔁 ./$(NAME) \t\tcompiling$(END)"
 
 nothing:
 	@printf "💩$(BROWN) made $(RED)n$(ORANGE)o$(YELLOW)t$(GREEN)h$(BLUE)i$(INDIGO)n$(VIOLET)g\n$(END)"
