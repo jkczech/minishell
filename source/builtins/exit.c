@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/15 15:50:07 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:54:04 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 // Exit shell with exit status
 void	exit_shell_status(t_shell *shell, int status)
 {
-	//ft_putstr_fd("exit\n", 2);
 	free_shell(shell);
 	printf("Exit status: %d\n", status);
 	exit(status);
@@ -25,7 +24,7 @@ void	exit_shell_status(t_shell *shell, int status)
 void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status)
 {
 	ft_putstr_fd("exit\n", 2);
-	printf("%s exit: %s: %s\n", PROMPT, cmd, msg);
+	printf("%sexit: %s: %s\n", PROMPT, cmd, msg);
 	exit_shell_status(shell, status);
 }
 
@@ -41,32 +40,13 @@ void	easy_exit(t_shell *shell, int status)
 	exit(status);
 }
 
-int convert_exit_status(t_cmd *cmd)
-{
-	int exit_status;
-
-	exit_status = 0;
-	if(cmd->args[1][0] == '-')
-	{
-		exit_status = ft_atoi(cmd->args[1]);
-		if(exit_status < 0)
-			exit_status = 256 + exit_status;
-	}
-	else if(is_numeric(cmd->args[1]))
-	{
-		exit_status = ft_atoi(cmd->args[1]);
-		if(exit_status > 255)
-			exit_status = exit_status % 256;
-	}
-	return (exit_status);
-}
-
 //Exit with argument
-void exit_argument(t_shell *shell, t_cmd *cmd)
+void	exit_argument(t_shell *shell, t_cmd *cmd)
 {
-	if (!is_numeric(cmd->args[1])) // handle exit asd && exit asd asd && exit asd 123
+	if (!is_numeric(cmd->args[1]) || !check_overflow(cmd->args[1]))
 		exit_error_msg (shell, "numeric argument required", cmd->args[1], 2);
-	else if(cmd->args[2] && (is_numeric(cmd->args[1]) && !is_numeric(cmd->args[2]))) // handle exit 123 asd
+	else if (cmd->args[2] && (is_numeric(cmd->args[1])
+			&& !is_numeric(cmd->args[2])))
 	{
 		ft_putstr_fd("exit\n", 2);
 		printf("%sexit: to many arguments\n", PROMPT);
@@ -79,25 +59,26 @@ void exit_argument(t_shell *shell, t_cmd *cmd)
 //check if exit command is called
 void	exit_command(t_shell *shell, t_cmd *cmd)
 {
-	int exit_status;
+	int	exit_status;
 
 	exit_status = shell->exitcode;
-	//printf("Command: %s\n", cmd->args[0]);
 	if (cmd && ft_strncmp(cmd->args[0], "exit", 4) == 0)
 	{
-		if(!cmd->args[1])
+		if (!cmd->args[1])
 			easy_exit(shell, 0);
 		else if (cmd->args[1])
 			exit_argument(shell, cmd);
 	}
 }
 
-//Possible cases for exit command
-// Overflow
-// Underflow
-// Invalid argument
-// No argument
-// Multiple arguments
-// Exit status
-// Exit status with argument
-// Non-numeric argument
+// Test if exit command is called
+// exit 123 (normal exit)
+// exit -123 (negative exit, Underflow)
+// exit 256 (Overflow)
+// exit 123 123 (to many arguments)
+// exit asd (non numeric argument)
+// exit 123 asd  (to many arguments) not exiting
+// exit "" (no argument, Exitstatus 2) 
+// 	|-> 🤏🐚:  exit: "": numeric argument required but should be without quotes
+// exit 00000123 (normal exit with exit status 123)
+// exit +123 (normal exit with exit status 123)
