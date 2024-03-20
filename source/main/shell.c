@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/15 14:27:18 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/15 15:05:27 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	minishell(t_shell *shell)
 			add_history(shell->input);
 			check_input(shell);
 			parse(shell);
-			exit_command(shell);
+			exit_command(shell, shell->cmds);
 			free_iter(shell);
 		}
 		else

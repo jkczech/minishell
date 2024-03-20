@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 10:54:04 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/05 14:56:21 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/19 14:56:52 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ size_t	intlen(int n);
 char	*ft_dtoa(double n, int precision);
 char	*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 char	*ft_strlwr(char *str);
+long	ft_atol(const char *nptr);
+char	*ft_ltoa(long n);
 
 #endif

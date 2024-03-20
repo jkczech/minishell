@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/15 14:16:39 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/19 15:05:19 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <limits.h>
 
 //previously in pipex.h
 # include <fcntl.h>		//open, close, read, write
@@ -117,17 +118,20 @@ void	free_double_pointer(char **ptr);
 void	free_shell(t_shell *shell);
 void	free_tokens(t_token **tokens);
 void	ft_free_list(t_list *list);
+long	ft_atol(const char *nptr);
 
 //exit.c
 void	exit_shell_status(t_shell *shell, int status);
 void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status);
-void	easy_exit(t_shell *shell);
-void	exit_command(t_shell *shell);
+void	easy_exit(t_shell *shell, int status);
+void	exit_command(t_shell *shell, t_cmd *cmd);
 
 //exit_util.c
 bool	check_amount_of_args(char **args);
 bool	is_numeric(char *str);
-char	**convert_input(t_shell *shell);
+char	*ft_ltoa(long n);
+long	convert_exit_status(t_cmd *cmd);
+bool	check_overflow(char *str);
 
 //echo.c
 void	echo_command(t_shell *shell);

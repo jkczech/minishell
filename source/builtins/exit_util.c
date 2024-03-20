@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:46:33 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/13 17:27:53 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:51:28 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ bool	is_numeric(char *str)
 	i = 0;
 	while (str[i])
 	{
+		if (i == 0 && str[i] == '-')
+			i++;
+		if (i == 0 && str[i] == '+')
+			i++;
+		if (str[i] == '0')
+		{
+			while (str[i] == '0')
+				i++;
+		}
 		if (!ft_isdigit(str[i]))
 			return (false);
 		i++;
@@ -40,18 +49,48 @@ bool	is_numeric(char *str)
 	return (true);
 }
 
-//Convert input to array
-char	**convert_input(t_shell *shell)
+// Handle overflow and underflow
+long	convert_exit_status(t_cmd *cmd)
 {
-	char	**result;
+	long	exit_status;
 
-	result = ft_split(shell->input, ' ');
-	if (!result)
-		return (0);
-	return (result);
+	exit_status = 0;
+	if (cmd->args[1][0] == '-')
+	{
+		exit_status = ft_atol(cmd->args[1]);
+		if (exit_status < 0)
+			exit_status = 256 + exit_status;
+	}
+	else if (is_numeric(cmd->args[1]))
+	{
+		exit_status = ft_atol(cmd->args[1]);
+		if (exit_status > 255)
+			exit_status = exit_status % 256;
+	}
+	return (exit_status);
 }
 
-/* bool check_exit_code(t_shell *shell, char *args, int i)
+// checks if argument is bigger than MAX_LONG_INT
+bool	check_overflow(char *str)
 {
-	
-} */
+	long	input;
+	char	*input_str;
+
+	if (*str == '+')
+		str++;
+	if (*str == '0')
+	{
+		while (*str == '0')
+			str++;
+	}
+	input = ft_atol(str);
+	input_str = ft_ltoa(input);
+	if (!input_str)
+		return (false);
+	if (ft_strncmp(input_str, str, ft_strlen(str)) == 0)
+	{
+		free(input_str);
+		return (true);
+	}
+	return (false);
+}
