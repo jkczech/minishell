@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/19 15:53:03 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/03/20 10:37:18 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,6 +109,10 @@ fclean: clean cleanf
 	@$(RM) $(NAME)
 	@$(RM) test
 	@printf "$(RED)💥 ./$(NAME) \t\tremoved\n$(END)"
+
+cleanf:
+	@find . -depth -maxdepth 1 -name ".git" -prune -o  -type f ! -name "*.c" ! -name "*.h" ! -name "*.json" ! -name "minishell" ! -name "README.md" ! -name ".gitignore" ! -name Makefile -delete 
+	@printf "$(RED)💥 test & useless files removed\n$(END)"
 
 re: _rebuild fclean all
 
