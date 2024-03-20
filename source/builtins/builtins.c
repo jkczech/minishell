@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/15 11:45:54 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 10:35:37 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,18 @@ char	*get_path(t_shell *shell)
 		i++;
 	}
 	return (NULL);
+}
+
+//check if command is a builtin, i is the index of the command
+bool	is_builtin(t_shell *shell, int i)
+{
+	if (ft_strncmp(shell->cmds[i].args[0], "echo", 5) == 0 || \
+		ft_strncmp(shell->cmds[i].args[0], "cd", 3) == 0 || \
+		ft_strncmp(shell->cmds[i].args[0], "pwd", 4) == 0 || \
+		ft_strncmp(shell->cmds[i].args[0], "export", 7) == 0 || \
+		ft_strncmp(shell->cmds[i].args[0], "unset", 6) == 0 || \
+		ft_strncmp(shell->cmds[i].args[0], "env", 4) == 0 || \
+		ft_strncmp(shell->cmds[i].args[0], "exit", 5) == 0)		
+		return (true);
+	return (false);
 }
