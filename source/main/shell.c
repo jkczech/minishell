@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/15 15:05:27 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/20 14:30:49 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@
 // 	}
 // }
 
-//main shell loop, that reads input, checks it and executes it
+//main shell loop, read input, check it and execute it
 //TODO: free input into free_shell
+//TODO: error handling
+//TODO: exit_command() into execute()
 int	minishell(t_shell *shell)
 {
 	while (true)
@@ -39,7 +41,11 @@ int	minishell(t_shell *shell)
 			add_history(shell->input);
 			check_input(shell);
 			parse(shell);
-			exit_command(shell, shell->cmds);
+			exit_command(shell);
+			if (!create_pipes(shell))
+				return (free_pipex(shell), error_msg(NULL), EXIT_FAILURE);
+			if (!execute(shell))
+				return (free_pipex(shell), error_msg(NULL), shell->exitcode);
 			free_iter(shell);
 		}
 		else
@@ -48,7 +54,7 @@ int	minishell(t_shell *shell)
 	return (EXIT_SUCCESS);
 }
 
-//frees things needed to be freed after every iteration
+//free things needed to be freed after every iteration
 void	free_iter(t_shell *shell)
 {
 	if (shell->input && strcmp(shell->input, "exit") != 0)
@@ -58,11 +64,3 @@ void	free_iter(t_shell *shell)
 	free_tokens(shell->tokens);
 	free_cmds(shell);
 }
-
-// if (!create_pipes(shell))
-// 	return (free_pipex(shell), error_message(NULL), EXIT_FAILURE);
-// printf("got here\n");
-// if (!execute(shell))
-// 	return (free_pipex(shell), error_message(NULL), shell->exitcode);
-// printf("got here2\n");
-// free_pipex(shell);

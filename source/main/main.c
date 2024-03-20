@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/15 13:09:18 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:35:55 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,3 @@ int	main(int argc, char **argv, char **envp)
 	shell->exitcode = 99;
 	minishell(shell);
 }
-
-//	envp_into_list(shell->envp, shell->env_list);
-//	while (shell->env_list)
-//	{
-//		printf("%s\n", shell->env_list->content);
-//		shell->env_list = shell->env_list->next;
-//	}
-
-/* int	main(int argc, char **argv)
-{
-	if (argc < 1)
-		return (1);
-	printf("1st arg is: %s\n", argv[1]);
-	return (0);
-} */

@@ -3,65 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/07 12:02:36 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:58:59 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*
+//init all the shell variables
 bool	init_shell(t_shell *shell, char **envp)
 {
-	shell->env_list = NULL;
+	shell->input = NULL;
+	shell->norm_input = NULL;
+	shell->tokens = NULL;
+	shell->history = NULL;
 	shell->envp = envp;
-	shell->env_list = NULL;
-	shell->envp = NULL;
+	init_path(shell);
 	return (true);
 }
-*/
 
-//initialize pipex structure
-//get_tokens to pipex->tokens
-/* bool	pipex_init(t_pipex *pipex, int argc, char **argv, char **envp)
+//init path in shell
+bool	init_path(t_shell *shell)
 {
-	pipex->paths = NULL;
-	pipex->infile = -1;
-	pipex->outfile = -1;
-	pipex->cmds = NULL;
-	pipex->s_cmds = NULL;
-	pipex->pipes = NULL;
-	pipex->envp = envp;
-	pipex->child_pids = NULL;
-	pipex->exitcode = EXIT_SUCCESS;
-	pipex->tokens = NULL;
-	pipex->size = -1; //calculate
-	if (!init_cmds(pipex))
+	char	*path;
+
+	path = get_path(shell);
+	if (!path)
 		return (false);
-	if (!init_s_cmds(pipex))
+	shell->paths = ft_split(path, ':');
+	if (path)
+		free(path);
+	if (!shell->paths)
 		return (false);
 	return (true);
 }
 
-//help pipex init
-//allocate memory for commands
-bool	init_cmds(t_pipex *pipex)
+//allocate memory for commands table 
+//and initialize it
+bool	init_cmds(t_shell *shell)
 {
 	int	i;
 
-	pipex->cmds = malloc(pipex->size * sizeof(t_cmd));
-	if (!pipex->cmds)
+	shell->cmds = malloc(sizeof(t_cmd) * shell->size);
+	if (!shell->cmds)
 		return (false);
 	i = 0;
-	while (i < pipex->size)
+	while (i < shell->size)
 	{
-		pipex->cmds[i].args = NULL;
-		pipex->cmds[i].found = false;
-		pipex->cmds[i].path = NULL;
+		shell->cmds[i].args = NULL;
+		shell->cmds[i].path = NULL;
+		shell->cmds[i].found = false;
+		shell->cmds[i].input = STDIN_FILENO;
+		shell->cmds[i].output = STDOUT_FILENO;
 		i++;
 	}
 	return (true);
 }
- */

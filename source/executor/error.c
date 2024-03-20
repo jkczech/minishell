@@ -6,14 +6,14 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:46:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/11 13:19:15 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:23:38 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //printing error in the zsh format (also lower capitalized)
-void	error_message(char *file)
+void	error_msg(char *file)
 {
 	char	*message;
 
@@ -23,7 +23,7 @@ void	error_message(char *file)
 	if (message)
 		ft_putstr_fd(message, 2);
 	else
-		ft_putstr_fd("error allocating error_message", 2);
+		ft_putstr_fd("error allocating error message", 2);
 	if (file)
 	{
 		ft_putstr_fd(": ", 2);

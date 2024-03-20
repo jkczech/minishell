@@ -6,23 +6,24 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/13 15:06:24 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 10:13:04 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //create all pipes needed
-//shell.pipes is not NULL terminated
+//shell->size - 1 pipes are created
+//shell->pipes is NOT NULL terminated
 bool	create_pipes(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
-	shell->pipes = malloc((shell->size) * sizeof(int *));
+	shell->pipes = malloc((shell->size - 1) * sizeof(int *));
 	if (!shell->pipes)
 		return (false);
-	while (i < shell->size)
+	while (i < shell->size - 1)
 	{
 		shell->pipes[i] = malloc(2 * sizeof(int));
 		if (!shell->pipes[i])
@@ -34,14 +35,15 @@ bool	create_pipes(t_shell *shell)
 	return (true);
 }
 
-//waiting for all the child processes to finish
-//todo - exitcode handling
 /* if (shell->outfile == -1)
 		shell->exitcode = 1;
 	else if (!shell->cmds[i - 1].found)
 		shell->exitcode = 127;
 	else
 		shell->exitcode = 0; */
+
+//waiting for all the child processes to finish
+//todo - exitcode handling
 bool	wait_pids(t_shell *shell)
 {
 	int	i;
@@ -92,7 +94,5 @@ bool	execute(t_shell *shell)
 			return (close_all_fds(shell), false);
 		i++;
 	}
-	close_all_fds(shell);
-	wait_pids(shell);
-	return (true);
+	return (close_all_fds(shell), wait_pids(shell), true);
 }
