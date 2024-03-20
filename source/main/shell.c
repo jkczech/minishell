@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/19 14:17:03 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 10:05:50 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // 	}
 // }
 
-//main shell loop, that reads input, checks it and executes it
+//main shell loop, read input, check it and execute it
 //TODO: free input into free_shell
 //TODO: error handling
 //TODO: exit_command() into execute()
@@ -54,7 +54,7 @@ int	minishell(t_shell *shell)
 	return (EXIT_SUCCESS);
 }
 
-//frees things needed to be freed after every iteration
+//free things needed to be freed after every iteration
 void	free_iter(t_shell *shell)
 {
 	if (shell->input && strcmp(shell->input, "exit") != 0)
