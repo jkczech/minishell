@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:55:44 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 11:13:19 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:50:25 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,48 +31,5 @@ bool	close_all_fds(t_shell *shell)
 		i++;
 	}
 	free(shell->pipes);
-	return (true);
-}
-
-//free allocated pipex elements, all cmds, paths
-//close infile and outfile, unlink .here_doc
-//TODO: change to shell, check
-bool	free_pipex(t_shell *pipex)
-{
-	int	i;
-
-	i = 0;
-	while (i < pipex->size && pipex->cmds && pipex->cmds[i].args)
-	{
-		free_array(pipex->cmds[i].args);
-		if (pipex->cmds[i].found)
-			free(pipex->cmds[i].path);
-		i++;
-	}
-	free(pipex->cmds);
-	if (pipex->paths)
-		free_array(pipex->paths);
-	if (pipex->child_pids)
-		free(pipex->child_pids);
-	if (pipex->heredoc)
-		unlink(".here_doc");
-	return (true);
-}
-
-//free all elements of an array of strings including the array itself
-//needs to be NULL terminated
-bool	free_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	if (!array)
-		return (false);
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
 	return (true);
 }

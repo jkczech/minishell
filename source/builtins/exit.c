@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/15 13:04:01 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:49:15 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status)
 	exit_shell_status(shell, status);
 }
 
-//Exit shell without exit status
+//exit shell without exit status
 void	easy_exit(t_shell *shell)
 {
 	free_iter(shell);
 	printf("exit\n");
 	if (shell)
 		free_shell(shell);
-	exit(0);
+	exit(shell->exitcode);
 }
 
 //check if exit command is called

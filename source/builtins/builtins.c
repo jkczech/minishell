@@ -6,39 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 10:35:37 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:35:48 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-//init path in pipex
-bool	init_path(t_shell *shell)
-{
-	char	*path;
-
-	path = get_path(shell);
-	if (!path)
-		return (false);
-	shell->paths = ft_split(path, ':');
-	if (path)
-		free(path);
-	if (!shell->paths)
-		return (false);
-	return (true);
-}
-
-//init all the shell variables
-bool	init_shell(t_shell *shell, char **envp)
-{
-	shell->input = NULL;
-	shell->norm_input = NULL;
-	shell->tokens = NULL;
-	shell->history = NULL;
-	shell->envp = envp;
-	init_path(shell);
-	return (true);
-}
 
 //if (!copy_envp(shell, envp))
 //	return (false);
@@ -67,6 +39,14 @@ bool	copy_envp(t_shell *shell, char **envp)
 	return (true);
 }
  */
+
+//	envp_into_list(shell->envp, shell->env_list);
+//	while (shell->env_list)
+//	{
+//		printf("%s\n", shell->env_list->content);
+//		shell->env_list = shell->env_list->next;
+//	}
+
 
 char	*get_path(t_shell *shell)
 {

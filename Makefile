@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/20 10:37:18 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/03/20 12:55:02 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,8 @@ INIT = init/init.c
 LEXER = lexer/lexing.c \
 		lexer/check_input.c
 
-MAIN = 	main/main.c \
+MAIN = 	main/free.c \
+		main/main.c \
 		main/shell.c		
 
 PARSER = parser/cmd_utils.c \

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 11:18:19 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:34:42 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ bool	parse(t_shell *shell)
 
 //assigns token types to the tokens
 //TODO: malloc into init_shell
+//TODO: check if we need ** tokens
 void	get_tokens(t_shell *shell)
 {
 	shell->tokens = malloc(sizeof(t_token *));
@@ -60,7 +61,8 @@ void	get_commands(t_shell *shell)
 	int		i;
 
 	token = *(shell->tokens);
-	init_cmds(shell);
+	if(!init_cmds(shell))
+		return ;
 	i = 0;
 	while (token && i < shell->size)
 	{
