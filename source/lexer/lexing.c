@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 11:57:16 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:40:46 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	token_count(t_shell *shell)
 	return (count);
 }
 
-
 //counts the number of characters in a string
 int	count_chars(t_shell *shell)
 {
@@ -81,7 +80,6 @@ int	count_chars(t_shell *shell)
 	printf("Char_count: %d\n", count);
 	return (count);
 }
-
 
 //processes a character
 void	process_character(char *str, char *result, int *i, int *j)
