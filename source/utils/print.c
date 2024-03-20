@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/15 14:31:57 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 13:00:30 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,14 @@ void	print_cmds(t_shell *shell)
 		if (!shell->cmds[i].args[0])
 			printf("(null)");
 		printf("\n");
-		printf("input: %d\n", shell->cmds[i].input);
-		printf("output: %d\n", shell->cmds[i].output);
+		if (shell->cmds[i].input == STDIN_FILENO)
+			printf("input: %d (STD)\n", shell->cmds[i].input);
+		else
+			printf("input: %d\n", shell->cmds[i].input);
+		if (shell->cmds[i].output == STDOUT_FILENO)
+			printf("output: %d (STD)\n", shell->cmds[i].output);
+		else
+			printf("output: %d\n", shell->cmds[i].output);
 		printf("\n");
 		i++;
 	}
