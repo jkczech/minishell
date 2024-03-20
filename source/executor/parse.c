@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:23:11 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 11:15:34 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 11:19:24 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,29 @@ bool	is_command(t_shell *shell, char *command, int i)
 	}
 	free(command);
 	return (false);
+}
+
+void	find_commands(t_shell *shell)
+{
+	int i;
+
+	i = 0;
+	while (i < shell->size)
+	{
+		if (!shell->cmds[i].args)
+			return (false);
+		if (!(shell->cmds[i].input == -1) && \
+			!(shell->cmds[i].output == -1))
+		{
+			if (is_builtin(shell, i))
+			{
+				i++;
+				continue ;
+			}
+			find_command(shell, i);
+		}
+		i++;
+	}
 }
 
 //search for command in shell.cmd[i], and search for path
