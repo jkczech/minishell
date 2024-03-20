@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 13:00:30 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:21:49 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,13 @@ void	print_cmds(t_shell *shell)
 	int	i;
 	int	j;
 
-	i = 0;
-	printf("\033[1mCommands:\n\033[0m");
-	while (i < shell->size)
+	i = -1;
+	while (++i < shell->size)
 	{
-		printf("index: %d\nargs: ", i);
+		printf("\033[1mCommands:\n\033[0mindex: %d\nargs: ", i);
 		j = 0;
 		if (!shell->cmds[i].args)
-		{
-			printf("null %c\n", i++);
-			continue ;
-		}
+			printf("null %c\n", i);
 		while (shell->cmds[i].args && shell->cmds[i].args[j])
 			printf("\033[0;32m%s\033[0m ", shell->cmds[i].args[j++]);
 		if (!shell->cmds[i].args[0])
@@ -98,6 +94,5 @@ void	print_cmds(t_shell *shell)
 		else
 			printf("output: %d\n", shell->cmds[i].output);
 		printf("\n");
-		i++;
 	}
 }

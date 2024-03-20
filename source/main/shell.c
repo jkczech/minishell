@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/20 10:05:50 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:22:55 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	minishell(t_shell *shell)
 			parse(shell);
 			exit_command(shell);
 			if (!create_pipes(shell))
-				return (free_pipex(shell), error_message(NULL), EXIT_FAILURE);
+				return (free_pipex(shell), error_msg(NULL), EXIT_FAILURE);
 			if (!execute(shell))
-				return (free_pipex(shell), error_message(NULL), shell->exitcode);
+				return (free_pipex(shell), error_msg(NULL), shell->exitcode);
 			free_iter(shell);
 		}
 		else

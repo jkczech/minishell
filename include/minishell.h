@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 12:55:53 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:23:10 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	child(t_shell shell, int i, int input, int output);
 
 //error.c
 
-void	error_message(char *file);
+void	error_msg(char *file);
 void	cmd_not_found(t_shell *shell, int i);
 
 //free.c

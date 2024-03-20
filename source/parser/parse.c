@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 12:34:42 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:22:04 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	get_commands(t_shell *shell)
 	int		i;
 
 	token = *(shell->tokens);
-	if(!init_cmds(shell))
+	if (!init_cmds(shell))
 		return ;
 	i = 0;
 	while (token && i < shell->size)

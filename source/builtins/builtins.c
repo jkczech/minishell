@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 12:35:48 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:24:39 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ bool	copy_envp(t_shell *shell, char **envp)
 //		shell->env_list = shell->env_list->next;
 //	}
 
-
 char	*get_path(t_shell *shell)
 {
 	int		i;
@@ -77,7 +76,7 @@ bool	is_builtin(t_shell *shell, int i)
 		ft_strncmp(shell->cmds[i].args[0], "export", 7) == 0 || \
 		ft_strncmp(shell->cmds[i].args[0], "unset", 6) == 0 || \
 		ft_strncmp(shell->cmds[i].args[0], "env", 4) == 0 || \
-		ft_strncmp(shell->cmds[i].args[0], "exit", 5) == 0)		
+		ft_strncmp(shell->cmds[i].args[0], "exit", 5) == 0)
 		return (true);
 	return (false);
 }

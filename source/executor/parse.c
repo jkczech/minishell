@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:23:11 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 11:34:14 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:24:11 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	is_command(t_shell *shell, char *command, int i)
 
 bool	find_commands(t_shell *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < shell->size)
@@ -99,9 +99,9 @@ void	open_files(t_shell *shell)
 	if (shell->infile == -1)
 	{
 		if (access(shell->argv[1], F_OK) != 0)
-			error_message(shell->argv[1]);
+			error_msg(shell->argv[1]);
 		else if (access(shell->argv[1], R_OK) != 0)
-			error_message(shell->argv[1]);
+			error_msg(shell->argv[1]);
 		else
 			ft_putstr_fd(ERR_IN, 2);
 	}
@@ -110,7 +110,7 @@ void	open_files(t_shell *shell)
 	if (shell->outfile == -1)
 	{
 		if (access(shell->argv[shell->size + 2], W_OK) != 0)
-			error_message(shell->argv[shell->size + 2]);
+			error_msg(shell->argv[shell->size + 2]);
 		else
 			ft_putstr_fd(ERR_OUT, 2);
 	}

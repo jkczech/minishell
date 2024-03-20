@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 12:56:24 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:22:31 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	free_shell(t_shell *shell)
 
 //free allocated pipex elements, all cmds, paths
 //close infile and outfile, unlink .here_doc
+	//if (pipex->heredoc)
+	//	unlink(".here_doc");
 //TODO: change to shell, check
 void	free_pipex(t_shell *pipex)
 {
@@ -53,8 +55,6 @@ void	free_pipex(t_shell *pipex)
 		free_array(pipex->paths);
 	if (pipex->child_pids)
 		free(pipex->child_pids);
-	//if (pipex->heredoc)
-	//	unlink(".here_doc");
 	return ;
 }
 
