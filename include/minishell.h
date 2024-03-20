@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 11:19:55 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 11:33:52 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*get_path(t_shell *shell);
 bool	is_builtin(t_shell *shell, int i);
 
 //builtins_utils.c
-void	free_double_pointer(char **ptr);
+//void	free_double_pointer(char **ptr);
 void	free_shell(t_shell *shell);
 void	free_tokens(t_token **tokens);
 void	ft_free_list(t_list *list);
@@ -161,7 +161,7 @@ bool	free_array(char **array);
 bool	is_command(t_shell *shell, char *command, int i);
 void	find_command(t_shell *shell, int i);
 void	find_paths(t_shell *shell);
-void	find_commands(t_shell *shell);
+bool	find_commands(t_shell *shell);
 //void	open_files(t_shell *shell);
 //bool	parse_input(t_shell *shell);
 
