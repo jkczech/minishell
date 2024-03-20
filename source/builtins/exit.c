@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/20 12:24:01 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:34:37 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,3 +82,4 @@ void	exit_command(t_shell *shell, t_cmd *cmd)
 // 	|-> 🤏🐚:  exit: "": numeric argument required but should be without quotes
 // exit 00000123 (normal exit with exit status 123)
 // exit +123 (normal exit with exit status 123)
+// Str + C = 130 Exit status

@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 12:54:01 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:12:46 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct s_shell
 bool	init_shell(t_shell *shell, char **envp);
 bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
-void	handle_commands(t_shell *shell);
+int		args_counter(char **args);
 
 //builtins_utils.c
 void	free_double_pointer(char **ptr);
