@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/15 15:05:27 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:58:44 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	minishell(t_shell *shell)
 			check_input(shell);
 			parse(shell);
 			exit_command(shell, shell->cmds);
+			echo_command(shell, shell->cmds);
 			free_iter(shell);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/19 15:05:19 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:54:01 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,7 @@ long	convert_exit_status(t_cmd *cmd);
 bool	check_overflow(char *str);
 
 //echo.c
-void	echo_command(t_shell *shell);
-void	echo(t_shell *shell);
+void	echo_command(t_shell *shell, t_cmd *cmd);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 
