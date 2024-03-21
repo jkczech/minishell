@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/20 14:32:26 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/21 15:15:03 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,12 @@ void	exit_argument(t_shell *shell, t_cmd *cmd)
 //check if exit command is called
 void	exit_command(t_shell *shell)
 {
-	int	exit_status;
-
-	exit_status = shell->exitcode;
-	if (cmd && ft_strncmp(cmd->args[0], "exit", 4) == 0)
+	if (shell->norm_input && ft_strncmp(shell->norm_input, "exit", 4) == 0)
 	{
-		if (!cmd->args[1])
-			easy_exit(shell, 0);
-		else if (cmd->args[1])
-			exit_argument(shell, cmd);
+		//if (!cmd->args[1])
+		easy_exit(shell, 0);
+		//else if (cmd->args[1])
+		//	exit_argument(shell, cmd);
 	}
 }
 

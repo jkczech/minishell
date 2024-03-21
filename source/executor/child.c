@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 14:23:17 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/21 15:19:59 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,13 @@ void	redirect(t_shell pipex, int input, int output)
 {
 	if (dup2(input, STDIN_FILENO) == -1)
 	{
-		close_all_fds(&pipex);
-		free_pipex(&pipex);
+		free_iter(&pipex);
 		exit(1);
 	}
 	close(input);
 	if (dup2(output, STDOUT_FILENO) == -1)
 	{
-		close_all_fds(&pipex);
-		free_pipex(&pipex);
+		free_iter(&pipex);
 		exit(1);
 	}
 	close(output);
@@ -37,11 +35,12 @@ void	children(t_shell pipex, int i)
 {
 	if (!pipex.cmds[i].found)
 	{
-		close_all_fds(&pipex);
-		free_pipex(&pipex);
+		free_iter(&pipex);
 		exit(1);
 	}
-	if (i == 0)
+	if (i == 0 && pipex.size == 1)
+		child(pipex, i, pipex.cmds[i].input, pipex.cmds[i].output);
+	else if (i == 0)
 		child(pipex, i, pipex.cmds[i].input, pipex.pipes[i][1]);
 	else if (i != pipex.size - 1)
 		child(pipex, i, pipex.pipes[i - 1][0], pipex.pipes[i][1]);
@@ -53,10 +52,10 @@ void	children(t_shell pipex, int i)
 void	child(t_shell pipex, int i, int input, int output)
 {
 	redirect(pipex, input, output);
-	close_all_fds(&pipex);
+	free_pipes(&pipex);
 	if (execve(pipex.cmds[i].path, pipex.cmds[i].args, pipex.envp) == -1)
 	{
-		free_pipex(&pipex);
+		free_iter(&pipex);
 		error_msg(NULL);
 	}
 	exit(1);

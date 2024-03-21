@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 14:32:31 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/21 15:23:54 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,20 @@ typedef struct s_token
 
 typedef struct s_shell
 {
-	char			**envp;
 	t_list			*env_list;
+	t_list			*history;
+	char			**envp;
+	char			**paths;
+	int				exitcode;
 	char			*input;
 	char			*norm_input;
-	t_token			**tokens;
-	t_list			*history;
 	int				size;
+	t_token			**tokens;
 	t_cmd			*cmds;
 	int				**pipes;
-	char			**paths;
 	int				*child_pids;
-	bool			heredoc;
-	int				exitcode;
+	bool			heredoc; //
+	//int				heredoc_index; //hd_i
 }	t_shell;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -143,10 +144,6 @@ void	child(t_shell shell, int i, int input, int output);
 
 void	error_msg(char *file);
 void	cmd_not_found(t_shell *shell, int i);
-
-//free.c
-
-bool	close_all_fds(t_shell *shell);
 
 //here_doc_bonus.c
 
@@ -199,15 +196,16 @@ void	norm_input(t_shell *shell, int len);
 /////////////////////////////////MAIN///////////////////////////////////////////
 
 //free.c
-void	free_shell(t_shell *shell);
-void	free_pipex(t_shell *pipex);
 void	free_cmds(t_shell *shell);
 void	free_array(char **array);
+bool	free_pipes(t_shell *shell);
 
 //shell.c
 //void	envp_into_list(char **envp, t_list *env_list);
 int		minishell(t_shell *shell);
 void	free_iter(t_shell *shell);
+void	free_shell(t_shell *shell);
+void	free_iter(t_shell *pipex);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 
