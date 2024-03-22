@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/21 16:05:57 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:38:45 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	command_handler(t_shell *shell, t_cmd *cmd)
 		exit_command(shell, cmd);
 	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
 		env_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
+		pwd_command(shell, cmd);
 }
 /*	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
 		export_command(shell, cmd);
@@ -88,7 +90,5 @@ void	command_handler(t_shell *shell, t_cmd *cmd)
 		unset_command(shell, cmd);
 	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
 		cd_command(shell, cmd);
-	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
-		pwd_command(shell, cmd);
 	else
 		other_command(shell, cmd); */

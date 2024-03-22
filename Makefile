@@ -6,7 +6,7 @@
 #    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/21 12:48:49 by jseidere         ###   ########.fr        #
+#    Updated: 2024/03/22 11:47:34 by jseidere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ BUILTINS =	builtins/builtins.c \
 			builtins/exit_util.c \
 			builtins/echo.c \
 			builtins/env.c \
+			builtins/pwd.c \
 
 # to be split into different folders
 # used to be my pipex
