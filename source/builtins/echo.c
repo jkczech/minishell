@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 10:17:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/21 16:29:22 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:59:09 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,30 @@ void	print_echo(t_shell *shell, t_cmd *cmd, int *i)
 		ft_putstr_fd(" ", 1);
 }
 
+bool	check_newline(char *str)
+{
+	int	i;
+
+	i = 1;
+	if (!str)
+		return (false);
+	if (str[0] != '-')
+		return (false);
+	while (str[i])
+	{
+		printf("str[%d] = %c\n", i, str[i]);
+		if (str[i] == 'n')
+		{
+			while (str[i] == 'n' && str[i + 1] == 'n')
+				i++;
+		}
+		else if (str[i] != 'n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 //Prints the argument of the echo command with out newline
 //Still needs to be fixed with more args
 void	print_nnl_echo(t_shell *shell, t_cmd *cmd)
@@ -39,14 +63,14 @@ void	print_nnl_echo(t_shell *shell, t_cmd *cmd)
 	args_len = args_counter(cmd->args);
 	if (!cmd->args[i])
 		return ;
-	while (ft_strncmp(cmd->args[i], "-n", 2) == 0 && i < args_len)
+	while (check_newline(cmd->args[i]) && i < args_len)
 	{
 		if (cmd->args[i + 1])
 			i++;
 		else
 			return ;
 	}
-	while(i < args_len)
+	while (i < args_len)
 	{
 		print_echo(shell, cmd, &i);
 		i++;
@@ -72,7 +96,7 @@ void	echo_command(t_shell *shell, t_cmd *cmd)
 {
 	if (cmd->args[1])
 	{
-		if (ft_strncmp(cmd->args[1], "-n", 2) == 0)
+		if (check_newline(cmd->args[1]))
 			print_nnl_echo(shell, cmd);
 		else
 			simple_echo(shell, cmd);
