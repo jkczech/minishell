@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 17:29:35 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:05:57 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,34 +51,7 @@ int	args_counter(char **args)
 	return (i);
 }
 
-//if (!copy_envp(shell, envp))
-//	return (false);
-
-/* 
-bool	copy_envp(t_shell *shell, char **envp)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = 0;
-	while (envp[len])
-		len++;
-	shell->envp = malloc(sizeof(char *) * (len + 1));
-	if (!shell->envp)
-		return (false);
-	while (i < len)
-	{
-		shell->envp[i] = ft_strdup(envp[i]);
-		if (!shell->envp[i])
-			return (false);
-		i++;
-	}
-	shell->envp[i] = NULL;
-	return (true);
-}
- */
-
+//Get the path from the environment variables
 char	*get_path(t_shell *shell)
 {
 	int		i;
@@ -98,3 +71,24 @@ char	*get_path(t_shell *shell)
 	}
 	return (NULL);
 }
+
+// command handler
+void	command_handler(t_shell *shell, t_cmd *cmd)
+{
+	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
+		echo_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
+		exit_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
+		env_command(shell, cmd);
+}
+/*	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
+		export_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
+		unset_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
+		cd_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
+		pwd_command(shell, cmd);
+	else
+		other_command(shell, cmd); */

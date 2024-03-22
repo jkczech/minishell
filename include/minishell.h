@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 17:12:46 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:46:04 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	*get_path(t_shell *shell);
 int		args_counter(char **args);
 
 //builtins_utils.c
-void	free_double_pointer(char **ptr);
+void	command_handler(t_shell *shell, t_cmd *cmd);
 void	free_shell(t_shell *shell);
 void	free_tokens(t_token **tokens);
 void	ft_free_list(t_list *list);
@@ -135,6 +135,10 @@ bool	check_overflow(char *str);
 
 //echo.c
 void	echo_command(t_shell *shell, t_cmd *cmd);
+
+//env.c
+void	env_command(t_shell *shell, t_cmd *cmd);
+bool	envp_into_list(char **envp, t_list **env_list);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 
@@ -254,5 +258,6 @@ void	print_tokens(t_token **tokens);
 void	print_list(t_token *head);
 void	print_envp(char **envp, char *name);
 void	print_cmds(t_shell *shell);
+void	print_env_list(t_list *env_list);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:42:26 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/20 12:03:25 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:03:31 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ void	ft_free_list(t_list *list)
 {
 	t_list	*tmp;
 
+	if (!list)
+		return ;
 	while (list)
 	{
 		tmp = list->next;
-		free(list->content);
 		free(list);
 		list = tmp;
 	}
