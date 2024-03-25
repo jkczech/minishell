@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/22 11:47:09 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:08:43 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 
 # define PROMPT "🤏🐚: "
 # define DELIMITER " <>|"
-# define SEPARATOR "&|><'=%"
+# define SEPARATOR "&|><'%"
 
 //error messages
 
@@ -81,6 +81,7 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+
 typedef struct s_shell
 {
 	char			**envp;
@@ -108,12 +109,14 @@ typedef struct s_shell
 /////////////////////////////////BUILTINS///////////////////////////////////////
 
 //builtins.c
+
 bool	init_shell(t_shell *shell, char **envp);
 bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
 int		args_counter(char **args);
 
 //builtins_utils.c
+
 void	command_handler(t_shell *shell, t_cmd *cmd);
 void	free_shell(t_shell *shell);
 void	free_tokens(t_token **tokens);
@@ -121,12 +124,14 @@ void	ft_free_list(t_list *list);
 long	ft_atol(const char *nptr);
 
 //exit.c
+
 void	exit_shell_status(t_shell *shell, int status);
 void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status);
 void	easy_exit(t_shell *shell, int status);
 void	exit_command(t_shell *shell, t_cmd *cmd);
 
 //exit_util.c
+
 bool	check_amount_of_args(char **args);
 bool	is_numeric(char *str);
 char	*ft_ltoa(long n);
@@ -134,14 +139,26 @@ long	convert_exit_status(t_cmd *cmd);
 bool	check_overflow(char *str);
 
 //echo.c
+
 void	echo_command(t_shell *shell, t_cmd *cmd);
 
 //env.c
+
 void	env_command(t_shell *shell, t_cmd *cmd);
 bool	envp_into_list(char **envp, t_list **env_list);
 
+//env_utils.c
+
+
 //pwd.c
+
 void	pwd_command(t_shell *shell, t_cmd *cmd);
+
+//export.c
+
+bool	check_valid_arg(char *arg);
+void	add_env_var(t_shell *shell, char *arg);
+void	export_command(t_shell *shell, t_cmd *cmd);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 

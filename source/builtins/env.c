@@ -6,33 +6,13 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/21 16:05:01 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:23:48 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//	envp_into_list(shell->envp, shell->env_list);
-//	while (shell->env_list)
-//	{
-//		printf("%s\n", shell->env_list->content);
-//		shell->env_list = shell->env_list->next;
-//	}
-
-//Save the environment variables in a list
-
-t_list	*create_node(char *content)
-{
-	t_list	*node;
-
-	node = malloc(sizeof(t_list));
-	if (!node)
-		return (NULL);
-	node->content = content;
-	node->next = NULL;
-	return (node);
-}
-
+//Init the environment variables
 bool	envp_into_list(char **envp, t_list **env_list)
 {
 	int		i;
@@ -75,6 +55,7 @@ bool	copy_envp(t_shell *shell, char **envp)
 	return (true);
 }
 
+//Handles the env command
 void	env_command(t_shell *shell, t_cmd *cmd)
 {
 	int	i;
@@ -91,4 +72,5 @@ void	env_command(t_shell *shell, t_cmd *cmd)
 		return ;
 	}
 	print_env_list(shell->env_list);
+	printf("List size: %d\n", ft_lstsize(shell->env_list));
 }
