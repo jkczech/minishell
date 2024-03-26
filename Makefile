@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
+#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/26 11:08:05 by jseidere         ###   ########.fr        #
+#    Updated: 2024/03/26 13:39:44 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ BUILTINS =	builtins/builtins.c \
 # to be split into different folders
 EXECUTOR =	executor/pipex.c \
 			executor/error.c \
-			executor/free.c \
 			executor/here_doc.c \
 			executor/parse.c \
 			executor/child.c

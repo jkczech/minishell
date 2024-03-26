@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/26 11:45:00 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 13:36:51 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	minishell(t_shell *shell)
 			parse(shell);
 			command_handler(shell, shell->cmds);
 			if (!create_pipes(shell))
-				return (free_pipex(shell), error_msg(NULL), EXIT_FAILURE);
+				return (free_iter(shell), error_msg(NULL), EXIT_FAILURE);
 			if (!execute(shell))
-				return (free_pipex(shell), error_msg(NULL), shell->exitcode);
+				return (free_iter(shell), error_msg(NULL), shell->exitcode);
 			free_iter(shell);
 		}
 		else
@@ -55,12 +55,42 @@ int	minishell(t_shell *shell)
 }
 
 //free things needed to be freed after every iteration
+//TODO: unlink heredocs
 void	free_iter(t_shell *shell)
 {
-	if (shell->input && strcmp(shell->input, "exit") != 0)
+	int	i;
+
+	printf("free_iter\n");
+	if (shell->input)
 		free(shell->input);
 	if (shell->norm_input)
 		free(shell->norm_input);
+	i = 0;
 	free_tokens(shell->tokens);
 	free_cmds(shell);
+	free_pipes(shell);
+	if (shell->child_pids)
+		free(shell->child_pids);
+	
+}
+
+//free the shell
+void	free_shell(t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	printf("free_shell\n");
+	if (shell->envp && shell->envp[i])
+		ft_free_list(shell->env_list);
+	if (shell->paths)
+	{
+		while (shell->paths[i])
+		{
+			free(shell->paths[i]);
+			i++;
+		}
+		free(shell->paths);
+	}
+	free(shell);
 }
