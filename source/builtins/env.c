@@ -6,11 +6,31 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/25 14:23:48 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:50:39 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+//create new environment variable
+t_list	*ft_envnew_l(void *content)
+{
+	t_list	*list;
+    
+	if (!content)
+		return (0);
+	list = (t_list *)malloc(sizeof(t_list));
+	if (!list)
+		return (0);
+	list->content = ft_strdup(content);
+    if(!list->content)
+    {
+        free(list);
+        return (0);
+    }
+	list->next = NULL;
+	return (list);
+}
 
 //Init the environment variables
 bool	envp_into_list(char **envp, t_list **env_list)
