@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/26 11:15:13 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:55:30 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	envp_into_list(char **envp, t_list **env_list)
 	node = NULL;
 	while (envp[i])
 	{
-		node = ft_lstnew_l(envp[i]);
+		node = ft_envnew_l(envp[i]);
 		if (!node)
 			return (false);
 		ft_lstadd_back(env_list, node);
