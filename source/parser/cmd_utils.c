@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 12:43:57 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 12:23:00 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	add_args(t_cmd *cmd, char *arg)
 		cmd->args = ft_split(arg, ' ');
 		return ;
 	}
-	printf("connecting %s to %s\n", cmd->args[0], arg);
 	new_args = ft_split(arg, ' ');
 	res = malloc(sizeof(char *) * (count_args(cmd->args, new_args) + 1));
 	if (!res)

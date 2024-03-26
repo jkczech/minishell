@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/21 15:19:59 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 12:48:57 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,22 @@
 
 //redirect input to stdin and output to stdout
 //close input and output fds of all other unused pipes in current process
-void	redirect(t_shell pipex, int input, int output)
+void	redirect(t_shell shell, int input, int output)
 {
 	if (dup2(input, STDIN_FILENO) == -1)
 	{
-		free_iter(&pipex);
+		free_iter(&shell);
 		exit(1);
 	}
-	close(input);
+	if (input != STDIN_FILENO)
+		close(input);
 	if (dup2(output, STDOUT_FILENO) == -1)
 	{
-		free_iter(&pipex);
+		free_iter(&shell);
 		exit(1);
 	}
-	close(output);
+	if (output != STDOUT_FILENO)
+		close(output);
 }
 
 //handling different kinds of child processes, first, middle, last
@@ -51,7 +53,8 @@ void	children(t_shell pipex, int i)
 //handle child processes, execute commands, else error message
 void	child(t_shell pipex, int i, int input, int output)
 {
-	redirect(pipex, input, output);
+	if (input != STDIN_FILENO && output != STDOUT_FILENO)
+		redirect(pipex, input, output);
 	free_pipes(&pipex);
 	if (execve(pipex.cmds[i].path, pipex.cmds[i].args, pipex.envp) == -1)
 	{
