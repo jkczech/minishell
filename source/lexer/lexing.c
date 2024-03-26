@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/25 14:05:57 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:56:54 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,33 @@ int	count_chars(t_shell *shell)
 	return (count);
 }
 
+//processes qoutes in string
+void process_quotes(char *str, char *result, int *i, int *j)
+{
+	if (str[*j] == '"')
+	{
+		result[(*i)] = str[*j];
+		(*i)++;
+		(*j)++;
+		while (str[*j] != '"' && str[*j] != '\0')
+		{
+			result[(*i)] = str[*j];
+			(*i)++;
+			(*j)++;
+		}
+		if (str[*j] == '"')
+		{
+			result[(*i)] = str[*j];
+			(*i)++;
+			(*j)++;
+		}
+	}
+}
+
 //processes a character
 void	process_character(char *str, char *result, int *i, int *j)
 {
+	process_quotes(str, result, i, j);
 	if (str[*j] == ' ')
 	{
 		while (str[*j] == ' ' && str[*j + 1] == ' ')
