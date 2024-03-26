@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 11:47:05 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 16:19:21 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ char	*get_path(t_shell *shell)
 	return (NULL);
 }
 
-// command handler
-void	command_handler(t_shell *shell, t_cmd *cmd)
+//execute builtins
+void	builtin_handler(t_shell *shell, t_cmd *cmd)
 {
 	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
 		echo_command(shell, cmd);

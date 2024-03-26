@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/21 15:18:27 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 16:19:57 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ bool	allocate_pids(t_shell *shell)
 }
 
 //fork, pipe, execute in child processes
-bool	execute(t_shell *shell)
+bool	execute_pipeline(t_shell *shell)
 {
 	int	pid;
 	int	i;
@@ -95,4 +95,18 @@ bool	execute(t_shell *shell)
 		i++;
 	}
 	return (wait_pids(shell), true);
+}
+
+//just in parent process, execute simple command
+bool	execute_simple(t_shell *shell)
+{
+	if (shell->size != 1)
+		return (false);
+	if (is_builtin(shell, 0))
+	{
+		builtin_handler(shell, &shell->cmds[0]);
+		return (true);
+	}
+	execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp);
+	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/26 13:36:51 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 16:14:15 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ int	minishell(t_shell *shell)
 			add_history(shell->input);
 			check_input(shell);
 			parse(shell);
-			command_handler(shell, shell->cmds);
-			if (!create_pipes(shell))
+			if (shell->size > 1 && !create_pipes(shell))
 				return (free_iter(shell), error_msg(NULL), EXIT_FAILURE);
-			if (!execute(shell))
+			if (shell->size == 1 && !execute_simple(shell))
+				return (free_iter(shell), error_msg(NULL), shell->exitcode);
+			else if (shell->size > 1 && !execute_pipeline(shell))
 				return (free_iter(shell), error_msg(NULL), shell->exitcode);
 			free_iter(shell);
 		}
@@ -60,7 +61,6 @@ void	free_iter(t_shell *shell)
 {
 	int	i;
 
-	printf("free_iter\n");
 	if (shell->input)
 		free(shell->input);
 	if (shell->norm_input)

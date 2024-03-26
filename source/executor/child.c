@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 12:48:57 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 16:20:11 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,33 @@ void	redirect(t_shell shell, int input, int output)
 }
 
 //handling different kinds of child processes, first, middle, last
-void	children(t_shell pipex, int i)
+void	children(t_shell shell, int i)
 {
-	if (!pipex.cmds[i].found)
+	if (!shell.cmds[i].args)
 	{
-		free_iter(&pipex);
+		free_iter(&shell);
 		exit(1);
 	}
-	if (i == 0 && pipex.size == 1)
-		child(pipex, i, pipex.cmds[i].input, pipex.cmds[i].output);
+	if (i == 0 && shell.size == 1)
+		child(shell, i, shell.cmds[i].input, shell.cmds[i].output);
 	else if (i == 0)
-		child(pipex, i, pipex.cmds[i].input, pipex.pipes[i][1]);
-	else if (i != pipex.size - 1)
-		child(pipex, i, pipex.pipes[i - 1][0], pipex.pipes[i][1]);
+		child(shell, i, shell.cmds[i].input, shell.pipes[i][1]);
+	else if (i != shell.size - 1)
+		child(shell, i, shell.pipes[i - 1][0], shell.pipes[i][1]);
 	else
-		child(pipex, i, pipex.pipes[i - 1][0], pipex.cmds[i].output);
+		child(shell, i, shell.pipes[i - 1][0], shell.cmds[i].output);
 }
 
 //handle child processes, execute commands, else error message
-void	child(t_shell pipex, int i, int input, int output)
+void	child(t_shell shell, int i, int input, int output)
 {
 	if (input != STDIN_FILENO && output != STDOUT_FILENO)
-		redirect(pipex, input, output);
-	free_pipes(&pipex);
-	if (execve(pipex.cmds[i].path, pipex.cmds[i].args, pipex.envp) == -1)
+		redirect(shell, input, output);
+	free_pipes(&shell);
+	builtin_handler(&shell, &shell.cmds[i]);
+	if (execve(shell.cmds[i].path, shell.cmds[i].args, shell.envp) == -1)
 	{
-		free_iter(&pipex);
+		free_iter(&shell);
 		error_msg(NULL);
 	}
 	exit(1);
