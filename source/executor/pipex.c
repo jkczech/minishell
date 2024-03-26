@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 10:13:04 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/21 15:18:27 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ bool	execute(t_shell *shell)
 		else if (pid > 0)
 			shell->child_pids[i] = pid;
 		else
-			return (close_all_fds(shell), false);
+			return (false);
 		i++;
 	}
-	return (close_all_fds(shell), wait_pids(shell), true);
+	return (wait_pids(shell), true);
 }
