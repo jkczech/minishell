@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
+#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/20 12:55:02 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/03/26 11:08:05 by jseidere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,9 @@ BUILTINS =	builtins/builtins.c \
 			builtins/exit.c \
 			builtins/exit_util.c \
 			builtins/echo.c \
+			builtins/env.c \
+			builtins/pwd.c \
+			builtins/export.c \
 
 # to be split into different folders
 EXECUTOR =	executor/pipex.c \

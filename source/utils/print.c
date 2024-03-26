@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 14:21:49 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 11:10:31 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,16 @@ void	print_envp(char **envp, char *name)
 		if (ft_strncmp(envp[i], name, ft_strlen(name)) == 0)
 			printf("%s\n", envp[i]);
 		i++;
+	}
+}
+
+//print env_list
+void	print_env_list(t_list *env_list)
+{
+	while (env_list)
+	{
+		printf("%s\n", env_list->content);
+		env_list = env_list->next;
 	}
 }
 

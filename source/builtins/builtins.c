@@ -3,50 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 14:24:39 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 11:08:47 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//if (!copy_envp(shell, envp))
-//	return (false);
-
-/* 
-bool	copy_envp(t_shell *shell, char **envp)
+//init path in pipex
+bool	init_path(t_shell *shell)
 {
-	int	i;
-	int	len;
+	char	*path;
 
-	i = 0;
-	len = 0;
-	while (envp[len])
-		len++;
-	shell->envp = malloc(sizeof(char *) * (len + 1));
-	if (!shell->envp)
+	path = get_path(shell);
+	if (!path)
 		return (false);
-	while (i < len)
-	{
-		shell->envp[i] = ft_strdup(envp[i]);
-		if (!shell->envp[i])
-			return (false);
-		i++;
-	}
-	shell->envp[i] = NULL;
+	shell->paths = ft_split(path, ':');
+	if (path)
+		free(path);
+	if (!shell->paths)
+		return (false);
 	return (true);
 }
- */
 
-//	envp_into_list(shell->envp, shell->env_list);
-//	while (shell->env_list)
-//	{
-//		printf("%s\n", shell->env_list->content);
-//		shell->env_list = shell->env_list->next;
-//	}
+//init all the shell variables
+bool	init_shell(t_shell *shell, char **envp)
+{
+	shell->input = NULL;
+	shell->norm_input = NULL;
+	shell->tokens = NULL;
+	shell->history = NULL;
+	shell->envp = envp;
+	init_path(shell);
+	return (true);
+}
 
+//Count the number of arguments
+int	args_counter(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+		i++;
+	return (i);
+}
+
+//Get the path from the environment variables
 char	*get_path(t_shell *shell)
 {
 	int		i;
@@ -67,16 +72,24 @@ char	*get_path(t_shell *shell)
 	return (NULL);
 }
 
-//check if command is a builtin, i is the index of the command
-bool	is_builtin(t_shell *shell, int i)
+// command handler
+void	command_handler(t_shell *shell, t_cmd *cmd)
 {
-	if (ft_strncmp(shell->cmds[i].args[0], "echo", 5) == 0 || \
-		ft_strncmp(shell->cmds[i].args[0], "cd", 3) == 0 || \
-		ft_strncmp(shell->cmds[i].args[0], "pwd", 4) == 0 || \
-		ft_strncmp(shell->cmds[i].args[0], "export", 7) == 0 || \
-		ft_strncmp(shell->cmds[i].args[0], "unset", 6) == 0 || \
-		ft_strncmp(shell->cmds[i].args[0], "env", 4) == 0 || \
-		ft_strncmp(shell->cmds[i].args[0], "exit", 5) == 0)
-		return (true);
-	return (false);
+	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
+		echo_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
+		exit_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
+		env_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
+		pwd_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
+		export_command(shell, cmd);
 }
+	/*
+	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
+		unset_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
+		cd_command(shell, cmd);
+	else
+		other_command(shell, cmd); */

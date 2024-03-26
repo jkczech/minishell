@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/09 17:26:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/21 13:48:06 by jseidere         ###   ########.fr       */
+/*   Created: 2024/03/22 11:38:07 by jseidere          #+#    #+#             */
+/*   Updated: 2024/03/22 15:59:26 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../../include/minishell.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+//Prints the current working directory
+void	pwd_command(t_shell *shell, t_cmd *cmd)
 {
-	t_list	*temp;
+	char	*cwd;
 
-	if (!lst || !new)
-		return ;
-	if (!*lst)
+	(void)cmd;
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
 	{
-		*lst = new;
+		perror("Error");
+		shell->exitcode = 1;
 		return ;
 	}
-	temp = ft_lstlast_l(*lst);
-	if (temp)
-		temp->next = new;
+	ft_putstr_fd(cwd, 1);
+	ft_putstr_fd("\n", 1);
+	free(cwd);
+	shell->exitcode = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/20 14:30:49 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 11:10:04 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // 	}
 // }
 
-//main shell loop, read input, check it and execute it
+//main shell loop, that reads input, checks it and executes it
 //TODO: free input into free_shell
 //TODO: error handling
 //TODO: exit_command() into execute()
@@ -41,7 +41,7 @@ int	minishell(t_shell *shell)
 			add_history(shell->input);
 			check_input(shell);
 			parse(shell);
-			exit_command(shell);
+			command_handler(shell);
 			if (!create_pipes(shell))
 				return (free_pipex(shell), error_msg(NULL), EXIT_FAILURE);
 			if (!execute(shell))

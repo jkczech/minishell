@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 14:32:31 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 11:07:54 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 
 # define PROMPT "🤏🐚: "
 # define DELIMITER " <>|"
-# define SEPARATOR "&|><'=%"
+# define SEPARATOR "&|><'%"
 
 //error messages
 
@@ -81,6 +81,7 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+
 typedef struct s_shell
 {
 	char			**envp;
@@ -105,22 +106,29 @@ typedef struct s_shell
 /////////////////////////////////BUILTINS///////////////////////////////////////
 
 //builtins.c
-//bool	copy_envp(t_shell *shell, char **envp);
+
+bool	init_shell(t_shell *shell, char **envp);
+bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
-//void	handle_commands(t_shell *shell);
-bool	is_builtin(t_shell *shell, int i);
+int		args_counter(char **args);
 
 //builtins_utils.c
+
+void	command_handler(t_shell *shell, t_cmd *cmd);
+void	free_shell(t_shell *shell);
+void	free_tokens(t_token **tokens);
 void	ft_free_list(t_list *list);
 long	ft_atol(const char *nptr);
 
 //exit.c
+
 void	exit_shell_status(t_shell *shell, int status);
 void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status);
 void	easy_exit(t_shell *shell, int status);
 void	exit_command(t_shell *shell);
 
 //exit_util.c
+
 bool	check_amount_of_args(char **args);
 bool	is_numeric(char *str);
 char	*ft_ltoa(long n);
@@ -128,8 +136,27 @@ long	convert_exit_status(t_cmd *cmd);
 bool	check_overflow(char *str);
 
 //echo.c
-void	echo_command(t_shell *shell);
-void	echo(t_shell *shell);
+
+void	echo_command(t_shell *shell, t_cmd *cmd);
+
+//env.c
+
+t_list	*ft_envnew_l(void *content);
+void	env_command(t_shell *shell, t_cmd *cmd);
+bool	envp_into_list(char **envp, t_list **env_list);
+
+//env_utils.c
+
+
+//pwd.c
+
+void	pwd_command(t_shell *shell, t_cmd *cmd);
+
+//export.c
+
+bool	check_valid_arg(char *arg);
+void	add_env_var(t_shell *shell, char *arg);
+void	export_command(t_shell *shell, t_cmd *cmd);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 
@@ -253,5 +280,6 @@ void	print_tokens(t_token **tokens);
 void	print_list(t_token *head);
 void	print_envp(char **envp, char *name);
 void	print_cmds(t_shell *shell);
+void	print_env_list(t_list *env_list);
 
 #endif

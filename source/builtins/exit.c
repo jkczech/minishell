@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/20 14:32:26 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 11:09:20 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,10 @@ void	exit_command(t_shell *shell)
 	int	exit_status;
 
 	exit_status = shell->exitcode;
-	if (cmd && ft_strncmp(cmd->args[0], "exit", 4) == 0)
-	{
-		if (!cmd->args[1])
-			easy_exit(shell, 0);
-		else if (cmd->args[1])
-			exit_argument(shell, cmd);
-	}
+	if (!cmd->args[1])
+		easy_exit(shell, 0);
+	else if (cmd->args[1])
+		exit_argument(shell, cmd);
 }
 
 // Test if exit command is called
@@ -82,3 +79,4 @@ void	exit_command(t_shell *shell)
 // 	|-> 🤏🐚:  exit: "": numeric argument required but should be without quotes
 // exit 00000123 (normal exit with exit status 123)
 // exit +123 (normal exit with exit status 123)
+// Str + C = 130 Exit status
