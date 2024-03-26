@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:23:11 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 14:24:11 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 12:36:19 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	find_command(t_shell *shell, int i)
 	j = 0;
 	if (!shell->paths)
 		return (cmd_not_found(shell, i));
-	while (shell->paths[j])
+	while (shell->paths && shell->paths[j])
 	{
 		command = ft_strjoin3(shell->paths[j],
 				"/", shell->cmds[i].args[0]);

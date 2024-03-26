@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/21 15:11:42 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/26 13:03:13 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	free_iter(t_shell *shell)
 {
 	int	i;
 
+	printf("free_iter\n");
 	if (shell->input)
 		free(shell->input);
 	if (shell->norm_input)
@@ -68,8 +69,6 @@ void	free_iter(t_shell *shell)
 	free_tokens(shell->tokens);
 	free_cmds(shell);
 	free_pipes(shell);
-	if (shell->paths)
-		free_array(shell->paths);
 	if (shell->child_pids)
 		free(shell->child_pids);
 	
@@ -81,6 +80,7 @@ void	free_shell(t_shell *shell)
 	int	i;
 
 	i = 0;
+	printf("free_shell\n");
 	if (shell->envp && shell->envp[i])
 		ft_free_list(shell->env_list);
 	if (shell->paths)

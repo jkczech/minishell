@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/20 12:55:02 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/03/26 12:17:13 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,6 @@ BUILTINS =	builtins/builtins.c \
 # to be split into different folders
 EXECUTOR =	executor/pipex.c \
 			executor/error.c \
-			executor/free.c \
 			executor/here_doc.c \
 			executor/parse.c \
 			executor/child.c
