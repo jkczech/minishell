@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/26 11:09:20 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:19:00 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	exit_argument(t_shell *shell, t_cmd *cmd)
 }
 
 //check if exit command is called
-void	exit_command(t_shell *shell)
+void	exit_command(t_shell *shell, t_cmd *cmd)
 {
 	int	exit_status;
 

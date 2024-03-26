@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 11:07:54 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:19:22 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-
 typedef struct s_shell
 {
 	char			**envp;
@@ -125,7 +124,7 @@ long	ft_atol(const char *nptr);
 void	exit_shell_status(t_shell *shell, int status);
 void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status);
 void	easy_exit(t_shell *shell, int status);
-void	exit_command(t_shell *shell);
+void	exit_command(t_shell *shell, t_cmd *cmd);
 
 //exit_util.c
 
@@ -146,7 +145,6 @@ void	env_command(t_shell *shell, t_cmd *cmd);
 bool	envp_into_list(char **envp, t_list **env_list);
 
 //env_utils.c
-
 
 //pwd.c
 
