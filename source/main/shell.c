@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/26 16:14:15 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/27 12:06:08 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	minishell(t_shell *shell)
 		shell->input = readline(PROMPT);
 		if (!shell->input)
 			break ;
-		if (shell->input)
+		if (*shell->input)
 		{
 			add_history(shell->input);
 			check_input(shell);
@@ -49,8 +49,6 @@ int	minishell(t_shell *shell)
 				return (free_iter(shell), error_msg(NULL), shell->exitcode);
 			free_iter(shell);
 		}
-		else
-			break ;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -59,19 +57,18 @@ int	minishell(t_shell *shell)
 //TODO: unlink heredocs
 void	free_iter(t_shell *shell)
 {
-	int	i;
-
 	if (shell->input)
 		free(shell->input);
 	if (shell->norm_input)
 		free(shell->norm_input);
-	i = 0;
-	free_tokens(shell->tokens);
-	free_cmds(shell);
-	free_pipes(shell);
+	if (shell->tokens)
+		free_tokens(shell->tokens);
+	if (shell->cmds)
+		free_cmds(shell);
+	if (shell->pipes)
+		free_pipes(shell);
 	if (shell->child_pids)
 		free(shell->child_pids);
-	
 }
 
 //free the shell

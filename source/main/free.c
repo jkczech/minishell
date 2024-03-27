@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 13:36:46 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/27 12:06:22 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	free_cmds(t_shell *shell)
 	}
 	free(shell->cmds);
 }
-
 
 //free all elements of an array of strings including the array itself
 //needs to be NULL terminated
@@ -56,7 +55,7 @@ bool	free_pipes(t_shell *shell)
 	int	i;
 
 	i = 0;
-	if (!shell->pipes)
+	if (!shell->pipes || shell->size == 1)
 		return (false);
 	while (i < shell->size - 1 && shell->pipes[i])
 	{
