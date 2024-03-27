@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/27 12:06:34 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/27 14:59:31 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,7 @@ bool	execute_simple(t_shell *shell)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (shell->cmds[0].input != STDIN_FILENO)
-			redirect(*shell, shell->cmds[0].input, shell->cmds[0].output);
+		redirect(*shell, shell->cmds[0].input, shell->cmds[0].output);
 		builtin_handler(shell, &shell->cmds[0]);
 		if (execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp) == -1)
 			error_msg(NULL);

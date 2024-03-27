@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 16:20:11 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/27 14:55:27 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ void	children(t_shell shell, int i)
 //handle child processes, execute commands, else error message
 void	child(t_shell shell, int i, int input, int output)
 {
-	if (input != STDIN_FILENO && output != STDOUT_FILENO)
-		redirect(shell, input, output);
+	redirect(shell, input, output);
 	free_pipes(&shell);
 	builtin_handler(&shell, &shell.cmds[i]);
 	if (execve(shell.cmds[i].path, shell.cmds[i].args, shell.envp) == -1)
