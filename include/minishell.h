@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 10:50:24 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:39:09 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,25 +81,22 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-
 typedef struct s_shell
 {
-	char			**envp;
 	t_list			*env_list;
+	t_list			*history;
+	char			**envp;
+	char			**paths;
+	int				exitcode;
 	char			*input;
 	char			*norm_input;
-	t_token			**tokens;
-	t_list			*history;
 	int				size;
-	int				infile; //
-	int				outfile; //
+	t_token			**tokens;
 	t_cmd			*cmds;
-	t_cmd			**s_cmds;
 	int				**pipes;
-	char			**paths;
 	int				*child_pids;
-	bool			heredoc;
-	int				exitcode;
+	bool			heredoc; //
+	//int				heredoc_index; //hd_i
 }	t_shell;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -110,10 +107,10 @@ typedef struct s_shell
 
 //builtins.c
 
-bool	init_shell(t_shell *shell, char **envp);
 bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
 int		args_counter(char **args);
+bool	is_builtin(t_shell *shell, int i);
 
 //builtins_utils.c
 
@@ -150,7 +147,6 @@ bool	envp_into_list(char **envp, t_list **env_list);
 
 //env_utils.c
 
-
 //pwd.c
 
 void	pwd_command(t_shell *shell, t_cmd *cmd);
@@ -171,27 +167,22 @@ void	child(t_shell shell, int i, int input, int output);
 
 //error.c
 
-void	error_message(char *file);
+void	error_msg(char *file);
 void	cmd_not_found(t_shell *shell, int i);
-
-//free.c
-
-bool	close_all_fds(t_shell *shell);
-bool	free_pipex(t_shell *shell);
-bool	free_array(char **array);
 
 //here_doc_bonus.c
 
-void	open_here_doc(t_shell *shell);
-void	here_doc(t_shell *shell);
+//void	open_here_doc(t_shell *shell);
+//void	here_doc(t_shell *shell);
 
 //parse.c
 
 bool	is_command(t_shell *shell, char *command, int i);
 void	find_command(t_shell *shell, int i);
 void	find_paths(t_shell *shell);
-void	open_files(t_shell *shell);
-bool	parse_input(t_shell *shell);
+bool	find_commands(t_shell *shell);
+//void	open_files(t_shell *shell);
+//bool	parse_input(t_shell *shell);
 
 //pipex.c
 
@@ -207,8 +198,9 @@ bool	execute(t_shell *shell);
 //////////////////////////////////INIT//////////////////////////////////////////
 
 //init.c
-
-//so far m-pty
+bool	init_shell(t_shell *shell, char **envp);
+bool	init_path(t_shell *shell);
+bool	init_cmds(t_shell *shell);
 
 ////////////////////////////////LEXER///////////////////////////////////////////
 
@@ -228,18 +220,23 @@ void	norm_input(t_shell *shell, int len);
 
 /////////////////////////////////MAIN///////////////////////////////////////////
 
+//free.c
+void	free_cmds(t_shell *shell);
+void	free_array(char **array);
+bool	free_pipes(t_shell *shell);
+
 //shell.c
 //void	envp_into_list(char **envp, t_list *env_list);
 int		minishell(t_shell *shell);
 void	free_iter(t_shell *shell);
+void	free_shell(t_shell *shell);
+void	free_iter(t_shell *pipex);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 
 //cmd_utils.c
-void	init_cmds(t_shell *shell);
 void	add_args(t_cmd *cmd, char *arg);
 int		count_args(char **args, char **new_args);
-void	free_cmds(t_shell *shell);
 
 //open_utils.c
 int		open_input(char *file);
@@ -248,7 +245,7 @@ int		open_heredoc(char *file);
 int		open_append(char *file);
 
 //parse.c
-void	parse(t_shell *shell);
+bool	parse(t_shell *shell);
 void	get_tokens(t_shell *shell);
 void	get_size(t_shell *shell);
 void	get_commands(t_shell *shell);
@@ -267,12 +264,12 @@ int		is_delimiter(char c, const char *delim);
 
 ////////////////////////////////UTILS///////////////////////////////////////////
 
-//dlist.c
+//tlist.c
 t_token	*create_token(char *content, int token);
 void	destroy_token(t_token *token);
-void	free_token_list(t_token **head);
 void	add_token(t_token **head, t_token *new_token);
 void	remove_token(t_token **head, t_token *token);
+void	free_tokens(t_token **tokens);
 
 //print.c
 void	print_tokens(t_token **tokens);

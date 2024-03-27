@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 00:51:53 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/13 14:53:01 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:23:23 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,21 @@ void	open_here_doc(t_shell *pipex)
 {
 	pipex->infile = open(".here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0000644);
 	if (pipex->infile == -1)
-		error_message(NULL);
+		error_msg(NULL);
 	here_doc(pipex);
 	close(pipex->infile);
 	pipex->infile = open(".here_doc", O_RDONLY);
 	if (pipex->infile == -1)
 	{
 		unlink(".here_doc");
-		error_message(NULL);
+		error_msg(NULL);
 	}
 	pipex->outfile = open(pipex->argv[pipex->size + 3],
 			O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (pipex->outfile == -1)
 	{
 		if (access(pipex->argv[pipex->size + 2], W_OK) != 0)
-			error_message(pipex->argv[pipex->size + 2]);
+			error_msg(pipex->argv[pipex->size + 2]);
 		else
 			ft_putstr_fd("Error: outfile undefined\n", 2);
 	}

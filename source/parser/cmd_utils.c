@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 17:10:17 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:34:11 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-//allocate memory for commands table 
-//and initialize it
-void	init_cmds(t_shell *shell)
-{
-	int	i;
-
-	shell->cmds = malloc(sizeof(t_cmd) * shell->size);
-	if (!shell->cmds)
-		return ;
-	i = 0;
-	while (i < shell->size)
-	{
-		shell->cmds[i].args = NULL;
-		shell->cmds[i].path = NULL;
-		shell->cmds[i].found = false;
-		shell->cmds[i].input = -1;
-		shell->cmds[i].output = -1;
-		i++;
-	}
-}
 
 //adds an argument to the args table
 void	add_args(t_cmd *cmd, char *arg)
@@ -46,7 +25,6 @@ void	add_args(t_cmd *cmd, char *arg)
 		cmd->args = ft_split(arg, ' ');
 		return ;
 	}
-	printf("connecting %s to %s\n", cmd->args[0], arg);
 	new_args = ft_split(arg, ' ');
 	res = malloc(sizeof(char *) * (count_args(cmd->args, new_args) + 1));
 	if (!res)
@@ -76,21 +54,4 @@ int	count_args(char **args, char **new_args)
 	while (new_args[j])
 		j++;
 	return (i + j);
-}
-
-//frees the commands table
-void	free_cmds(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	while (i < shell->size)
-	{
-		if (shell->cmds[i].args)
-			free_array(shell->cmds[i].args);
-		if (shell->cmds[i].path)
-			free(shell->cmds[i].path);
-		i++;
-	}
-	free(shell->cmds);
 }

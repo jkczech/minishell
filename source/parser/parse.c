@@ -6,21 +6,26 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/13 14:41:04 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/21 15:27:01 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	parse(t_shell *shell)
+//parse the input into tokens, then into command table
+//TODO: error handling
+bool	parse(t_shell *shell)
 {
 	get_tokens(shell);
 	get_size(shell);
 	get_commands(shell);
+	find_commands(shell);
+	return (true);
 }
 
 //assigns token types to the tokens
 //TODO: malloc into init_shell
+//TODO: check if we need ** tokens
 void	get_tokens(t_shell *shell)
 {
 	shell->tokens = malloc(sizeof(t_token *));
@@ -56,7 +61,8 @@ void	get_commands(t_shell *shell)
 	int		i;
 
 	token = *(shell->tokens);
-	init_cmds(shell);
+	if (!init_cmds(shell))
+		return ;
 	i = 0;
 	while (token && i < shell->size)
 	{
@@ -67,7 +73,10 @@ void	get_commands(t_shell *shell)
 		else if (token->token == INPUT)
 			shell->cmds[i].input = open_input(token->content);
 		else if (token->token == OUTPUT)
+		{
+			printf("output: %s\n", token->content);
 			shell->cmds[i].output = open_output(token->content);
+		}
 		else if (token->token == HEREDOC)
 			shell->cmds[i].input = open_heredoc(token->content);
 		else if (token->token == APPEND)
@@ -76,26 +85,3 @@ void	get_commands(t_shell *shell)
 	}
 	print_cmds(shell);
 }
-
-/* void	add_args(char **args, char *arg)
-{
-	int		i;
-	char	**tmp;
-
-	i = 0;
-	while (args[i])
-		i++;
-	tmp = malloc(sizeof(char *) * (i + 2));
-	if (!tmp)
-		return ;
-	i = 0;
-	while (args[i])
-	{
-		tmp[i] = args[i];
-		i++;
-	}
-	tmp[i] = arg;
-	tmp[i + 1] = NULL;
-	free(args);
-	args = tmp;
-} */

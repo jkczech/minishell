@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:54:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/15 14:32:08 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:38:18 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,21 @@ void	destroy_token(t_token *token)
 	}
 }
 
-void	free_token_list(t_token **head)
+void	free_tokens(t_token **tokens)
 {
-	t_token	*current;
+	t_token	*tmp;
 	t_token	*next;
 
-	current = *head;
-	while (current != NULL)
+	tmp = *tokens;
+	while (tmp)
 	{
-		next = current->next;
-		destroy_token(current);
-		current = next;
+		if (tmp->content)
+			free(tmp->content);
+		next = tmp->next;
+		free(tmp);
+		tmp = next;
 	}
-	*head = NULL;
+	free(tokens);
 }
 
 void	add_token(t_token **head, t_token *new_token)

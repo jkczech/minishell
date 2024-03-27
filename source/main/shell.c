@@ -3,17 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/21 11:35:20 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:36:51 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+// void	envp_into_list(char **envp, t_list *env_list)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	env_list = NULL;
+// 	while (envp[i])
+// 	{
+// 		ft_lstadd_back(&env_list, ft_lstnew(envp[i]));
+// 		i++;
+// 	}
+// }
+
 //main shell loop, that reads input, checks it and executes it
 //TODO: free input into free_shell
+//TODO: error handling
+//TODO: exit_command() into execute()
 int	minishell(t_shell *shell)
 {
 	while (true)
@@ -27,6 +42,10 @@ int	minishell(t_shell *shell)
 			check_input(shell);
 			parse(shell);
 			command_handler(shell, shell->cmds);
+			if (!create_pipes(shell))
+				return (free_iter(shell), error_msg(NULL), EXIT_FAILURE);
+			if (!execute(shell))
+				return (free_iter(shell), error_msg(NULL), shell->exitcode);
 			free_iter(shell);
 		}
 		else
@@ -35,21 +54,43 @@ int	minishell(t_shell *shell)
 	return (EXIT_SUCCESS);
 }
 
-//frees things needed to be freed after every iteration
+//free things needed to be freed after every iteration
+//TODO: unlink heredocs
 void	free_iter(t_shell *shell)
 {
-	if (shell->input && strcmp(shell->input, "exit") != 0)
+	int	i;
+
+	printf("free_iter\n");
+	if (shell->input)
 		free(shell->input);
 	if (shell->norm_input)
 		free(shell->norm_input);
+	i = 0;
 	free_tokens(shell->tokens);
 	free_cmds(shell);
+	free_pipes(shell);
+	if (shell->child_pids)
+		free(shell->child_pids);
+	
 }
 
-// if (!create_pipes(shell))
-// 	return (free_pipex(shell), error_message(NULL), EXIT_FAILURE);
-// printf("got here\n");
-// if (!execute(shell))
-// 	return (free_pipex(shell), error_message(NULL), shell->exitcode);
-// printf("got here2\n");
-// free_pipex(shell);
+//free the shell
+void	free_shell(t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	printf("free_shell\n");
+	if (shell->envp && shell->envp[i])
+		ft_free_list(shell->env_list);
+	if (shell->paths)
+	{
+		while (shell->paths[i])
+		{
+			free(shell->paths[i]);
+			i++;
+		}
+		free(shell->paths);
+	}
+	free(shell);
+}

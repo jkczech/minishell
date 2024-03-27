@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 10:17:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/25 14:07:33 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:11:51 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	print_echo(t_shell *shell, t_cmd *cmd, int *i)
 	if (cmd->args[*i + 1])
 		ft_putstr_fd(" ", 1);
 }
+
 //Check if -n flag
 bool	check_newline(char *str)
 {

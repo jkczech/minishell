@@ -29,16 +29,16 @@ BOBJS = $(addprefix object/, $(BSRCS:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(BOBJS)
-	printf "$(ORANGE).$(END)";
+$(NAME): _compiling $(OBJS) $(BOBJS)
 	$(AR) $@ $?
 
-bonus: $(OBJS) $(BOBJS)
+bonus: _compiling $(OBJS) $(BOBJS)
 	$(AR) $(NAME) $(OBJS) $(BOBJS)
-	printf "\r$(GREEN)🚀 ./$(NAME)     created                        \n$(END)"
+	printf "\r$(GREEN)🚀 ./$(NAME)            created                                                                                                                   \n$(END)"
 
 object/%.o: source/%.c 
 	mkdir -p $(dir $@)
+	printf "$(ORANGE). $(END)";
 	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
@@ -48,5 +48,8 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+_compiling:
+	@printf "$(ORANGE)🔁 ./$(NAME) \t\tcompiling$(END)"
 
 .PHONY: all bonus clean fclean re
