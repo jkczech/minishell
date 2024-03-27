@@ -6,21 +6,49 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 12:58:59 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/27 11:59:04 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/* typedef struct s_shell
+{
+	t_list			*env_list;
+	t_list			*history;
+	char			**envp;
+	char			**paths;
+	int				exitcode;
+	char			*input;
+	char			*norm_input;
+	int				size;
+	t_token			**tokens;
+	t_cmd			*cmds;
+	int				**pipes;
+	int				*child_pids;
+	bool			heredoc; //
+	//int				heredoc_index; //hd_i
+}	t_shell; */
+
 //init all the shell variables
 bool	init_shell(t_shell *shell, char **envp)
 {
-	shell->input = NULL;
-	shell->norm_input = NULL;
-	shell->tokens = NULL;
+	shell->env_list = NULL;
 	shell->history = NULL;
 	shell->envp = envp;
+	shell->paths = NULL;
 	init_path(shell);
+	if (!shell->paths)
+		return (false);
+	shell->exitcode = 0;
+	shell->input = NULL;
+	shell->norm_input = NULL;
+	shell->size = 0;
+	shell->tokens = NULL;
+	shell->cmds = NULL;
+	shell->pipes = NULL;
+	shell->child_pids = NULL;
+	shell->heredoc = false;
 	return (true);
 }
 
