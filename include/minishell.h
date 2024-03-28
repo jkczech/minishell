@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 13:39:09 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/27 10:48:13 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,11 @@ bool	execute(t_shell *shell);
 
 ////////////////////////////////EXPANDER////////////////////////////////////////
 
-//SO FAR M-PTY
+//expander.c
+bool	find_variable(t_shell *shell, char *str);
+char	*get_env_value(t_shell *shell, char *str);
+bool	is_expansion(t_shell *shell, char *str);
+void	expander(t_shell *shell);
 
 //////////////////////////////////INIT//////////////////////////////////////////
 
