@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 13:36:46 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/28 11:48:04 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	free_cmds(t_shell *shell)
 	}
 	free(shell->cmds);
 }
-
 
 //free all elements of an array of strings including the array itself
 //needs to be NULL terminated
