@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/28 12:04:48 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/28 12:23:44 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,21 @@ void	free_array(char **array)
 }
 
 //close all the pipes created, free pipes, and free the pipe array
-//also close infile and outfile
+//if size == 1, there is no pipe, but closes the input and output fds
 //there is shell->size - 1 pipes
 bool	free_pipes(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
+	if (shell->size == 1)
+	{
+		if (shell->cmds[0].input != STDIN_FILENO)
+			close(shell->cmds[0].input);
+		if (shell->cmds[0].output != STDOUT_FILENO)
+			close(shell->cmds[0].output);
+		return (true);
+	}
 	if (!shell->pipes || shell->size == 1)
 		return (false);
 	while (i < shell->size - 1 && shell->pipes[i])
