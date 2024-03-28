@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/27 12:06:08 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/28 12:04:21 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,43 +51,4 @@ int	minishell(t_shell *shell)
 		}
 	}
 	return (EXIT_SUCCESS);
-}
-
-//free things needed to be freed after every iteration
-//TODO: unlink heredocs
-void	free_iter(t_shell *shell)
-{
-	if (shell->input)
-		free(shell->input);
-	if (shell->norm_input)
-		free(shell->norm_input);
-	if (shell->tokens)
-		free_tokens(shell->tokens);
-	if (shell->cmds)
-		free_cmds(shell);
-	if (shell->pipes)
-		free_pipes(shell);
-	if (shell->child_pids)
-		free(shell->child_pids);
-}
-
-//free the shell
-void	free_shell(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	printf("free_shell\n");
-	if (shell->envp && shell->envp[i])
-		ft_free_list(shell->env_list);
-	if (shell->paths)
-	{
-		while (shell->paths[i])
-		{
-			free(shell->paths[i]);
-			i++;
-		}
-		free(shell->paths);
-	}
-	free(shell);
 }

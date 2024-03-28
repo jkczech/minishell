@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 16:18:45 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/28 12:04:13 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,10 +177,6 @@ void	cmd_not_found(t_shell *shell, int i);
 
 //parse.c
 
-bool	is_command(t_shell *shell, char *command, int i);
-void	find_command(t_shell *shell, int i);
-void	find_paths(t_shell *shell);
-bool	find_commands(t_shell *shell);
 //void	open_files(t_shell *shell);
 //bool	parse_input(t_shell *shell);
 
@@ -225,19 +221,21 @@ void	norm_input(t_shell *shell, int len);
 void	free_cmds(t_shell *shell);
 void	free_array(char **array);
 bool	free_pipes(t_shell *shell);
+void	free_iter(t_shell *shell);
+void	free_shell(t_shell *shell);
 
 //shell.c
 //void	envp_into_list(char **envp, t_list *env_list);
 int		minishell(t_shell *shell);
-void	free_iter(t_shell *shell);
-void	free_shell(t_shell *shell);
-void	free_iter(t_shell *pipex);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 
 //cmd_utils.c
 void	add_args(t_cmd *cmd, char *arg);
 int		count_args(char **args, char **new_args);
+bool	is_command(t_shell *shell, char *command, int i);
+void	find_command(t_shell *shell, int i);
+bool	find_commands(t_shell *shell);
 
 //open_utils.c
 int		open_input(char *file);
