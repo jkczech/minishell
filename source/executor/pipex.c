@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/01 18:17:04 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/01 18:21:27 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,5 @@ bool	execute_simple(t_shell *shell)
 		waitpid(pid, NULL, 0);
 	else
 		return (false);
-	free_pipes(shell);
-	return (true);
+	return (free_pipes(shell));
 }

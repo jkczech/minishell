@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/28 12:23:44 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/01 18:21:12 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ bool	free_pipes(t_shell *shell)
 			close(shell->cmds[0].output);
 		return (true);
 	}
-	if (!shell->pipes || shell->size == 1)
+	if (!shell->pipes)
 		return (false);
 	while (i < shell->size - 1 && shell->pipes[i])
 	{
