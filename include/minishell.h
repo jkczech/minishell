@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/28 13:04:40 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/01 18:16:40 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@
 
 typedef struct s_cmd
 {
-	bool				found; //
 	char				*path;
 	char				**args;
 	int					input;
@@ -79,6 +78,7 @@ typedef struct s_token
 	char			*content;
 	int				token;
 	struct s_token	*next;
+	int				quotes;
 }	t_token;
 
 typedef struct s_shell

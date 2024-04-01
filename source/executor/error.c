@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:46:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 14:23:38 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/01 18:16:49 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	error_msg(char *file)
 {
 	char	*message;
 
-	ft_putstr_fd("pipex: ", 2);
+	ft_putstr_fd("shell: ", 2);
 	message = ft_strdup(strerror(errno));
 	message = ft_strlwr(message);
 	if (message)
@@ -34,11 +34,10 @@ void	error_msg(char *file)
 		free(message);
 }
 
-//prints a zsh like error message, sets cmd to not found
+//prints a bash like error message
 void	cmd_not_found(t_shell *pipex, int i)
 {
-	ft_putstr_fd("pipex: command not found: ", 2);
+	ft_putstr_fd("shell: command not found: ", 2);
 	ft_putstr_fd(pipex->cmds[i].args[0], 2);
 	ft_putstr_fd("\n", 2);
-	pipex->cmds[i].found = false;
 }

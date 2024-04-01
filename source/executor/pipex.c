@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/28 13:06:22 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/01 18:17:04 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	create_pipes(t_shell *shell)
 
 /* if (shell->outfile == -1)
 		shell->exitcode = 1;
-	else if (!shell->cmds[i - 1].found)
+	else if (!shell->cmds[i - 1].found)//
 		shell->exitcode = 127;
 	else
 		shell->exitcode = 0; */
@@ -98,6 +98,7 @@ bool	execute_pipeline(t_shell *shell)
 }
 
 //execute if there is only one command
+//TODO: exitcode handling
 bool	execute_simple(t_shell *shell)
 {
 	int	pid;
@@ -107,11 +108,17 @@ bool	execute_simple(t_shell *shell)
 	if (is_builtin(shell, 0))
 		return (builtin_handler(shell, &shell->cmds[0]));
 	pid = fork();
+	if (pid == 0 && shell->cmds[0].path == NULL)
+	{
+		free_pipes(shell);
+		exit(shell->exitcode);
+	}
 	if (pid == 0)
 	{
 		redirect(*shell, shell->cmds[0].input, shell->cmds[0].output);
 		if (execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp) == -1)
 			error_msg(NULL);
+		free_pipes(shell);
 		exit(1);
 	}
 	else if (pid > 0)

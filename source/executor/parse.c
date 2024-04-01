@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:23:11 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/28 11:53:49 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/01 18:16:56 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	parse_input(t_shell *shell)
 	i = 0;
 	while (i < shell->size)
 	{
-		shell->cmds[i].found = false;
+		//shell->cmds[i].found = false;
 		//shell->cmds[i].args = \
 			//ft_split(shell->argv[i + 2 + shell->heredoc], ' ');
 		if (!shell->cmds[i].args)
