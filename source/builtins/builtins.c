@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 16:19:21 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/28 13:04:51 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_path(t_shell *shell)
 }
 
 //execute builtins
-void	builtin_handler(t_shell *shell, t_cmd *cmd)
+bool	builtin_handler(t_shell *shell, t_cmd *cmd)
 {
 	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
 		echo_command(shell, cmd);
@@ -57,6 +57,7 @@ void	builtin_handler(t_shell *shell, t_cmd *cmd)
 		pwd_command(shell, cmd);
 	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
 		export_command(shell, cmd);
+	return (true);
 }
 	/*
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)

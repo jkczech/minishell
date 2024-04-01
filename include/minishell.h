@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/28 12:04:13 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/28 13:04:40 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ bool	is_builtin(t_shell *shell, int i);
 
 //builtins_utils.c
 
-void	builtin_handler(t_shell *shell, t_cmd *cmd);
+bool	builtin_handler(t_shell *shell, t_cmd *cmd);
 void	free_shell(t_shell *shell);
 void	free_tokens(t_token **tokens);
 void	ft_free_list(t_list *list);

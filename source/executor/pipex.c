@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/28 12:17:48 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/28 13:06:22 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ bool	execute_pipeline(t_shell *shell)
 	return (wait_pids(shell), true);
 }
 
-//just in parent process, execute simple command
+//execute if there is only one command
 bool	execute_simple(t_shell *shell)
 {
 	int	pid;
@@ -105,15 +105,11 @@ bool	execute_simple(t_shell *shell)
 	if (shell->size != 1)
 		return (false);
 	if (is_builtin(shell, 0))
-	{
-		builtin_handler(shell, &shell->cmds[0]);
-		return (true);
-	}
+		return (builtin_handler(shell, &shell->cmds[0]));
 	pid = fork();
 	if (pid == 0)
 	{
 		redirect(*shell, shell->cmds[0].input, shell->cmds[0].output);
-		builtin_handler(shell, &shell->cmds[0]);
 		if (execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp) == -1)
 			error_msg(NULL);
 		exit(1);

@@ -6,13 +6,14 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/28 11:53:55 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/28 16:43:40 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //adds an argument to the args table
+//TODO: quotes inside
 void	add_args(t_cmd *cmd, char *arg)
 {
 	int		i;

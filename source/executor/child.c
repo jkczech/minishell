@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/28 12:12:43 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/03/28 14:14:20 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ void	child(t_shell shell, int i, int input, int output)
 {
 	redirect(shell, input, output);
 	free_pipes(&shell);
-	builtin_handler(&shell, &shell.cmds[i]);
+	if (is_builtin(&shell, i))
+	{
+		builtin_handler(&shell, &shell.cmds[i]);
+		exit(shell.exitcode);
+	}
 	if (execve(shell.cmds[i].path, shell.cmds[i].args, shell.envp) == -1)
 	{
 		free_iter(&shell);

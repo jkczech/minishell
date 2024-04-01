@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 11:10:31 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:47:25 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	print_cmds(t_shell *shell)
 		if (!shell->cmds[i].args)
 			printf("null %c\n", i);
 		while (shell->cmds[i].args && shell->cmds[i].args[j])
-			printf("\033[0;32m%s\033[0m ", shell->cmds[i].args[j++]);
+			printf("\033[0;32m%s+\033[0m ", shell->cmds[i].args[j++]);
 		if (!shell->cmds[i].args[0])
 			printf("(null)");
 		printf("\n");
