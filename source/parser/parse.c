@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/27 12:05:52 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/02 20:15:35 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ bool	parse(t_shell *shell)
 {
 	get_tokens(shell);
 	get_size(shell);
+	init_cmds(shell);
 	get_commands(shell);
 	find_commands(shell);
 	return (true);
@@ -60,10 +61,8 @@ void	get_commands(t_shell *shell)
 	t_token	*token;
 	int		i;
 
-	token = *(shell->tokens);
-	if (!init_cmds(shell))
-		return ;
 	i = 0;
+	token = *(shell->tokens);
 	while (token && i < shell->size)
 	{
 		if (token->token == PIPE)
@@ -75,7 +74,10 @@ void	get_commands(t_shell *shell)
 		else if (token->token == OUTPUT)
 			shell->cmds[i].output = open_output(token->content);
 		else if (token->token == HEREDOC)
-			shell->cmds[i].input = open_heredoc(token->content);
+		{
+			shell->cmds[i].heredoc = true;
+			shell->cmds[i].input = open_heredoc(token->content, shell->hd_i++);
+		}
 		else if (token->token == APPEND)
 			shell->cmds[i].output = open_append(token->content);
 		token = token->next;

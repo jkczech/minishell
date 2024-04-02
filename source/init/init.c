@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/01 18:17:10 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/02 20:16:25 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 	int				**pipes;
 	int				*child_pids;
 	bool			heredoc; //
-	//int				heredoc_index; //hd_i
+	//int				hd_i;
 }	t_shell; */
 
 //init all the shell variables
@@ -48,7 +48,7 @@ bool	init_shell(t_shell *shell, char **envp)
 	shell->cmds = NULL;
 	shell->pipes = NULL;
 	shell->child_pids = NULL;
-	shell->heredoc = false;
+	shell->hd_i = 0;
 	return (true);
 }
 
@@ -84,6 +84,7 @@ bool	init_cmds(t_shell *shell)
 		shell->cmds[i].path = NULL;
 		shell->cmds[i].input = STDIN_FILENO;
 		shell->cmds[i].output = STDOUT_FILENO;
+		shell->cmds[i].heredoc = false;
 		i++;
 	}
 	return (true);

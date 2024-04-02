@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/01 18:16:40 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/02 20:16:08 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_cmd
 	int					input;
 	int					output;
 	struct s_cmd		*next;
+	bool				heredoc;
 }	t_cmd;
 
 typedef struct s_token
@@ -95,8 +96,7 @@ typedef struct s_shell
 	t_cmd			*cmds;
 	int				**pipes;
 	int				*child_pids;
-	bool			heredoc; //
-	//int				heredoc_index; //hd_i
+	int				hd_i;
 }	t_shell;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -240,8 +240,9 @@ bool	find_commands(t_shell *shell);
 //open_utils.c
 int		open_input(char *file);
 int		open_output(char *file);
-int		open_heredoc(char *file);
+int		open_heredoc(char *delimiter, int hd_i);
 int		open_append(char *file);
+void	heredoc(int fd, char *delimiter);
 
 //parse.c
 bool	parse(t_shell *shell);

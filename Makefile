@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/26 13:39:44 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/04/02 20:11:44 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,15 +82,16 @@ TEST_SRCS = testing.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizi
 TEST_OBJS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.o))
 TEST_DEPS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.d))
 
-all: $(LIBFT) $(GETNEXTLINE) $(NAME)
+all: $(NAME) 
 
 object/%.o: source/%.c
 	@mkdir -p $(dir $@)
 	@printf "$(ORANGE). $(END)";
 	@$(CC) -c $(CFLAGS) $(DEPFLAGS) $< -o $@
 
-$(NAME): _compiling $(LIBFT) $(OBJS) 
+$(NAME): _compiling $(LIBFT) $(GETNEXTLINE) $(OBJS) 
 	@$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
+	@mkdir heredocs
 	@printf "\r$(GREEN)🚀 ./$(NAME)          created                                                                     \n$(END)"
 
 $(LIBFT):
@@ -111,6 +112,7 @@ fclean: clean cleanf
 	@make fclean -sC library/get_next_line
 	@$(RM) $(NAME)
 	@$(RM) test
+	@$(RM) heredocs
 	@printf "$(RED)💥 ./$(NAME) \t\tremoved\n$(END)"
 
 cleanf:

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/01 18:21:12 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/02 20:17:49 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ void	free_iter(t_shell *shell)
 		free_pipes(shell);
 	if (shell->child_pids)
 		free(shell->child_pids);
+	while (shell->hd_i > 0)
+	{
+		unlink(ft_strjoin("heredocs/.heredoc", ft_itoa(shell->hd_i)));
+		shell->hd_i--;
+	}
 }
 
 //free the shell
