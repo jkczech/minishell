@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/27 14:30:17 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/03/28 14:30:46 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,18 @@ bool find_variable(t_shell *shell, char *str)
     t_list	*node;
     char	*var;
     int		i;
+    int     len;
 
+    len = ft_strlen(str);
     node = shell->env_list;
-    printf("str: %s\n", str);
+    printf("HERE!\n");
     while (node)
     {
         i = 0;
         var = node->content;
         while (var[i] != '=')
             i++;
-        if (ft_strncmp(var, str, i) == 0)
+        if (ft_strncmp(var, str, i) == 0 && i == len)
             return (true);
         node = node->next;
     }
@@ -61,6 +63,32 @@ char *get_env_value(t_shell *shell, char *str)
     return (NULL);
 }
 
+
+//transform a string by removing dollar signs & quotes
+char *transform_string(char *str)
+{
+    int i;
+    int j;
+    char *result;
+
+    i = 0;
+    j = 0;
+    result = NULL;
+    while(str[i])
+    {
+        if(str[i] == '"')
+        {
+            i++;
+            while (str[i] && str[i] != '"')
+                result[j++] = str[i++];
+        }
+        i++;
+    }
+    str[i] = '\0';
+    return (result);
+}
+
+//checks if a string is a environment variable
 bool is_expansion (t_shell *shell, char *str)
 {
     int i;
@@ -68,15 +96,27 @@ bool is_expansion (t_shell *shell, char *str)
     i = 0;
     while (str[i])
     {
-        // if (/* str[i] == '$' &&  */find_variable(shell, str))
-        //     return (true);
         if(str[i] == '$')
         {
-        if (/* str[i] == '$' &&  */find_variable(shell, str + i + 1))
-            return (true);
-        else
-            return (false);
+            if (find_variable(shell, str + i + 1))
+                return (true);
+            else
+                return (false);
         }
+        i++;
+    }
+    return (false);
+}
+
+bool has_quotes(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == '"')
+            return (true);
         i++;
     }
     return (false);
@@ -91,6 +131,8 @@ void expander(t_shell *shell)
     while (token)
     {
         tmp = token->content;
+        /* if (has_quotes(tmp))
+            tmp = transform_string(tmp); */
         if (is_expansion(shell, tmp))
         {
             token->content = get_env_value(shell, tmp + 1);

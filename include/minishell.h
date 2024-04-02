@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/27 10:48:13 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:28:48 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@
 # define PROMPT "🤏🐚: "
 # define DELIMITER " <>|"
 # define SEPARATOR "&|><'%"
+# define NO_QUOTE 0
+# define S_QUOTE 1 //single quote
+# define D_QUOTE 2 //double quote
 
 //error messages
 
@@ -78,6 +81,7 @@ typedef struct s_token
 {
 	char			*content;
 	int				token;
+	int				quote;
 	struct s_token	*next;
 }	t_token;
 

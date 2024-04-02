@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/13 10:19:58 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:51:57 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 	int		len;
 	char	*token_content;
 	int		j;
+	bool	is_quoted = false;
 
 	new_token = NULL;
 	len = token_len(str, *index, DELIMITER);
@@ -52,14 +53,21 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 		return ;
 	j = 0;
 	if (str[*index] == '"')
+	{
+		is_quoted = !is_quoted;
 		process_quoted_token(str, index, token_content, &j);
+	}
 	if (token_type == PIPE && is_delimiter(str[*index], DELIMITER))
 	{
 		process_pipe_token(token_type, head, new_token, token_content);
 		return ;
 	}
-	while (str[*index] && !is_delimiter(str[*index], DELIMITER))
+	while (str[*index] && (!is_delimiter(str[*index], DELIMITER) || is_quoted))
+	{
+		if(str[*index] == '"')
+			is_quoted = !is_quoted;
 		token_content[j++] = str[(*index)++];
+	}
 	token_content[j] = '\0';
 	new_token = create_token(token_content, token_type);
 	add_token(head, new_token);
@@ -106,3 +114,5 @@ t_token	*assign_token_types(t_shell *shell)
 	}
 	return (head);
 }
+
+
