@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/02 20:17:49 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/02 20:18:51 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdbool.h>
 
 //free things needed to be freed after every iteration
-//TODO: unlink heredocs
 void	free_iter(t_shell *shell)
 {
 	if (shell->input)

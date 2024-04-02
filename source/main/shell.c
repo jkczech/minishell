@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/28 12:04:21 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/02 20:19:30 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@
 // }
 
 //main shell loop, that reads input, checks it and executes it
-//TODO: free input into free_shell
 //TODO: error handling
-//TODO: exit_command() into execute()
 int	minishell(t_shell *shell)
 {
 	while (true)
