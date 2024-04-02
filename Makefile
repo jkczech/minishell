@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/02 20:11:44 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/04/02 21:17:04 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,11 +42,8 @@ BUILTINS =	builtins/builtins.c \
 			builtins/pwd.c \
 			builtins/export.c \
 
-# to be split into different folders
 EXECUTOR =	executor/pipex.c \
 			executor/error.c \
-			executor/here_doc.c \
-			executor/parse.c \
 			executor/child.c
 
 EXPANDER = expander/expander.c
@@ -89,8 +86,9 @@ object/%.o: source/%.c
 	@printf "$(ORANGE). $(END)";
 	@$(CC) -c $(CFLAGS) $(DEPFLAGS) $< -o $@
 
-$(NAME): _compiling $(LIBFT) $(GETNEXTLINE) $(OBJS) 
+$(NAME): $(LIBFT) $(GETNEXTLINE) $(OBJS) 
 	@$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
+	@$(RM) heredocs
 	@mkdir heredocs
 	@printf "\r$(GREEN)🚀 ./$(NAME)          created                                                                     \n$(END)"
 
@@ -123,9 +121,6 @@ re: _rebuild fclean all
 
 _rebuild:
 	@printf "$(ORANGE)🚧 ./$(NAME)\t\trebuild\n$(END)"
-
-_compiling:
-	@printf "$(ORANGE)🔁 ./$(NAME) \t\tcompiling$(END)"
 
 nothing:
 	@printf "💩$(BROWN) made $(RED)n$(ORANGE)o$(YELLOW)t$(GREEN)h$(BLUE)i$(INDIGO)n$(VIOLET)g\n$(END)"

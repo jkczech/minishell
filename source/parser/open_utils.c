@@ -6,67 +6,69 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/02 20:17:36 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/02 21:57:38 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	open_input(char *file)
+void	open_input(t_cmd *cmd, char *file)
 {
-	int	fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
+	if (cmd->input != STDIN_FILENO)
+		close(cmd->input);
+	cmd->input = open(file, O_RDONLY);
+	if (cmd->input < 0)
 	{
 		printf("minishell: %s: %s\n", file, strerror(errno));
-		return (-1);
+		return ;
 	}
-	return (fd);
 }
 
-int	open_output(char *file)
+void	open_output(t_cmd *cmd, char *file)
 {
-	int	fd;
-
-	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd < 0)
+	if (cmd->output != STDOUT_FILENO)
+		close(cmd->output);
+	cmd->output = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (cmd->output < 0)
 	{
 		printf("minishell: %s: %s\n", file, strerror(errno));
-		return (-1);
+		return ;
 	}
-	return (fd);
 }
 
-int	open_heredoc(char *delimiter, int hd_i)
+void	open_heredoc(t_cmd *cmd, char *delimiter, int hd_i)
 {
 	char	*file;
-	int		fd;
 
+	if (cmd->input != STDIN_FILENO)
+		close(cmd->input);
 	file = ft_strjoin("heredocs/.heredoc", ft_itoa(++hd_i));
-	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd < 0)
+	cmd->input = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (cmd->input < 0)
 	{
 		printf("minishell: %s: %s\n", file, strerror(errno));
-		return (-1);
+		return ;
 	}
-	heredoc(fd, delimiter);
-	close(fd);
-	fd = open(file, O_RDONLY);
-	return (fd);
+	heredoc(cmd->input, delimiter);
+	close(cmd->input);
+	cmd->input = open(file, O_RDONLY);
+	if (cmd->input < 0)
+	{
+		printf("minishell: %s: %s\n", file, strerror(errno));
+		return ;
+	}
 }
 
-int	open_append(char *file)
+void	open_append(t_cmd *cmd, char *file)
 {
-	int	fd;
-
-	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd < 0)
+	if (cmd->output != STDOUT_FILENO)
+		close(cmd->output);
+	cmd->output = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (cmd->output < 0)
 	{
 		printf("minishell: %s: %s\n", file, strerror(errno));
-		return (-1);
+		return ;
 	}
-	return (fd);
 }
 
 void	heredoc(int fd, char *delimiter)

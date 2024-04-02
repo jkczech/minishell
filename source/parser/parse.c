@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/02 20:15:35 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/02 21:43:47 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,13 @@ void	get_commands(t_shell *shell)
 		else if (token->token == WORD)
 			add_args(&shell->cmds[i], token->content);
 		else if (token->token == INPUT)
-			shell->cmds[i].input = open_input(token->content);
+			open_input(&shell->cmds[i], token->content);
 		else if (token->token == OUTPUT)
-			shell->cmds[i].output = open_output(token->content);
+			open_output(&shell->cmds[i], token->content);
 		else if (token->token == HEREDOC)
-		{
-			shell->cmds[i].heredoc = true;
-			shell->cmds[i].input = open_heredoc(token->content, shell->hd_i++);
-		}
+			open_heredoc(&shell->cmds[i], token->content, shell->hd_i++);
 		else if (token->token == APPEND)
-			shell->cmds[i].output = open_append(token->content);
+			open_append(&shell->cmds[i], token->content);
 		token = token->next;
 	}
 	print_cmds(shell);

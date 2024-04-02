@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/02 20:18:51 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/02 21:56:04 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,16 @@ void	free_cmds(t_shell *shell)
 	int	i;
 
 	i = 0;
-	while (i < shell->size && shell->cmds && shell->cmds[i].args)
+	while (i < shell->size && shell->cmds)
 	{
 		if (shell->cmds[i].args)
 			free_array(shell->cmds[i].args);
 		if (shell->cmds[i].path)
 			free(shell->cmds[i].path);
+		if (shell->cmds[i].input != STDIN_FILENO)
+			close(shell->cmds[i].input);
+		if (shell->cmds[i].output != STDOUT_FILENO)
+			close(shell->cmds[i].output);
 		i++;
 	}
 	free(shell->cmds);
@@ -98,14 +102,6 @@ bool	free_pipes(t_shell *shell)
 	int	i;
 
 	i = 0;
-	if (shell->size == 1)
-	{
-		if (shell->cmds[0].input != STDIN_FILENO)
-			close(shell->cmds[0].input);
-		if (shell->cmds[0].output != STDOUT_FILENO)
-			close(shell->cmds[0].output);
-		return (true);
-	}
 	if (!shell->pipes)
 		return (false);
 	while (i < shell->size - 1 && shell->pipes[i])

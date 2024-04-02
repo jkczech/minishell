@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/02 20:16:08 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/02 21:42:52 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,16 +170,6 @@ void	child(t_shell shell, int i, int input, int output);
 void	error_msg(char *file);
 void	cmd_not_found(t_shell *shell, int i);
 
-//here_doc_bonus.c
-
-//void	open_here_doc(t_shell *shell);
-//void	here_doc(t_shell *shell);
-
-//parse.c
-
-//void	open_files(t_shell *shell);
-//bool	parse_input(t_shell *shell);
-
 //pipex.c
 
 bool	create_pipes(t_shell *shell);
@@ -238,10 +228,10 @@ void	find_command(t_shell *shell, int i);
 bool	find_commands(t_shell *shell);
 
 //open_utils.c
-int		open_input(char *file);
-int		open_output(char *file);
-int		open_heredoc(char *delimiter, int hd_i);
-int		open_append(char *file);
+void	open_input(t_cmd *cmd, char *file);
+void	open_output(t_cmd *cmd, char *file);
+void	open_heredoc(t_cmd *cmd, char *delimiter, int hd_i);
+void	open_append(t_cmd *cmd, char *file);
 void	heredoc(int fd, char *delimiter);
 
 //parse.c

@@ -6,13 +6,13 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:46:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/01 18:16:49 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/02 21:19:08 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//printing error in the zsh format (also lower capitalized)
+//printing error in the bash format
 void	error_msg(char *file)
 {
 	char	*message;
@@ -35,9 +35,9 @@ void	error_msg(char *file)
 }
 
 //prints a bash like error message
-void	cmd_not_found(t_shell *pipex, int i)
+void	cmd_not_found(t_shell *shell, int i)
 {
 	ft_putstr_fd("shell: command not found: ", 2);
-	ft_putstr_fd(pipex->cmds[i].args[0], 2);
+	ft_putstr_fd(shell->cmds[i].args[0], 2);
 	ft_putstr_fd("\n", 2);
 }

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/01 18:21:27 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/02 21:20:57 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ bool	execute_simple(t_shell *shell)
 {
 	int	pid;
 
-	if (shell->size != 1)
+	if (shell->size != 1 || shell->cmds[0].args == NULL)
 		return (false);
 	if (is_builtin(shell, 0))
 		return (builtin_handler(shell, &shell->cmds[0]));
