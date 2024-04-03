@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
+#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/03/26 13:39:44 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/04/03 11:20:25 by jseidere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,8 @@ EXPANDER = expander/expander.c
 INIT = init/init.c
 
 LEXER = lexer/lexing.c \
-		lexer/check_input.c
+		lexer/check_input.c \
+		lexer/quotes_handler.c \
 
 MAIN = 	main/free.c \
 		main/main.c \

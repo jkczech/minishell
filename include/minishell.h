@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/01 16:28:48 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:20:58 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 
 # define PROMPT "🤏🐚: "
 # define DELIMITER " <>|"
-# define SEPARATOR "&|><'%"
+# define SEPARATOR "&|><%"
 # define NO_QUOTE 0
 # define S_QUOTE 1 //single quote
 # define D_QUOTE 2 //double quote
@@ -211,6 +211,13 @@ bool	init_path(t_shell *shell);
 bool	init_cmds(t_shell *shell);
 
 ////////////////////////////////LEXER///////////////////////////////////////////
+
+//quotes_handler.c
+bool	is_quote(char c);
+bool	quotes_checker(char *str);
+int		len_w_q(char *str);
+char	*remove_quotes(char *str);
+void	expand_token (t_shell *shell);
 
 //check_input.c
 bool	is_sep(char c);

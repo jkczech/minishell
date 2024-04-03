@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/01 13:51:57 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/03 11:21:54 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	process_quoted_token(char *str, int *index, char *token_content, int *j)
 	token_content[*j] = str[*index];
 	(*j)++;
 	(*index)++;
-	while (str[(*index)] != '"')
+	while (!is_quote(str[*index]))
 	{
 		token_content[(*j)++] = str[*index];
 		(*index)++;
@@ -46,13 +46,13 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 
 	new_token = NULL;
 	len = token_len(str, *index, DELIMITER);
-	if (str[*index] == '"')
+	if (is_quote(str[*index]))
 		len = token_len(str, *index, "<>|");
 	token_content = malloc(sizeof(char) * (len + 1));
 	if (token_content == NULL)
 		return ;
 	j = 0;
-	if (str[*index] == '"')
+	if (is_quote(str[*index]))
 	{
 		is_quoted = !is_quoted;
 		process_quoted_token(str, index, token_content, &j);
@@ -64,7 +64,7 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 	}
 	while (str[*index] && (!is_delimiter(str[*index], DELIMITER) || is_quoted))
 	{
-		if(str[*index] == '"')
+		if(is_quote(str[*index]))
 			is_quoted = !is_quoted;
 		token_content[j++] = str[(*index)++];
 	}
