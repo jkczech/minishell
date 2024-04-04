@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:17:20 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/04 17:35:45 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:19:38 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,25 @@ void	init_variables(int *i, int *len, char *q, bool *q_closed)
 	*q_closed = true;
 }
 
+void determine_quote(char *str, int *i, char *q, bool *q_closed)
+{
+	if (*q_closed && is_quote(str[*i]))
+	{
+		*q_closed = false;
+		*q = str[*i];
+		(*i)++;
+	}
+}
+
+void refresh_quote(char *str, int *i, char *q, bool *q_closed)
+{
+	if (str[*i] == *q && !*q_closed)
+	{
+		*q_closed = true;
+		(*i)++;
+	}
+}
+
 //string length without quotes
 int	len_w_q(char *str)
 {
@@ -65,11 +84,7 @@ int	len_w_q(char *str)
 	init_variables(&i, &len, &q, &q_closed);
 	while (str[i])
 	{
-		if (is_quote(str[i]) && q_closed)
-		{
-			q_closed = false;
-			q = str[i++];
-		}
+		determine_quote(str, &i, &q, &q_closed);
 		while (str[i] && str[i] != q)
 		{
 			if (is_quote(str[i]) && !q)
@@ -80,11 +95,7 @@ int	len_w_q(char *str)
 			len++;
 			i++;
 		}
-		if (str[i] == q && !q_closed)
-		{
-			q_closed = true;
-			i++;
-		}
+		refresh_quote(str, &i, &q, &q_closed);
 	}
 	return (len);
 }
@@ -104,11 +115,7 @@ char	*remove_quotes(char *str)
 		return (NULL);
 	while (str[i])
 	{
-		if (q_closed && is_quote(str[i]))
-		{
-			q_closed = false;
-			q = str[i++];
-		}
+		determine_quote(str, &i, &q, &q_closed);
 		while (str[i] && str[i] != q)
 		{
 			if (is_quote(str[i]) && !q)
@@ -118,11 +125,7 @@ char	*remove_quotes(char *str)
 			}
 			new_str[j++] = str[i++];
 		}
-		if (str[i] == q && q_closed == false)
-		{
-			q_closed = true;
-			i++;
-		}
+		refresh_quote(str, &i, &q, &q_closed);
 	}
 	new_str[j] = '\0';
 	return (new_str);
