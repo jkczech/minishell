@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:17:20 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/04 18:19:38 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:18:16 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	init_variables(int *i, int *len, char *q, bool *q_closed)
 	*q_closed = true;
 }
 
-void determine_quote(char *str, int *i, char *q, bool *q_closed)
+void	determine_quote(char *str, int *i, char *q, bool *q_closed)
 {
 	if (*q_closed && is_quote(str[*i]))
 	{
@@ -64,7 +64,7 @@ void determine_quote(char *str, int *i, char *q, bool *q_closed)
 	}
 }
 
-void refresh_quote(char *str, int *i, char *q, bool *q_closed)
+void	refresh_quote(char *str, int *i, char *q, bool *q_closed)
 {
 	if (str[*i] == *q && !*q_closed)
 	{
