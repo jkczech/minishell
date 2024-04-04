@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/04 20:38:35 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/04/04 20:52:06 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,7 @@ $(LIBFT):
 	@make bonus -sC library/libft
 
 $(GETNEXTLINE):
-	#@printf "$(ORANGE).$(END)"
+	@printf "$(ORANGE).$(END)"
 	@make -sC library/get_next_line
 
 clean:
