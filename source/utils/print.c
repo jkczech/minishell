@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 11:10:31 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:52:47 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,16 @@ void	print_tokens(t_token **tokens)
 			ft_putstr_fd("\033[0;32m", 1);
 		else if (token->token == INPUT)
 			ft_putstr_fd("\033[0;34m", 1);
-		else if (token->token == OUTPUT)
+		else if (token->token == OUTPUT || token->token == APPEND)
 			ft_putstr_fd("\033[0;33m", 1);
 		else if (token->token == HEREDOC)
 			ft_putstr_fd("\033[0;35m", 1);
-		else if (token->token == APPEND)
-			ft_putstr_fd("\033[0;36m", 1);
 		else if (token->token == PIPE)
 			ft_putstr_fd("\033[0;31m", 1);
-		ft_putstr_fd(token->content, 1);
+		if (token->content)
+			ft_putstr_fd(token->content, 1);
+		else
+			ft_putstr_fd("(null)", 1);
 		ft_putstr_fd("\033[0m", 1);
 		if (token->next)
 			ft_putstr_fd("+", 1);
@@ -91,8 +92,8 @@ void	print_cmds(t_shell *shell)
 		if (!shell->cmds[i].args)
 			printf("null %c\n", i);
 		while (shell->cmds[i].args && shell->cmds[i].args[j])
-			printf("\033[0;32m%s\033[0m ", shell->cmds[i].args[j++]);
-		if (!shell->cmds[i].args[0])
+			printf("\033[0;32m%s+\033[0m ", shell->cmds[i].args[j++]);
+		if (!shell->cmds[i].args || !shell->cmds[i].args[0])
 			printf("(null)");
 		printf("\n");
 		if (shell->cmds[i].input == STDIN_FILENO)

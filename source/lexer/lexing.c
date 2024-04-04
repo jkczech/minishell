@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/25 14:05:57 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:57:55 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	token_count_util(char *str, int *i, int *count)
 	if (str[*i] != '\0' && !is_sep(str[*i]))
 	{
 		(*count)++;
-		if (str[*i] == '"')
-			while (str[++(*i)] != '"')
+		if (is_quote(str[*i]))
+			while (!is_quote(str[++(*i)]))
 				;
 		while (str[*i] != ' ' && str[*i] != '\t'
 			&& str[*i] != '\0' && !is_sep(str[*i]))
@@ -69,10 +69,10 @@ int	count_chars(t_shell *shell)
 		}
 		if (shell->input[i] != ' ' || shell->input[i] != '\t')
 			count++;
-		if (shell->input[i] == '"')
+		if (is_quote(shell->input[i]))
 		{
 			count++;
-			while (shell->input[++i] != '"')
+			while (!is_quote(shell->input[++i]))
 				count++;
 		}
 		i++;

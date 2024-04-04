@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/03/15 14:32:34 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/04 13:37:19 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,6 @@ bool	double_sep(char *str, int i)
 	return (false);
 }
 
-//checks if amount of quotes is even
-bool	quotes_checker(char *str)
-{
-	int	i;
-	int	quote;
-
-	i = 0;
-	quote = 0;
-	while (str[i])
-	{
-		if (str[i] == '"')
-			quote++;
-		i++;
-	}
-	if (quote % 2 != 0)
-		return (false);
-	return (true);
-}
-
 //deletes quotes at the beginning and the end of a str
 void	del_quotes(char **str)
 {
@@ -67,7 +48,6 @@ void	del_quotes(char **str)
 
 	i = 0;
 	len = ft_strlen(*str);
-	printf("len: %d\n", len);
 	tmp = (char *)malloc(sizeof(char) * (len - 1));
 	if (!tmp)
 		return ;
@@ -85,8 +65,6 @@ void	del_quotes(char **str)
 //if the input is invalid, returns false
 bool	check_input(t_shell *shell)
 {
-	if (!quotes_checker(shell->input))
-		return (NULL);
 	while (shell->input[0] == '"' && \
 		shell->input[ft_strlen(shell->input) - 1] == '"')
 	{

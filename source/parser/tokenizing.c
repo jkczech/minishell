@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/13 10:19:58 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/04 17:52:57 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	process_quoted_token(char *str, int *index, char *token_content, int *j)
 	token_content[*j] = str[*index];
 	(*j)++;
 	(*index)++;
-	while (str[(*index)] != '"')
+	while (!is_quote(str[*index]))
 	{
 		token_content[(*j)++] = str[*index];
 		(*index)++;
@@ -42,24 +42,30 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 	int		len;
 	char	*token_content;
 	int		j;
+	bool	is_quoted;
 
+	is_quoted = false;
 	new_token = NULL;
 	len = token_len(str, *index, DELIMITER);
-	if (str[*index] == '"')
+	if (is_quote(str[*index]))
 		len = token_len(str, *index, "<>|");
 	token_content = malloc(sizeof(char) * (len + 1));
 	if (token_content == NULL)
 		return ;
 	j = 0;
-	if (str[*index] == '"')
-		process_quoted_token(str, index, token_content, &j);
-	if (token_type == PIPE && is_delimiter(str[*index], DELIMITER))
+	if (is_quote(str[*index]))
 	{
-		process_pipe_token(token_type, head, new_token, token_content);
-		return ;
+		is_quoted = !is_quoted;
+		process_quoted_token(str, index, token_content, &j);
 	}
-	while (str[*index] && !is_delimiter(str[*index], DELIMITER))
+	if (token_type == PIPE && is_delimiter(str[*index], DELIMITER))
+		return (process_pipe_token(token_type, head, new_token, token_content));
+	while (str[*index] && (!is_delimiter(str[*index], DELIMITER) || is_quoted))
+	{
+		if (is_quote(str[*index]))
+			is_quoted = !is_quoted;
 		token_content[j++] = str[(*index)++];
+	}
 	token_content[j] = '\0';
 	new_token = create_token(token_content, token_type);
 	add_token(head, new_token);
