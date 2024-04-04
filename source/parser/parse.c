@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/04 20:20:46 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/04 20:28:47 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ bool	parse(t_shell *shell)
 	get_tokens(shell);
 	expand_token(shell);
 	get_size(shell);
+	init_cmds(shell);
 	expander(shell);
 	get_commands(shell);
 	find_commands(shell);
@@ -62,10 +63,8 @@ void	get_commands(t_shell *shell)
 	t_token	*token;
 	int		i;
 
-	token = *(shell->tokens);
-	if (!init_cmds(shell))
-		return ;
 	i = 0;
+	token = *(shell->tokens);
 	while (token && i < shell->size)
 	{
 		if (token->token == PIPE)
@@ -73,13 +72,13 @@ void	get_commands(t_shell *shell)
 		else if (token->token == WORD)
 			add_args(&shell->cmds[i], token->content);
 		else if (token->token == INPUT)
-			shell->cmds[i].input = open_input(token->content);
+			open_input(&shell->cmds[i], token->content);
 		else if (token->token == OUTPUT)
-			shell->cmds[i].output = open_output(token->content);
+			open_output(&shell->cmds[i], token->content);
 		else if (token->token == HEREDOC)
-			shell->cmds[i].input = open_heredoc(token->content);
+			open_heredoc(&shell->cmds[i], token->content, shell->hd_i++);
 		else if (token->token == APPEND)
-			shell->cmds[i].output = open_append(token->content);
+			open_append(&shell->cmds[i], token->content);
 		token = token->next;
 	}
 	print_cmds(shell);

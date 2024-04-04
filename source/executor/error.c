@@ -6,18 +6,18 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:46:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 14:23:38 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/03 19:45:08 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//printing error in the zsh format (also lower capitalized)
+//printing error in the bash format
 void	error_msg(char *file)
 {
 	char	*message;
 
-	ft_putstr_fd("pipex: ", 2);
+	ft_putstr_fd("shell: ", 2);
 	message = ft_strdup(strerror(errno));
 	message = ft_strlwr(message);
 	if (message)
@@ -34,11 +34,10 @@ void	error_msg(char *file)
 		free(message);
 }
 
-//prints a zsh like error message, sets cmd to not found
-void	cmd_not_found(t_shell *pipex, int i)
+//prints a bash like error message
+void	cmd_not_found(t_shell *shell, int i)
 {
-	ft_putstr_fd("pipex: command not found: ", 2);
-	ft_putstr_fd(pipex->cmds[i].args[0], 2);
+	ft_putstr_fd("shell: command not found: ", 2);
+	ft_putstr_fd(shell->cmds[i].args[0], 2);
 	ft_putstr_fd("\n", 2);
-	pipex->cmds[i].found = false;
 }

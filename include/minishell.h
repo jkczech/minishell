@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/04 16:41:49 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:37:50 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@
 
 typedef struct s_cmd
 {
-	bool				found; //
 	char				*path;
 	char				**args;
 	int					input;
@@ -99,8 +98,7 @@ typedef struct s_shell
 	t_cmd			*cmds;
 	int				**pipes;
 	int				*child_pids;
-	bool			heredoc; //
-	//int				heredoc_index; //hd_i
+	int				hd_i;
 }	t_shell;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -118,7 +116,7 @@ bool	is_builtin(t_shell *shell, int i);
 
 //builtins_utils.c
 
-void	command_handler(t_shell *shell, t_cmd *cmd);
+bool	builtin_handler(t_shell *shell, t_cmd *cmd);
 void	free_shell(t_shell *shell);
 void	free_tokens(t_token **tokens);
 void	ft_free_list(t_list *list);
@@ -174,26 +172,13 @@ void	child(t_shell shell, int i, int input, int output);
 void	error_msg(char *file);
 void	cmd_not_found(t_shell *shell, int i);
 
-//here_doc_bonus.c
-
-//void	open_here_doc(t_shell *shell);
-//void	here_doc(t_shell *shell);
-
-//parse.c
-
-bool	is_command(t_shell *shell, char *command, int i);
-void	find_command(t_shell *shell, int i);
-void	find_paths(t_shell *shell);
-bool	find_commands(t_shell *shell);
-//void	open_files(t_shell *shell);
-//bool	parse_input(t_shell *shell);
-
 //pipex.c
 
 bool	create_pipes(t_shell *shell);
 bool	wait_pids(t_shell *shell);
 bool	allocate_pids(t_shell *shell);
-bool	execute(t_shell *shell);
+bool	execute_pipeline(t_shell *shell);
+bool	execute_simple(t_shell *shell);
 
 ////////////////////////////////EXPANDER////////////////////////////////////////
 
@@ -209,6 +194,7 @@ void	expander(t_shell *shell);
 bool	init_shell(t_shell *shell, char **envp);
 bool	init_path(t_shell *shell);
 bool	init_cmds(t_shell *shell);
+void	init_iter(t_shell *shell);
 
 ////////////////////////////////LEXER///////////////////////////////////////////
 
@@ -239,25 +225,28 @@ void	norm_input(t_shell *shell, int len);
 void	free_cmds(t_shell *shell);
 void	free_array(char **array);
 bool	free_pipes(t_shell *shell);
+void	free_iter(t_shell *shell);
+void	free_shell(t_shell *shell);
 
 //shell.c
 //void	envp_into_list(char **envp, t_list *env_list);
 int		minishell(t_shell *shell);
-void	free_iter(t_shell *shell);
-void	free_shell(t_shell *shell);
-void	free_iter(t_shell *pipex);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 
 //cmd_utils.c
 void	add_args(t_cmd *cmd, char *arg);
 int		count_args(char **args);
+bool	is_command(t_shell *shell, char *command, int i);
+void	find_command(t_shell *shell, int i);
+bool	find_commands(t_shell *shell);
 
 //open_utils.c
-int		open_input(char *file);
-int		open_output(char *file);
-int		open_heredoc(char *file);
-int		open_append(char *file);
+void	open_input(t_cmd *cmd, char *file);
+void	open_output(t_cmd *cmd, char *file);
+void	open_heredoc(t_cmd *cmd, char *delimiter, int hd_i);
+void	open_append(t_cmd *cmd, char *file);
+void	heredoc(int fd, char *delimiter);
 
 //parse.c
 bool	parse(t_shell *shell);

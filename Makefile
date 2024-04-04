@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
+#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/04 16:49:07 by jseidere         ###   ########.fr        #
+#    Updated: 2024/04/04 20:38:35 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,11 +42,8 @@ BUILTINS =	builtins/builtins.c \
 			builtins/pwd.c \
 			builtins/export.c \
 
-# to be split into different folders
 EXECUTOR =	executor/pipex.c \
 			executor/error.c \
-			executor/here_doc.c \
-			executor/parse.c \
 			executor/child.c
 
 EXPANDER = expander/expander.c
@@ -79,26 +76,24 @@ OBJ_DIR = object/
 OBJS =  $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 DEPS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.d))
 
-TEST_SRCS = testing.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c
-TEST_OBJS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.o))
-TEST_DEPS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.d))
-
-all: $(LIBFT) $(GETNEXTLINE) $(NAME)
+all: $(NAME) 
 
 object/%.o: source/%.c
 	@mkdir -p $(dir $@)
 	@printf "$(ORANGE). $(END)";
 	@$(CC) -c $(CFLAGS) $(DEPFLAGS) $< -o $@
 
-$(NAME): _compiling $(LIBFT) $(OBJS) 
+$(NAME): $(LIBFT) $(GETNEXTLINE) $(OBJS) 
 	@$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
+	@$(RM) heredocs
+	@mkdir heredocs
 	@printf "\r$(GREEN)🚀 ./$(NAME)          created                                                                     \n$(END)"
 
 $(LIBFT):
 	@make bonus -sC library/libft
 
 $(GETNEXTLINE):
-	@printf "$(ORANGE).$(END)"
+	#@printf "$(ORANGE).$(END)"
 	@make -sC library/get_next_line
 
 clean:
@@ -112,6 +107,7 @@ fclean: clean cleanf
 	@make fclean -sC library/get_next_line
 	@$(RM) $(NAME)
 	@$(RM) test
+	@$(RM) heredocs
 	@printf "$(RED)💥 ./$(NAME) \t\tremoved\n$(END)"
 
 cleanf:
@@ -122,9 +118,6 @@ re: _rebuild fclean all
 
 _rebuild:
 	@printf "$(ORANGE)🚧 ./$(NAME)\t\trebuild\n$(END)"
-
-_compiling:
-	@printf "$(ORANGE)🔁 ./$(NAME) \t\tcompiling$(END)"
 
 nothing:
 	@printf "💩$(BROWN) made $(RED)n$(ORANGE)o$(YELLOW)t$(GREEN)h$(BLUE)i$(INDIGO)n$(VIOLET)g\n$(END)"

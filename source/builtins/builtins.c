@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 15:45:51 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:33:26 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ char	*get_path(t_shell *shell)
 	return (NULL);
 }
 
-// command handler
-void	command_handler(t_shell *shell, t_cmd *cmd)
+//execute builtins
+bool	builtin_handler(t_shell *shell, t_cmd *cmd)
 {
 	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
 		echo_command(shell, cmd);
@@ -57,6 +57,7 @@ void	command_handler(t_shell *shell, t_cmd *cmd)
 		pwd_command(shell, cmd);
 	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
 		export_command(shell, cmd);
+	return (true);
 }
 	/*
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
@@ -68,6 +69,8 @@ void	command_handler(t_shell *shell, t_cmd *cmd)
 
 bool	is_builtin(t_shell *shell, int i)
 {
+	if (!shell->cmds || !shell->cmds[i].args)
+		return (false);
 	if (ft_strncmp(shell->cmds[i].args[0], "echo", 5) == 0 || \
 		ft_strncmp(shell->cmds[i].args[0], "cd", 3) == 0 || \
 		ft_strncmp(shell->cmds[i].args[0], "pwd", 4) == 0 || \
