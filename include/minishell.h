@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/27 10:48:13 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:41:49 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@
 
 # define PROMPT "🤏🐚: "
 # define DELIMITER " <>|"
-# define SEPARATOR "&|><'%"
+# define SEPARATOR "&|><%"
+# define NO_QUOTE 0
+# define S_QUOTE 1 //single quote
+# define D_QUOTE 2 //double quote
 
 //error messages
 
@@ -78,6 +81,7 @@ typedef struct s_token
 {
 	char			*content;
 	int				token;
+	int				quote;
 	struct s_token	*next;
 }	t_token;
 
@@ -208,6 +212,13 @@ bool	init_cmds(t_shell *shell);
 
 ////////////////////////////////LEXER///////////////////////////////////////////
 
+//quotes_handler.c
+bool	is_quote(char c);
+bool	quotes_checker(char *str);
+int		len_w_q(char *str);
+char	*remove_quotes(char *str);
+void	expand_token(t_shell *shell);
+
 //check_input.c
 bool	is_sep(char c);
 bool	double_sep(char *str, int i);
@@ -240,7 +251,7 @@ void	free_iter(t_shell *pipex);
 
 //cmd_utils.c
 void	add_args(t_cmd *cmd, char *arg);
-int		count_args(char **args, char **new_args);
+int		count_args(char **args);
 
 //open_utils.c
 int		open_input(char *file);

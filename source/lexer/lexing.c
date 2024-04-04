@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 14:56:54 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:57:55 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	token_count_util(char *str, int *i, int *count)
 	if (str[*i] != '\0' && !is_sep(str[*i]))
 	{
 		(*count)++;
-		if (str[*i] == '"')
-			while (str[++(*i)] != '"')
+		if (is_quote(str[*i]))
+			while (!is_quote(str[++(*i)]))
 				;
 		while (str[*i] != ' ' && str[*i] != '\t'
 			&& str[*i] != '\0' && !is_sep(str[*i]))
@@ -69,10 +69,10 @@ int	count_chars(t_shell *shell)
 		}
 		if (shell->input[i] != ' ' || shell->input[i] != '\t')
 			count++;
-		if (shell->input[i] == '"')
+		if (is_quote(shell->input[i]))
 		{
 			count++;
-			while (shell->input[++i] != '"')
+			while (!is_quote(shell->input[++i]))
 				count++;
 		}
 		i++;
@@ -81,33 +81,9 @@ int	count_chars(t_shell *shell)
 	return (count);
 }
 
-//processes qoutes in string
-void process_quotes(char *str, char *result, int *i, int *j)
-{
-	if (str[*j] == '"')
-	{
-		result[(*i)] = str[*j];
-		(*i)++;
-		(*j)++;
-		while (str[*j] != '"' && str[*j] != '\0')
-		{
-			result[(*i)] = str[*j];
-			(*i)++;
-			(*j)++;
-		}
-		if (str[*j] == '"')
-		{
-			result[(*i)] = str[*j];
-			(*i)++;
-			(*j)++;
-		}
-	}
-}
-
 //processes a character
 void	process_character(char *str, char *result, int *i, int *j)
 {
-	process_quotes(str, result, i, j);
 	if (str[*j] == ' ')
 	{
 		while (str[*j] == ' ' && str[*j + 1] == ' ')
