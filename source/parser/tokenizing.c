@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/04 17:14:38 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/04 17:52:57 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 		process_quoted_token(str, index, token_content, &j);
 	}
 	if (token_type == PIPE && is_delimiter(str[*index], DELIMITER))
-	{
-		process_pipe_token(token_type, head, new_token, token_content);
-		return ;
-	}
+		return (process_pipe_token(token_type, head, new_token, token_content));
 	while (str[*index] && (!is_delimiter(str[*index], DELIMITER) || is_quoted))
 	{
 		if (is_quote(str[*index]))
