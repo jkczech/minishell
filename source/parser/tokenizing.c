@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/03 11:21:54 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/04 17:14:38 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 	int		len;
 	char	*token_content;
 	int		j;
-	bool	is_quoted = false;
+	bool	is_quoted;
 
+	is_quoted = false;
 	new_token = NULL;
 	len = token_len(str, *index, DELIMITER);
 	if (is_quote(str[*index]))
@@ -64,7 +65,7 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 	}
 	while (str[*index] && (!is_delimiter(str[*index], DELIMITER) || is_quoted))
 	{
-		if(is_quote(str[*index]))
+		if (is_quote(str[*index]))
 			is_quoted = !is_quoted;
 		token_content[j++] = str[(*index)++];
 	}
@@ -114,5 +115,3 @@ t_token	*assign_token_types(t_shell *shell)
 	}
 	return (head);
 }
-
-

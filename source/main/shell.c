@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/26 18:05:09 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:43:19 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	free_iter(t_shell *shell)
 	free_pipes(shell);
 	if (shell->child_pids)
 		free(shell->child_pids);
-	
 }
 
 //free the shell

@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/04/03 18:27:00 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:37:19 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,10 @@ void	del_quotes(char **str)
 	*str = tmp;
 }
 
-
 //checks the input and saves it in a list of tokens
 //if the input is invalid, returns false
 bool	check_input(t_shell *shell)
 {
-	/* char *tmp = remove_quotes(shell->input);
-	printf("\033[0;35mQuotes-rem: %s\n\033[0m", tmp);
-	free(tmp); */
 	while (shell->input[0] == '"' && \
 		shell->input[ft_strlen(shell->input) - 1] == '"')
 	{
