@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/28 13:04:51 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/03 22:44:42 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ bool	builtin_handler(t_shell *shell, t_cmd *cmd)
 
 bool	is_builtin(t_shell *shell, int i)
 {
+	if (!shell->cmds || !shell->cmds[i].args)
+		return (false);
 	if (ft_strncmp(shell->cmds[i].args[0], "echo", 5) == 0 || \
 		ft_strncmp(shell->cmds[i].args[0], "cd", 3) == 0 || \
 		ft_strncmp(shell->cmds[i].args[0], "pwd", 4) == 0 || \

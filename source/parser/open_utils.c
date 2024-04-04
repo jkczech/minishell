@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/02 21:57:38 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/03 22:53:26 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	open_input(t_cmd *cmd, char *file)
 {
-	if (cmd->input != STDIN_FILENO)
+	if (cmd->input != STDIN_FILENO && cmd->input != -1)
 		close(cmd->input);
 	cmd->input = open(file, O_RDONLY);
 	if (cmd->input < 0)
@@ -26,7 +26,7 @@ void	open_input(t_cmd *cmd, char *file)
 
 void	open_output(t_cmd *cmd, char *file)
 {
-	if (cmd->output != STDOUT_FILENO)
+	if (cmd->output != STDOUT_FILENO && cmd->output != -1)
 		close(cmd->output);
 	cmd->output = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (cmd->output < 0)
@@ -40,7 +40,7 @@ void	open_heredoc(t_cmd *cmd, char *delimiter, int hd_i)
 {
 	char	*file;
 
-	if (cmd->input != STDIN_FILENO)
+	if (cmd->input != STDIN_FILENO && cmd->input != -1)
 		close(cmd->input);
 	file = ft_strjoin("heredocs/.heredoc", ft_itoa(++hd_i));
 	cmd->input = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -61,7 +61,7 @@ void	open_heredoc(t_cmd *cmd, char *delimiter, int hd_i)
 
 void	open_append(t_cmd *cmd, char *file)
 {
-	if (cmd->output != STDOUT_FILENO)
+	if (cmd->output != STDOUT_FILENO && cmd->output != -1)
 		close(cmd->output);
 	cmd->output = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (cmd->output < 0)

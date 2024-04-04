@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/02 21:17:04 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/04/04 20:11:55 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,10 +75,6 @@ OBJ_DIR = object/
 OBJS =  $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 DEPS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.d))
 
-TEST_SRCS = testing.c lexing.c tokenizing.c cmd_utils.c dlist.c print.c tokenizing_utils.c
-TEST_OBJS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.o))
-TEST_DEPS = $(addprefix $(OBJ_DIR), $(TEST_SRCS:.c=.d))
-
 all: $(NAME) 
 
 object/%.o: source/%.c
@@ -90,13 +86,13 @@ $(NAME): $(LIBFT) $(GETNEXTLINE) $(OBJS)
 	@$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(GETNEXTLINE) -o $(NAME) $(RFLAGS)
 	@$(RM) heredocs
 	@mkdir heredocs
-	@printf "\r$(GREEN)🚀 ./$(NAME)          created                                                                     \n$(END)"
+#@printf "\r$(GREEN)🚀 ./$(NAME)          created                                                                     \n$(END)"
 
 $(LIBFT):
 	@make bonus -sC library/libft
 
 $(GETNEXTLINE):
-	@printf "$(ORANGE).$(END)"
+	#@printf "$(ORANGE).$(END)"
 	@make -sC library/get_next_line
 
 clean:

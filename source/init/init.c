@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/02 20:16:25 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/03 23:25:13 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,6 @@ bool	init_shell(t_shell *shell, char **envp)
 	if (!shell->paths)
 		return (false);
 	shell->exitcode = 0;
-	shell->input = NULL;
-	shell->norm_input = NULL;
-	shell->size = 0;
-	shell->tokens = NULL;
-	shell->cmds = NULL;
-	shell->pipes = NULL;
-	shell->child_pids = NULL;
-	shell->hd_i = 0;
 	return (true);
 }
 
@@ -89,3 +81,35 @@ bool	init_cmds(t_shell *shell)
 	}
 	return (true);
 }
+
+void	init_iter(t_shell *shell)
+{
+	shell->input = NULL;
+	shell->norm_input = NULL;
+	shell->size = 0;
+	shell->tokens = NULL;
+	shell->cmds = NULL;
+	shell->pipes = NULL;
+	shell->child_pids = NULL;
+	shell->hd_i = 0;
+}
+/* void	free_iter(t_shell *shell)
+{
+	if (shell->input)
+		free(shell->input);
+	if (shell->norm_input)
+		free(shell->norm_input);
+	if (shell->tokens)
+		free_tokens(shell->tokens);
+	if (shell->cmds)
+		free_cmds(shell);
+	if (shell->pipes)
+		free_pipes(shell);
+	if (shell->child_pids)
+		free(shell->child_pids);
+	while (shell->hd_i > 0)
+	{
+		unlink(ft_strjoin("heredocs/.heredoc", ft_itoa(shell->hd_i)));
+		shell->hd_i--;
+	}
+} */

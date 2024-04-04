@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/03 19:48:37 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/04 20:09:10 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 //free things needed to be freed after every iteration
 void	free_iter(t_shell *shell)
 {
+	printf("free_iter\n");
 	if (shell->input)
 		free(shell->input);
 	if (shell->norm_input)
@@ -68,9 +69,11 @@ void	free_cmds(t_shell *shell)
 			free_array(shell->cmds[i].args);
 		if (shell->cmds[i].path)
 			free(shell->cmds[i].path);
-		if (shell->cmds[i].input != STDIN_FILENO)
+		if (shell->cmds[i].input != STDIN_FILENO
+			&& shell->cmds[i].input != -1)
 			close(shell->cmds[i].input);
-		if (shell->cmds[i].output != STDOUT_FILENO)
+		if (shell->cmds[i].output != STDOUT_FILENO
+			&& shell->cmds[i].output != -1)
 			close(shell->cmds[i].output);
 		i++;
 	}
@@ -106,8 +109,10 @@ bool	free_pipes(t_shell *shell)
 		return (true);
 	while (i < shell->size - 1 && shell->pipes[i])
 	{
-		close(shell->pipes[i][0]);
-		close(shell->pipes[i][1]);
+		if (shell->pipes[i][0] != STDIN_FILENO && shell->pipes[i][1] != -1)
+			close(shell->pipes[i][0]);
+		if (shell->pipes[i][1] != STDOUT_FILENO && shell->pipes[i][1] != -1)
+			close(shell->pipes[i][1]);
 		if (shell->pipes[i])
 			free(shell->pipes[i]);
 		i++;
