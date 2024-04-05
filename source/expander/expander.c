@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/05 16:56:59 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/05 21:43:37 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,14 @@ char	*get_env_value(t_shell *shell, char *str)
 	char	*var;
 	char	*value;
 	int		i;
+	//char *tmp;
 
 	node = shell->env_list;
+/* 	while(*str != '$')
+		str++;
+	if(*str == '$')
+		str++; */
+	// Is solving the A="$USER" problem but need on other position
 	while (node)
 	{
 		i = 0;
@@ -54,7 +60,6 @@ char	*get_env_value(t_shell *shell, char *str)
 		printf("str: %s\n", str);
 		printf("i: %d\n", i);
 		// Find solution if expanding variable is within a string
-		//Here
 		if (ft_strncmp(var, str, i) == 0)
 		{
 			printf("SUCCESS\n");

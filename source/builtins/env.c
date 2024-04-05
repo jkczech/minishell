@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/26 11:55:30 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/05 20:07:18 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ bool	copy_envp(t_shell *shell, char **envp)
 //Handles the env command
 void	env_command(t_shell *shell, t_cmd *cmd)
 {
-	int	i;
+	/* int	i;
 
-	i = 0;
+	i = 0; */
 	if (args_counter(cmd->args) > 1)
 	{
 		ft_putstr_fd("env: ", 2);
