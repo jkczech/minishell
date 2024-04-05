@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/04 13:35:51 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:53:01 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ bool	find_variable(t_shell *shell, char *str)
 
 	len = ft_strlen(str);
 	node = shell->env_list;
-	printf("HERE!\n");
 	while (node)
 	{
 		i = 0;
@@ -51,9 +50,16 @@ char	*get_env_value(t_shell *shell, char *str)
 		var = node->content;
 		while (var[i] != '=')
 			i++;
+		printf("var: %s\n", var);
+		printf("str: %s\n", str);
+		printf("i: %d\n", i);
+		// Find solution if expanding variable is within a string
 		if (ft_strncmp(var, str, i) == 0)
 		{
+			printf("SUCCESS\n");
 			value = ft_strdup(var + i + 1);
+			if(!value)
+				return (NULL);
 			return (value);
 		}
 		node = node->next;

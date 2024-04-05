@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/04 20:43:01 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/05 16:15:32 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	add_args(t_cmd *cmd, char *arg)
 		cmd->args[1] = NULL;
 		return ;
 	}
-	printf("argcount: %d\n", count_args(cmd->args) + 1);
+	printf("ARG: %s\n", arg);
 	res = malloc(sizeof(char *) * (count_args(cmd->args) + 2));
 	if (!res)
 		return ;
@@ -35,6 +35,8 @@ void	add_args(t_cmd *cmd, char *arg)
 		res[i] = cmd->args[i];
 		i++;
 	}
+	printf("I: %d\n", i);
+	printf("ARG: %s\n", arg);
 	res[i++] = ft_strdup(arg);
 	res[i] = NULL;
 	free(cmd->args);
