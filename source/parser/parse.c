@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/05 16:24:02 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:03:40 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ bool	parse(t_shell *shell)
 	expand_token(shell);
 	get_size(shell);
 	expander(shell);
-	printf("Token->Content: %s\n", (*(shell->tokens))->content);
-	printf("Token->next->Content: %s\n", (*(shell->tokens))->next->content);
 	init_cmds(shell);
 	get_commands(shell);
 	find_commands(shell);

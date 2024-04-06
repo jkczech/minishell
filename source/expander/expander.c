@@ -6,7 +6,7 @@
 /*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/05 21:43:37 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/06 16:03:15 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ bool	find_variable(t_shell *shell, char *str)
 
 	len = ft_strlen(str);
 	node = shell->env_list;
+	i = 0;
 	while (node)
 	{
 		i = 0;
@@ -56,9 +57,6 @@ char	*get_env_value(t_shell *shell, char *str)
 		var = node->content;
 		while (var[i] != '=')
 			i++;
-		printf("var: %s\n", var);
-		printf("str: %s\n", str);
-		printf("i: %d\n", i);
 		// Find solution if expanding variable is within a string
 		if (ft_strncmp(var, str, i) == 0)
 		{
@@ -121,14 +119,18 @@ void	expander(t_shell *shell)
 {
 	char	*tmp;
 	t_token	*token;
+	int		len;
 
+	len = 0;
 	token = *shell->tokens;
 	while (token)
 	{
 		tmp = token->content;
 		if (is_expansion(shell, tmp))
 		{
-			token->content = get_env_value(shell, tmp + 1);
+			while(tmp[len] != '$')
+				len++;
+			token->content = get_env_value(shell, tmp + len + 1);
 			free(tmp);
 		}
 		token = token->next;
