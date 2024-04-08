@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/06 16:03:15 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/08 11:10:16 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,16 @@ char	*get_env_value(t_shell *shell, char *str)
 	char	*var;
 	char	*value;
 	int		i;
-	//char *tmp;
 
 	node = shell->env_list;
-/* 	while(*str != '$')
-		str++;
-	if(*str == '$')
-		str++; */
-	// Is solving the A="$USER" problem but need on other position
 	while (node)
 	{
 		i = 0;
 		var = node->content;
 		while (var[i] != '=')
 			i++;
-		// Find solution if expanding variable is within a string
 		if (ft_strncmp(var, str, i) == 0)
 		{
-			printf("SUCCESS\n");
 			value = ft_strdup(var + i + 1);
 			if(!value)
 				return (NULL);
@@ -69,30 +61,6 @@ char	*get_env_value(t_shell *shell, char *str)
 		node = node->next;
 	}
 	return (NULL);
-}
-
-//transform a string by removing dollar signs & quotes
-char	*transform_string(char *str)
-{
-	int		i;
-	int		j;
-	char	*result;
-
-	i = 0;
-	j = 0;
-	result = NULL;
-	while (str[i])
-	{
-		if (str[i] == '"')
-		{
-			i++;
-			while (str[i] && str[i] != '"')
-				result[j++] = str[i++];
-		}
-		i++;
-	}
-	str[i] = '\0';
-	return (result);
 }
 
 //checks if a string is a environment variable
@@ -120,6 +88,7 @@ void	expander(t_shell *shell)
 	char	*tmp;
 	t_token	*token;
 	int		len;
+	char	*value;
 
 	len = 0;
 	token = *shell->tokens;
@@ -128,9 +97,12 @@ void	expander(t_shell *shell)
 		tmp = token->content;
 		if (is_expansion(shell, tmp))
 		{
+			printf("expanding %s\n", tmp);
 			while(tmp[len] != '$')
 				len++;
-			token->content = get_env_value(shell, tmp + len + 1);
+			value = ft_substr(tmp, 0, len);
+			token->content =ft_strjoin(value, get_env_value(shell, tmp + len + 1));
+			free(value);
 			free(tmp);
 		}
 		token = token->next;
