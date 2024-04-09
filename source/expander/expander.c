@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/09 15:01:11 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:14:06 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int strlen_b_sc(char *str)
 
 	i = 0;
 	if (str[i] == '$')
+		i++;
+	if(str[i] == '?')
 		i++;
 	while (str[i] && ft_isalnum(str[i]))
 		i++;
@@ -43,7 +45,6 @@ char *expand(t_shell *shell, char *str)
 	char *value;
 
 	value = get_env_value(shell, str);
-
 	return (value);
 }
 
@@ -138,6 +139,7 @@ bool is_fake_var(t_shell *shell, char *str)
 	return (false);
 }
 
+//converts a string with variables to a string with values
 char *convert_str(t_shell *shell, char *str)
 {
 	char *substr;
@@ -157,6 +159,9 @@ char *convert_str(t_shell *shell, char *str)
 		else
 			len = strlen_before_a(str + i);
 		substr = ft_substr(str, i, len);
+		printf("substr: %s\n", substr);
+		if(ft_strncmp(substr, "$?", 2) == 0)
+			substr = ft_strdup(ft_itoa(shell->exitcode));
 		if(!substr)
 			return (NULL);
 		if(is_var(shell, substr))
@@ -167,7 +172,10 @@ char *convert_str(t_shell *shell, char *str)
 			return (NULL);
 		new_str = ft_strjoin(new_str, substr);
 		if(!new_str)
+		{
+			free(substr);
 			return (NULL);
+		}
 		free(substr);
 		i += len;
 	}
@@ -179,8 +187,6 @@ void	expander(t_shell *shell)
 {
 	char	*tmp;
 	t_token	*token;
-	//int		len;
-	//char	*value;
 	char	*var;
 
 	token = *shell->tokens;

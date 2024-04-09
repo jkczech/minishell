@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/09 15:01:16 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:04:37 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@
 # define PROMPT "🤏🐚: "
 # define DELIMITER " <>|"
 # define SEPARATOR "&|><%"
-# define NO_QUOTE 0
-# define S_QUOTE 1 //single quote
-# define D_QUOTE 2 //double quote
+# define FAKE_VAR 2
+# define ENV_VAR 1
+# define QUESTION_MARK 3 //question mark
+# define DOLLAR_SIGN 4 //dollar sign
 
 //error messages
 
@@ -199,7 +200,7 @@ bool	is_quote(char c);
 bool	quotes_checker(char *str);
 int		len_w_q(char *str);
 char	*remove_quotes(char *str);
-void	expand_token(t_shell *shell);
+void	quote_token(t_shell *shell);
 
 //check_input.c
 bool	is_sep(char c);
