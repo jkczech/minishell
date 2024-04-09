@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/05 20:07:18 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/08 17:02:01 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,5 @@ void	env_command(t_shell *shell, t_cmd *cmd)
 		return ;
 	}
 	print_env_list(shell->env_list);
-	printf("List size: %d\n", ft_lstsize(shell->env_list));
+	//printf("List size: %d\n", ft_lstsize(shell->env_list));
 }
