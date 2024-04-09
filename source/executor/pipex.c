@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/03 19:47:00 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/08 14:00:33 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ bool	wait_pids(t_shell *shell)
 	i = 0;
 	while (i < shell->size && shell->child_pids[i] > 0)
 	{
+		printf("waiting for pid %d\n", shell->child_pids[i]);
 		waitpid(shell->child_pids[i], NULL, 0);
+		printf("pid %d finished\n", shell->child_pids[i]);
 		i++;
 	}
 	return (true);
@@ -115,6 +117,7 @@ bool	execute_simple(t_shell *shell)
 	}
 	if (pid == 0)
 	{
+		printf("input: %d, output: %d\n", shell->cmds[0].input, shell->cmds[0].output);
 		redirect(*shell, shell->cmds[0].input, shell->cmds[0].output);
 		if (execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp) == -1)
 			error_msg(NULL);

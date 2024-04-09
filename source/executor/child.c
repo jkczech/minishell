@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/28 14:14:20 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/08 14:22:51 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	redirect(t_shell shell, int input, int output)
 		free_iter(&shell);
 		exit(1);
 	}
-	if (input != STDIN_FILENO)
-		close(input);
+	//if (input != STDIN_FILENO)
+	close(input);
 	if (dup2(output, STDOUT_FILENO) == -1)
 	{
 		free_iter(&shell);
@@ -44,10 +44,10 @@ void	children(t_shell shell, int i)
 		child(shell, i, shell.cmds[i].input, shell.cmds[i].output);
 	else if (i == 0)
 		child(shell, i, shell.cmds[i].input, shell.pipes[i][1]);
-	else if (i != shell.size - 1)
-		child(shell, i, shell.pipes[i - 1][0], shell.pipes[i][1]);
+	else if (i == shell.size - 1)
+		child(shell, i, shell.pipes[i - 1][0], shell.cmds[i].output);		
 	else
-		child(shell, i, shell.pipes[i - 1][0], shell.cmds[i].output);
+		child(shell, i, shell.pipes[i - 1][0], shell.pipes[i][1]);
 }
 
 //handle child processes, execute commands, else error message
@@ -60,6 +60,8 @@ void	child(t_shell shell, int i, int input, int output)
 		builtin_handler(&shell, &shell.cmds[i]);
 		exit(shell.exitcode);
 	}
+	printf("input: %d, output: %d\n", input, output);
+	printf("cmd input: %d, cmd output: %d\n", shell.cmds[i].input, shell.cmds[i].output);
 	if (execve(shell.cmds[i].path, shell.cmds[i].args, shell.envp) == -1)
 	{
 		free_iter(&shell);

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/04 20:37:50 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/09 12:24:24 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 # define APPEND 4
 # define PIPE 5
 
-# define PROMPT "🤏🐚: "
+# define PROMPT "MiNiSHell: "
 # define DELIMITER " <>|"
 # define SEPARATOR "&|><%"
 # define NO_QUOTE 0

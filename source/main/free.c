@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/04 20:32:46 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/08 13:38:16 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ bool	free_pipes(t_shell *shell)
 		return (true);
 	while (i < shell->size - 1 && shell->pipes[i])
 	{
-		if (shell->pipes[i][0] != STDIN_FILENO && shell->pipes[i][1] != -1)
+		if (/* shell->pipes[i][0] != STDIN_FILENO &&  */shell->pipes[i][1] != -1)
 			close(shell->pipes[i][0]);
-		if (shell->pipes[i][1] != STDOUT_FILENO && shell->pipes[i][1] != -1)
+		if (/* shell->pipes[i][1] != STDOUT_FILENO &&  */shell->pipes[i][1] != -1)
 			close(shell->pipes[i][1]);
 		if (shell->pipes[i])
 			free(shell->pipes[i]);
