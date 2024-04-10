@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/10 15:14:09 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/10 15:49:53 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	minishell(t_shell *shell)
 		shell->input = readline(PROMPT);
 		if (!shell->input)
 			break ;
+		signal(SIGINT, signal_handler);
 		if (*shell->input)
 		{
 			add_history(shell->input);
