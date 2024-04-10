@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 16:41:49 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:56:39 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,6 @@ void	free_tokens(t_token **tokens);
 //print.c
 void	print_tokens(t_token **tokens);
 void	print_list(t_token *head);
-void	print_envp(char **envp, char *name);
 void	print_cmds(t_shell *shell);
 void	print_env_list(t_list *env_list);
 

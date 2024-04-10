@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 16:34:01 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:56:25 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,6 @@ void	print_list(t_token *head)
 	}
 }
 
-//print envp variables
-void	print_envp(char **envp, char *name)
-{
-	int	i;
-
-	i = 0;
-	while (envp && envp[i])
-	{
-		if (ft_strncmp(envp[i], name, ft_strlen(name)) == 0)
-			printf("%s\n", envp[i]);
-		i++;
-	}
-}
 
 //print env_list
 void	print_env_list(t_list *env_list)

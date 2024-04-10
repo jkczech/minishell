@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/09 17:14:06 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:43:06 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,8 @@ bool	find_var(t_shell *shell, char *str)
 	while (node)
 	{
 		i = 0;
-		var = node->content;
-		while (var[i] != '=')
-			i++;
-		if (ft_strncmp(var, str, i) == 0 && i == len)
+		var = ((t_env*)node->content)->var;
+		if (ft_strncmp(var, str, ft_strlen(var)) == 0/*  && i == len */)
 			return (true);
 		node = node->next;
 	}
@@ -84,12 +82,10 @@ char	*get_env_value(t_shell *shell, char *str)
 	while (node)
 	{
 		i = 0;
-		var = node->content;
-		while (var[i] != '=')
-			i++;
-		if (ft_strncmp(var, str, i) == 0)
+		var = ((t_env*)node->content)->var;
+		if (ft_strncmp(var, str, ft_strlen(var)) == 0)
 		{
-			value = ft_strdup(var + i + 1);
+			value = ft_strdup(((t_env*)node->content)->value);
 			if(!value)
 				return (NULL);
 			return (value);
