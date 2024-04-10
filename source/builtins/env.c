@@ -6,13 +6,30 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/08 17:02:01 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:33:02 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //create new environment variable
+t_env *ft_fillenv(char *str) 
+{
+	t_env *ret;
+	int i;
+	
+	i = 0;
+	ret = (t_env *)malloc(sizeof(t_env));
+	ret->flag = 0; 
+	while(str[i] != '=')
+		i++;
+	ret->var = ft_substr(str, 0, i);
+	if(!ret->var)
+		return (0);
+	ret->value = ft_substr(str, i + 1, ft_strlen(str) - i - 1);
+	return 	(ret);
+}
+
 t_list	*ft_envnew_l(void *content)
 {
 	t_list	*list;
@@ -22,7 +39,7 @@ t_list	*ft_envnew_l(void *content)
 	list = (t_list *)malloc(sizeof(t_list));
 	if (!list)
 		return (0);
-	list->content = ft_strdup(content);
+	list->content = (void *)ft_fillenv(content);
 	if (!list->content)
 	{
 		free(list);
@@ -42,7 +59,7 @@ bool	envp_into_list(char **envp, t_list **env_list)
 	node = NULL;
 	while (envp[i])
 	{
-		node = ft_envnew_l(envp[i]);
+		node = ft_lstnew(ft_fillenv(envp[i]));
 		if (!node)
 			return (false);
 		ft_lstadd_back(env_list, node);

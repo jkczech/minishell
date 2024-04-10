@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/04 11:03:06 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:17:19 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 		{
 			free(tmp->content);
 			tmp->content = ft_strdup(cmd->args[1]);
-			printf("exported %s\n", tmp->content);
+			printf("exported %s\n", (char*)tmp->content);
 			shell->exitcode = 0;
 			return ;
 		}

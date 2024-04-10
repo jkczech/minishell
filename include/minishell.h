@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/09 17:04:37 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:41:49 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,13 @@ typedef struct s_token
 	int				quote;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct s_env
+{
+	char	*var;
+	char	*value;
+	int		flag;
+}	t_env;
 
 typedef struct s_shell
 {

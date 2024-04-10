@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/03 19:52:47 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/10 16:34:01 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	print_env_list(t_list *env_list)
 {
 	while (env_list)
 	{
-		printf("%s\n", env_list->content);
+		printf("%s=%s\n", \
+		((t_env*)env_list->content)->var, ((t_env*)env_list->content)->value);
 		env_list = env_list->next;
 	}
 }
