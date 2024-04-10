@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/26 11:15:13 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:20:36 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	env_command(t_shell *shell, t_cmd *cmd)
 	int	i;
 
 	i = 0;
-	if (args_counter(cmd->args) > 1)
+	if (count_args(cmd->args) > 1)
 	{
 		ft_putstr_fd("env: ", 2);
 		ft_putstr_fd("´", 2);

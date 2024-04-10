@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/08 14:22:51 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/10 14:57:36 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	redirect(t_shell shell, int input, int output)
 		free_iter(&shell);
 		exit(1);
 	}
-	//if (input != STDIN_FILENO)
-	close(input);
+	if (input != STDIN_FILENO)
+		close(input);
 	if (dup2(output, STDOUT_FILENO) == -1)
 	{
 		free_iter(&shell);
@@ -33,38 +33,36 @@ void	redirect(t_shell shell, int input, int output)
 }
 
 //handling different kinds of child processes, first, middle, last
-void	children(t_shell shell, int i)
+void	children(t_shell *shell, int i)
 {
-	if (!shell.cmds[i].args)
+	if (!shell->cmds[i].args)
 	{
-		free_iter(&shell);
+		free_iter(shell);
 		exit(1);
 	}
-	if (i == 0 && shell.size == 1)
-		child(shell, i, shell.cmds[i].input, shell.cmds[i].output);
+	if (i == 0 && shell->size == 1)
+		child(shell, i, STDIN_FILENO, STDOUT_FILENO);
 	else if (i == 0)
-		child(shell, i, shell.cmds[i].input, shell.pipes[i][1]);
-	else if (i == shell.size - 1)
-		child(shell, i, shell.pipes[i - 1][0], shell.cmds[i].output);		
+		child(shell, i, STDIN_FILENO, shell->pipes[i][1]);
+	else if (i == shell->size - 1)
+		child(shell, i, shell->pipes[i - 1][0], STDOUT_FILENO);
 	else
-		child(shell, i, shell.pipes[i - 1][0], shell.pipes[i][1]);
+		child(shell, i, shell->pipes[i - 1][0], shell->pipes[i][1]);
 }
 
 //handle child processes, execute commands, else error message
-void	child(t_shell shell, int i, int input, int output)
+void	child(t_shell *shell, int i, int input, int output)
 {
-	redirect(shell, input, output);
-	free_pipes(&shell);
-	if (is_builtin(&shell, i))
+	redirect(*shell, input, output);
+	free_pipes(shell);
+	if (is_builtin(shell, i))
 	{
-		builtin_handler(&shell, &shell.cmds[i]);
-		exit(shell.exitcode);
+		builtin_handler(shell, i);
+		exit(shell->exitcode);
 	}
-	printf("input: %d, output: %d\n", input, output);
-	printf("cmd input: %d, cmd output: %d\n", shell.cmds[i].input, shell.cmds[i].output);
-	if (execve(shell.cmds[i].path, shell.cmds[i].args, shell.envp) == -1)
+	if (execve(shell->cmds[i].path, shell->cmds[i].args, shell->envp) == -1)
 	{
-		free_iter(&shell);
+		free_iter(shell);
 		error_msg(NULL);
 	}
 	exit(1);

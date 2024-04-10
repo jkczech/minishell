@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/04 20:35:22 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/10 12:35:46 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,14 @@ bool	init_cmds(t_shell *shell)
 	{
 		shell->cmds[i].args = NULL;
 		shell->cmds[i].path = NULL;
-		shell->cmds[i].input = STDIN_FILENO;
-		shell->cmds[i].output = STDOUT_FILENO;
+		if (i == 0)
+			shell->cmds[i].input = STDIN_FILENO;
+		else
+			shell->cmds[i].input = -1;
+		if (i == shell->size - 1)
+			shell->cmds[i].output = STDOUT_FILENO;
+		else
+			shell->cmds[i].output = -1;
 		i++;
 	}
 	return (true);

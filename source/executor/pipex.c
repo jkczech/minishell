@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/08 14:00:33 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/10 15:02:48 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,13 @@ bool	create_pipes(t_shell *shell)
 			return (false);
 		i++;
 	}
+	copy_pipes(shell);
+	print_cmds(shell);
 	return (true);
 }
 
-/* if (shell->outfile == -1)
-		shell->exitcode = 1;
-	else if (!shell->cmds[i - 1].found)//
-		shell->exitcode = 127;
-	else
-		shell->exitcode = 0; */
-
 //waiting for all the child processes to finish
-//todo - exitcode handling
+//TODO: exitcode handling
 bool	wait_pids(t_shell *shell)
 {
 	int	i;
@@ -51,26 +46,7 @@ bool	wait_pids(t_shell *shell)
 	i = 0;
 	while (i < shell->size && shell->child_pids[i] > 0)
 	{
-		printf("waiting for pid %d\n", shell->child_pids[i]);
 		waitpid(shell->child_pids[i], NULL, 0);
-		printf("pid %d finished\n", shell->child_pids[i]);
-		i++;
-	}
-	return (true);
-}
-
-//allocate array of ints for the pids of child processes
-bool	allocate_pids(t_shell *shell)
-{
-	int	i;
-
-	shell->child_pids = malloc(shell->size * sizeof(int));
-	if (!shell->child_pids)
-		return (false);
-	i = 0;
-	while (i < shell->size)
-	{
-		shell->child_pids[i] = -1;
 		i++;
 	}
 	return (true);
@@ -89,14 +65,14 @@ bool	execute_pipeline(t_shell *shell)
 	{
 		pid = fork();
 		if (pid == 0)
-			children(*shell, i);
+			children(shell, i);
 		else if (pid > 0)
 			shell->child_pids[i] = pid;
 		else
-			return (false);
+			return (free_pipes(shell), false);
 		i++;
 	}
-	return (wait_pids(shell), true);
+	return (free_pipes(shell), wait_pids(shell), true);
 }
 
 //execute if there is only one command
@@ -108,7 +84,7 @@ bool	execute_simple(t_shell *shell)
 	if (shell->size != 1 || shell->cmds[0].args == NULL)
 		return (false);
 	if (is_builtin(shell, 0))
-		return (builtin_handler(shell, &shell->cmds[0]));
+		return (builtin_handler(shell, 0));
 	pid = fork();
 	if (pid == 0 && shell->cmds[0].path == NULL)
 	{
@@ -117,7 +93,6 @@ bool	execute_simple(t_shell *shell)
 	}
 	if (pid == 0)
 	{
-		printf("input: %d, output: %d\n", shell->cmds[0].input, shell->cmds[0].output);
 		redirect(*shell, shell->cmds[0].input, shell->cmds[0].output);
 		if (execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp) == -1)
 			error_msg(NULL);

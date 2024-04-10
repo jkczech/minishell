@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/09 12:24:24 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/10 15:38:59 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,11 @@ typedef struct s_shell
 
 bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
-int		args_counter(char **args);
 bool	is_builtin(t_shell *shell, int i);
 
 //builtins_utils.c
 
-bool	builtin_handler(t_shell *shell, t_cmd *cmd);
+bool	builtin_handler(t_shell *shell, int i);
 void	free_shell(t_shell *shell);
 void	free_tokens(t_token **tokens);
 void	ft_free_list(t_list *list);
@@ -164,19 +163,22 @@ void	export_command(t_shell *shell, t_cmd *cmd);
 //child.c
 
 void	redirect(t_shell shell, int input, int output);
-void	children(t_shell shell, int i);
-void	child(t_shell shell, int i, int input, int output);
+void	children(t_shell *shell, int i);
+void	child(t_shell *shell, int i, int input, int output);
 
 //error.c
 
 void	error_msg(char *file);
-void	cmd_not_found(t_shell *shell, int i);
+bool	cmd_not_found(t_shell *shell, int i);
+
+//pipex_utils.c
+void	copy_pipes(t_shell *shell);
+bool	allocate_pids(t_shell *shell);
 
 //pipex.c
 
 bool	create_pipes(t_shell *shell);
 bool	wait_pids(t_shell *shell);
-bool	allocate_pids(t_shell *shell);
 bool	execute_pipeline(t_shell *shell);
 bool	execute_simple(t_shell *shell);
 
@@ -236,10 +238,10 @@ int		minishell(t_shell *shell);
 
 //cmd_utils.c
 void	add_args(t_cmd *cmd, char *arg);
-int		count_args(char **args);
-bool	is_command(t_shell *shell, char *command, int i);
-void	find_command(t_shell *shell, int i);
+bool	is_command(char *command);
+bool	find_command(t_shell *shell, int i);
 bool	find_commands(t_shell *shell);
+bool	save_command(t_shell *shell, int i, char *command);
 
 //open_utils.c
 void	open_input(t_cmd *cmd, char *file);
@@ -267,6 +269,9 @@ int		what_token(char *str, int index);
 int		is_delimiter(char c, const char *delim);
 
 ////////////////////////////////UTILS///////////////////////////////////////////
+
+//general_utils.c
+int		count_args(char **args);
 
 //tlist.c
 t_token	*create_token(char *content, int token);

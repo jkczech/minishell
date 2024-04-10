@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/04 20:43:01 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/10 15:18:22 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	add_args(t_cmd *cmd, char *arg)
 		cmd->args[1] = NULL;
 		return ;
 	}
-	printf("argcount: %d\n", count_args(cmd->args) + 1);
 	res = malloc(sizeof(char *) * (count_args(cmd->args) + 2));
 	if (!res)
 		return ;
@@ -41,26 +40,15 @@ void	add_args(t_cmd *cmd, char *arg)
 	cmd->args = res;
 }
 
-//counts the number of arguments for the args table
-int	count_args(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
-}
-
 //search for command in shell.cmd[i], and search for path
-void	find_command(t_shell *shell, int i)
+bool	find_command(t_shell *shell, int i)
 {
 	char	*command;
 	int		j;
 
 	if (shell->cmds[i].args[0]
-		&& is_command(shell, ft_strdup(shell->cmds[i].args[0]), i))
-		return ;
+		&& is_command(shell->cmds[i].args[0]))
+		return (save_command(shell, i, shell->cmds[i].args[0]));
 	j = 0;
 	if (!shell->paths)
 		return (cmd_not_found(shell, i));
@@ -68,28 +56,33 @@ void	find_command(t_shell *shell, int i)
 	{
 		command = ft_strjoin3(shell->paths[j],
 				"/", shell->cmds[i].args[0]);
-		if (is_command(shell, command, i))
+		if (is_command(command))
+		{
+			shell->cmds[i].path = command;
 			break ;
+		}
 		j++;
 		if (!shell->paths[j])
 			cmd_not_found(shell, i);
 	}
+	return (shell->cmds[i].path != NULL);
 }
 
-//check if command is valid, if so, save it into shell
-bool	is_command(t_shell *shell, char *command, int i)
+bool	save_command(t_shell *shell, int i, char *command)
+{
+	if (!command)
+		return (false);
+	shell->cmds[i].path = ft_strdup(command);
+	return (shell->cmds[i].path != NULL);
+}
+
+//check if command is valid
+bool	is_command(char *command)
 {
 	if (!command)
 		return (false);
 	if (access(command, F_OK) == 0 && ft_strncmp(command, "/", 1) == 0)
-	{
-		shell->cmds[i].path = ft_strdup(command);
-		if (!shell->cmds[i].path)
-			return (false);
-		free(command);
 		return (true);
-	}
-	free(command);
 	return (false);
 }
 
@@ -102,16 +95,12 @@ bool	find_commands(t_shell *shell)
 	{
 		if (!shell->cmds[i].args)
 			return (false);
-		if (!(shell->cmds[i].input == -1) && \
-			!(shell->cmds[i].output == -1))
+		if (is_builtin(shell, i))
 		{
-			if (is_builtin(shell, i))
-			{
-				i++;
-				continue ;
-			}
-			find_command(shell, i);
+			i++;
+			continue ;
 		}
+		find_command(shell, i);
 		i++;
 	}
 	return (true);

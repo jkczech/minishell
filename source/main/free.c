@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/08 13:38:16 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/10 14:57:22 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdbool.h>
 
 //free things needed to be freed after every iteration
+//pipes are freed in the parent process elsewhere
 void	free_iter(t_shell *shell)
 {
 	printf("free_iter\n");
@@ -25,8 +26,6 @@ void	free_iter(t_shell *shell)
 		free_tokens(shell->tokens);
 	if (shell->cmds)
 		free_cmds(shell);
-	if (shell->pipes)
-		free_pipes(shell);
 	if (shell->child_pids)
 		free(shell->child_pids);
 	while (shell->hd_i > 0)
@@ -109,10 +108,16 @@ bool	free_pipes(t_shell *shell)
 		return (true);
 	while (i < shell->size - 1 && shell->pipes[i])
 	{
-		if (/* shell->pipes[i][0] != STDIN_FILENO &&  */shell->pipes[i][1] != -1)
+		if (shell->pipes[i][1] != -1)
 			close(shell->pipes[i][0]);
-		if (/* shell->pipes[i][1] != STDOUT_FILENO &&  */shell->pipes[i][1] != -1)
+		if (shell->pipes[i][1] != -1)
 			close(shell->pipes[i][1]);
+		if (shell->cmds[i].input != -1
+			&& shell->cmds[i].input != STDIN_FILENO)
+			close(shell->cmds[i].input);
+		if (shell->cmds[i].output != -1
+			&& shell->cmds[i].output != STDOUT_FILENO)
+			close(shell->cmds[i].output);
 		if (shell->pipes[i])
 			free(shell->pipes[i]);
 		i++;

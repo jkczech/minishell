@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/04 20:52:06 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/04/10 15:21:09 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ BUILTINS =	builtins/builtins.c \
 			builtins/export.c \
 
 EXECUTOR =	executor/pipex.c \
+			executor/pipex_utils.c \
 			executor/error.c \
 			executor/child.c
 
@@ -66,7 +67,8 @@ PARSER = parser/cmd_utils.c \
 
 SIGNALS = signals/signals.c
 
-UTILS = utils/tlist.c \
+UTILS = utils/general_utils.c \
+		utils/tlist.c \
 		utils/print.c
 
 SRCS =	$(BUILTINS) $(EXECUTOR) $(EXPANDER) $(INIT) $(LEXER) \

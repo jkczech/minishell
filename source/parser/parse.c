@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/04 20:28:47 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/10 14:21:39 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	get_size(t_shell *shell)
 		token = token->next;
 	}
 	shell->size = size + 1;
-	printf("size: %d\n", shell->size);
 }
 
 //creates command table
@@ -81,5 +80,4 @@ void	get_commands(t_shell *shell)
 			open_append(&shell->cmds[i], token->content);
 		token = token->next;
 	}
-	print_cmds(shell);
 }
