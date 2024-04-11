@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 16:56:25 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:43:14 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,49 @@ void	print_list(t_token *head)
 //print env_list
 void	print_env_list(t_list *env_list)
 {
+	char *var;
+	char *value;
+	int flag;
+
+	var = NULL;
+	value = NULL;
+	flag = 0;
 	while (env_list)
 	{
-		printf("%s=%s\n", \
-		((t_env*)env_list->content)->var, ((t_env*)env_list->content)->value);
+		var = ((t_env*)env_list->content)->var;
+		value = ((t_env*)env_list->content)->value;
+		flag = ((t_env*)env_list->content)->flag;
+		if(flag == 1)
+			printf("%s=%s\n", var, value);
+		env_list = env_list->next;
+	}
+}
+
+//print export_list
+void	print_export_list(t_list *env_list)
+{
+	char *var;
+	char *value;
+	int flag;
+
+	var = NULL;
+	value = NULL;
+	flag = 0;
+	while (env_list)
+	{
+		var = ((t_env*)env_list->content)->var;
+		value = ((t_env*)env_list->content)->value;
+		flag = ((t_env*)env_list->content)->flag;
+		if(var[0] == '_')
+		{
+			env_list = env_list->next;
+			continue;
+		}
+		if(value && (flag == 1))
+			printf("declare -x %s=\"%s\"\n", var, value);
+		else if (flag == 0)
+			printf("declare -x %s\n", var);
+		
 		env_list = env_list->next;
 	}
 }

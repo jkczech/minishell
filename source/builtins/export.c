@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/10 16:17:19 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:36:37 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,24 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 	int		len;
 	t_list	*tmp;
 
-	if (!cmd->args[1])
+	if(!cmd->args[1])
 	{
+		print_export_list(shell->env_list);
 		shell->exitcode = 0;
 		return ;
 	}
-	len = strlen_before_char(cmd->args[1], '=');
 	tmp = shell->env_list;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->content, cmd->args[1], len) == 0)
+		len = strlen_before_char(cmd->args[1], '=');
+		if (ft_strncmp(((t_env*)tmp->content)->var, cmd->args[1], len) == 0)
 		{
-			free(tmp->content);
-			tmp->content = ft_strdup(cmd->args[1]);
-			printf("exported %s\n", (char*)tmp->content);
-			shell->exitcode = 0;
+			if(((t_env*)tmp->content)->value)
+			{
+				free(((t_env*)tmp->content)->value);
+				((t_env*)tmp->content)->value = ft_strdup(cmd->args[1] + len + 1);
+				shell->exitcode = 0;
+			}
 			return ;
 		}
 		tmp = tmp->next;
@@ -65,5 +68,3 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 	add_env_var(shell, cmd->args[1]);
 	shell->exitcode = 0;
 }
-
-//Handle export with no arguments

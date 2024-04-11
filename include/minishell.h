@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 16:56:39 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:51:29 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,10 @@
 # define SEPARATOR "&|><%"
 # define FAKE_VAR 2
 # define ENV_VAR 1
-# define QUESTION_MARK 3 //question mark
-# define DOLLAR_SIGN 4 //dollar sign
+# define QUESTION_MARK 3
+# define DOLLAR_SIGN 4
 
 //error messages
-
 # define ERR_ARG_1 	"Error: Wrong number of arguments\n"
 # define ERR_ARG_2 	"Error: Not enough arguments\n"
 # define ERR_IN 	"Error: infile undefined\n"
@@ -284,5 +283,6 @@ void	print_tokens(t_token **tokens);
 void	print_list(t_token *head);
 void	print_cmds(t_shell *shell);
 void	print_env_list(t_list *env_list);
+void	print_export_list(t_list *env_list);
 
 #endif

@@ -6,11 +6,25 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/10 16:33:02 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:13:13 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int check_env_var(char *var)
+{
+	int i;
+
+	i = 0;
+	while (var[i])
+	{
+		if (var[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 //create new environment variable
 t_env *ft_fillenv(char *str) 
@@ -20,8 +34,11 @@ t_env *ft_fillenv(char *str)
 	
 	i = 0;
 	ret = (t_env *)malloc(sizeof(t_env));
-	ret->flag = 0; 
-	while(str[i] != '=')
+	if(check_env_var(str))
+		ret->flag = 1;
+	else
+		ret->flag = 0;
+	while(str[i] && str[i] != '=')
 		i++;
 	ret->var = ft_substr(str, 0, i);
 	if(!ret->var)
@@ -30,6 +47,7 @@ t_env *ft_fillenv(char *str)
 	return 	(ret);
 }
 
+//create new list element
 t_list	*ft_envnew_l(void *content)
 {
 	t_list	*list;
