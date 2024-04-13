@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/11 17:42:39 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/13 07:54:40 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 		len = strlen_before_char(cmd->args[1], '=');
 		if (ft_strncmp(((t_env*)tmp->content)->var, cmd->args[1], len) == 0)
 		{
-			if(((t_env*)tmp->content)->value)
+			if(((t_env*)tmp->content)->value && cmd->args[1][len] == '=')
 			{
 				free(((t_env*)tmp->content)->value);
 				((t_env*)tmp->content)->value = ft_strdup(cmd->args[1] + len + 1);

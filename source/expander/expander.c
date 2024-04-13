@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 17:43:06 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/13 07:52:43 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ bool	find_var(t_shell *shell, char *str)
 {
 	t_list	*node;
 	char	*var;
-	int		i;
-	int		len;
+	//int		i;
+	//int		len;
 
-	len = strlen_b_sc(str);
+	//len = strlen_b_sc(str);
 	node = shell->env_list;
-	i = 0;
+	//i = 0;
 	while (node)
 	{
-		i = 0;
+		//i = 0;
 		var = ((t_env*)node->content)->var;
 		if (ft_strncmp(var, str, ft_strlen(var)) == 0/*  && i == len */)
 			return (true);
@@ -76,12 +76,10 @@ char	*get_env_value(t_shell *shell, char *str)
 	t_list	*node;
 	char	*var;
 	char	*value;
-	int		i;
-
+	
 	node = shell->env_list;
 	while (node)
 	{
-		i = 0;
 		var = ((t_env*)node->content)->var;
 		if (ft_strncmp(var, str, ft_strlen(var)) == 0)
 		{
