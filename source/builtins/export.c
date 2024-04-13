@@ -6,7 +6,7 @@
 /*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/13 07:54:40 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/13 08:05:29 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@ void	add_env_var(t_shell *shell, char *arg)
 		return ;
 	}
 	ft_lstadd_back(&shell->env_list, node);
+} 
+
+bool simple_export(t_shell *shell, t_cmd *cmd)
+{
+	if(!cmd->args[1])
+	{
+		print_export_list(shell->env_list);
+		shell->exitcode = 0;
+		return (true);	
+	}
+	return (false);
 }
 
 //Export command
@@ -43,12 +54,8 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 	int		len;
 	t_list	*tmp;
 
-	if(!cmd->args[1])
-	{
-		print_export_list(shell->env_list);
-		shell->exitcode = 0;
+	if(simple_export(shell, cmd))
 		return ;
-	}
 	tmp = shell->env_list;
 	while (tmp)
 	{
