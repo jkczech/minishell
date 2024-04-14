@@ -6,7 +6,7 @@
 /*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/13 08:05:29 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/14 10:40:14 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,3 +76,5 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 	add_env_var(shell, cmd->args[1]);
 	shell->exitcode = 0;
 }
+
+
