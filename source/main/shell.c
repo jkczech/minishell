@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/10 15:14:09 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/15 22:21:35 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //main shell loop, that reads input, checks it and executes it
 //TODO: error handling
-int	minishell(t_shell *shell)
+void	minishell(t_shell *shell)
 {
 	while (true)
 	{
@@ -28,15 +28,14 @@ int	minishell(t_shell *shell)
 			check_input(shell);
 			parse(shell);
 			if (shell->size > 1 && !create_pipes(shell))
-				return (free_iter(shell), error_msg(NULL), EXIT_FAILURE);
+				return (free_iter(shell), error_msg(NULL));
 			if (shell->size == 1 && !execute_simple(shell))
-				return (free_iter(shell), error_msg(NULL), shell->exitcode);
+				return (free_iter(shell), error_msg(NULL));
 			else if (shell->size > 1 && !execute_pipeline(shell))
-				return (free_iter(shell), error_msg(NULL), shell->exitcode);
+				return (free_iter(shell), error_msg(NULL));
 			free_iter(shell);
 		}
 	}
-	return (EXIT_SUCCESS);
 }
 
 //not sure in which cases this was necessary - for norm I deleted it

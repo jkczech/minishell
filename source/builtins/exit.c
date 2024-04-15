@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/03/26 13:38:58 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 01:53:02 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	easy_exit(t_shell *shell, int status)
 	ft_putstr_fd("exit\n", 2);
 	if (shell)
 		free_shell(shell);
-	printf("Exit status: %d\n", status);
+	printf("Exit status: %d\n", status); //tbdel
 	exit(status);
 }
 
