@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/11 14:51:29 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/15 10:55:48 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,9 @@ int		strlen_before_char(char *str, char c);
 
 //unset.c
 void	unset_command(t_shell *shell, t_cmd *cmd);
+
+//cd.c
+void	cd_command(t_shell *shell, t_cmd *cmd);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 
