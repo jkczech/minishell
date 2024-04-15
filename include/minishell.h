@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 15:38:59 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/15 22:19:15 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,7 @@ void	free_shell(t_shell *shell);
 //shell.c
 //void	envp_into_list(char **envp, t_list *env_list);
 int		minishell(t_shell *shell);
+void	argc_check(int argc);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 

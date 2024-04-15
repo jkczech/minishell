@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/26 11:09:26 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/15 22:18:43 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_shell		*shell;
+	t_shell		shell;
 
-	shell = malloc(sizeof(t_shell));
-	init_shell(shell, envp);
-	if (argc < 0 || !argv)
-		return (1);
-	shell->envp = envp;
-	shell->env_list = NULL;
-	envp_into_list(envp, &shell->env_list);
-	shell->exitcode = 99;
-	minishell(shell);
+	argc_check(argc);
+	init_shell(&shell, envp);
+	minishell(&shell);
+}
+
+void	argc_check(int argc)
+{
+	if (argc > 1)
+	{
+		ft_putstr_fd("minishell: too many arguments\n", 2);
+		exit(EXIT_SUCCESS);
+	}
 }
