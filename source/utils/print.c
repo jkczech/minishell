@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/03 19:52:47 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/10 16:38:49 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	print_cmds(t_shell *shell)
 		if (!shell->cmds[i].args)
 			printf("null %c\n", i);
 		while (shell->cmds[i].args && shell->cmds[i].args[j])
-			printf("\033[0;32m%s+\033[0m ", shell->cmds[i].args[j++]);
+			printf("\033[0;32m%s\033[0m ", shell->cmds[i].args[j++]);
 		if (!shell->cmds[i].args || !shell->cmds[i].args[0])
 			printf("(null)");
 		printf("\n");

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 15:58:38 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/10 16:36:36 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,4 @@ int	main(int argc, char **argv, char **envp)
 	shell->exitcode = 99;
 	signal(SIGINT, signal_handler);
 	minishell(shell);
-}
-
-void	signal_handler(int signum)
-{
-	if (signum == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (signum == SIGQUIT)
-	{
-		printf("Quit\n");
-	}
-	else
-	{
-		printf("Signal %d\n", signum);
-	}
 }

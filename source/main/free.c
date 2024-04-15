@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 14:57:22 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/10 16:35:19 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 //pipes are freed in the parent process elsewhere
 void	free_iter(t_shell *shell)
 {
-	printf("free_iter\n");
+	//printf("free_iter\n");
 	if (shell->input)
 		free(shell->input);
 	if (shell->norm_input)
