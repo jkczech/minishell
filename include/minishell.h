@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 05:02:02 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 05:11:07 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ bool	read_line(t_shell *shell);
 ////////////////////////////////PARSER//////////////////////////////////////////
 
 //cmd_utils.c
-void	add_args(t_cmd *cmd, char *arg);
+bool	add_args(t_cmd *cmd, char *arg);
 bool	is_command(char *command);
 bool	find_command(t_shell *shell, int i);
 bool	find_commands(t_shell *shell);
