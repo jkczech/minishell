@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/15 22:23:23 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 02:27:05 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,10 +230,12 @@ bool	free_pipes(t_shell *shell);
 void	free_iter(t_shell *shell);
 void	free_shell(t_shell *shell);
 
-//shell.c
-//void	envp_into_list(char **envp, t_list *env_list);
-void	minishell(t_shell *shell);
+//main.c
 void	argc_check(int argc, char **argv);
+
+//shell.c
+void	minishell(t_shell *shell);
+bool	read_line(t_shell *shell);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 

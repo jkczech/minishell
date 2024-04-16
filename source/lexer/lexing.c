@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/03 15:57:55 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/16 02:29:54 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	token_count(t_shell *shell)
 			i++;
 		token_count_util(shell->input, &i, &count);
 	}
-	printf("Token_count: %d\n", count);
+	//printf("Token_count: %d\n", count);
 	return (count);
 }
 
@@ -77,7 +77,7 @@ int	count_chars(t_shell *shell)
 		}
 		i++;
 	}
-	printf("Char_count: %d\n", count);
+	//printf("Char_count: %d\n", count);
 	return (count);
 }
 

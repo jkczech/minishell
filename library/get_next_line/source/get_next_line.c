@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 11:41:33 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/20 12:40:32 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 02:28:21 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	free_line(t_list **llist)
 }
 
 //takes the list and returns the full string until newline
-char	*read_line(t_list *llist)
+char	*read_gnl_line(t_list *llist)
 {
 	char	*line;
 	int		i;
@@ -117,7 +117,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	save_line(&llist, fd);
-	next_line = read_line(llist);
+	next_line = read_gnl_line(llist);
 	free_line(&llist);
 	return (next_line);
 }

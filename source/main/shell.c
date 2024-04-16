@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/15 22:21:35 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 02:25:53 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ void	minishell(t_shell *shell)
 	while (true)
 	{
 		init_iter(shell);
-		shell->input = readline(PROMPT);
-		if (!shell->input)
+		if (!read_line(shell))
 			break ;
 		if (*shell->input)
 		{
-			add_history(shell->input);
 			check_input(shell);
 			parse(shell);
 			if (shell->size > 1 && !create_pipes(shell))
@@ -33,6 +31,7 @@ void	minishell(t_shell *shell)
 				return (free_iter(shell), error_msg(NULL));
 			else if (shell->size > 1 && !execute_pipeline(shell))
 				return (free_iter(shell), error_msg(NULL));
+			add_history(shell->input);
 			free_iter(shell);
 		}
 	}
@@ -46,3 +45,9 @@ void	minishell(t_shell *shell)
 // 	free_iter(shell);
 // 	continue ;
 // }
+
+bool	read_line(t_shell *shell)
+{
+	shell->input = readline(PROMPT);
+	return (shell->input);
+}
