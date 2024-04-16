@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 02:30:21 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 07:06:24 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	free_shell(t_shell *shell)
 		}
 		free(shell->paths);
 	}
+	rl_clear_history();
 }
 
 //free the commands table

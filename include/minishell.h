@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 05:11:07 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 06:57:35 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_token
 typedef struct s_shell
 {
 	t_list			*env_list;
-	t_list			*history;
 	char			**envp;
 	char			**paths;
 	int				exitcode;

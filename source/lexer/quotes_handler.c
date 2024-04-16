@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:17:20 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/16 04:58:50 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 07:16:20 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	expand_token(t_shell *shell)
 	while (head)
 	{
 		tmp = head->content;
-		head->content = ft_strdup(remove_quotes(tmp));
+		head->content = remove_quotes(tmp);
 		free(tmp);
 		head = head->next;
 	}

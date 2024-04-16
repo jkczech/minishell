@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 03:03:11 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 07:21:49 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,19 @@ int	count_chars(t_shell *shell)
 	count = 0;
 	while (shell->input[i])
 	{
-		if (shell->input[i] == ' ' || shell->input[i] == '\t')
-		{
-			while (shell->input[i] == ' ' || shell->input[i] == '\t')
-				i++;
-		}
+		while ((shell->input[i] == ' ' || shell->input[i] == '\t'))
+			i++;
 		if (shell->input[i] != ' ' || shell->input[i] != '\t')
 			count++;
-		if (is_quote(shell->input[i]))
+		if (shell->input[i] && is_quote(shell->input[i]))
 		{
 			count++;
-			while (!is_quote(shell->input[++i]))
+			i++;
+			while (!is_quote(shell->input[i]))
+			{
 				count++;
+				i++;
+			}
 		}
 		i++;
 	}

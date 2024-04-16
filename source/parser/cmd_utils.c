@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 05:18:47 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 07:19:29 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ bool	find_command(t_shell *shell, int i)
 			break ;
 		}
 		j++;
+		free(command);
 		if (!shell->paths[j])
 			cmd_not_found(shell, i);
 	}

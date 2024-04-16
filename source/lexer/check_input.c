@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/04/16 03:21:14 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 07:11:51 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,3 @@ bool	check_input(t_shell *shell)
 		return (false);
 	return (true);
 }
-
-

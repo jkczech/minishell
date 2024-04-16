@@ -6,13 +6,13 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 05:19:53 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 07:12:19 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool execute(t_shell *shell)
+bool	execute(t_shell *shell)
 {
 	if (shell->size > 1 && !create_pipes(shell))
 		return (error_msg(NULL), false);

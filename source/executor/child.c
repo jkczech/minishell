@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 17:09:36 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 07:21:14 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	child(t_shell *shell, int i, int input, int output)
 	}
 	if (!shell->cmds[i].path)
 		free_iter(shell);
-	else if (execve(shell->cmds[i].path, shell->cmds[i].args, shell->envp) == -1)
+	else if (execve(shell->cmds[i].path,
+			shell->cmds[i].args, shell->envp) == -1)
 	{
 		free_iter(shell);
 		error_msg(NULL);
