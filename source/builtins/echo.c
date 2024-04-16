@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 10:17:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/10 15:20:26 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 08:14:44 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	simple_echo(t_shell *shell, t_cmd *cmd)
 		print_echo(shell, cmd, &i);
 		i++;
 	}
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("\n", cmd->output);
 }
 
 //Checks if the command is echo and executes it

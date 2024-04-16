@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/03 22:53:26 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 09:40:30 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	open_input(t_cmd *cmd, char *file)
 		close(cmd->input);
 	cmd->input = open(file, O_RDONLY);
 	if (cmd->input < 0)
-	{
-		printf("minishell: %s: %s\n", file, strerror(errno));
-		return ;
-	}
+		error_msg(file);
 }
 
 void	open_output(t_cmd *cmd, char *file)
@@ -30,10 +27,7 @@ void	open_output(t_cmd *cmd, char *file)
 		close(cmd->output);
 	cmd->output = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (cmd->output < 0)
-	{
-		printf("minishell: %s: %s\n", file, strerror(errno));
-		return ;
-	}
+		error_msg(file);
 }
 
 void	open_heredoc(t_cmd *cmd, char *delimiter, int hd_i)
@@ -45,18 +39,12 @@ void	open_heredoc(t_cmd *cmd, char *delimiter, int hd_i)
 	file = ft_strjoin("heredocs/.heredoc", ft_itoa(++hd_i));
 	cmd->input = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (cmd->input < 0)
-	{
-		printf("minishell: %s: %s\n", file, strerror(errno));
-		return ;
-	}
+		return (error_msg(file));
 	heredoc(cmd->input, delimiter);
 	close(cmd->input);
 	cmd->input = open(file, O_RDONLY);
 	if (cmd->input < 0)
-	{
-		printf("minishell: %s: %s\n", file, strerror(errno));
-		return ;
-	}
+		error_msg(file);
 }
 
 void	open_append(t_cmd *cmd, char *file)
@@ -65,10 +53,7 @@ void	open_append(t_cmd *cmd, char *file)
 		close(cmd->output);
 	cmd->output = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (cmd->output < 0)
-	{
-		printf("minishell: %s: %s\n", file, strerror(errno));
-		return ;
-	}
+		error_msg(file);
 }
 
 void	heredoc(int fd, char *delimiter)
