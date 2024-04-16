@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 02:27:05 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 02:42:13 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ bool	allocate_pids(t_shell *shell);
 
 //pipex.c
 
+bool	execute(t_shell *shell);
 bool	create_pipes(t_shell *shell);
 bool	wait_pids(t_shell *shell);
 bool	execute_pipeline(t_shell *shell);

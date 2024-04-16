@@ -6,11 +6,22 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 15:02:48 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 02:41:36 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+bool execute(t_shell *shell)
+{
+	if (shell->size > 1 && !create_pipes(shell))
+		return (error_msg(NULL), false);
+	if (shell->size == 1 && !execute_simple(shell))
+		return (error_msg(NULL), false);
+	else if (shell->size > 1 && !execute_pipeline(shell))
+		return (error_msg(NULL), false);
+	return (true);
+}
 
 //create all pipes needed
 //shell->size - 1 pipes are created
