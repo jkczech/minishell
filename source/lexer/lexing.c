@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 02:29:54 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 02:50:21 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,15 @@ void	process_character(char *str, char *result, int *i, int *j)
 }
 
 //get input and return a normed input
-void	norm_input(t_shell *shell, int len)
+void	norm_input(t_shell *shell)
 {
 	int		i;
 	int		j;
+	int		len;
 
 	i = 0;
 	j = 0;
+	len = token_count(shell) - 1 + count_chars(shell);
 	if (!quotes_checker(shell->input))
 		return ;
 	shell->norm_input = malloc(sizeof(char) * (len + 1));

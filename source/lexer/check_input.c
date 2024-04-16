@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/04/04 13:37:19 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/16 02:49:59 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,7 @@ void	del_quotes(char **str)
 //if the input is invalid, returns false
 bool	check_input(t_shell *shell)
 {
-	while (shell->input[0] == '"' && \
-		shell->input[ft_strlen(shell->input) - 1] == '"')
-	{
-		del_quotes(&shell->input);
-		if (!shell->input)
-			return (false);
-	}
-	norm_input(shell, token_count(shell) - 1 + count_chars(shell));
+	norm_input(shell);
 	if (!shell->norm_input)
 		return (false);
 	return (true);
