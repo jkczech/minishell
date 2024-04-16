@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:17:20 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/16 07:16:20 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 10:02:02 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	len_w_q(char *str)
 	bool	q_closed;
 
 	init_variables(&i, &len, &q, &q_closed);
-	while (str[i])
+	while (str && str[i])
 	{
 		determine_quote(str, &i, &q, &q_closed);
 		while (str[i] && str[i] != q)
@@ -113,7 +113,7 @@ char	*remove_quotes(char *str)
 	new_str = (char *)malloc(sizeof(char) * len_w_q(str) + 1);
 	if (!new_str)
 		return (NULL);
-	while (str[i])
+	while (str && str[i])
 	{
 		determine_quote(str, &i, &q, &q_closed);
 		while (str[i] && str[i] != q)
