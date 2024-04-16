@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/10 15:21:09 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/04/16 03:22:54 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,9 +51,10 @@ EXPANDER = expander/expander.c
 
 INIT = init/init.c
 
-LEXER = lexer/lexing.c \
+LEXER =	lexer/check_error.c \
 		lexer/check_input.c \
-		lexer/quotes_handler.c \
+		lexer/lexing.c \
+		lexer/quotes_handler.c 
 
 MAIN = 	main/free.c \
 		main/main.c \
