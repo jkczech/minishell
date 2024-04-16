@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 05:15:37 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 05:18:47 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ bool	find_commands(t_shell *shell)
 	i = 0;
 	while (i < shell->size)
 	{
-		if (!shell->cmds[i].args)
+		if (!shell->cmds || !shell->cmds[i].args)
 			return (false);
 		if (is_builtin(shell, i))
 		{
