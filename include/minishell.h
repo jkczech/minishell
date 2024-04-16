@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 09:29:57 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 12:35:16 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,7 @@ void	export_command(t_shell *shell, t_cmd *cmd);
 
 //child.c
 
-void	redirect(t_shell shell, int input, int output);
-void	children(t_shell *shell, int i);
+void	redirect(t_shell *shell, int input, int output);
 void	child(t_shell *shell, int i, int input, int output);
 
 //error.c
