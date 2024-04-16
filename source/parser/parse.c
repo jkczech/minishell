@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 02:30:40 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 05:01:41 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ bool	parse(t_shell *shell)
 //TODO: check if we need ** tokens
 void	get_tokens(t_shell *shell)
 {
-	shell->tokens = malloc(sizeof(t_token *));
-	*shell->tokens = assign_token_types(shell);
-	//if (shell->tokens)
-	//	print_tokens(shell->tokens);
+	shell->tokens = assign_token_types(shell);
+	if (shell->tokens)
+		print_tokens(shell->tokens);
 }
 
 //counts the number of commands needed
@@ -43,7 +42,7 @@ void	get_size(t_shell *shell)
 	t_token	*token;
 	int		size;
 
-	token = *(shell->tokens);
+	token = shell->tokens;
 	if (!token)
 		return ;
 	size = 0;
@@ -63,7 +62,7 @@ void	get_commands(t_shell *shell)
 	int		i;
 
 	i = 0;
-	token = *(shell->tokens);
+	token = shell->tokens;
 	while (token && i < shell->size)
 	{
 		if (token->token == PIPE)

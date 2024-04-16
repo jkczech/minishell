@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/16 02:31:11 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 04:27:21 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exit_command(t_shell *shell, t_cmd *cmd)
 {
 	int	exit_status;
 
-	exit_status = shell->exitcode;
+	exit_status = shell->exitcode; //unused
 	if (!cmd->args[1])
 		easy_exit(shell, 0);
 	else if (cmd->args[1])

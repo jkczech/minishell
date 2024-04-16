@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 12:35:46 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 05:00:11 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,23 +98,3 @@ void	init_iter(t_shell *shell)
 	shell->child_pids = NULL;
 	shell->hd_i = 0;
 }
-/* void	free_iter(t_shell *shell)
-{
-	if (shell->input)
-		free(shell->input);
-	if (shell->norm_input)
-		free(shell->norm_input);
-	if (shell->tokens)
-		free_tokens(shell->tokens);
-	if (shell->cmds)
-		free_cmds(shell);
-	if (shell->pipes)
-		free_pipes(shell);
-	if (shell->child_pids)
-		free(shell->child_pids);
-	while (shell->hd_i > 0)
-	{
-		unlink(ft_strjoin("heredocs/.heredoc", ft_itoa(shell->hd_i)));
-		shell->hd_i--;
-	}
-} */

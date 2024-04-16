@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 03:35:24 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 05:02:02 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_shell
 	char			*input;
 	char			*norm_input;
 	int				size;
-	t_token			**tokens;
+	t_token			*tokens;
 	t_cmd			*cmds;
 	int				**pipes;
 	int				*child_pids;
@@ -111,7 +111,6 @@ bool	is_builtin(t_shell *shell, int i);
 //builtins_utils.c
 bool	builtin_handler(t_shell *shell, int i);
 void	free_shell(t_shell *shell);
-void	free_tokens(t_token **tokens);
 void	ft_free_list(t_list *list);
 long	ft_atol(const char *nptr);
 
@@ -272,10 +271,10 @@ t_token	*create_token(char *content, int token);
 void	destroy_token(t_token *token);
 void	add_token(t_token **head, t_token *new_token);
 void	remove_token(t_token **head, t_token *token);
-void	free_tokens(t_token **tokens);
+void	free_tokens(t_token *tokens);
 
 //print.c
-void	print_tokens(t_token **tokens);
+void	print_tokens(t_token *tokens);
 void	print_list(t_token *head);
 void	print_envp(char **envp, char *name);
 void	print_cmds(t_shell *shell);

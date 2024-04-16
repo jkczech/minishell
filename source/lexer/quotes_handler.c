@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:17:20 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/04 20:18:16 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 04:58:50 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	expand_token(t_shell *shell)
 	t_token	*head;
 	char	*tmp;
 
-	head = *shell->tokens;
+	head = shell->tokens;
 	while (head)
 	{
 		tmp = head->content;

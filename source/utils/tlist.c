@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tlist.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:54:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/01 17:10:27 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/16 05:02:26 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	destroy_token(t_token *token)
 	}
 }
 
-void	free_tokens(t_token **tokens)
+void	free_tokens(t_token *tokens)
 {
 	t_token	*tmp;
 	t_token	*next;
 
-	tmp = *tokens;
+	tmp = tokens;
 	while (tmp)
 	{
 		if (tmp->content)
@@ -49,7 +49,6 @@ void	free_tokens(t_token **tokens)
 		free(tmp);
 		tmp = next;
 	}
-	free(tokens);
 }
 
 void	add_token(t_token **head, t_token *new_token)

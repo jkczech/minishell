@@ -6,18 +6,18 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/03 19:52:47 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 05:01:53 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //print tokens in colors depending on token type in one line separated by spaces
-void	print_tokens(t_token **tokens)
+void	print_tokens(t_token *tokens)
 {
 	t_token	*token;
 
-	token = *tokens;
+	token = tokens;
 	while (token)
 	{
 		if (token->token == WORD)
