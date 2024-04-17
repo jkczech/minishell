@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:46:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/03 19:45:08 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 09:36:31 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	error_msg(char *file)
 {
 	char	*message;
 
-	ft_putstr_fd("shell: ", 2);
+	if (errno == 0)
+		return ;
+	ft_putstr_fd(ERR_PROMPT, 2);
 	message = ft_strdup(strerror(errno));
 	message = ft_strlwr(message);
 	if (message)
@@ -35,9 +37,11 @@ void	error_msg(char *file)
 }
 
 //prints a bash like error message
-void	cmd_not_found(t_shell *shell, int i)
+bool	cmd_not_found(t_shell *shell, int i)
 {
-	ft_putstr_fd("shell: command not found: ", 2);
+	ft_putstr_fd(ERR_PROMPT, 2);
+	ft_putstr_fd("command not found: ", 2);
 	ft_putstr_fd(shell->cmds[i].args[0], 2);
 	ft_putstr_fd("\n", 2);
+	return (true);
 }

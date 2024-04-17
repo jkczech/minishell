@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/08 14:30:40 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:26:40 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /* typedef struct s_shell
 {
 	t_list			*env_list;
-	t_list			*history;
 	char			**envp;
 	char			**paths;
 	int				exitcode;
@@ -34,7 +33,6 @@
 bool	init_shell(t_shell *shell, char **envp)
 {
 	shell->env_list = NULL;
-	shell->history = NULL;
 	shell->envp = envp;
 	shell->env_list = NULL;
 	envp_into_list(envp, &shell->env_list);
@@ -76,8 +74,14 @@ bool	init_cmds(t_shell *shell)
 	{
 		shell->cmds[i].args = NULL;
 		shell->cmds[i].path = NULL;
-		shell->cmds[i].input = STDIN_FILENO;
-		shell->cmds[i].output = STDOUT_FILENO;
+		if (i == 0)
+			shell->cmds[i].input = STDIN_FILENO;
+		else
+			shell->cmds[i].input = -1;
+		if (i == shell->size - 1)
+			shell->cmds[i].output = STDOUT_FILENO;
+		else
+			shell->cmds[i].output = -1;
 		i++;
 	}
 	return (true);
@@ -94,23 +98,3 @@ void	init_iter(t_shell *shell)
 	shell->child_pids = NULL;
 	shell->hd_i = 0;
 }
-/* void	free_iter(t_shell *shell)
-{
-	if (shell->input)
-		free(shell->input);
-	if (shell->norm_input)
-		free(shell->norm_input);
-	if (shell->tokens)
-		free_tokens(shell->tokens);
-	if (shell->cmds)
-		free_cmds(shell);
-	if (shell->pipes)
-		free_pipes(shell);
-	if (shell->child_pids)
-		free(shell->child_pids);
-	while (shell->hd_i > 0)
-	{
-		unlink(ft_strjoin("heredocs/.heredoc", ft_itoa(shell->hd_i)));
-		shell->hd_i--;
-	}
-} */

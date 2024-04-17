@@ -6,7 +6,7 @@
 /*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 12:37:05 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 14:25:25 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	expander(t_shell *shell)
 	t_token	*token;
 	char	*var;
 
-	token = *shell->tokens;
+	token = shell->tokens;
 	while (token)
 	{
 		tmp = token->content;

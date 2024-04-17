@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/09 16:09:07 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:25:48 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,9 @@ bool	parse(t_shell *shell)
 }
 
 //assigns token types to the tokens
-//TODO: malloc into init_shell
-//TODO: check if we need ** tokens
 void	get_tokens(t_shell *shell)
 {
-	shell->tokens = malloc(sizeof(t_token *));
-	*shell->tokens = assign_token_types(shell);
+	shell->tokens = assign_token_types(shell);
 	if (shell->tokens)
 		print_tokens(shell->tokens);
 }
@@ -43,7 +40,7 @@ void	get_size(t_shell *shell)
 	t_token	*token;
 	int		size;
 
-	token = *(shell->tokens);
+	token = shell->tokens;
 	if (!token)
 		return ;
 	size = 0;
@@ -54,7 +51,6 @@ void	get_size(t_shell *shell)
 		token = token->next;
 	}
 	shell->size = size + 1;
-	printf("size: %d\n", shell->size);
 }
 
 //creates command table
@@ -64,7 +60,7 @@ void	get_commands(t_shell *shell)
 	int		i;
 
 	i = 0;
-	token = *(shell->tokens);
+	token = shell->tokens;
 	while (token && i < shell->size)
 	{
 		if (token->token == PIPE)
@@ -81,5 +77,4 @@ void	get_commands(t_shell *shell)
 			open_append(&shell->cmds[i], token->content);
 		token = token->next;
 	}
-	print_cmds(shell);
 }

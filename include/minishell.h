@@ -6,7 +6,7 @@
 /*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 12:40:13 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 14:31:28 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@
 # include "../library/libft/include/libft.h"
 # include "../library/get_next_line/include/get_next_line.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdbool.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <limits.h>
-
-//previously in pipex.h
 # include <fcntl.h>		//open, close, read, write
 # include <stdlib.h>	//malloc, free
 # include <stdio.h>		//perror
@@ -37,6 +29,9 @@
 # include <stdbool.h>	//true, false
 # include <errno.h>		//errno
 # include <error.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <limits.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////DEFINES/////////////////////////////////////////
@@ -49,7 +44,8 @@
 # define APPEND 4
 # define PIPE 5
 
-# define PROMPT "🤏🐚: "
+# define PROMPT "MiNiSHell: "
+# define ERR_PROMPT "err_shell: "
 # define DELIMITER " <>|"
 # define SEPARATOR "&|><%"
 # define FAKE_VAR 2
@@ -94,14 +90,13 @@ typedef struct s_env
 typedef struct s_shell
 {
 	t_list			*env_list;
-	t_list			*history;
 	char			**envp;
 	char			**paths;
 	int				exitcode;
 	char			*input;
 	char			*norm_input;
 	int				size;
-	t_token			**tokens;
+	t_token			*tokens;
 	t_cmd			*cmds;
 	int				**pipes;
 	int				*child_pids;
@@ -117,13 +112,11 @@ typedef struct s_shell
 //builtins.c
 bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
-int		args_counter(char **args);
 bool	is_builtin(t_shell *shell, int i);
 
 //builtins_utils.c
-bool	builtin_handler(t_shell *shell, t_cmd *cmd);
+bool	builtin_handler(t_shell *shell, int i);
 void	free_shell(t_shell *shell);
-void	free_tokens(t_token **tokens);
 void	ft_free_list(t_list *list);
 long	ft_atol(const char *nptr);
 
@@ -170,20 +163,21 @@ void	cd_command(t_shell *shell, t_cmd *cmd);
 
 //child.c
 
-void	redirect(t_shell shell, int input, int output);
-void	children(t_shell shell, int i);
-void	child(t_shell shell, int i, int input, int output);
+void	redirect(t_shell *shell, int input, int output);
+void	child(t_shell *shell, int i, int input, int output);
 
 //error.c
-
 void	error_msg(char *file);
-void	cmd_not_found(t_shell *shell, int i);
+bool	cmd_not_found(t_shell *shell, int i);
+
+//pipex_utils.c
+void	copy_pipes(t_shell *shell);
+bool	allocate_pids(t_shell *shell);
 
 //pipex.c
-
+bool	execute(t_shell *shell);
 bool	create_pipes(t_shell *shell);
 bool	wait_pids(t_shell *shell);
-bool	allocate_pids(t_shell *shell);
 bool	execute_pipeline(t_shell *shell);
 bool	execute_simple(t_shell *shell);
 
@@ -237,7 +231,18 @@ void	token_count_util(char *str, int *i, int *count);
 int		token_count(t_shell *shell);
 int		count_chars(t_shell *shell);
 void	process_token(char *str, int *index, int token_type, t_token **head);
-void	norm_input(t_shell *shell, int len);
+void	norm_input(t_shell *shell);
+
+//quotes_handler.c
+bool	is_quote(char c);
+bool	quotes_checker(char *str);
+int		len_w_q(char *str);
+char	*remove_quotes(char *str);
+void	expand_token(t_shell *shell);
+
+//check_error.c
+bool    check_parse_errors(t_shell *shell);
+bool    check_for(char *input, char *str1, char *str2, char *str3);
 
 /////////////////////////////////MAIN///////////////////////////////////////////
 
@@ -248,18 +253,21 @@ bool	free_pipes(t_shell *shell);
 void	free_iter(t_shell *shell);
 void	free_shell(t_shell *shell);
 
+//main.c
+void	argc_check(int argc, char **argv);
+
 //shell.c
-//void	envp_into_list(char **envp, t_list *env_list);
-int		minishell(t_shell *shell);
+void	minishell(t_shell *shell);
+bool	read_line(t_shell *shell);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 
 //cmd_utils.c
-void	add_args(t_cmd *cmd, char *arg);
-int		count_args(char **args);
-bool	is_command(t_shell *shell, char *command, int i);
-void	find_command(t_shell *shell, int i);
+bool	add_args(t_cmd *cmd, char *arg);
+bool	is_command(char *command);
+bool	find_command(t_shell *shell, int i);
 bool	find_commands(t_shell *shell);
+bool	save_command(t_shell *shell, int i, char *command);
 
 //open_utils.c
 void	open_input(t_cmd *cmd, char *file);
@@ -288,15 +296,18 @@ int		is_delimiter(char c, const char *delim);
 
 ////////////////////////////////UTILS///////////////////////////////////////////
 
+//general_utils.c
+int		count_args(char **args);
+
 //tlist.c
 t_token	*create_token(char *content, int token);
 void	destroy_token(t_token *token);
 void	add_token(t_token **head, t_token *new_token);
 void	remove_token(t_token **head, t_token *token);
-void	free_tokens(t_token **tokens);
+void	free_tokens(t_token *tokens);
 
 //print.c
-void	print_tokens(t_token **tokens);
+void	print_tokens(t_token *tokens);
 void	print_list(t_token *head);
 void	print_cmds(t_shell *shell);
 void	print_env_list(t_list *env_list);

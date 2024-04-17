@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 10:17:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/01 17:19:24 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/16 08:14:44 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	print_nnl_echo(t_shell *shell, t_cmd *cmd)
 	int	args_len;
 
 	i = 2;
-	args_len = args_counter(cmd->args);
+	args_len = count_args(cmd->args);
 	if (!cmd->args[i])
 		return ;
 	while (check_newline(cmd->args[i]) && i < args_len)
@@ -77,12 +77,12 @@ void	simple_echo(t_shell *shell, t_cmd *cmd)
 	int	i;
 
 	i = 1;
-	while (i < args_counter(cmd->args))
+	while (i < count_args(cmd->args))
 	{
 		print_echo(shell, cmd, &i);
 		i++;
 	}
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("\n", cmd->output);
 }
 
 //Checks if the command is echo and executes it

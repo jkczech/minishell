@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   general_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/05 16:22:01 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 03:27:30 by jkoupy           ###   ########.fr       */
+/*   Created: 2024/04/10 15:18:03 by jkoupy            #+#    #+#             */
+/*   Updated: 2024/04/10 15:21:35 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../../include/minishell.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+//count the number of arguments
+int	count_args(char **args)
 {
-	size_t	i;
-	size_t	j;
-	char	*str;
+	int	i;
 
-	str = (char *)big;
 	i = 0;
-	if (!little || !big)
+	if (!args)
 		return (0);
-	if (little[0] == '\0')
-		return (str);
-	if (len == 0)
-		return (0);
-	while (str[i] && i < len)
-	{
-		j = 0;
-		while (str[i + j] && little[j] && str[i + j] == little[j]
-			&& i + j < len)
-			j++;
-		if (!little[j])
-			return (&str[i]);
+	while (args[i])
 		i++;
-	}
-	return (0);
+	return (i);
 }

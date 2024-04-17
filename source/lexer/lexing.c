@@ -6,7 +6,7 @@
 /*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 12:01:07 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 14:27:07 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,19 @@ int	count_chars(t_shell *shell)
 	count = 0;
 	while (shell->input[i])
 	{
-		if (shell->input[i] == ' ' || shell->input[i] == '\t')
-		{
-			while (shell->input[i] == ' ' || shell->input[i] == '\t')
-				i++;
-		}
+		while ((shell->input[i] == ' ' || shell->input[i] == '\t'))
+			i++;
 		if (shell->input[i] != ' ' || shell->input[i] != '\t')
 			count++;
-		if (is_quote(shell->input[i]))
+		if (shell->input[i] && is_quote(shell->input[i]))
 		{
 			count++;
-			while (!is_quote(shell->input[++i]))
+			i++;
+			while (!is_quote(shell->input[i]))
+			{
 				count++;
+				i++;
+			}
 		}
 		i++;
 	}
@@ -124,13 +125,15 @@ void	process_character(char *str, char *result, int *i, int *j)
 }
 
 //get input and return a normed input
-void	norm_input(t_shell *shell, int len)
+void	norm_input(t_shell *shell)
 {
 	int		i;
 	int		j;
+	int		len;
 
 	i = 0;
 	j = 0;
+	len = token_count(shell) - 1 + count_chars(shell);
 	if (!quotes_checker(shell->input))
 		return ;
 	shell->norm_input = malloc(sizeof(char) * (len + 1));
@@ -141,5 +144,3 @@ void	norm_input(t_shell *shell, int len)
 	shell->norm_input[i] = '\0';
 	printf("Normed input: %s\n", shell->norm_input);
 }
-
-//printf("Normed input: %s\n", shell->norm_input);

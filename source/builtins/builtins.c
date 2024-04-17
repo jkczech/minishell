@@ -6,22 +6,11 @@
 /*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/15 10:55:12 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 14:26:16 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-//Count the number of arguments
-int	args_counter(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
-}
 
 //Get the path from the environment variables
 char	*get_path(t_shell *shell)
@@ -45,11 +34,14 @@ char	*get_path(t_shell *shell)
 }
 
 //execute builtins
-bool	builtin_handler(t_shell *shell, t_cmd *cmd)
+bool	builtin_handler(t_shell *shell, int i)
 {
+	t_cmd	*cmd;
+
+	cmd = shell->cmds + i;
 	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
 		echo_command(shell, cmd);
-	else if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
+	else if (ft_strncmp(shell->cmds[i].args[0], "exit", 5) == 0)
 		exit_command(shell, cmd);
 	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
 		env_command(shell, cmd);

@@ -6,7 +6,7 @@
 #    By: jakob <jakob@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/17 13:19:41 by jakob            ###   ########.fr        #
+#    Updated: 2024/04/17 14:45:17 by jakob            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ BUILTINS =	builtins/builtins.c \
 			builtins/cd.c \
 
 EXECUTOR =	executor/pipex.c \
+			executor/pipex_utils.c \
 			executor/error.c \
 			executor/child.c
 
@@ -55,10 +56,11 @@ EXPANDER =	expander/expander.c \
 
 INIT = init/init.c
 
-LEXER = lexer/lexing.c \
+LEXER =	lexer/check_error.c \
 		lexer/check_input.c \
 		lexer/quotes_handler.c \
 		lexer/quotes_handler_utils.c \
+		lexer/lexing.c
 
 MAIN = 	main/free.c \
 		main/main.c \
@@ -72,7 +74,8 @@ PARSER = parser/cmd_utils.c \
 
 SIGNALS = signals/signals.c
 
-UTILS = utils/tlist.c \
+UTILS = utils/general_utils.c \
+		utils/tlist.c \
 		utils/print.c
 
 SRCS =	$(BUILTINS) $(EXECUTOR) $(EXPANDER) $(INIT) $(LEXER) \
