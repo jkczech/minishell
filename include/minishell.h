@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/04 20:37:50 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 12:40:13 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@
 # define PROMPT "🤏🐚: "
 # define DELIMITER " <>|"
 # define SEPARATOR "&|><%"
-# define NO_QUOTE 0
-# define S_QUOTE 1 //single quote
-# define D_QUOTE 2 //double quote
+# define FAKE_VAR 2
+# define ENV_VAR 1
+# define QUESTION_MARK 3
+# define DOLLAR_SIGN 4
 
 //error messages
-
 # define ERR_ARG_1 	"Error: Wrong number of arguments\n"
 # define ERR_ARG_2 	"Error: Not enough arguments\n"
 # define ERR_IN 	"Error: infile undefined\n"
@@ -84,6 +84,13 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_env
+{
+	char	*var;
+	char	*value;
+	int		flag;
+}	t_env;
+
 typedef struct s_shell
 {
 	t_list			*env_list;
@@ -108,14 +115,12 @@ typedef struct s_shell
 /////////////////////////////////BUILTINS///////////////////////////////////////
 
 //builtins.c
-
 bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
 int		args_counter(char **args);
 bool	is_builtin(t_shell *shell, int i);
 
 //builtins_utils.c
-
 bool	builtin_handler(t_shell *shell, t_cmd *cmd);
 void	free_shell(t_shell *shell);
 void	free_tokens(t_token **tokens);
@@ -123,14 +128,12 @@ void	ft_free_list(t_list *list);
 long	ft_atol(const char *nptr);
 
 //exit.c
-
 void	exit_shell_status(t_shell *shell, int status);
 void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status);
 void	easy_exit(t_shell *shell, int status);
 void	exit_command(t_shell *shell, t_cmd *cmd);
 
 //exit_util.c
-
 bool	check_amount_of_args(char **args);
 bool	is_numeric(char *str);
 char	*ft_ltoa(long n);
@@ -138,26 +141,30 @@ long	convert_exit_status(t_cmd *cmd);
 bool	check_overflow(char *str);
 
 //echo.c
-
 void	echo_command(t_shell *shell, t_cmd *cmd);
 
 //env.c
-
 t_list	*ft_envnew_l(void *content);
 void	env_command(t_shell *shell, t_cmd *cmd);
 bool	envp_into_list(char **envp, t_list **env_list);
 
 //env_utils.c
+int		check_env_var(char *var);
 
 //pwd.c
-
 void	pwd_command(t_shell *shell, t_cmd *cmd);
 
 //export.c
-
 bool	check_valid_arg(char *arg);
 void	add_env_var(t_shell *shell, char *arg);
 void	export_command(t_shell *shell, t_cmd *cmd);
+int		strlen_before_char(char *str, char c);
+
+//unset.c
+void	unset_command(t_shell *shell, t_cmd *cmd);
+
+//cd.c
+void	cd_command(t_shell *shell, t_cmd *cmd);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 
@@ -183,10 +190,17 @@ bool	execute_simple(t_shell *shell);
 ////////////////////////////////EXPANDER////////////////////////////////////////
 
 //expander.c
-bool	find_variable(t_shell *shell, char *str);
+bool	find_var(t_shell *shell, char *str);
 char	*get_env_value(t_shell *shell, char *str);
-bool	is_expansion(t_shell *shell, char *str);
+bool	is_var(t_shell *shell, char *str);
 void	expander(t_shell *shell);
+
+//expander_utils.c
+bool	find_var(t_shell *shell, char *str);
+int		strlen_b_sc(char *str);
+int		strlen_before_a(char *str);
+bool	is_var(t_shell *shell, char *str);
+bool	is_fake_var(t_shell *shell, char *str);
 
 //////////////////////////////////INIT//////////////////////////////////////////
 
@@ -203,7 +217,13 @@ bool	is_quote(char c);
 bool	quotes_checker(char *str);
 int		len_w_q(char *str);
 char	*remove_quotes(char *str);
-void	expand_token(t_shell *shell);
+void	quote_token(t_shell *shell);
+
+//quotes_handler_utils.c
+bool	is_quote(char c);
+void	init_variables(int *i, int *len, char *q, bool *q_closed);
+void	determine_quote(char *str, int *i, char *q, bool *q_closed);
+void	refresh_quote(char *str, int *i, char *q, bool *q_closed);
 
 //check_input.c
 bool	is_sep(char c);
@@ -278,8 +298,8 @@ void	free_tokens(t_token **tokens);
 //print.c
 void	print_tokens(t_token **tokens);
 void	print_list(t_token *head);
-void	print_envp(char **envp, char *name);
 void	print_cmds(t_shell *shell);
 void	print_env_list(t_list *env_list);
+void	print_export_list(t_list *env_list);
 
 #endif

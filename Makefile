@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
+#    By: jakob <jakob@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/04 20:52:06 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/04/17 13:19:41 by jakob            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,20 +39,26 @@ BUILTINS =	builtins/builtins.c \
 			builtins/exit_util.c \
 			builtins/echo.c \
 			builtins/env.c \
+			builtins/env_utils.c \
 			builtins/pwd.c \
 			builtins/export.c \
+			builtins/unset.c \
+			builtins/cd.c \
 
 EXECUTOR =	executor/pipex.c \
 			executor/error.c \
 			executor/child.c
 
-EXPANDER = expander/expander.c
+EXPANDER =	expander/expander.c \
+			expander/expander_utils.c \
+		
 
 INIT = init/init.c
 
 LEXER = lexer/lexing.c \
 		lexer/check_input.c \
 		lexer/quotes_handler.c \
+		lexer/quotes_handler_utils.c \
 
 MAIN = 	main/free.c \
 		main/main.c \

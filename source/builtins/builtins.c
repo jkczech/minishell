@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/04 20:33:26 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/15 10:55:12 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ bool	builtin_handler(t_shell *shell, t_cmd *cmd)
 		pwd_command(shell, cmd);
 	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
 		export_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
+		unset_command(shell, cmd);
+	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
+		cd_command(shell, cmd);
 	return (true);
 }
 	/*

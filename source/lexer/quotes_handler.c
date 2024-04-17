@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:17:20 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/04 20:18:16 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 12:29:40 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-//checks if a character is a quote
-bool	is_quote(char c)
-{
-	if (c == '"' || c == '\'')
-		return (true);
-	return (false);
-}
 
 //checks if amount of quotes is even
 bool	quotes_checker(char *str)
@@ -44,33 +36,6 @@ bool	quotes_checker(char *str)
 		i++;
 	}
 	return (q_closed);
-}
-
-void	init_variables(int *i, int *len, char *q, bool *q_closed)
-{
-	*i = 0;
-	*len = 0;
-	*q = '\0';
-	*q_closed = true;
-}
-
-void	determine_quote(char *str, int *i, char *q, bool *q_closed)
-{
-	if (*q_closed && is_quote(str[*i]))
-	{
-		*q_closed = false;
-		*q = str[*i];
-		(*i)++;
-	}
-}
-
-void	refresh_quote(char *str, int *i, char *q, bool *q_closed)
-{
-	if (str[*i] == *q && !*q_closed)
-	{
-		*q_closed = true;
-		(*i)++;
-	}
 }
 
 //string length without quotes
@@ -132,7 +97,7 @@ char	*remove_quotes(char *str)
 }
 
 //parse token
-void	expand_token(t_shell *shell)
+void	quote_token(t_shell *shell)
 {
 	t_token	*head;
 	char	*tmp;
