@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:48:57 by jkoupy            #+#    #+#             */
-/*   Updated: 2023/11/15 15:31:02 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 18:30:48 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*res;
 	size_t	i;
 
-	if (s1 == NULL || s2 == NULL)
+	if (s1 == NULL && s2 == NULL)
 		return (0);
+	if (s1 == NULL)
+		return (ft_strdup(s2));
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	res = malloc((len1 + len2 + 1) * sizeof(char));

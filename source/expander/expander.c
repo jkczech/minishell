@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 14:25:25 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 18:33:40 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ char	*convert_str(t_shell *shell, char *str)
 
 	i = 0;
 	len = 0;
-	new_str = ft_strdup("");
-	if (!new_str)
-		return (NULL);
-	while (str[i])
+	new_str = NULL;
+	while (str && str[i])
 	{
 		if (ft_isalnum(str[i]) || str[i] == '$')
 			len = strlen_b_sc(str + i);
@@ -88,13 +86,18 @@ char	*convert_str(t_shell *shell, char *str)
 //expands variables in the tokens
 void	expander(t_shell *shell)
 {
-	char	*tmp;
 	t_token	*token;
+	char	*tmp;
 	char	*var;
 
 	token = shell->tokens;
 	while (token)
 	{
+		if (!token->content)
+		{
+			token = token->next;
+			continue ;
+		}
 		tmp = token->content;
 		var = convert_str(shell, tmp);
 		free(tmp);

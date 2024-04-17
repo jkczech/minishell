@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 14:26:16 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 18:27:05 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ bool	builtin_handler(t_shell *shell, int i)
 
 bool	is_builtin(t_shell *shell, int i)
 {
-	if (!shell->cmds || !shell->cmds[i].args)
+	if (!shell->cmds || !shell->cmds[i].args || !shell->cmds[i].args[0])
 		return (false);
 	if (ft_strncmp(shell->cmds[i].args[0], "echo", 5) == 0 || \
 		ft_strncmp(shell->cmds[i].args[0], "cd", 3) == 0 || \
