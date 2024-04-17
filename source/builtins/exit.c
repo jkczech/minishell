@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 14:26:33 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 18:44:22 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status)
 
 //exit shell without exit status
 //needed to safe exitcode before freeing shell
+//TODO: delete printf
 void	easy_exit(t_shell *shell, int status)
 {
 	free_iter(shell);
 	ft_putstr_fd("exit\n", 2);
 	if (shell)
 		free_shell(shell);
-	printf("Exit status: %d\n", status); //tbdel
+	printf("Exit status: %d\n", status);
 	exit(status);
 }
 

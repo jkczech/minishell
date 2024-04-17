@@ -3,53 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 14:27:07 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 19:03:14 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-//additionnal function for token_count
-void	token_count_util(char *str, int *i, int *count)
-{
-	if (str[*i] != '\0' && !is_sep(str[*i]))
-	{
-		(*count)++;
-		if (is_quote(str[*i]))
-			while (!is_quote(str[++(*i)]))
-				;
-		while (str[*i] != ' ' && str[*i] != '\t'
-			&& str[*i] != '\0' && !is_sep(str[*i]))
-			(*i)++;
-	}
-	if (double_sep(str, *i))
-		(*i)++;
-	if (is_sep(str[*i]))
-	{
-		(*i)++;
-		(*count)++;
-	}
-}
-
-//counts the number of tokens in a string
-int	token_count(t_shell *shell)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (shell->input[i] != '\0')
-	{
-		while (shell->input[i] == ' ' || shell->input[i] == '\t')
-			i++;
-		token_count_util(shell->input, &i, &count);
-	}
-	return (count);
-}
 
 //counts the number of characters in a string
 int	count_chars(t_shell *shell)
@@ -125,6 +86,7 @@ void	process_character(char *str, char *result, int *i, int *j)
 }
 
 //get input and return a normed input
+//TODO: delete printf
 void	norm_input(t_shell *shell)
 {
 	int		i;

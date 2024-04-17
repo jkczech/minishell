@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:15:35 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 12:24:59 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 18:44:32 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	free_env_var(t_env *env)
 void	unset_command(t_shell *shell, t_cmd *cmd)
 {
 	int			len;
-	t_list	*prev;
-	t_list	*curr;
+	t_list		*prev;
+	t_list		*curr;
 
 	prev = NULL;
 	curr = shell->env_list;

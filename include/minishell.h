@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 14:31:28 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 19:00:39 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,6 @@ void	init_iter(t_shell *shell);
 ////////////////////////////////LEXER///////////////////////////////////////////
 
 //quotes_handler.c
-bool	is_quote(char c);
 bool	quotes_checker(char *str);
 int		len_w_q(char *str);
 char	*remove_quotes(char *str);
@@ -227,22 +226,18 @@ bool	check_input(t_shell *shell);
 void	del_quotes(char **str);
 
 //lexing.c
-void	token_count_util(char *str, int *i, int *count);
-int		token_count(t_shell *shell);
 int		count_chars(t_shell *shell);
+void	process_char_quotes(char *str, char *result, int *i, int *j);
 void	process_token(char *str, int *index, int token_type, t_token **head);
 void	norm_input(t_shell *shell);
 
-//quotes_handler.c
-bool	is_quote(char c);
-bool	quotes_checker(char *str);
-int		len_w_q(char *str);
-char	*remove_quotes(char *str);
-void	expand_token(t_shell *shell);
+//lexing_utils.c
+int		token_count(t_shell *shell);
+void	token_count_util(char *str, int *i, int *count);
 
 //check_error.c
-bool    check_parse_errors(t_shell *shell);
-bool    check_for(char *input, char *str1, char *str2, char *str3);
+bool	check_parse_errors(t_shell *shell);
+bool	check_for(char *input, char *str1, char *str2, char *str3);
 
 /////////////////////////////////MAIN///////////////////////////////////////////
 
