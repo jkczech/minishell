@@ -6,7 +6,7 @@
 #    By: jakob <jakob@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/17 12:32:41 by jakob            ###   ########.fr        #
+#    Updated: 2024/04/17 13:19:41 by jakob            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,9 @@ EXECUTOR =	executor/pipex.c \
 			executor/error.c \
 			executor/child.c
 
-EXPANDER = expander/expander.c
+EXPANDER =	expander/expander.c \
+			expander/expander_utils.c \
+		
 
 INIT = init/init.c
 
