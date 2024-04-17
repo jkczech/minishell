@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 16:37:11 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 23:01:04 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@
 # include "../library/libft/include/libft.h"
 # include "../library/get_next_line/include/get_next_line.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdbool.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <limits.h>
-
-//previously in pipex.h
 # include <fcntl.h>		//open, close, read, write
 # include <stdlib.h>	//malloc, free
 # include <stdio.h>		//perror
@@ -37,7 +29,9 @@
 # include <stdbool.h>	//true, false
 # include <errno.h>		//errno
 # include <error.h>
-
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <limits.h>
 # include <signal.h>	//signal
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,14 +46,15 @@
 # define PIPE 5
 
 # define PROMPT "MiNiSHell: "
+# define ERR_PROMPT "err_shell: "
 # define DELIMITER " <>|"
 # define SEPARATOR "&|><%"
-# define NO_QUOTE 0
-# define S_QUOTE 1 //single quote
-# define D_QUOTE 2 //double quote
+# define FAKE_VAR 2
+# define ENV_VAR 1
+# define QUESTION_MARK 3
+# define DOLLAR_SIGN 4
 
 //error messages
-
 # define ERR_ARG_1 	"Error: Wrong number of arguments\n"
 # define ERR_ARG_2 	"Error: Not enough arguments\n"
 # define ERR_IN 	"Error: infile undefined\n"
@@ -86,17 +81,29 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_env
+{
+	char	*var;
+	char	*value;
+	int		flag;
+}	t_env;
+
+typedef struct s_quote
+{
+	char	type;
+	bool	q_closed;
+}	t_quote;
+
 typedef struct s_shell
 {
 	t_list			*env_list;
-	t_list			*history;
 	char			**envp;
 	char			**paths;
 	int				exitcode;
 	char			*input;
 	char			*norm_input;
 	int				size;
-	t_token			**tokens;
+	t_token			*tokens;
 	t_cmd			*cmds;
 	int				**pipes;
 	int				*child_pids;
@@ -110,28 +117,22 @@ typedef struct s_shell
 /////////////////////////////////BUILTINS///////////////////////////////////////
 
 //builtins.c
-
 bool	copy_envp(t_shell *shell, char **envp);
 char	*get_path(t_shell *shell);
 bool	is_builtin(t_shell *shell, int i);
 
 //builtins_utils.c
-
 bool	builtin_handler(t_shell *shell, int i);
-void	free_shell(t_shell *shell);
-void	free_tokens(t_token **tokens);
 void	ft_free_list(t_list *list);
 long	ft_atol(const char *nptr);
 
 //exit.c
-
 void	exit_shell_status(t_shell *shell, int status);
 void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status);
 void	easy_exit(t_shell *shell, int status);
 void	exit_command(t_shell *shell, t_cmd *cmd);
 
 //exit_util.c
-
 bool	check_amount_of_args(char **args);
 bool	is_numeric(char *str);
 char	*ft_ltoa(long n);
@@ -139,37 +140,39 @@ long	convert_exit_status(t_cmd *cmd);
 bool	check_overflow(char *str);
 
 //echo.c
-
 void	echo_command(t_shell *shell, t_cmd *cmd);
 
 //env.c
-
 t_list	*ft_envnew_l(void *content);
 void	env_command(t_shell *shell, t_cmd *cmd);
 bool	envp_into_list(char **envp, t_list **env_list);
 
 //env_utils.c
+int		check_env_var(char *var);
 
 //pwd.c
-
 void	pwd_command(t_shell *shell, t_cmd *cmd);
 
 //export.c
-
-bool	check_valid_arg(char *arg);
 void	add_env_var(t_shell *shell, char *arg);
 void	export_command(t_shell *shell, t_cmd *cmd);
+int		strlen_before_char(char *str, char c);
+
+//unset.c
+void	free_env_var(t_env *env);
+void	unset_command(t_shell *shell, t_cmd *cmd);
+
+//cd.c
+void	cd_command(t_shell *shell, t_cmd *cmd);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 
 //child.c
 
-void	redirect(t_shell shell, int input, int output);
-void	children(t_shell *shell, int i);
+void	redirect(t_shell *shell, int input, int output);
 void	child(t_shell *shell, int i, int input, int output);
 
 //error.c
-
 void	error_msg(char *file);
 bool	cmd_not_found(t_shell *shell, int i);
 
@@ -178,7 +181,7 @@ void	copy_pipes(t_shell *shell);
 bool	allocate_pids(t_shell *shell);
 
 //pipex.c
-
+bool	execute(t_shell *shell);
 bool	create_pipes(t_shell *shell);
 bool	wait_pids(t_shell *shell);
 bool	execute_pipeline(t_shell *shell);
@@ -187,10 +190,16 @@ bool	execute_simple(t_shell *shell);
 ////////////////////////////////EXPANDER////////////////////////////////////////
 
 //expander.c
-bool	find_variable(t_shell *shell, char *str);
 char	*get_env_value(t_shell *shell, char *str);
-bool	is_expansion(t_shell *shell, char *str);
+bool	is_var(t_shell *shell, char *str);
 void	expander(t_shell *shell);
+
+//expander_utils.c
+bool	find_var(t_shell *shell, char *str);
+int		strlen_b_sc(char *str);
+int		strlen_before_a(char *str);
+bool	is_var(t_shell *shell, char *str);
+bool	is_fake_var(t_shell *shell, char *str);
 
 //////////////////////////////////INIT//////////////////////////////////////////
 
@@ -203,11 +212,16 @@ void	init_iter(t_shell *shell);
 ////////////////////////////////LEXER///////////////////////////////////////////
 
 //quotes_handler.c
-bool	is_quote(char c);
 bool	quotes_checker(char *str);
 int		len_w_q(char *str);
 char	*remove_quotes(char *str);
-void	expand_token(t_shell *shell);
+void	quote_token(t_shell *shell);
+
+//quotes_handler_utils.c
+bool	is_quote(char c);
+void	init_variables(int *i, int *len, char *q, bool *q_closed);
+void	determine_quote(char *str, int *i, char *q, bool *q_closed);
+void	refresh_quote(char *str, int *i, char *q, bool *q_closed);
 
 //check_input.c
 bool	is_sep(char c);
@@ -217,11 +231,19 @@ bool	check_input(t_shell *shell);
 void	del_quotes(char **str);
 
 //lexing.c
-void	token_count_util(char *str, int *i, int *count);
-int		token_count(t_shell *shell);
 int		count_chars(t_shell *shell);
+void	process_char_quotes(char *str, char *result, int *i, int *j);
 void	process_token(char *str, int *index, int token_type, t_token **head);
-void	norm_input(t_shell *shell, int len);
+void	norm_input(t_shell *shell);
+
+//lexing_utils.c
+int		token_count(t_shell *shell);
+void	token_count_util(char *str, int *i, int *count);
+
+//check_error.c
+bool	check_parse_errors(t_shell *shell);
+bool	check_for(char *input, char *str1, char *str2, char *str3);
+bool	ends_with_redir(char *input);
 
 /////////////////////////////////MAIN///////////////////////////////////////////
 
@@ -232,15 +254,18 @@ bool	free_pipes(t_shell *shell);
 void	free_iter(t_shell *shell);
 void	free_shell(t_shell *shell);
 
+//main.c
+void	argc_check(int argc, char **argv);
+
 //shell.c
-//void	envp_into_list(char **envp, t_list *env_list);
-int		minishell(t_shell *shell);
+void	minishell(t_shell *shell);
+bool	read_line(t_shell *shell);
 void	signal_handler(int signum);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 
 //cmd_utils.c
-void	add_args(t_cmd *cmd, char *arg);
+bool	add_args(t_cmd *cmd, char *arg);
 bool	is_command(char *command);
 bool	find_command(t_shell *shell, int i);
 bool	find_commands(t_shell *shell);
@@ -264,9 +289,11 @@ int		is_delimiter(char c, const char *delim);
 int		token_len(char *str, int index, const char *delim);
 void	skip_spaces(char *str, int *index);
 int		what_token(char *str, int index);
+void	add_null_pipe(t_token **head, t_token *token, char *content);
 
 //tokenizing.c
 void	process_token(char *str, int *index, int token_type, t_token **head);
+char	*allocate_token_content(char *str, int *index);
 t_token	*assign_token_types(t_shell *shell);
 int		what_token(char *str, int index);
 int		is_delimiter(char c, const char *delim);
@@ -286,13 +313,13 @@ t_token	*create_token(char *content, int token);
 void	destroy_token(t_token *token);
 void	add_token(t_token **head, t_token *new_token);
 void	remove_token(t_token **head, t_token *token);
-void	free_tokens(t_token **tokens);
+void	free_tokens(t_token *tokens);
 
 //print.c
-void	print_tokens(t_token **tokens);
+void	print_tokens(t_token *tokens);
 void	print_list(t_token *head);
-void	print_envp(char **envp, char *name);
 void	print_cmds(t_shell *shell);
 void	print_env_list(t_list *env_list);
+void	print_export_list(t_list *env_list);
 
 #endif

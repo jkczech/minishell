@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_utils.c                                        :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 12:21:18 by jakob             #+#    #+#             */
-/*   Updated: 2024/04/17 12:23:28 by jakob            ###   ########.fr       */
+/*   Created: 2024/04/17 17:31:38 by jkoupy            #+#    #+#             */
+/*   Updated: 2024/04/17 18:43:44 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/libft.h"
 
-int	check_env_var(char *var)
+int	ft_isspace(int c)
 {
-	int	i;
-
-	i = 0;
-	while (var[i])
-	{
-		if (var[i] == '=')
-			return (1);
-		i++;
-	}
-	return (0);
+	return (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\v' || c == '\f' || c == '\r');
 }

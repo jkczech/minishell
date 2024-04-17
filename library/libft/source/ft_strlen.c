@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:31:34 by jkoupy            #+#    #+#             */
-/*   Updated: 2023/11/15 15:31:08 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 18:35:49 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	len;
 
 	len = 0;
+	if (!s)
+		return (0);
 	while (s[len])
 		len++;
 	return (len);

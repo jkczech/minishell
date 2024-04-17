@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:02:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2023/11/15 15:30:56 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 18:35:09 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ char	*ft_strdup(const char *s)
 	int		length;
 	char	*new_str;
 
+	if (!s)
+		return (NULL);
 	length = ft_strlen(s);
 	new_str = malloc((length + 1) * sizeof(char));
 	if (!new_str)
-		return (0);
+		return (NULL);
 	ft_strcpy(new_str, s);
 	return (new_str);
 }

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 14:21:39 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 20:52:57 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,20 @@
 bool	parse(t_shell *shell)
 {
 	get_tokens(shell);
-	expand_token(shell);
 	get_size(shell);
-	init_cmds(shell);
 	expander(shell);
+	quote_token(shell);
+	init_cmds(shell);
 	get_commands(shell);
 	find_commands(shell);
 	return (true);
 }
 
 //assigns token types to the tokens
-//TODO: malloc into init_shell
-//TODO: check if we need ** tokens
+//TODO: delete print
 void	get_tokens(t_shell *shell)
 {
-	shell->tokens = malloc(sizeof(t_token *));
-	*shell->tokens = assign_token_types(shell);
+	shell->tokens = assign_token_types(shell);
 	if (shell->tokens)
 		print_tokens(shell->tokens);
 }
@@ -43,7 +41,7 @@ void	get_size(t_shell *shell)
 	t_token	*token;
 	int		size;
 
-	token = *(shell->tokens);
+	token = shell->tokens;
 	if (!token)
 		return ;
 	size = 0;
@@ -57,13 +55,14 @@ void	get_size(t_shell *shell)
 }
 
 //creates command table
+//TODO: don't split by space
 void	get_commands(t_shell *shell)
 {
 	t_token	*token;
 	int		i;
 
 	i = 0;
-	token = *(shell->tokens);
+	token = shell->tokens;
 	while (token && i < shell->size)
 	{
 		if (token->token == PIPE)

@@ -3,54 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/03 15:57:55 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/17 21:30:09 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-//additionnal function for token_count
-void	token_count_util(char *str, int *i, int *count)
-{
-	if (str[*i] != '\0' && !is_sep(str[*i]))
-	{
-		(*count)++;
-		if (is_quote(str[*i]))
-			while (!is_quote(str[++(*i)]))
-				;
-		while (str[*i] != ' ' && str[*i] != '\t'
-			&& str[*i] != '\0' && !is_sep(str[*i]))
-			(*i)++;
-	}
-	if (double_sep(str, *i))
-		(*i)++;
-	if (is_sep(str[*i]))
-	{
-		(*i)++;
-		(*count)++;
-	}
-}
-
-//counts the number of tokens in a string
-int	token_count(t_shell *shell)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (shell->input[i] != '\0')
-	{
-		while (shell->input[i] == ' ' || shell->input[i] == '\t')
-			i++;
-		token_count_util(shell->input, &i, &count);
-	}
-	printf("Token_count: %d\n", count);
-	return (count);
-}
 
 //counts the number of characters in a string
 int	count_chars(t_shell *shell)
@@ -62,28 +22,47 @@ int	count_chars(t_shell *shell)
 	count = 0;
 	while (shell->input[i])
 	{
-		if (shell->input[i] == ' ' || shell->input[i] == '\t')
-		{
-			while (shell->input[i] == ' ' || shell->input[i] == '\t')
-				i++;
-		}
+		while ((shell->input[i] == ' ' || shell->input[i] == '\t'))
+			i++;
 		if (shell->input[i] != ' ' || shell->input[i] != '\t')
 			count++;
-		if (is_quote(shell->input[i]))
+		if (shell->input[i] && is_quote(shell->input[i]))
 		{
 			count++;
-			while (!is_quote(shell->input[++i]))
+			i++;
+			while (!is_quote(shell->input[i]))
+			{
 				count++;
+				i++;
+			}
 		}
 		i++;
 	}
-	printf("Char_count: %d\n", count);
 	return (count);
+}
+
+//processes char in quotes
+void	process_char_quotes(char *str, char *result, int *i, int *j)
+{
+	result[(*i)] = str[*j];
+	(*i)++;
+	(*j)++;
+	while (str[*j] != '\0' && !is_quote(str[*j]))
+	{
+		result[(*i)] = str[*j];
+		(*i)++;
+		(*j)++;
+	}
+	result[(*i)] = str[*j];
+	(*i)++;
+	(*j)++;
 }
 
 //processes a character
 void	process_character(char *str, char *result, int *i, int *j)
 {
+	if (is_quote(str[*j]))
+		process_char_quotes(str, result, i, j);
 	if (str[*j] == ' ')
 	{
 		while (str[*j] == ' ' && str[*j + 1] == ' ')
@@ -107,13 +86,17 @@ void	process_character(char *str, char *result, int *i, int *j)
 }
 
 //get input and return a normed input
-void	norm_input(t_shell *shell, int len)
+//TODO: delete printf
+//printf("Normed input: %s\n", shell->norm_input);
+void	norm_input(t_shell *shell)
 {
 	int		i;
 	int		j;
+	int		len;
 
 	i = 0;
 	j = 0;
+	len = token_count(shell) - 1 + count_chars(shell);
 	if (!quotes_checker(shell->input))
 		return ;
 	shell->norm_input = malloc(sizeof(char) * (len + 1));
@@ -123,5 +106,3 @@ void	norm_input(t_shell *shell, int len)
 		process_character(shell->input, shell->norm_input, &i, &j);
 	shell->norm_input[i] = '\0';
 }
-
-//printf("Normed input: %s\n", shell->norm_input);

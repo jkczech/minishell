@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 16:35:19 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 23:01:35 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 //free things needed to be freed after every iteration
 //pipes are freed in the parent process elsewhere
+//printf("free_iter\n");
 void	free_iter(t_shell *shell)
 {
-	//printf("free_iter\n");
 	if (shell->input)
 		free(shell->input);
 	if (shell->norm_input)
@@ -36,13 +36,15 @@ void	free_iter(t_shell *shell)
 }
 
 //free the shell
+//printf("free_shell\n");
+// if (shell->envp && shell->envp[i])
+// 	free_array(shell->envp);
 void	free_shell(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
-	printf("free_shell\n");
-	if (shell->envp && shell->envp[i])
+	if (shell->env_list)
 		ft_free_list(shell->env_list);
 	if (shell->paths)
 	{
@@ -53,7 +55,7 @@ void	free_shell(t_shell *shell)
 		}
 		free(shell->paths);
 	}
-	free(shell);
+	rl_clear_history();
 }
 
 //free the commands table

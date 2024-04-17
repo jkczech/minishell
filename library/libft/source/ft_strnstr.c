@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:22:01 by jkoupy            #+#    #+#             */
-/*   Updated: 2023/11/15 15:31:16 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/16 03:27:30 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 
 	str = (char *)big;
 	i = 0;
+	if (!little || !big)
+		return (0);
 	if (little[0] == '\0')
 		return (str);
 	if (len == 0)

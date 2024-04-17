@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 16:35:07 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 23:01:23 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /* typedef struct s_shell
 {
 	t_list			*env_list;
-	t_list			*history;
 	char			**envp;
 	char			**paths;
 	int				exitcode;
@@ -34,13 +33,14 @@
 bool	init_shell(t_shell *shell, char **envp)
 {
 	shell->env_list = NULL;
-	shell->history = NULL;
 	shell->envp = envp;
+	shell->env_list = NULL;
+	envp_into_list(envp, &shell->env_list);
 	shell->paths = NULL;
 	init_path(shell);
 	if (!shell->paths)
 		return (false);
-	shell->exitcode = 0;
+	shell->exitcode = -1;
 	return (true);
 }
 

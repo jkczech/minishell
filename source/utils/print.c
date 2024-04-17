@@ -6,18 +6,18 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 16:38:49 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 23:02:17 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //print tokens in colors depending on token type in one line separated by spaces
-void	print_tokens(t_token **tokens)
+void	print_tokens(t_token *tokens)
 {
 	t_token	*token;
 
-	token = *tokens;
+	token = tokens;
 	while (token)
 	{
 		if (token->token == WORD)
@@ -53,26 +53,51 @@ void	print_list(t_token *head)
 	}
 }
 
-//print envp variables
-void	print_envp(char **envp, char *name)
-{
-	int	i;
-
-	i = 0;
-	while (envp && envp[i])
-	{
-		if (ft_strncmp(envp[i], name, ft_strlen(name)) == 0)
-			printf("%s\n", envp[i]);
-		i++;
-	}
-}
-
 //print env_list
 void	print_env_list(t_list *env_list)
 {
+	char	*var;
+	char	*value;
+	int		flag;
+
+	var = NULL;
+	value = NULL;
+	flag = 0;
 	while (env_list)
 	{
-		printf("%s\n", env_list->content);
+		var = ((t_env *)env_list->content)->var;
+		value = ((t_env *)env_list->content)->value;
+		flag = ((t_env *)env_list->content)->flag;
+		if (flag == 1)
+			printf("%s=%s\n", var, value);
+		env_list = env_list->next;
+	}
+}
+
+//print export_list
+void	print_export_list(t_list *env_list)
+{
+	char	*var;
+	char	*value;
+	int		flag;
+
+	var = NULL;
+	value = NULL;
+	flag = 0;
+	while (env_list)
+	{
+		var = ((t_env *)env_list->content)->var;
+		value = ((t_env *)env_list->content)->value;
+		flag = ((t_env *)env_list->content)->flag;
+		if (var[0] == '_')
+		{
+			env_list = env_list->next;
+			continue ;
+		}
+		if (value && (flag == 1))
+			printf("declare -x %s=\"%s\"\n", var, value);
+		else if (flag == 0)
+			printf("declare -x %s\n", var);
 		env_list = env_list->next;
 	}
 }

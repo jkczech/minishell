@@ -6,13 +6,13 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:23 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 15:03:53 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 19:15:54 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//copy_pipes tp shell->cmds
+//copy_pipes tp shell->cmds while securing their integrity
 void	copy_pipes(t_shell *shell)
 {
 	int	i;
@@ -20,14 +20,16 @@ void	copy_pipes(t_shell *shell)
 	i = 0;
 	while (i < shell->size)
 	{
-		if (i == 0)
+		if (i == 0 && shell->cmds[i].output == -1)
 			shell->cmds[i].output = shell->pipes[i][1];
-		else if (i == shell->size - 1)
+		else if (i == shell->size - 1 && shell->cmds[i].input == -1)
 			shell->cmds[i].input = shell->pipes[i - 1][0];
 		else
 		{
-			shell->cmds[i].input = shell->pipes[i - 1][0];
-			shell->cmds[i].output = shell->pipes[i][1];
+			if (shell->cmds[i].output == -1)
+				shell->cmds[i].output = shell->pipes[i][1];
+			if (shell->cmds[i].input == -1)
+				shell->cmds[i].input = shell->pipes[i - 1][0];
 		}
 		i++;
 	}

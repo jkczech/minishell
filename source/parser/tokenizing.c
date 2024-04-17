@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/04 17:52:57 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:30:41 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,41 +25,22 @@ void	process_quoted_token(char *str, int *index, char *token_content, int *j)
 	}
 }
 
-//process_pipe_token
-void	process_pipe_token(int token_type, t_token **head,
-t_token *new_token, char *token_content)
-{
-	free(token_content);
-	token_content = NULL;
-	new_token = create_token(NULL, token_type);
-	add_token(head, new_token);
-}
-
 //creates a token
 void	process_token(char *str, int *index, int token_type, t_token **head)
 {
 	t_token	*new_token;
-	int		len;
 	char	*token_content;
 	int		j;
 	bool	is_quoted;
 
 	is_quoted = false;
 	new_token = NULL;
-	len = token_len(str, *index, DELIMITER);
-	if (is_quote(str[*index]))
-		len = token_len(str, *index, "<>|");
-	token_content = malloc(sizeof(char) * (len + 1));
+	token_content = allocate_token_content(str, index);
 	if (token_content == NULL)
 		return ;
 	j = 0;
-	if (is_quote(str[*index]))
-	{
-		is_quoted = !is_quoted;
-		process_quoted_token(str, index, token_content, &j);
-	}
 	if (token_type == PIPE && is_delimiter(str[*index], DELIMITER))
-		return (process_pipe_token(token_type, head, new_token, token_content));
+		return (add_null_pipe(head, new_token, token_content));
 	while (str[*index] && (!is_delimiter(str[*index], DELIMITER) || is_quoted))
 	{
 		if (is_quote(str[*index]))
@@ -69,6 +50,18 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 	token_content[j] = '\0';
 	new_token = create_token(token_content, token_type);
 	add_token(head, new_token);
+}
+
+char	*allocate_token_content(char *str, int *index)
+{
+	int		len;
+	char	*token_content;
+
+	len = token_len(str, *index, DELIMITER);
+	if (is_quote(str[*index]))
+		len = token_len(str, *index, "<>|");
+	token_content = malloc(sizeof(char) * (len + 1));
+	return (token_content);
 }
 
 //processes a pipe token

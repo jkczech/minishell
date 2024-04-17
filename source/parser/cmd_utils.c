@@ -3,41 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 15:18:22 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 14:33:22 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //adds an argument to the args table
-void	add_args(t_cmd *cmd, char *arg)
+bool	add_args(t_cmd *cmd, char *arg)
 {
 	int		i;
 	char	**res;
 
-	if (cmd->args == NULL)
-	{
-		cmd->args = (char **)malloc(sizeof(char *) * 2);
-		cmd->args[0] = ft_strdup(arg);
-		cmd->args[1] = NULL;
-		return ;
-	}
+	if (!arg || !cmd)
+		return (false);
 	res = malloc(sizeof(char *) * (count_args(cmd->args) + 2));
 	if (!res)
-		return ;
+		return (false);
 	i = 0;
-	while (cmd->args[i])
+	while (cmd->args && cmd->args[i])
 	{
 		res[i] = cmd->args[i];
 		i++;
 	}
-	res[i++] = ft_strdup(arg);
-	res[i] = NULL;
+	res[i] = ft_strdup(arg);
+	if (!res[i])
+		return (false);
+	res[i + 1] = NULL;
 	free(cmd->args);
 	cmd->args = res;
+	return (true);
 }
 
 //search for command in shell.cmd[i], and search for path
@@ -62,6 +60,7 @@ bool	find_command(t_shell *shell, int i)
 			break ;
 		}
 		j++;
+		free(command);
 		if (!shell->paths[j])
 			cmd_not_found(shell, i);
 	}
@@ -93,7 +92,7 @@ bool	find_commands(t_shell *shell)
 	i = 0;
 	while (i < shell->size)
 	{
-		if (!shell->cmds[i].args)
+		if (!shell->cmds || !shell->cmds[i].args)
 			return (false);
 		if (is_builtin(shell, i))
 		{

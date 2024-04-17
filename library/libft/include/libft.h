@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 10:54:04 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/19 14:56:52 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:34:21 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		ft_putnbr_fd(long long n, int fd);
 
 typedef struct s_list
 {
-	char			*content;
+	void			*content;
 	struct s_list	*next;
 }	t_list;
 
@@ -92,5 +92,6 @@ char	*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 char	*ft_strlwr(char *str);
 long	ft_atol(const char *nptr);
 char	*ft_ltoa(long n);
+int		ft_isspace(int c);
 
 #endif

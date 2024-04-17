@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/10 15:21:09 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/04/17 19:02:35 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,21 +39,29 @@ BUILTINS =	builtins/builtins.c \
 			builtins/exit_util.c \
 			builtins/echo.c \
 			builtins/env.c \
+			builtins/env_utils.c \
 			builtins/pwd.c \
 			builtins/export.c \
+			builtins/unset.c \
+			builtins/cd.c \
 
 EXECUTOR =	executor/pipex.c \
 			executor/pipex_utils.c \
 			executor/error.c \
 			executor/child.c
 
-EXPANDER = expander/expander.c
+EXPANDER =	expander/expander.c \
+			expander/expander_utils.c \
+		
 
 INIT = init/init.c
 
-LEXER = lexer/lexing.c \
+LEXER =	lexer/check_error.c \
 		lexer/check_input.c \
 		lexer/quotes_handler.c \
+		lexer/quotes_handler_utils.c \
+		lexer/lexing.c \
+		lexer/lexing_utils.c
 
 MAIN = 	main/free.c \
 		main/main.c \

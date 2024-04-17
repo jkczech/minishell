@@ -6,15 +6,27 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 15:02:48 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 20:41:51 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+bool	execute(t_shell *shell)
+{
+	if (shell->size > 1 && !create_pipes(shell))
+		return (error_msg(NULL), false);
+	if (shell->size == 1 && !execute_simple(shell))
+		return (error_msg(NULL), false);
+	else if (shell->size > 1 && !execute_pipeline(shell))
+		return (error_msg(NULL), false);
+	return (true);
+}
+
 //create all pipes needed
 //shell->size - 1 pipes are created
 //shell->pipes is NOT NULL terminated
+//TODO: delete print
 bool	create_pipes(t_shell *shell)
 {
 	int	i;
@@ -65,7 +77,14 @@ bool	execute_pipeline(t_shell *shell)
 	{
 		pid = fork();
 		if (pid == 0)
-			children(shell, i);
+		{
+			if (!shell->cmds[i].args)
+			{
+				free_iter(shell);
+				exit(1);
+			}
+			child(shell, i, shell->cmds[i].input, shell->cmds[i].output);
+		}
 		else if (pid > 0)
 			shell->child_pids[i] = pid;
 		else
@@ -81,7 +100,7 @@ bool	execute_simple(t_shell *shell)
 {
 	int	pid;
 
-	if (shell->size != 1 || shell->cmds[0].args == NULL)
+	if (shell->size != 1 || !shell->cmds || !shell->cmds[0].args)
 		return (false);
 	if (is_builtin(shell, 0))
 		return (builtin_handler(shell, 0));
@@ -93,7 +112,7 @@ bool	execute_simple(t_shell *shell)
 	}
 	if (pid == 0)
 	{
-		redirect(*shell, shell->cmds[0].input, shell->cmds[0].output);
+		redirect(shell, shell->cmds[0].input, shell->cmds[0].output);
 		if (execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp) == -1)
 			error_msg(NULL);
 		free_pipes(shell);
