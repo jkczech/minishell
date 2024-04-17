@@ -6,7 +6,7 @@
 /*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 14:26:10 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 14:33:22 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,8 @@ bool	add_args(t_cmd *cmd, char *arg)
 	int		i;
 	char	**res;
 
-	if (cmd->args == NULL)
-	{
-		cmd->args = (char **)malloc(sizeof(char *) * 2);
-		cmd->args[0] = ft_strdup(arg);
-		cmd->args[1] = NULL;
-		return ;
-	}
+	if (!arg || !cmd)
+		return (false);
 	res = malloc(sizeof(char *) * (count_args(cmd->args) + 2));
 	if (!res)
 		return (false);
