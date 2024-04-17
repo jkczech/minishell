@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 16:00:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/03/12 15:32:18 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:30:10 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,13 @@ int	what_token(char *str, int index)
 		return (PIPE);
 	else
 		return (WORD);
+}
+
+//process_pipe_token
+void	add_null_pipe(t_token **head, t_token *token, char *content)
+{
+	free(content);
+	content = NULL;
+	token = create_token(NULL, PIPE);
+	add_token(head, token);
 }

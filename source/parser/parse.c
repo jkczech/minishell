@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 14:25:48 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 20:52:57 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ bool	parse(t_shell *shell)
 }
 
 //assigns token types to the tokens
+//TODO: delete print
 void	get_tokens(t_shell *shell)
 {
 	shell->tokens = assign_token_types(shell);
@@ -54,6 +55,7 @@ void	get_size(t_shell *shell)
 }
 
 //creates command table
+//TODO: don't split by space
 void	get_commands(t_shell *shell)
 {
 	t_token	*token;

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 18:33:40 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 20:54:41 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,21 @@ char	*get_env_value(t_shell *shell, char *str)
 	return (NULL);
 }
 
+//counts len depending on the type of variable
+int	convert_len(char *str, int i)
+{
+	int	len;
+
+	if (ft_isalnum(str[i]) || str[i] == '$')
+		len = strlen_b_sc(str + i);
+	else
+		len = strlen_before_a(str + i);
+	return (len);
+}
+
 //converts a string with variables to a string with values
+//eg. "echo $USER" -> "echo jkoupy"
+//eg. "echo $?" -> "echo 0"
 char	*convert_str(t_shell *shell, char *str)
 {
 	char	*substr;
@@ -52,32 +66,19 @@ char	*convert_str(t_shell *shell, char *str)
 	int		i;
 
 	i = 0;
-	len = 0;
 	new_str = NULL;
 	while (str && str[i])
 	{
-		if (ft_isalnum(str[i]) || str[i] == '$')
-			len = strlen_b_sc(str + i);
-		else
-			len = strlen_before_a(str + i);
+		len = convert_len(str, i);
 		substr = ft_substr(str, i, len);
 		if (ft_strncmp(substr, "$?", 2) == 0)
 			substr = ft_strdup(ft_itoa(shell->exitcode));
-		if (!substr)
-			return (NULL);
 		if (is_var(shell, substr))
 			substr = expand(shell, substr + 1);
 		else if (is_fake_var(shell, substr))
 			substr = ft_strdup("");
-		if (!substr)
-			return (NULL);
 		new_str = ft_strjoin(new_str, substr);
-		if (!new_str)
-		{
-			free(substr);
-			return (NULL);
-		}
-		free (substr);
+		free(substr);
 		i += len;
 	}
 	return (new_str);
@@ -100,6 +101,8 @@ void	expander(t_shell *shell)
 		}
 		tmp = token->content;
 		var = convert_str(shell, tmp);
+		if (!var)
+			var = ft_strdup(tmp);
 		free(tmp);
 		token->content = ft_strdup(var);
 		free(var);
@@ -111,4 +114,3 @@ void	expander(t_shell *shell)
 //go through tokens and expand variables
 //if variable is not found, leave it as is
 //if variable is found, replace it with its value
-//

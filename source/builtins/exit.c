@@ -6,13 +6,14 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 18:44:22 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 20:40:27 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 // Exit shell with exit status
+//TODO: delete printf
 void	exit_shell_status(t_shell *shell, int status)
 {
 	free_iter(shell);
@@ -22,6 +23,7 @@ void	exit_shell_status(t_shell *shell, int status)
 }
 
 //Exit error message
+//TODO: delete printf
 void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status)
 {
 	ft_putstr_fd("exit\n", 2);
@@ -43,10 +45,11 @@ void	easy_exit(t_shell *shell, int status)
 }
 
 //Exit with argument
+//TODO: delete printf
 void	exit_argument(t_shell *shell, t_cmd *cmd)
 {
 	if (!is_numeric(cmd->args[1]) || !check_overflow(cmd->args[1]))
-		exit_error_msg (shell, "numeric argument required", cmd->args[1], 2);
+		exit_error_msg(shell, "numeric argument required", cmd->args[1], 2);
 	else if (cmd->args[2] && cmd->args[1])
 	{
 		ft_putstr_fd("exit\n", 2);

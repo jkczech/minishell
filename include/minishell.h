@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 19:00:39 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 19:40:21 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,12 @@ typedef struct s_env
 	int		flag;
 }	t_env;
 
+typedef struct s_quote
+{
+	char	type;
+	bool	q_closed;
+}	t_quote;
+
 typedef struct s_shell
 {
 	t_list			*env_list;
@@ -116,7 +122,6 @@ bool	is_builtin(t_shell *shell, int i);
 
 //builtins_utils.c
 bool	builtin_handler(t_shell *shell, int i);
-void	free_shell(t_shell *shell);
 void	ft_free_list(t_list *list);
 long	ft_atol(const char *nptr);
 
@@ -184,7 +189,6 @@ bool	execute_simple(t_shell *shell);
 ////////////////////////////////EXPANDER////////////////////////////////////////
 
 //expander.c
-bool	find_var(t_shell *shell, char *str);
 char	*get_env_value(t_shell *shell, char *str);
 bool	is_var(t_shell *shell, char *str);
 void	expander(t_shell *shell);
@@ -282,9 +286,11 @@ int		is_delimiter(char c, const char *delim);
 int		token_len(char *str, int index, const char *delim);
 void	skip_spaces(char *str, int *index);
 int		what_token(char *str, int index);
+void	add_null_pipe(t_token **head, t_token *token, char *content);
 
 //tokenizing.c
 void	process_token(char *str, int *index, int token_type, t_token **head);
+char	*allocate_token_content(char *str, int *index);
 t_token	*assign_token_types(t_shell *shell);
 int		what_token(char *str, int index);
 int		is_delimiter(char c, const char *delim);

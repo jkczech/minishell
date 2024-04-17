@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 10:17:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/16 08:14:44 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 19:46:10 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	print_echo(t_shell *shell, t_cmd *cmd, int *i)
 }
 
 //Check if -n flag
+//printf("str[%d] = %c\n", i, str[i]);
 bool	check_newline(char *str)
 {
 	int	i;
@@ -33,7 +34,6 @@ bool	check_newline(char *str)
 		return (false);
 	while (str[i])
 	{
-		printf("str[%d] = %c\n", i, str[i]);
 		if (str[i] == 'n')
 		{
 			while (str[i] == 'n' && str[i + 1] == 'n')

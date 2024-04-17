@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 12:35:42 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 20:41:51 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ bool	execute(t_shell *shell)
 //create all pipes needed
 //shell->size - 1 pipes are created
 //shell->pipes is NOT NULL terminated
+//TODO: delete print
 bool	create_pipes(t_shell *shell)
 {
 	int	i;

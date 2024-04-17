@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 12:10:52 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 20:41:23 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	add_env_var(t_shell *shell, char *arg)
 	ft_lstadd_back(&shell->env_list, node);
 }
 
+//TODO: delete print
 bool	simple_export(t_shell *shell, t_cmd *cmd)
 {
 	if (!cmd->args[1])
