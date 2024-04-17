@@ -6,7 +6,7 @@
 /*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/15 10:55:48 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/17 12:40:13 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ void	env_command(t_shell *shell, t_cmd *cmd);
 bool	envp_into_list(char **envp, t_list **env_list);
 
 //env_utils.c
+int		check_env_var(char *var);
 
 //pwd.c
 void	pwd_command(t_shell *shell, t_cmd *cmd);
@@ -194,6 +195,13 @@ char	*get_env_value(t_shell *shell, char *str);
 bool	is_var(t_shell *shell, char *str);
 void	expander(t_shell *shell);
 
+//expander_utils.c
+bool	find_var(t_shell *shell, char *str);
+int		strlen_b_sc(char *str);
+int		strlen_before_a(char *str);
+bool	is_var(t_shell *shell, char *str);
+bool	is_fake_var(t_shell *shell, char *str);
+
 //////////////////////////////////INIT//////////////////////////////////////////
 
 //init.c
@@ -210,6 +218,12 @@ bool	quotes_checker(char *str);
 int		len_w_q(char *str);
 char	*remove_quotes(char *str);
 void	quote_token(t_shell *shell);
+
+//quotes_handler_utils.c
+bool	is_quote(char c);
+void	init_variables(int *i, int *len, char *q, bool *q_closed);
+void	determine_quote(char *str, int *i, char *q, bool *q_closed);
+void	refresh_quote(char *str, int *i, char *q, bool *q_closed);
 
 //check_input.c
 bool	is_sep(char c);

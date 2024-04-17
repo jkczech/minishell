@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/09 17:34:41 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/17 12:01:07 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	process_char_quotes(char *str, char *result, int *i, int *j)
 //processes a character
 void	process_character(char *str, char *result, int *i, int *j)
 {
-	if(is_quote(str[*j]))
+	if (is_quote(str[*j]))
 		process_char_quotes(str, result, i, j);
 	if (str[*j] == ' ')
 	{

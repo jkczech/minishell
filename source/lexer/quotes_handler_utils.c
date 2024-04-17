@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexing_utils.c                                     :+:      :+:    :+:   */
+/*   quotes_handler_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 18:11:09 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 12:09:01 by jakob            ###   ########.fr       */
+/*   Created: 2024/04/17 12:28:55 by jakob             #+#    #+#             */
+/*   Updated: 2024/04/17 12:33:19 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//initializes variables
+//checks if a character is a quote
+bool	is_quote(char c)
+{
+	if (c == '"' || c == '\'')
+		return (true);
+	return (false);
+}
+
 void	init_variables(int *i, int *len, char *q, bool *q_closed)
 {
 	*i = 0;
@@ -21,7 +28,6 @@ void	init_variables(int *i, int *len, char *q, bool *q_closed)
 	*q_closed = true;
 }
 
-//determines the quote
 void	determine_quote(char *str, int *i, char *q, bool *q_closed)
 {
 	if (*q_closed && is_quote(str[*i]))
@@ -32,34 +38,11 @@ void	determine_quote(char *str, int *i, char *q, bool *q_closed)
 	}
 }
 
-//refreshes the quote
 void	refresh_quote(char *str, int *i, char *q, bool *q_closed)
 {
 	if (str[*i] == *q && !*q_closed)
 	{
 		*q_closed = true;
 		(*i)++;
-	}
-}
-
-//additionnal function for token_count
-void	token_count_util(char *str, int *i, int *count)
-{
-	if (str[*i] != '\0' && !is_sep(str[*i]))
-	{
-		(*count)++;
-		if (is_quote(str[*i]))
-			while (!is_quote(str[++(*i)]))
-				;
-		while (str[*i] != ' ' && str[*i] != '\t'
-			&& str[*i] != '\0' && !is_sep(str[*i]))
-			(*i)++;
-	}
-	if (double_sep(str, *i))
-		(*i)++;
-	if (is_sep(str[*i]))
-	{
-		(*i)++;
-		(*count)++;
 	}
 }

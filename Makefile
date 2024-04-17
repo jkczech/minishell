@@ -6,7 +6,7 @@
 #    By: jakob <jakob@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/15 10:53:31 by jakob            ###   ########.fr        #
+#    Updated: 2024/04/17 12:32:41 by jakob            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ BUILTINS =	builtins/builtins.c \
 			builtins/exit_util.c \
 			builtins/echo.c \
 			builtins/env.c \
+			builtins/env_utils.c \
 			builtins/pwd.c \
 			builtins/export.c \
 			builtins/unset.c \
@@ -55,6 +56,7 @@ INIT = init/init.c
 LEXER = lexer/lexing.c \
 		lexer/check_input.c \
 		lexer/quotes_handler.c \
+		lexer/quotes_handler_utils.c \
 
 MAIN = 	main/free.c \
 		main/main.c \

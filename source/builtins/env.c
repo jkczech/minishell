@@ -3,48 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/11 13:13:13 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/17 12:21:15 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int check_env_var(char *var)
-{
-	int i;
-
-	i = 0;
-	while (var[i])
-	{
-		if (var[i] == '=')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 //create new environment variable
-t_env *ft_fillenv(char *str) 
+t_env	*ft_fillenv(char *str)
 {
-	t_env *ret;
-	int i;
-	
+	t_env	*ret;
+	int		i;
+
 	i = 0;
 	ret = (t_env *)malloc(sizeof(t_env));
-	if(check_env_var(str))
+	if (check_env_var(str))
 		ret->flag = 1;
 	else
 		ret->flag = 0;
-	while(str[i] && str[i] != '=')
+	while (str[i] && str[i] != '=')
 		i++;
 	ret->var = ft_substr(str, 0, i);
-	if(!ret->var)
+	if (!ret->var)
 		return (0);
 	ret->value = ft_substr(str, i + 1, ft_strlen(str) - i - 1);
-	return 	(ret);
+	return (ret);
 }
 
 //create new list element
@@ -113,9 +99,6 @@ bool	copy_envp(t_shell *shell, char **envp)
 //Handles the env command
 void	env_command(t_shell *shell, t_cmd *cmd)
 {
-	/* int	i;
-
-	i = 0; */
 	if (args_counter(cmd->args) > 1)
 	{
 		ft_putstr_fd("env: ", 2);
@@ -127,5 +110,4 @@ void	env_command(t_shell *shell, t_cmd *cmd)
 		return ;
 	}
 	print_env_list(shell->env_list);
-	//printf("List size: %d\n", ft_lstsize(shell->env_list));
 }
