@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 10:54:04 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 16:07:13 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:34:21 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ char	*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 char	*ft_strlwr(char *str);
 long	ft_atol(const char *nptr);
 char	*ft_ltoa(long n);
+int		ft_isspace(int c);
 
 #endif
