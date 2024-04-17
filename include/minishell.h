@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 19:40:21 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 21:41:40 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,12 +153,12 @@ int		check_env_var(char *var);
 void	pwd_command(t_shell *shell, t_cmd *cmd);
 
 //export.c
-bool	check_valid_arg(char *arg);
 void	add_env_var(t_shell *shell, char *arg);
 void	export_command(t_shell *shell, t_cmd *cmd);
 int		strlen_before_char(char *str, char c);
 
 //unset.c
+void	free_env_var(t_env *env);
 void	unset_command(t_shell *shell, t_cmd *cmd);
 
 //cd.c
@@ -242,6 +242,7 @@ void	token_count_util(char *str, int *i, int *count);
 //check_error.c
 bool	check_parse_errors(t_shell *shell);
 bool	check_for(char *input, char *str1, char *str2, char *str3);
+bool	ends_with_redir(char *input);
 
 /////////////////////////////////MAIN///////////////////////////////////////////
 

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 19:03:14 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 21:30:09 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	process_character(char *str, char *result, int *i, int *j)
 
 //get input and return a normed input
 //TODO: delete printf
+//printf("Normed input: %s\n", shell->norm_input);
 void	norm_input(t_shell *shell)
 {
 	int		i;
@@ -104,5 +105,4 @@ void	norm_input(t_shell *shell)
 	while (i < len)
 		process_character(shell->input, shell->norm_input, &i, &j);
 	shell->norm_input[i] = '\0';
-	printf("Normed input: %s\n", shell->norm_input);
 }

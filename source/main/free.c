@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 18:46:02 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 21:34:18 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ void	free_iter(t_shell *shell)
 
 //free the shell
 //printf("free_shell\n");
+// if (shell->envp && shell->envp[i])
+// 	free_array(shell->envp);
 void	free_shell(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
-	if (shell->envp && shell->envp[i])
+	if (shell->env_list)
 		ft_free_list(shell->env_list);
 	if (shell->paths)
 	{
