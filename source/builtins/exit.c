@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/16 07:06:13 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 14:26:33 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ void	exit_argument(t_shell *shell, t_cmd *cmd)
 //check if exit command is called
 void	exit_command(t_shell *shell, t_cmd *cmd)
 {
-	int	exit_status;
-
-	exit_status = shell->exitcode; //unused
 	if (!cmd->args[1])
 		easy_exit(shell, 0);
 	else if (cmd->args[1])

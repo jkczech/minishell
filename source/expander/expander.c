@@ -3,37 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 04:58:43 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 14:25:25 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-//finds a variable in the environment
-bool	find_variable(t_shell *shell, char *str)
+//expand variables
+char	*expand(t_shell *shell, char *str)
 {
-	t_list	*node;
-	char	*var;
-	int		i;
-	int		len;
+	char	*value;
 
-	len = ft_strlen(str);
-	node = shell->env_list;
-	printf("HERE!\n");
-	while (node)
-	{
-		i = 0;
-		var = node->content;
-		while (var[i] != '=')
-			i++;
-		if (ft_strncmp(var, str, i) == 0 && i == len)
-			return (true);
-		node = node->next;
-	}
-	return (false);
+	value = get_env_value(shell, str);
+	return (value);
 }
 
 //gets the value of a variable in the environment
@@ -42,18 +26,16 @@ char	*get_env_value(t_shell *shell, char *str)
 	t_list	*node;
 	char	*var;
 	char	*value;
-	int		i;
 
 	node = shell->env_list;
 	while (node)
 	{
-		i = 0;
-		var = node->content;
-		while (var[i] != '=')
-			i++;
-		if (ft_strncmp(var, str, i) == 0)
+		var = ((t_env *)node->content)->var;
+		if (ft_strncmp(var, str, ft_strlen(var)) == 0)
 		{
-			value = ft_strdup(var + i + 1);
+			value = ft_strdup(((t_env *)node->content)->value);
+			if (!value)
+				return (NULL);
 			return (value);
 		}
 		node = node->next;
@@ -61,64 +43,63 @@ char	*get_env_value(t_shell *shell, char *str)
 	return (NULL);
 }
 
-//transform a string by removing dollar signs & quotes
-char	*transform_string(char *str)
+//converts a string with variables to a string with values
+char	*convert_str(t_shell *shell, char *str)
 {
+	char	*substr;
+	char	*new_str;
+	int		len;
 	int		i;
-	int		j;
-	char	*result;
 
 	i = 0;
-	j = 0;
-	result = NULL;
+	len = 0;
+	new_str = ft_strdup("");
+	if (!new_str)
+		return (NULL);
 	while (str[i])
 	{
-		if (str[i] == '"')
+		if (ft_isalnum(str[i]) || str[i] == '$')
+			len = strlen_b_sc(str + i);
+		else
+			len = strlen_before_a(str + i);
+		substr = ft_substr(str, i, len);
+		if (ft_strncmp(substr, "$?", 2) == 0)
+			substr = ft_strdup(ft_itoa(shell->exitcode));
+		if (!substr)
+			return (NULL);
+		if (is_var(shell, substr))
+			substr = expand(shell, substr + 1);
+		else if (is_fake_var(shell, substr))
+			substr = ft_strdup("");
+		if (!substr)
+			return (NULL);
+		new_str = ft_strjoin(new_str, substr);
+		if (!new_str)
 		{
-			i++;
-			while (str[i] && str[i] != '"')
-				result[j++] = str[i++];
+			free(substr);
+			return (NULL);
 		}
-		i++;
+		free (substr);
+		i += len;
 	}
-	str[i] = '\0';
-	return (result);
+	return (new_str);
 }
 
-//checks if a string is a environment variable
-bool	is_expansion(t_shell *shell, char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-		{
-			if (find_variable(shell, str + i + 1))
-				return (true);
-			else
-				return (false);
-		}
-		i++;
-	}
-	return (false);
-}
-
+//expands variables in the tokens
 void	expander(t_shell *shell)
 {
 	char	*tmp;
 	t_token	*token;
+	char	*var;
 
 	token = shell->tokens;
 	while (token)
 	{
 		tmp = token->content;
-		if (is_expansion(shell, tmp))
-		{
-			token->content = get_env_value(shell, tmp + 1);
-			free(tmp);
-		}
+		var = convert_str(shell, tmp);
+		free(tmp);
+		token->content = ft_strdup(var);
+		free(var);
 		token = token->next;
 	}
 }

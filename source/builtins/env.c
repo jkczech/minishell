@@ -3,16 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/10 15:20:36 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/17 14:25:17 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //create new environment variable
+t_env	*ft_fillenv(char *str)
+{
+	t_env	*ret;
+	int		i;
+
+	i = 0;
+	ret = (t_env *)malloc(sizeof(t_env));
+	if (check_env_var(str))
+		ret->flag = 1;
+	else
+		ret->flag = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	ret->var = ft_substr(str, 0, i);
+	if (!ret->var)
+		return (0);
+	ret->value = ft_substr(str, i + 1, ft_strlen(str) - i - 1);
+	return (ret);
+}
+
+//create new list element
 t_list	*ft_envnew_l(void *content)
 {
 	t_list	*list;
@@ -22,7 +43,7 @@ t_list	*ft_envnew_l(void *content)
 	list = (t_list *)malloc(sizeof(t_list));
 	if (!list)
 		return (0);
-	list->content = ft_strdup(content);
+	list->content = (void *)ft_fillenv(content);
 	if (!list->content)
 	{
 		free(list);
@@ -42,7 +63,7 @@ bool	envp_into_list(char **envp, t_list **env_list)
 	node = NULL;
 	while (envp[i])
 	{
-		node = ft_lstnew_l(envp[i]);
+		node = ft_lstnew(ft_fillenv(envp[i]));
 		if (!node)
 			return (false);
 		ft_lstadd_back(env_list, node);
@@ -78,10 +99,7 @@ bool	copy_envp(t_shell *shell, char **envp)
 //Handles the env command
 void	env_command(t_shell *shell, t_cmd *cmd)
 {
-	int	i;
-
-	i = 0;
-	if (count_args(cmd->args) > 1)
+	if (args_counter(cmd->args) > 1)
 	{
 		ft_putstr_fd("env: ", 2);
 		ft_putstr_fd("´", 2);
@@ -92,5 +110,4 @@ void	env_command(t_shell *shell, t_cmd *cmd)
 		return ;
 	}
 	print_env_list(shell->env_list);
-	printf("List size: %d\n", ft_lstsize(shell->env_list));
 }
