@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/18 02:14:37 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/18 08:51:20 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,13 +235,13 @@ bool	check_input(t_shell *shell);
 void	del_quotes(char **str);
 
 //lexing.c
-int		count_chars(t_shell *shell);
+int		count_chars(char *str);
 void	process_char_quotes(char *str, char *result, int *i, int *j);
 void	process_token(char *str, int *index, int token_type, t_token **head);
 void	norm_input(t_shell *shell);
 
 //lexing_utils.c
-int		token_count(t_shell *shell);
+int		token_count(char *str);
 void	token_count_util(char *str, int *i, int *count);
 
 //check_error.c

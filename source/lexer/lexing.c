@@ -6,31 +6,33 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 21:30:09 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/18 08:51:13 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //counts the number of characters in a string
-int	count_chars(t_shell *shell)
+int	count_chars(char *str)
 {
 	int	i;
 	int	count;
 
 	i = 0;
 	count = 0;
-	while (shell->input[i])
+	if (!str)
+		return (0);
+	while (str[i])
 	{
-		while ((shell->input[i] == ' ' || shell->input[i] == '\t'))
+		while ((str[i] == ' ' || str[i] == '\t'))
 			i++;
-		if (shell->input[i] != ' ' || shell->input[i] != '\t')
+		if (str[i] != ' ' || str[i] != '\t')
 			count++;
-		if (shell->input[i] && is_quote(shell->input[i]))
+		if (str[i] && is_quote(str[i]))
 		{
 			count++;
 			i++;
-			while (!is_quote(shell->input[i]))
+			while (!is_quote(str[i]))
 			{
 				count++;
 				i++;
@@ -94,14 +96,16 @@ void	norm_input(t_shell *shell)
 	int		j;
 	int		len;
 
-	i = 0;
-	j = 0;
-	len = token_count(shell) - 1 + count_chars(shell);
+	if (!shell->input)
+		return ;
+	len = token_count(shell->input) - 1 + count_chars(shell->input);
 	if (!quotes_checker(shell->input))
 		return ;
 	shell->norm_input = malloc(sizeof(char) * (len + 1));
 	if (!shell->norm_input)
 		return ;
+	i = 0;
+	j = 0;
 	while (i < len)
 		process_character(shell->input, shell->norm_input, &i, &j);
 	shell->norm_input[i] = '\0';

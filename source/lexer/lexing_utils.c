@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:11:09 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 18:59:43 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/18 08:44:54 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,20 @@ void	token_count_util(char *str, int *i, int *count)
 }
 
 //counts the number of tokens in a string
-int	token_count(t_shell *shell)
+int	token_count(char *str)
 {
 	int	i;
 	int	count;
 
 	i = 0;
 	count = 0;
-	while (shell->input[i] != '\0')
+	if (!str)
+		return (0);
+	while (str[i] != '\0')
 	{
-		while (shell->input[i] == ' ' || shell->input[i] == '\t')
+		while (str[i] == ' ' || str[i] == '\t')
 			i++;
-		token_count_util(shell->input, &i, &count);
+		token_count_util(str, &i, &count);
 	}
 	return (count);
 }
