@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 23:01:04 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/18 02:14:37 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,11 @@ long	convert_exit_status(t_cmd *cmd);
 bool	check_overflow(char *str);
 
 //echo.c
-void	echo_command(t_shell *shell, t_cmd *cmd);
+void	print_echo(t_cmd *cmd, int *i);
+bool	check_newline(char *str);
+void	nnl_echo(t_cmd *cmd);
+void	simple_echo(t_cmd *cmd);
+void	echo_command(t_cmd *cmd);
 
 //env.c
 t_list	*ft_envnew_l(void *content);

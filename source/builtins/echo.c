@@ -6,16 +6,15 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 10:17:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 19:46:10 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/18 02:14:25 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //Prints the argument of the echo command
-void	print_echo(t_shell *shell, t_cmd *cmd, int *i)
+void	print_echo(t_cmd *cmd, int *i)
 {
-	(void)shell;
 	ft_putstr_fd(cmd->args[*i], cmd->output);
 	if (cmd->args[*i + 1])
 		ft_putstr_fd(" ", cmd->output);
@@ -28,9 +27,7 @@ bool	check_newline(char *str)
 	int	i;
 
 	i = 1;
-	if (!str)
-		return (false);
-	if (str[0] != '-')
+	if (!str || !str[0] || str[0] != '-' || str[1] != 'n')
 		return (false);
 	while (str[i])
 	{
@@ -48,7 +45,7 @@ bool	check_newline(char *str)
 
 //Prints the argument of the echo command with out newline
 //Still needs to be fixed with more args
-void	print_nnl_echo(t_shell *shell, t_cmd *cmd)
+void	nnl_echo(t_cmd *cmd)
 {
 	int	i;
 	int	args_len;
@@ -66,33 +63,36 @@ void	print_nnl_echo(t_shell *shell, t_cmd *cmd)
 	}
 	while (i < args_len)
 	{
-		print_echo(shell, cmd, &i);
+		print_echo(cmd, &i);
 		i++;
 	}
 }
 
-//Prints the argument of the echo command with newline
-void	simple_echo(t_shell *shell, t_cmd *cmd)
+//print the argument of the echo command with newline
+void	simple_echo(t_cmd *cmd)
 {
 	int	i;
 
 	i = 1;
 	while (i < count_args(cmd->args))
 	{
-		print_echo(shell, cmd, &i);
+		print_echo(cmd, &i);
 		i++;
 	}
 	ft_putstr_fd("\n", cmd->output);
 }
 
-//Checks if the command is echo and executes it
-void	echo_command(t_shell *shell, t_cmd *cmd)
+//check if the echo command is with or without newline
+//and print; if no argument print newline
+void	echo_command(t_cmd *cmd)
 {
 	if (cmd->args[1])
 	{
 		if (check_newline(cmd->args[1]))
-			print_nnl_echo(shell, cmd);
+			nnl_echo(cmd);
 		else
-			simple_echo(shell, cmd);
+			simple_echo(cmd);
 	}
+	else
+		ft_putstr_fd("\n", cmd->output);
 }
