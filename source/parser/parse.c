@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 20:52:57 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 19:21:45 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,6 @@ bool	parse(t_shell *shell)
 	get_commands(shell);
 	find_commands(shell);
 	return (true);
-}
-
-//assigns token types to the tokens
-//TODO: delete print
-void	get_tokens(t_shell *shell)
-{
-	shell->tokens = assign_token_types(shell);
-	if (shell->tokens)
-		print_tokens(shell->tokens);
 }
 
 //counts the number of commands needed
@@ -79,4 +70,5 @@ void	get_commands(t_shell *shell)
 			open_append(&shell->cmds[i], token->content);
 		token = token->next;
 	}
+	print_cmds(shell);
 }

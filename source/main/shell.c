@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 23:02:24 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 20:27:18 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	minishell(t_shell *shell)
 {
 	while (true)
 	{
-		signal(SIGINT, signal_handler);
+		set_signals();
 		init_iter(shell);
 		if (!read_line(shell))
 			break ;

@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 17:08:59 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/19 20:59:06 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,6 @@ void	update_pwd_n_oldpwd(t_shell *shell);
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 
 //child.c
-
 void	redirect(t_shell *shell, int input, int output);
 void	child(t_shell *shell, int i, int input, int output);
 
@@ -270,7 +269,6 @@ void	argc_check(int argc, char **argv);
 //shell.c
 void	minishell(t_shell *shell);
 bool	read_line(t_shell *shell);
-void	signal_handler(int signum);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 
@@ -304,13 +302,13 @@ void	add_null_pipe(t_token **head, t_token *token, char *content);
 //tokenizing.c
 void	process_token(char *str, int *index, int token_type, t_token **head);
 char	*allocate_token_content(char *str, int *index);
-t_token	*assign_token_types(t_shell *shell);
 int		what_token(char *str, int index);
 int		is_delimiter(char c, const char *delim);
 
 ///////////////////////////////SIGNALS//////////////////////////////////////////
 
 //signals.c
+void	set_signals(void);
 void	signal_handler(int signum);
 
 ////////////////////////////////UTILS///////////////////////////////////////////
@@ -331,5 +329,8 @@ void	print_list(t_token *head);
 void	print_cmds(t_shell *shell);
 void	print_env_list(t_list *env_list);
 void	print_export_list(t_list *env_list);
+
+//print2.c
+void	print_cmd(t_cmd *cmd);
 
 #endif

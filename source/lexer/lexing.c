@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 20:01:36 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/19 21:02:05 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ int	count_chars(char *str)
 
 	i = 0;
 	count = 0;
-	if (!str)
-		return (0);
-	while (str[i])
+	while (str && str[i])
 	{
 		while ((str[i] == ' ' || str[i] == '\t'))
 			i++;
