@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 10:17:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/19 21:00:49 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/19 21:03:33 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	simple_echo(t_cmd *cmd)
 
 //check if the echo command is with or without newline
 //and print; if no argument - print newline
-void	echo_command(t_cmd *cmd)
+void	echo_command(t_shell *shell, t_cmd *cmd)
 {
 	if (cmd->args[1])
 	{
