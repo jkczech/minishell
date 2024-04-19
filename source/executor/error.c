@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:46:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 09:36:31 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 16:15:02 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ bool	cmd_not_found(t_shell *shell, int i)
 	ft_putstr_fd("command not found: ", 2);
 	ft_putstr_fd(shell->cmds[i].args[0], 2);
 	ft_putstr_fd("\n", 2);
+	shell->exitcode = 127;
 	return (true);
 }

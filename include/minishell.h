@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/18 08:51:20 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 17:08:59 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	print_echo(t_cmd *cmd, int *i);
 bool	check_newline(char *str);
 void	nnl_echo(t_cmd *cmd);
 void	simple_echo(t_cmd *cmd);
-void	echo_command(t_cmd *cmd);
+void	echo_command(t_shell *shell, t_cmd *cmd);
 
 //env.c
 t_list	*ft_envnew_l(void *content);
@@ -153,6 +153,7 @@ bool	envp_into_list(char **envp, t_list **env_list);
 
 //env_utils.c
 int		check_env_var(char *var);
+char	**envp_list_into_char(t_list *env_list);
 
 //pwd.c
 void	pwd_command(t_shell *shell, t_cmd *cmd);
@@ -168,6 +169,11 @@ void	unset_command(t_shell *shell, t_cmd *cmd);
 
 //cd.c
 void	cd_command(t_shell *shell, t_cmd *cmd);
+
+//cd_utils.c
+void	cd_oldpwd(t_shell *shell);
+void	add_oldpwd(t_shell *shell);
+void	update_pwd_n_oldpwd(t_shell *shell);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 

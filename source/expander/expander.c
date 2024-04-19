@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 20:54:41 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 20:06:47 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,11 @@ char	*convert_str(t_shell *shell, char *str)
 			substr = ft_strdup(ft_itoa(shell->exitcode));
 		if (is_var(shell, substr))
 			substr = expand(shell, substr + 1);
-		else if (is_fake_var(shell, substr))
-			substr = ft_strdup("");
+		else if (substr && substr[0] == '$')
+			substr = NULL;
 		new_str = ft_strjoin(new_str, substr);
-		free(substr);
+		if (substr)
+			free(substr);
 		i += len;
 	}
 	return (new_str);

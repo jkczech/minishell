@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 19:30:41 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 15:39:48 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 //process_quoted_token
 void	process_quoted_token(char *str, int *index, char *token_content, int *j)
 {
+	char quote;
+
+	quote = str[*index];	
 	token_content[*j] = str[*index];
 	(*j)++;
 	(*index)++;
-	while (!is_quote(str[*index]))
+	while (quote != str[*index])
 	{
 		token_content[(*j)++] = str[*index];
 		(*index)++;
@@ -31,9 +34,11 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 	t_token	*new_token;
 	char	*token_content;
 	int		j;
-	bool	is_quoted;
+	//bool	is_quoted;
+	t_quote	quote;
 
-	is_quoted = false;
+	//is_quoted = false;
+	quote.q_closed = false;
 	new_token = NULL;
 	token_content = allocate_token_content(str, index);
 	if (token_content == NULL)
@@ -41,10 +46,13 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 	j = 0;
 	if (token_type == PIPE && is_delimiter(str[*index], DELIMITER))
 		return (add_null_pipe(head, new_token, token_content));
-	while (str[*index] && (!is_delimiter(str[*index], DELIMITER) || is_quoted))
+	while (str[*index] && (!is_delimiter(str[*index], DELIMITER) || quote.q_closed))
 	{
 		if (is_quote(str[*index]))
-			is_quoted = !is_quoted;
+		{
+			quote.q_closed = !quote.q_closed;
+			process_quoted_token(str, index, token_content, &j);
+		}
 		token_content[j++] = str[(*index)++];
 	}
 	token_content[j] = '\0';

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 19:37:04 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 20:28:19 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_env	*ft_fillenv(char *str)
 
 	i = 0;
 	ret = (t_env *)malloc(sizeof(t_env));
+	if (!ret)
+		return (0);
 	if (check_env_var(str))
 		ret->flag = 1;
 	else
@@ -30,6 +32,12 @@ t_env	*ft_fillenv(char *str)
 	if (!ret->var)
 		return (0);
 	ret->value = ft_substr(str, i + 1, ft_strlen(str) - i - 1);
+	if (!ret->value)
+	{
+		free(ret->var);
+		free(ret);
+		return (0);
+	}
 	return (ret);
 }
 

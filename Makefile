@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
+#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/17 19:02:35 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/04/19 17:09:27 by jseidere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ BUILTINS =	builtins/builtins.c \
 			builtins/export.c \
 			builtins/unset.c \
 			builtins/cd.c \
+			builtins/cd_utils.c
 
 EXECUTOR =	executor/pipex.c \
 			executor/pipex_utils.c \

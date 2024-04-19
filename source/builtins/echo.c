@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 10:17:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/18 02:14:25 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 16:10:00 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	print_echo(t_cmd *cmd, int *i)
 }
 
 //Check if -n flag
-//printf("str[%d] = %c\n", i, str[i]);
 bool	check_newline(char *str)
 {
 	int	i;
@@ -84,7 +83,7 @@ void	simple_echo(t_cmd *cmd)
 
 //check if the echo command is with or without newline
 //and print; if no argument print newline
-void	echo_command(t_cmd *cmd)
+void	echo_command(t_shell *shell, t_cmd *cmd)
 {
 	if (cmd->args[1])
 	{
@@ -95,4 +94,5 @@ void	echo_command(t_cmd *cmd)
 	}
 	else
 		ft_putstr_fd("\n", cmd->output);
+	shell->exitcode = 0;
 }

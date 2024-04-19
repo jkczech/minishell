@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 20:41:23 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/18 17:22:17 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,33 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 {
 	int		len;
 	t_list	*tmp;
+	int		i;
 
+	i = 0;
 	if (simple_export(shell, cmd))
 		return ;
-	tmp = shell->env_list;
-	while (tmp)
+	while(cmd->args[i])
 	{
-		len = strlen_before_char(cmd->args[1], '=');
-		if (ft_strncmp(((t_env *)tmp->content)->var, cmd->args[1], len) == 0)
+		tmp = shell->env_list;
+		while (tmp)
 		{
-			if (((t_env *)tmp->content)->value && cmd->args[1][len] == '=')
+			len = strlen_before_char(cmd->args[i], '=');
+			if (ft_strncmp(((t_env *)tmp->content)->var, cmd->args[i], len) == 0)
 			{
-				free(((t_env *)tmp->content)->value);
-				((t_env *)tmp->content)->value = \
-				ft_strdup (cmd->args[1] + len + 1);
-				((t_env *)tmp->content)->flag = 1;
-				shell->exitcode = 0;
+				if (((t_env *)tmp->content)->value && cmd->args[i][len] == '=')
+				{
+					free(((t_env *)tmp->content)->value);
+					((t_env *)tmp->content)->value = \
+					ft_strdup (cmd->args[i] + len + 1);
+					((t_env *)tmp->content)->flag = 1;
+					shell->exitcode = 0;
+				}
+				return ;
 			}
-			return ;
+			tmp = tmp->next;
 		}
-		tmp = tmp->next;
+		add_env_var(shell, cmd->args[i]);
+		i++;
 	}
-	add_env_var(shell, cmd->args[1]);
 	shell->exitcode = 0;
 }

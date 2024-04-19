@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:35:34 by jakob             #+#    #+#             */
-/*   Updated: 2024/04/17 12:18:06 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/19 20:12:08 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	cd_forward(t_shell *shell, char *path)
 
 	tmp = getcwd(NULL, 0);
 	path = ft_strjoin3(tmp, "/", path);
+	free(tmp);
 	if (chdir(path) == -1)
 	{
 		ft_putstr_fd("cd: ", 2);
@@ -26,6 +27,7 @@ void	cd_forward(t_shell *shell, char *path)
 		ft_putstr_fd(": No such file or directory\n", 2);
 		shell->exitcode = 1;
 	}
+	free(path);
 }
 
 void	cd_back(t_shell *shell)
@@ -64,6 +66,8 @@ void	cd_command(t_shell *shell, t_cmd *cmd)
 		cd_forward(shell, cmd->args[1]);
 	else if (ft_strncmp(cmd->args[1], "..", 2) == 0)
 		cd_back(shell);
+	else if (ft_strncmp(cmd->args[1], "-", 2) == 0)
+		cd_oldpwd(shell);
 	else
 	{
 		cwd = getcwd(NULL, 0);
@@ -74,4 +78,8 @@ void	cd_command(t_shell *shell, t_cmd *cmd)
 		free(path);
 		free(new_path);
 	}
+	update_pwd_n_oldpwd(shell);
 }
+// unset PWD 
+// cd ..
+// beschreibt pwd 
