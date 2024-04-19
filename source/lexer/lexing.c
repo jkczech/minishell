@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/18 08:51:13 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 20:39:18 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int	count_chars(char *str)
 
 	i = 0;
 	count = 0;
-	if (!str)
-		return (0);
-	while (str[i])
+	while (str && str[i])
 	{
 		while ((str[i] == ' ' || str[i] == '\t'))
 			i++;

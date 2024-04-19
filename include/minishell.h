@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 18:48:52 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 20:44:02 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,6 @@ void	argc_check(int argc, char **argv);
 //shell.c
 void	minishell(t_shell *shell);
 bool	read_line(t_shell *shell);
-void	signal_handler(int signum);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 
@@ -303,6 +302,7 @@ int		is_delimiter(char c, const char *delim);
 ///////////////////////////////SIGNALS//////////////////////////////////////////
 
 //signals.c
+void	set_signals(void);
 void	signal_handler(int signum);
 
 ////////////////////////////////UTILS///////////////////////////////////////////
@@ -325,6 +325,6 @@ void	print_env_list(t_list *env_list);
 void	print_export_list(t_list *env_list);
 
 //print2.c
-void    print_cmd(t_cmd *cmd);
+void	print_cmd(t_cmd *cmd);
 
 #endif
