@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 18:47:00 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 19:21:45 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void	get_commands(t_shell *shell)
 			open_append(&shell->cmds[i], token->content);
 		token = token->next;
 	}
+	print_cmds(shell);
 }
