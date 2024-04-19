@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 16:25:40 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 18:48:52 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,7 +297,6 @@ void	add_null_pipe(t_token **head, t_token *token, char *content);
 //tokenizing.c
 void	process_token(char *str, int *index, int token_type, t_token **head);
 char	*allocate_token_content(char *str, int *index);
-t_token	*assign_token_types(t_shell *shell);
 int		what_token(char *str, int index);
 int		is_delimiter(char c, const char *delim);
 

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 19:30:41 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 18:48:45 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ int	process_ttpipe(t_shell *shell, int *i, t_token *head, int token_type)
 	return (0);
 }
 
-//assigns token types, returns a list of tokens
-t_token	*assign_token_types(t_shell *shell)
+//create linked list of tokens, save it in shell->tokens
+void	get_tokens(t_shell *shell)
 {
 	int		i;
 	t_token	*head;
@@ -103,5 +103,5 @@ t_token	*assign_token_types(t_shell *shell)
 		if (shell->norm_input[i] != 0)
 			i++;
 	}
-	return (head);
+	shell->tokens = head;
 }
