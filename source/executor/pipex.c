@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 20:41:51 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 17:48:45 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ bool	execute(t_shell *shell)
 //shell->size - 1 pipes are created
 //shell->pipes is NOT NULL terminated
 //TODO: delete print
+//	print_cmds(shell);
 bool	create_pipes(t_shell *shell)
 {
 	int	i;
@@ -45,7 +46,6 @@ bool	create_pipes(t_shell *shell)
 		i++;
 	}
 	copy_pipes(shell);
-	print_cmds(shell);
 	return (true);
 }
 

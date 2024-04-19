@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/18 08:51:20 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 16:25:40 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,6 @@ void	cd_command(t_shell *shell, t_cmd *cmd);
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 
 //child.c
-
 void	redirect(t_shell *shell, int input, int output);
 void	child(t_shell *shell, int i, int input, int output);
 
@@ -325,5 +324,8 @@ void	print_list(t_token *head);
 void	print_cmds(t_shell *shell);
 void	print_env_list(t_list *env_list);
 void	print_export_list(t_list *env_list);
+
+//print2.c
+void    print_cmd(t_cmd *cmd);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/17 19:02:35 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/04/19 15:24:54 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,8 @@ SIGNALS = signals/signals.c
 
 UTILS = utils/general_utils.c \
 		utils/tlist.c \
-		utils/print.c
+		utils/print.c \
+		utils/print2.c \
 
 SRCS =	$(BUILTINS) $(EXECUTOR) $(EXPANDER) $(INIT) $(LEXER) \
         $(MAIN) $(PARSER) $(SIGNALS) $(UTILS)
