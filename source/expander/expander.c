@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 21:02:00 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/20 14:51:57 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,10 @@ char	*convert_str(t_shell *shell, char *str)
 			substr = ft_strdup(ft_itoa(shell->exitcode));
 		if (is_var(shell, substr))
 			substr = expand(shell, substr + 1);
-		else if (substr && substr[0] == '$')
-			substr = NULL;
+		else if (is_fake_var(shell, substr))
+			substr = ft_strdup("");
 		new_str = ft_strjoin(new_str, substr);
-		if (substr)
-			free(substr);
+		free(substr);
 		i += len;
 	}
 	return (new_str);

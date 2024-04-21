@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/19 20:27:18 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/21 15:23:45 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 
 //main shell loop, that reads input, checks it and executes it
 //TODO: error handling
+// MAIN for testing
+		/* if (isatty(fileno(stdin)))
+			shell->input = readline(PROMPT);
+		else
+		{
+			char *line;
+			line = get_next_line(fileno(stdin));
+			shell->input = ft_strtrim(line, "\n");
+			if(!shell->input)
+				break;
+			free(line);
+		} */
 void	minishell(t_shell *shell)
 {
 	while (true)

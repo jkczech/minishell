@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 16:36:14 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:02:41 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	init_shell(t_shell *shell, char **envp)
 	init_path(shell);
 	if (!shell->paths)
 		return (false);
-	shell->exitcode = -1;
+	shell->exitcode = 0;
 	return (true);
 }
 

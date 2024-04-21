@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:15:35 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/18 17:17:16 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/20 14:29:51 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,3 +47,4 @@ void	unset_command(t_shell *shell, t_cmd *cmd)
 	// Variable not found
 	// Add logic to handle the case where the variable isn't found
 	// variable still in export list with last command 
+	// handle PWD and OLDPWD if PWD is unset

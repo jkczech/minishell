@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 20:40:27 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/21 15:01:27 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exit_shell_status(t_shell *shell, int status)
 {
 	free_iter(shell);
 	free_shell(shell);
-	printf("Exit status: %d\n", status);
+	//printf("Exit status: %d\n", status);
 	exit(status);
 }
 
@@ -40,7 +40,7 @@ void	easy_exit(t_shell *shell, int status)
 	ft_putstr_fd("exit\n", 2);
 	if (shell)
 		free_shell(shell);
-	printf("Exit status: %d\n", status);
+	printf("%d\n", status);
 	exit(status);
 }
 
