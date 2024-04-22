@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:17:20 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 19:34:47 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/22 15:08:33 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//checks if amount of quotes is even
+//checks if quote is open
 bool	quotes_checker(char *str)
 {
 	int		i;
@@ -26,13 +26,17 @@ bool	quotes_checker(char *str)
 	{
 		if (is_quote(str[i]))
 		{
-			q = str[i++];
-			q_closed = false;
+			if (q == '\0')
+			{
+				q = str[i];
+				q_closed = false;
+			}
+			else if (str[i] == q)
+			{
+				q_closed = true;
+				q = '\0';
+			}
 		}
-		while (str[i + 1] && str[i] != q)
-			i++;
-		if (q && ft_strncmp(&str[i], &q, 1) == 0)
-			q_closed = true;
 		i++;
 	}
 	return (q_closed);

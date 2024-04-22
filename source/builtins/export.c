@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/18 17:22:17 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:25:26 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,25 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 	int		len;
 	t_list	*tmp;
 	int		i;
+	bool	swap;
 
-	i = 0;
+	i = 1;
 	if (simple_export(shell, cmd))
 		return ;
 	while(cmd->args[i])
 	{
+		swap = false;
 		tmp = shell->env_list;
+		if (is_valid_var(cmd->args[i]) == false)
+		{
+			shell->exitcode = 1;
+			ft_putstr_fd("MiNiSHell: export: `command\': not a valid identifier\n", 2);
+			i++;
+			continue;
+		}
 		while (tmp)
 		{
-			len = strlen_before_char(cmd->args[i], '=');
+			len = strlen_before_char(((t_env *)tmp->content)->var, '=');
 			if (ft_strncmp(((t_env *)tmp->content)->var, cmd->args[i], len) == 0)
 			{
 				if (((t_env *)tmp->content)->value && cmd->args[i][len] == '=')
@@ -74,12 +83,13 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 					ft_strdup (cmd->args[i] + len + 1);
 					((t_env *)tmp->content)->flag = 1;
 					shell->exitcode = 0;
+					swap = true;
 				}
-				return ;
 			}
 			tmp = tmp->next;
 		}
-		add_env_var(shell, cmd->args[i]);
+		if(!swap)
+			add_env_var(shell, cmd->args[i]);
 		i++;
 	}
 	shell->exitcode = 0;

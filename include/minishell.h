@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 20:59:06 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:53:40 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,9 @@ void	add_env_var(t_shell *shell, char *arg);
 void	export_command(t_shell *shell, t_cmd *cmd);
 int		strlen_before_char(char *str, char c);
 
+//export_utils.c
+bool	is_valid_var(char *var);
+
 //unset.c
 void	free_env_var(t_env *env);
 void	unset_command(t_shell *shell, t_cmd *cmd);
@@ -237,7 +240,6 @@ bool	is_sep(char c);
 bool	double_sep(char *str, int i);
 bool	quotes_checker(char *str);
 bool	check_input(t_shell *shell);
-void	del_quotes(char **str);
 
 //lexing.c
 int		count_chars(char *str);

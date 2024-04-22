@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:11:09 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/18 08:44:54 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/22 12:11:23 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	token_count_util(char *str, int *i, int *count)
 	{
 		(*count)++;
 		if (is_quote(str[*i]))
-			while (!is_quote(str[++(*i)]))
+			while (str[*i] && !is_quote(str[++(*i)]))
 				;
 		while (str[*i] != ' ' && str[*i] != '\t'
 			&& str[*i] != '\0' && !is_sep(str[*i]))

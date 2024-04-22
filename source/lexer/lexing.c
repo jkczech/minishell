@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 21:02:05 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/22 12:15:38 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	count_chars(char *str)
 			quote = str[i];
 			count++;
 			i++;
-			while (str[i] != quote)
+			while (str[i] != quote && str[i])
 			{
 				count++;
 				i++;
@@ -70,7 +70,7 @@ void	process_character(char *str, char *result, int *i, int *j)
 		process_char_quotes(str, result, i, j);
 	if (str[*j] != '\0' && str[*j] == ' ')
 	{
-		while (str[*j] == ' ' && str[*j + 1] == ' ')
+		while (str[*j] && str[*j] == ' ' && str[*j + 1] == ' ')
 			(*j)++;
 	}
 	if (((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0' 

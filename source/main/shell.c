@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/21 15:23:45 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:00:27 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,16 @@
 //main shell loop, that reads input, checks it and executes it
 //TODO: error handling
 // MAIN for testing
-		/* if (isatty(fileno(stdin)))
+		
+void	minishell(t_shell *shell)
+{
+	while (true)
+	{
+		set_signals();
+		init_iter(shell);
+		/* if (!read_line(shell))
+			break ; */
+		if (isatty(fileno(stdin)))
 			shell->input = readline(PROMPT);
 		else
 		{
@@ -25,15 +34,7 @@
 			if(!shell->input)
 				break;
 			free(line);
-		} */
-void	minishell(t_shell *shell)
-{
-	while (true)
-	{
-		set_signals();
-		init_iter(shell);
-		if (!read_line(shell))
-			break ;
+		}
 		if (check_input(shell) && parse(shell))
 			execute(shell);
 		add_history(shell->input);
