@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 14:28:01 by jakob            ###   ########.fr       */
+/*   Updated: 2024/04/22 15:27:10 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ void	open_output(t_cmd *cmd, char *file)
 void	open_heredoc(t_cmd *cmd, char *delimiter, int hd_i)
 {
 	char	*file;
+	char	*tmp;
 
 	if (cmd->input != STDIN_FILENO && cmd->input != -1)
 		close(cmd->input);
-	file = ft_strjoin("heredocs/.heredoc", ft_itoa(++hd_i));
+	tmp = ft_itoa(hd_i++);
+	file = ft_strjoin("heredocs/.heredoc", tmp);
 	cmd->input = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (cmd->input < 0)
 		return (error_msg(file));
@@ -45,6 +47,8 @@ void	open_heredoc(t_cmd *cmd, char *delimiter, int hd_i)
 	cmd->input = open(file, O_RDONLY);
 	if (cmd->input < 0)
 		error_msg(file);
+	free(file);
+	free(tmp);
 }
 
 void	open_append(t_cmd *cmd, char *file)
