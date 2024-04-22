@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 03:21:00 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 22:39:23 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/22 12:23:14 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool	ends_with_redir(char *input)
 	int	i;
 
 	i = ft_strlen(input) - 1;
-	while (i >= 0 && (input[i] == ' ' || input[i] == '\t'))
+	while (i >= 0 && (ft_isspace(input[i])))
 		i--;
 	if (input[i] == '>' || input[i] == '<' || input[i] == '|')
 		return (true);
