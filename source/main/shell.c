@@ -6,13 +6,13 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/22 14:50:21 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/22 14:59:46 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int g_sig = 0;
+int	g_sig = 0;
 
 //main shell loop, that reads input, checks it and executes it
 //TODO: error handling
@@ -25,16 +25,16 @@ void	minishell(t_shell *shell)
 		//if (!read_line(shell))
 		//	break ;
 		if (isatty(fileno(stdin)))
-		shell->input = readline(PROMPT);
-        else
-        {
-            char *line;
-            line = get_next_line(fileno(stdin));
-            shell->input = ft_strtrim(line, "\n");
-            if(!shell->input)
-                break;
-            free(line);
-        }
+			shell->input = readline(PROMPT);
+		else
+		{
+			char	*line;
+			line = get_next_line(fileno(stdin));
+			shell->input = ft_strtrim(line, "\n");
+			if (!shell->input)
+				break ;
+			free(line);
+		}
 		//
 		check_g_sig(shell);
 		if (check_input(shell) && parse(shell))
