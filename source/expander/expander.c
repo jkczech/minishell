@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/22 18:25:40 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:57:45 by jakob            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,30 @@ char	*convert_str(t_shell *shell, char *str)
 	char	*new_str;
 	int		len;
 	int		i;
+	t_quote	q;
 
 	i = 0;
+	q.q_closed = true;
 	new_str = NULL;
 	while (str && str[i])
 	{
+		if(is_quote(str[i]))
+		{
+			q.type = str[i];
+			q.q_closed = false;
+		}
 		len = convert_len(str, i);
 		substr = ft_substr(str, i, len);
 		if (ft_strncmp(substr, "$?", 2) == 0)
 			substr = ft_strdup(ft_itoa(shell->exitcode));
-		if (is_var(shell, substr))
+		if (is_var(shell, substr) && q.type != '\'')
 			substr = expand(shell, substr + 1);
 		else if (is_fake_var(shell, substr))
 			substr = ft_strdup("");
 		new_str = ft_strjoin(new_str, substr);
 		free(substr);
+		if(str[i] == q.type && !q.q_closed)
+			q.q_closed = true;
 		i += len;
 	}
 	return (new_str);
