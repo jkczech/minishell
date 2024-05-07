@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/24 14:57:45 by jakob            ###   ########.fr       */
+/*   Updated: 2024/05/07 12:42:51 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ char	*get_env_value(t_shell *shell, char *str)
 int	convert_len(char *str, int i)
 {
 	int	len;
-
+	if(str[i] == '\'' || str[i] == '\"')
+		return (1);
 	if (ft_isalnum(str[i]) || str[i] == '$')
 		len = strlen_b_sc(str + i);
 	else
@@ -71,18 +72,22 @@ char	*convert_str(t_shell *shell, char *str)
 	new_str = NULL;
 	while (str && str[i])
 	{
-		if(is_quote(str[i]))
+		len = convert_len(str, i);
+		//printf("len: %d\n", len);
+		substr = ft_substr(str, i, len);
+		if(q.q_closed && is_quote(str[i]))
 		{
 			q.type = str[i];
 			q.q_closed = false;
+			//i++;
 		}
-		len = convert_len(str, i);
-		substr = ft_substr(str, i, len);
+		//printf("substr: %s\n", substr);
 		if (ft_strncmp(substr, "$?", 2) == 0)
 			substr = ft_strdup(ft_itoa(shell->exitcode));
+		//printf("Q type: %c\n", q.type);
 		if (is_var(shell, substr) && q.type != '\'')
 			substr = expand(shell, substr + 1);
-		else if (is_fake_var(shell, substr))
+		else if (is_fake_var(shell, substr) && q.type != '\'')
 			substr = ft_strdup("");
 		new_str = ft_strjoin(new_str, substr);
 		free(substr);

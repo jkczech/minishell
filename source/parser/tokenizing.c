@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/19 21:02:13 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:51:37 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 	t_token	*new_token;
 	char	*token_content;
 	int		j;
-	//bool	is_quoted;
 	t_quote	quote;
 
-	//is_quoted = false;
 	quote.q_closed = false;
 	new_token = NULL;
 	token_content = allocate_token_content(str, index);
@@ -51,7 +49,7 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 		if (is_quote(str[*index]))
 		{
 			quote.q_closed = !quote.q_closed;
-			process_quoted_token(str, index, token_content, &j);
+			//process_quoted_token(str, index, token_content, &j);
 		}
 		token_content[j++] = str[(*index)++];
 	}

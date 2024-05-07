@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/22 15:53:40 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:04:39 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # define PROMPT "MiNiSHell: "
 # define ERR_PROMPT "err_shell: "
 # define DELIMITER " <>|"
-# define SEPARATOR "&|><%"
+# define SEPARATOR "&|><"
 # define FAKE_VAR 2
 # define ENV_VAR 1
 # define QUESTION_MARK 3

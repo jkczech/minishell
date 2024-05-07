@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/04/22 15:06:00 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:35:08 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	find_var(t_shell *shell, char *str)
 	while (node)
 	{
 		var = ((t_env *)node->content)->var;
-		if (ft_strncmp(var, str, ft_strlen(var)) == 0)
+		if (ft_strncmp(var, str, ft_strlen(str)) == 0)
 			return (true);
 		node = node->next;
 	}

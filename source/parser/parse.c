@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/21 13:18:06 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:03:41 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 bool	parse(t_shell *shell)
 {
 	get_tokens(shell);
+	print_tokens(shell->tokens);
 	get_size(shell);
 	expander(shell);
 	quote_token(shell);
