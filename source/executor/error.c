@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:46:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/16 09:36:31 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/08 13:31:58 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //printing error in the bash format
-void	error_msg(char *file)
+void	error_msg(t_shell *shell, char *file)
 {
 	char	*message;
 
@@ -34,6 +34,7 @@ void	error_msg(char *file)
 	ft_putstr_fd("\n", 2);
 	if (message)
 		free(message);
+	shell->exitcode = 1;
 }
 
 //prints a bash like error message
@@ -43,5 +44,6 @@ bool	cmd_not_found(t_shell *shell, int i)
 	ft_putstr_fd("command not found: ", 2);
 	ft_putstr_fd(shell->cmds[i].args[0], 2);
 	ft_putstr_fd("\n", 2);
+	shell->exitcode = 127;
 	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:15:35 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 18:44:32 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/21 16:00:45 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,50 @@ void	free_env_var(t_env *env)
 	free(env);
 }
 
+//find env var
+t_env	*find_env_var(t_shell *shell, char *var)
+{
+	t_list	*tmp;
+	int		len;
+
+	tmp = shell->env_list;
+	len = strlen_before_char(var, '=');
+	while (tmp)
+	{
+		if (ft_strncmp(((t_env *)tmp->content)->var, var, len) == 0)
+			return ((t_env *)tmp->content);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+//delete env var
+void delete_env_var(t_shell *shell, char *var)
+{
+	t_list	*prev;
+	t_list	*curr;
+	int		len;
+
+	prev = NULL;
+	curr = shell->env_list;
+	len = strlen_before_char(var, '=');
+	while (curr)
+	{
+		if (ft_strncmp(((t_env *)curr->content)->var, var, len) == 0)
+		{
+			if (prev == NULL)
+				shell->env_list = curr->next;
+			else
+				prev->next = curr->next;
+			free_env_var(((t_env *)curr->content));
+			return ;
+		}
+		prev = curr;
+		curr = curr->next;
+	}
+}
+
+// Unset command
 void	unset_command(t_shell *shell, t_cmd *cmd)
 {
 	int			len;
@@ -46,3 +90,5 @@ void	unset_command(t_shell *shell, t_cmd *cmd)
 }
 	// Variable not found
 	// Add logic to handle the case where the variable isn't found
+	// variable still in export list with last command 
+	// handle PWD and OLDPWD if PWD is unset

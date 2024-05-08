@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 20:54:41 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/08 12:51:09 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ char	*get_env_value(t_shell *shell, char *str)
 }
 
 //counts len depending on the type of variable
-int	convert_len(char *str, int i)
+int	convert_len(char *str, int i, t_quote q)
 {
 	int	len;
-
+	if((str[i] == '\'' || str[i] == '\"') && q.q_closed)
+		return (1);
 	if (ft_isalnum(str[i]) || str[i] == '$')
 		len = strlen_b_sc(str + i);
 	else
@@ -64,21 +65,35 @@ char	*convert_str(t_shell *shell, char *str)
 	char	*new_str;
 	int		len;
 	int		i;
+	t_quote	q;
 
 	i = 0;
+	q.q_closed = true;
 	new_str = NULL;
+	q.type = '\0';
 	while (str && str[i])
 	{
-		len = convert_len(str, i);
+		len = convert_len(str, i, q);
+		//printf("len: %d\n", len);
 		substr = ft_substr(str, i, len);
-		if (ft_strncmp(substr, "$?", 2) == 0)
+		if(q.q_closed && is_quote(str[i]))
+		{
+			q.type = str[i];
+			q.q_closed = false;
+		}
+		//printf("Str[%d]: %c\n", i, str[i]);
+		//printf("substr: %s\n", substr);
+		if (ft_strncmp(substr, "$?", 2) == 0 && q.type != '\'')
 			substr = ft_strdup(ft_itoa(shell->exitcode));
-		if (is_var(shell, substr))
+		//printf("Q type: %c\n", q.type);
+		if (is_var(shell, substr) && q.type != '\'')
 			substr = expand(shell, substr + 1);
-		else if (is_fake_var(shell, substr))
+		else if (is_fake_var(shell, substr) && q.type != '\'')
 			substr = ft_strdup("");
 		new_str = ft_strjoin(new_str, substr);
 		free(substr);
+		if(str[i] == q.type && !q.q_closed)
+			q.q_closed = true;
 		i += len;
 	}
 	return (new_str);

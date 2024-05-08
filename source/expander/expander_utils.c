@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/04/17 12:39:28 by jakob            ###   ########.fr       */
+/*   Updated: 2024/05/07 14:20:07 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	find_var(t_shell *shell, char *str)
 	while (node)
 	{
 		var = ((t_env *)node->content)->var;
-		if (ft_strncmp(var, str, ft_strlen(var)) == 0)
+		if (ft_strncmp(var, str, ft_strlen(str)) == 0)
 			return (true);
 		node = node->next;
 	}
@@ -61,6 +61,8 @@ bool	is_var(t_shell *shell, char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (false);
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -76,6 +78,7 @@ bool	is_var(t_shell *shell, char *str)
 }
 
 //checks if a string is a fake environment variable
+//TODO: if not needed delete
 bool	is_fake_var(t_shell *shell, char *str)
 {
 	int	i;

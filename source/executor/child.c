@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 15:26:28 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/08 13:35:22 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	child(t_shell *shell, int i, int input, int output)
 			shell->cmds[i].args, shell->envp) == -1)
 	{
 		free_iter(shell);
-		error_msg(NULL);
+		error_msg(shell, NULL);
 	}
 	exit(1);
 }

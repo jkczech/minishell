@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 23:01:23 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/08 13:16:36 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	init_shell(t_shell *shell, char **envp)
 	init_path(shell);
 	if (!shell->paths)
 		return (false);
-	shell->exitcode = -1;
+	shell->exitcode = 0;
 	return (true);
 }
 
