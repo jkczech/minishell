@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/22 17:00:27 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:36:58 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	minishell(t_shell *shell)
 	{
 		set_signals();
 		init_iter(shell);
-		/* if (!read_line(shell))
+	/* 	if (!read_line(shell))
 			break ; */
 		if (isatty(fileno(stdin)))
 			shell->input = readline(PROMPT);
@@ -35,6 +35,8 @@ void	minishell(t_shell *shell)
 				break;
 			free(line);
 		}
+		//if(!shell->envp)
+		//shell->envp = envp_list_into_char(shell->env_list);
 		if (check_input(shell) && parse(shell))
 			execute(shell);
 		add_history(shell->input);

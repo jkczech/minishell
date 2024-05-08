@@ -6,14 +6,14 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:46:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 16:15:02 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:31:58 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //printing error in the bash format
-void	error_msg(char *file)
+void	error_msg(t_shell *shell, char *file)
 {
 	char	*message;
 
@@ -34,6 +34,7 @@ void	error_msg(char *file)
 	ft_putstr_fd("\n", 2);
 	if (message)
 		free(message);
+	shell->exitcode = 1;
 }
 
 //prints a bash like error message

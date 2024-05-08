@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/22 16:40:01 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:16:36 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ bool	init_cmds(t_shell *shell)
 void	init_iter(t_shell *shell)
 {
 	shell->input = NULL;
-	//shell->envp = envp_list_into_char(shell->env_list);
 	shell->norm_input = NULL;
 	shell->size = 0;
 	shell->tokens = NULL;

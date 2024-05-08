@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/07 11:04:39 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:34:20 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ bool	envp_into_list(char **envp, t_list **env_list);
 //env_utils.c
 int		check_env_var(char *var);
 char	**envp_list_into_char(t_list *env_list);
+void	sort_env(t_shell *shell);
 
 //pwd.c
 void	pwd_command(t_shell *shell, t_cmd *cmd);
@@ -185,7 +186,7 @@ void	redirect(t_shell *shell, int input, int output);
 void	child(t_shell *shell, int i, int input, int output);
 
 //error.c
-void	error_msg(char *file);
+void	error_msg(t_shell *shell, char *file);
 bool	cmd_not_found(t_shell *shell, int i);
 
 //pipex_utils.c
@@ -282,10 +283,10 @@ bool	find_commands(t_shell *shell);
 bool	save_command(t_shell *shell, int i, char *command);
 
 //open_utils.c
-void	open_input(t_cmd *cmd, char *file);
-void	open_output(t_cmd *cmd, char *file);
-void	open_heredoc(t_cmd *cmd, char *delimiter, int hd_i);
-void	open_append(t_cmd *cmd, char *file);
+void	open_input(t_shell *shell, t_cmd *cmd, char *file);
+void	open_output(t_shell *shell, t_cmd *cmd, char *file);
+void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i);
+void	open_append(t_shell *shell, t_cmd *cmd, char *file);
 void	heredoc(int fd, char *delimiter);
 
 //parse.c

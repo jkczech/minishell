@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/07 11:51:37 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:26:48 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	process_token(char *str, int *index, int token_type, t_token **head)
 		}
 		token_content[j++] = str[(*index)++];
 	}
-	token_content[j] = '\0';
+	token_content[j++] = '\0';
 	new_token = create_token(token_content, token_type);
 	add_token(head, new_token);
 }

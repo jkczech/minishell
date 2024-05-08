@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/25 16:03:41 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:34:51 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 bool	parse(t_shell *shell)
 {
 	get_tokens(shell);
-	print_tokens(shell->tokens);
+	//print_tokens(shell->tokens);
 	get_size(shell);
 	expander(shell);
 	quote_token(shell);
@@ -62,13 +62,13 @@ void	get_commands(t_shell *shell)
 		else if (token->token == WORD)
 			add_args(&shell->cmds[i], token->content);
 		else if (token->token == INPUT)
-			open_input(&shell->cmds[i], token->content);
+			open_input(shell, &shell->cmds[i], token->content);
 		else if (token->token == OUTPUT)
-			open_output(&shell->cmds[i], token->content);
+			open_output(shell, &shell->cmds[i], token->content);
 		else if (token->token == HEREDOC)
-			open_heredoc(&shell->cmds[i], token->content, shell->hd_i++);
+			open_heredoc(shell, &shell->cmds[i], token->content, shell->hd_i++);
 		else if (token->token == APPEND)
-			open_append(&shell->cmds[i], token->content);
+			open_append(shell, &shell->cmds[i], token->content);
 		token = token->next;
 	}
 	//print_cmds(shell);
