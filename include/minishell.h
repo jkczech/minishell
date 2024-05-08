@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/08 13:34:20 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:39:41 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,9 +310,10 @@ int		is_delimiter(char c, const char *delim);
 
 ///////////////////////////////SIGNALS//////////////////////////////////////////
 
-//signals.c
+//signals.c currently in main.c
 void	set_signals(void);
 void	signal_handler(int signum);
+void	check_g_sig(t_shell *shell);
 
 ////////////////////////////////UTILS///////////////////////////////////////////
 

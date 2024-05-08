@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/22 16:41:03 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:40:05 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 //printf("free_iter\n");
 void	free_iter(t_shell *shell)
 {
+	char *tmp;
+	char *tmp2;
+	
 	if (shell->input)
 		free(shell->input);
 	if (shell->norm_input)
@@ -32,7 +35,11 @@ void	free_iter(t_shell *shell)
 		free_array(shell->envp); */
 	while (shell->hd_i > 0)
 	{
-		unlink(ft_strjoin("heredocs/.heredoc", ft_itoa(shell->hd_i)));
+		tmp2 = ft_itoa(shell->hd_i);
+		tmp = ft_strjoin("heredocs/.heredoc", tmp2);
+		unlink(tmp);
+		free(tmp);
+		free(tmp2);
 		shell->hd_i--;
 	}
 }

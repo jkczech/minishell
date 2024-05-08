@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/08 13:34:51 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:42:33 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	get_size(t_shell *shell)
 
 //creates command table
 //TODO: don't split by space
+//print_cmds(shell);
 void	get_commands(t_shell *shell)
 {
 	t_token	*token;
@@ -71,5 +72,4 @@ void	get_commands(t_shell *shell)
 			open_append(shell, &shell->cmds[i], token->content);
 		token = token->next;
 	}
-	//print_cmds(shell);
 }

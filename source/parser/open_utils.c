@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/08 13:33:59 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:42:15 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ void	open_output(t_shell *shell, t_cmd *cmd, char *file)
 void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i)
 {
 	char	*file;
+	char	*tmp;
 
 	if (cmd->input != STDIN_FILENO && cmd->input != -1)
 		close(cmd->input);
-	file = ft_strjoin("heredocs/.heredoc", ft_itoa(++hd_i));
+	tmp = ft_itoa(hd_i++);
+	file = ft_strjoin("heredocs/.heredoc", tmp);
 	cmd->input = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (cmd->input < 0)
 		return (error_msg(shell, file));
@@ -45,6 +47,8 @@ void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i)
 	cmd->input = open(file, O_RDONLY);
 	if (cmd->input < 0)
 		error_msg(shell, file);
+	free(file);
+	free(tmp);
 }
 
 void	open_append(t_shell *shell, t_cmd *cmd, char *file)
