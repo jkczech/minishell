@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/08 15:39:41 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/08 20:39:10 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,14 +206,17 @@ bool	execute_simple(t_shell *shell);
 char	*get_env_value(t_shell *shell, char *str);
 bool	is_var(t_shell *shell, char *str);
 void	expander(t_shell *shell);
+char	*expand_substr(t_shell *shell, char *substr);
+//char	*add_char(char *str, char c);
+char	*copy_until_dollar(char *res, char *substr, int *i);
+char	*expand_vars(t_shell *shell, char *substr);
 
 //expander_utils.c
 bool	find_var(t_shell *shell, char *str);
-int		strlen_b_sc(char *str);
-int		strlen_before_a(char *str);
+int		var_len(char *str);
+int		len_until_dollar(char *str, int i);
 bool	is_var(t_shell *shell, char *str);
-bool	is_fake_var(t_shell *shell, char *str);
-
+bool	is_possible_var(char *str);
 //////////////////////////////////INIT//////////////////////////////////////////
 
 //init.c

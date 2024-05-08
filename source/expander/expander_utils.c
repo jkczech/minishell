@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/07 14:20:07 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/08 20:44:22 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	find_var(t_shell *shell, char *str)
 }
 
 //strlen before a non alpha character
-int	strlen_b_sc(char *str)
+int	var_len(char *str)
 {
 	int	i;
 
@@ -39,20 +39,23 @@ int	strlen_b_sc(char *str)
 		i++;
 	if (str[i] == '?')
 		i++;
-	while (str[i] && ft_isalnum(str[i]))
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_') && str[i] != '$')
 		i++;
 	return (i);
 }
 
 //strlen before a character
-int	strlen_before_a(char *str)
+int	len_until_dollar(char *str, int i)
 {
-	int	i;
+	int	len;
 
-	i = 0;
-	while (str[i] && !ft_isalpha(str[i]) && str[i] != '$')
+	len = 0;
+	while (str[i] && str[i] != '$')
+	{
 		i++;
-	return (i);
+		len++;
+	}
+	return (len);
 }
 
 //checks if a string is a environment variable
@@ -77,23 +80,25 @@ bool	is_var(t_shell *shell, char *str)
 	return (false);
 }
 
-//checks if a string is a fake environment variable
-//TODO: if not needed delete
-bool	is_fake_var(t_shell *shell, char *str)
+//checks if a string is a possible variable
+//check if it is expandable
+bool is_possible_var(char *str)
 {
 	int	i;
 
 	i = 0;
+	if (str[i] != '$')
+		return (false);
+	i++;
+	if (!ft_isalpha(str[i]) && str[i] != '_')
+		return (false);
+	i++;
 	while (str[i])
 	{
-		if (str[i] == '$')
-		{
-			if (!find_var(shell, str + i + 1))
-				return (true);
-			else
-				return (false);
-		}
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (false);
 		i++;
 	}
-	return (false);
+	return (true);
 }
+

@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/08 11:57:12 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:58:55 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	exit_argument(t_shell *shell, t_cmd *cmd)
 //check if exit command is called
 void	exit_command(t_shell *shell, t_cmd *cmd)
 {
-	if (!cmd->args[1])
+	if (!cmd->args[1] || !cmd->args[1][0])
 		easy_exit(shell, 0);
 	else if (cmd->args[1])
 		exit_argument(shell, cmd);
