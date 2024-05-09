@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/09 11:30:50 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 12:26:02 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ void	process_token(char *str, int *i, int token_type, t_token **head)
 		if (is_quote(str[*i]))
 		{
 			quote.q_closed = !quote.q_closed;
-			//process_quoted_token(str, index, token_content, &j);
+			//process_quoted_token(str, i, token_content, &j);
 		}
 		token_content[j++] = str[(*i)++];
+		//printf("Str[%d]: %c\n", *i, str[*i]);
 	}
 	token_content[j++] = '\0';
 	new_token = create_token(token_content, token_type);
