@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/09 11:38:48 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 16:15:59 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	add_env_var(t_shell *shell, char *arg)
 	ft_lstadd_back(&shell->env_list, node);
 }
 
-//TODO: delete print
 bool	simple_export(t_shell *shell, t_cmd *cmd)
 {
 	sort_env(shell);
@@ -50,11 +49,9 @@ bool	simple_export(t_shell *shell, t_cmd *cmd)
 	return (false);
 }
 
-//Export command
+//export command
 void	export_command(t_shell *shell, t_cmd *cmd)
 {
-	int		len;
-	t_list	*tmp;
 	int		i;
 	bool	swap;
 
@@ -63,8 +60,6 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 		return ;
 	while (cmd->args[i])
 	{
-		swap = false;
-		tmp = shell->env_list;
 		if (!is_valid_var(cmd->args[i]))
 		{
 			shell->exitcode = 1;
@@ -74,25 +69,36 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 			i++;
 			continue ;
 		}
-		while (tmp)
-		{
-			len = strlen_before_char(((t_env *)tmp->content)->var, '=');
-			if (ft_strncmp(((t_env *)tmp->content)->var, cmd->args[i], len) == 0)
-			{
-				if (((t_env *)tmp->content)->value && cmd->args[i][len] == '=')
-				{
-					free(((t_env *)tmp->content)->value);
-					((t_env *)tmp->content)->value = \
-					ft_strdup (cmd->args[i] + len + 1);
-					((t_env *)tmp->content)->flag = 1;
-					shell->exitcode = 0;
-					swap = true;
-				}
-			}
-			tmp = tmp->next;
-		}
+		export_loop(shell, cmd, &i, &swap);
 		if (!swap)
 			add_env_var(shell, cmd->args[i]);
 		i++;
+	}
+}
+
+//export loop
+void	export_loop(t_shell *shell, t_cmd *cmd, int *i, bool *swap)
+{
+	t_list	*tmp;
+	int		len;
+
+	*swap = false;
+	tmp = shell->env_list;
+	while (tmp)
+	{
+		len = strlen_before_char(((t_env *)tmp->content)->var, '=');
+		if (ft_strncmp(((t_env *)tmp->content)->var, cmd->args[*i], len) == 0)
+		{
+			if (((t_env *)tmp->content)->value && cmd->args[*i][len] == '=')
+			{
+				free(((t_env *)tmp->content)->value);
+				((t_env *)tmp->content)->value = \
+				ft_strdup (cmd->args[*i] + len + 1);
+				((t_env *)tmp->content)->flag = 1;
+				shell->exitcode = 0;
+				*swap = true;
+			}
+		}
+		tmp = tmp->next;
 	}
 }

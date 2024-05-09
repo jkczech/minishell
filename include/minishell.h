@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/09 16:00:35 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 16:13:43 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ void	pwd_command(t_shell *shell, t_cmd *cmd);
 //export.c
 void	add_env_var(t_shell *shell, char *arg);
 void	export_command(t_shell *shell, t_cmd *cmd);
+void	export_loop(t_shell *shell, t_cmd *cmd, int *i, bool *swap);
 int		strlen_before_char(char *str, char c);
 
 //export_utils.c
