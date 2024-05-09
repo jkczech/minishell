@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/09 16:42:35 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:56:37 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,43 +42,6 @@ int	count_chars(char *str)
 	return (count);
 }
 
-int	len_including_char(char *str, int i, char c)
-{
-	int	len;
-
-	len = 0;
-	printf("Str: %s\n", str + i);
-	if(str[i] == c)
-		len++;
-	while (str[i] && str[i] != c)
-	{
-		i++;
-		len++;
-	}
-	if(str[i] == c)
-		len++;
-	return (len);
-}
-
-char	*copy_including_char(char *res, char *substr, int *i, char c)
-{
-	int		len;
-	char	*tmp;
-	char	*tmp2;
-
-	len = len_including_char(substr, *i, c);
-	printf("Len: %d\n", len);
-	tmp = ft_substr(substr, *i, len);
-	tmp2 = ft_strdup(res);
-	free(res);
-	res = ft_strjoin(tmp2, tmp);
-	if (!res)
-		return (NULL);
-	free(tmp2);
-	free(tmp);
-	*i += len;
-	return (res);
-}
 //processes char in quotes
 void	process_char_quotes(char *str, char *result, int *i, int *j)
 {
@@ -104,7 +67,6 @@ void	process_char_quotes(char *str, char *result, int *i, int *j)
 //processes a character
 void	process_character(char *str, char *result, int *i, int *j)
 {
-	//printf("Str: %s\n", str);
 	if (is_quote(str[*j]))
 		process_char_quotes(str, result, i, j);
 	if (str[*j] && str[*j] == ' ')
@@ -153,5 +115,4 @@ void	norm_input(t_shell *shell)
 	while (i < len)
 		process_character(shell->input, shell->norm_input, &i, &j);
 	shell->norm_input[i] = '\0';
-	printf("Normed input: %s\n", shell->norm_input);
 }
