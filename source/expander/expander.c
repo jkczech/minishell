@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/09 16:47:11 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:50:29 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	expander(t_shell *shell)
 		}
 		tmp = token->content;
 		var = expand_token(shell, tmp);
-		printf("expanded token: %s\n", var);
 		if (!var)
 			var = ft_strdup(tmp);
 		free(tmp);
