@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/08 20:44:22 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:03:05 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool	is_var(t_shell *shell, char *str)
 
 //checks if a string is a possible variable
 //check if it is expandable
-bool is_possible_var(char *str)
+bool	is_possible_var(char *str)
 {
 	int	i;
 
@@ -101,4 +101,3 @@ bool is_possible_var(char *str)
 	}
 	return (true);
 }
-

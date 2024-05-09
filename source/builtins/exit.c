@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/08 15:58:55 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:10:39 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	exit_shell_status(t_shell *shell, int status)
 {
 	free_iter(shell);
 	free_shell(shell);
-	//printf("Exit status: %d\n", status);
 	exit(status);
 }
 
@@ -33,7 +32,6 @@ void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status)
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
-	//printf("%sexit: %s: %s\n", PROMPT, cmd, msg);
 	exit_shell_status(shell, status);
 }
 
@@ -46,7 +44,6 @@ void	easy_exit(t_shell *shell, int status)
 	ft_putstr_fd("exit\n", 2);
 	if (shell)
 		free_shell(shell);
-	//printf("%d\n", status);
 	exit(status);
 }
 

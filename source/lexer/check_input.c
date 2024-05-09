@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/08 15:39:58 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:02:47 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,29 @@ bool	double_sep(char *str, int i)
 		return (true);
 	return (false);
 }
+
 //check if pipe is last character
-bool check_pipe_last(char *str)
+bool	check_pipe_last(char *str)
 {
-	int i = 0;
+	int	i;
+	int	j;
+
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '|')
 		{
-			int j = i + 1;
+			j = i + 1;
 			while (str[j] == ' ')
 				j++;
 			if (str[j] == '\0')
-				return true;
+				return (true);
 			else
-				return false;
+				return (false);
 		}
 		i++;
 	}
-	return false;
+	return (false);
 }
 
 //checks the input and saves it in a list of tokens

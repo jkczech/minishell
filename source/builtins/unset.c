@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:15:35 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/21 16:00:45 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:09:58 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_env	*find_env_var(t_shell *shell, char *var)
 }
 
 //delete env var
-void delete_env_var(t_shell *shell, char *var)
+void	delete_env_var(t_shell *shell, char *var)
 {
 	t_list	*prev;
 	t_list	*curr;

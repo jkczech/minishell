@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/08 15:41:37 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 10:55:09 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	g_sig = 0;
 
 //main shell loop, that reads input, checks it and executes it
 //TODO: error handling
-// MAIN for testing
-		
+// MAIN for testing	
 void	minishell(t_shell *shell)
 {
 	while (true)
@@ -30,15 +29,13 @@ void	minishell(t_shell *shell)
 			shell->input = readline(PROMPT);
 		else
 		{
-			char *line;
+			char	*line;
 			line = get_next_line(fileno(stdin));
 			shell->input = ft_strtrim(line, "\n");
-			if(!shell->input)
-				break;
+			if (!shell->input)
+				break ;
 			free(line);
 		}
-		//if(!shell->envp)
-		//shell->envp = envp_list_into_char(shell->env_list);
 		if (check_input(shell) && parse(shell))
 			execute(shell);
 		add_history(shell->input);
@@ -54,7 +51,6 @@ void	minishell(t_shell *shell)
 // 	free_iter(shell);
 // 	continue ;
 // }
-
 bool	read_line(t_shell *shell)
 {
 	shell->input = readline(PROMPT);

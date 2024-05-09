@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/22 12:15:38 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:41:11 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 //counts the number of characters in a string
 int	count_chars(char *str)
 {
-	int	i;
-	int	count;
-	char quote;
+	int		i;
+	int		count;
+	char	quote;
 
 	i = 0;
 	count = 0;
@@ -29,9 +29,8 @@ int	count_chars(char *str)
 			count++;
 		if (str[i] && is_quote(str[i]))
 		{
-			quote = str[i];
+			quote = str[i++];
 			count++;
-			i++;
 			while (str[i] != quote && str[i])
 			{
 				count++;
@@ -47,7 +46,7 @@ int	count_chars(char *str)
 void	process_char_quotes(char *str, char *result, int *i, int *j)
 {
 	t_quote	quote;
-	
+
 	quote.type = str[*j];
 	result[(*i)] = str[*j];
 	(*i)++;
@@ -73,8 +72,9 @@ void	process_character(char *str, char *result, int *i, int *j)
 		while (str[*j] && str[*j] == ' ' && str[*j + 1] == ' ')
 			(*j)++;
 	}
-	if (((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0' 
-		&& (is_sep(str[*j]) && !is_sep(str[*j - 1])))) && str[*j - 1] != ' ')
+	if (((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
+				&& (is_sep(str[*j]) && !is_sep(str[*j - 1]))))
+		&& str[*j - 1] != ' ')
 	{
 		result[(*i)] = ' ';
 		(*i)++;
@@ -82,7 +82,8 @@ void	process_character(char *str, char *result, int *i, int *j)
 	result[*i] = str[*j];
 	(*i)++;
 	(*j)++;
-	if ((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0' && (!is_sep(str[*j]) && is_sep(str[*j - 1])))
+	if ((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
+			&& (!is_sep(str[*j]) && is_sep(str[*j - 1])))
 		&& str[*j] != ' ')
 	{
 		result[(*i)] = ' ';
