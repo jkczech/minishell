@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/09 16:46:48 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:24:20 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*expand_vars(t_shell *shell, char *substr)
 		}
 		else if (substr[i] == '$' && !substr[i + 1])
 		{
-			res = ft_strjoin_free(res, "$");
+			res = ft_strjoin_free(res, ft_strdup("$"));
 			i++;
 		}
 		else if (substr[i] == '$')
@@ -46,12 +46,13 @@ void	handle_vars(t_shell *shell, char *substr, int *i, char **res)
 {
 	char	*var;
 
+	if(!substr)
+		return ;
 	var = ft_substr(substr, *i, var_len(substr + *i));
 	if (!is_possible_var(var))
 		*res = ft_strjoin_free(*res, var);
 	else if (is_var(shell, var + 1))
 		*res = ft_strjoin_free(*res, get_env_value(shell, var + 1));
-	free(var);
 	*i += var_len(substr + *i);
 }
 
