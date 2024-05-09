@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/09 16:48:48 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:34:16 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,32 @@ void	process_token(char *str, int *i, int token_type, t_token **head)
 	while (str[*i] && (!is_delimiter(str[*i], DELIMITER) || quote.q_closed))
 	{
 		if (is_quote(str[*i]))
+		{
+			//process_quoted_token(str, i, token_content, &j);
 			quote.q_closed = !quote.q_closed;
+		}
 		token_content[j++] = str[(*i)++];
 	}
 	token_content[j++] = '\0';
 	new_token = create_token(token_content, token_type);
 	add_token(head, new_token);
+}
+
+//count len between quotes including quotes
+int count_quotes(char *str, int *index)
+{
+	int		len;
+	char	quote;
+
+	len = 0;
+	quote = str[*index];
+	while (str[*index] != quote)
+	{
+		len++;
+		(*index)++;
+	}
+	len++;
+	return (len);
 }
 
 char	*allocate_token_content(char *str, int *index)
@@ -61,9 +81,9 @@ char	*allocate_token_content(char *str, int *index)
 	char	*token_content;
 
 	len = token_len(str, *index, DELIMITER);
-	if (is_quote(str[*index]))
-		len = token_len(str, *index, "<>|");
-	token_content = malloc(sizeof(char) * (len + 1));
+	/* if (is_quote(str[*index]))
+		len = token_len(str, *index, "<>|"); */
+	token_content = malloc(sizeof(char) * (len));
 	return (token_content);
 }
 
