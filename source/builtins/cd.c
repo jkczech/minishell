@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:35:34 by jakob             #+#    #+#             */
-/*   Updated: 2024/04/19 20:12:08 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:59:01 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,23 @@ void	cd_command(t_shell *shell, t_cmd *cmd)
 		free(new_path);
 	}
 	update_pwd_n_oldpwd(shell);
+}
+
+//get env var
+char	*get_env_var(t_shell *shell, char *var)
+{
+	t_list	*tmp;
+	int		len;
+
+	tmp = shell->env_list;
+	len = ft_strlen(var);
+	while (tmp)
+	{
+		if (ft_strncmp(((t_env *)tmp->content)->var, var, len) == 0)
+			return (((t_env *)tmp->content)->value);
+		tmp = tmp->next;
+	}
+	return (NULL);
 }
 // unset PWD 
 // cd ..

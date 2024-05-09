@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/09 10:55:09 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 14:21:00 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	g_sig = 0;
 // MAIN for testing	
 void	minishell(t_shell *shell)
 {
+	char	*line;
+
 	while (true)
 	{
 		set_signals();
@@ -29,7 +31,6 @@ void	minishell(t_shell *shell)
 			shell->input = readline(PROMPT);
 		else
 		{
-			char	*line;
 			line = get_next_line(fileno(stdin));
 			shell->input = ft_strtrim(line, "\n");
 			if (!shell->input)

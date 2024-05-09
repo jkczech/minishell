@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/08 20:39:10 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:00:35 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,11 +172,17 @@ void	free_env_var(t_env *env);
 void	unset_command(t_shell *shell, t_cmd *cmd);
 
 //cd.c
+void	cd_forward(t_shell *shell, char *path);
+void	cd_back(t_shell *shell);
+void	cd_home(t_shell *shell);
 void	cd_command(t_shell *shell, t_cmd *cmd);
+char	*get_env_var(t_shell *shell, char *var);
 
 //cd_utils.c
+void	set_env_var(t_shell *shell, char *var, char *value);
 void	cd_oldpwd(t_shell *shell);
-void	add_oldpwd(t_shell *shell);
+void	add_oldpwd_to_env(t_shell *shell);
+void	add_pwd_to_env(t_shell *shell);
 void	update_pwd_n_oldpwd(t_shell *shell);
 
 ////////////////////////////////EXECUTOR////////////////////////////////////////
@@ -203,20 +209,23 @@ bool	execute_simple(t_shell *shell);
 ////////////////////////////////EXPANDER////////////////////////////////////////
 
 //expander.c
-char	*get_env_value(t_shell *shell, char *str);
-bool	is_var(t_shell *shell, char *str);
 void	expander(t_shell *shell);
-char	*expand_substr(t_shell *shell, char *substr);
-//char	*add_char(char *str, char c);
-char	*copy_until_dollar(char *res, char *substr, int *i);
-char	*expand_vars(t_shell *shell, char *substr);
+char	*expand_token(t_shell *shell, char *str);
+int		q_substr_len(char *str, int i);
 
 //expander_utils.c
-bool	find_var(t_shell *shell, char *str);
+void	handle_vars(t_shell *shell, char *substr, int *i, char **res);
+
+//expander_utils2.c
 int		var_len(char *str);
 int		len_until_dollar(char *str, int i);
 bool	is_var(t_shell *shell, char *str);
 bool	is_possible_var(char *str);
+char	*get_env_value(t_shell *shell, char *str);
+bool	is_var(t_shell *shell, char *str);
+char	*expand_q_substr(t_shell *shell, char *substr);
+char	*copy_until_dollar(char *res, char *substr, int *i);
+char	*expand_vars(t_shell *shell, char *substr);
 //////////////////////////////////INIT//////////////////////////////////////////
 
 //init.c
@@ -322,6 +331,7 @@ void	check_g_sig(t_shell *shell);
 
 //general_utils.c
 int		count_args(char **args);
+char	*ft_strjoin_free(char *res, char *str);
 
 //tlist.c
 t_token	*create_token(char *content, int token);

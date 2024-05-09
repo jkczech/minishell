@@ -6,45 +6,69 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/09 11:44:05 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 14:47:09 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-/* //expand variables
-char	*expand(t_shell *shell, char *str)
-{
-	char	*value;
 
-	value = get_env_value(shell, str);
-	return (value);
-} */
-
-//gets the value of a variable in the environment
-char	*get_env_value(t_shell *shell, char *str)
+//expand variables in the tokens
+//loop through tokens and expand them with expand_token function
+void	expander(t_shell *shell)
 {
-	t_list	*node;
+	t_token	*token;
+	char	*tmp;
 	char	*var;
-	char	*value;
 
-	node = shell->env_list;
-	while (node)
+	token = shell->tokens;
+	while (token)
 	{
-		var = ((t_env *)node->content)->var;
-		if (ft_strncmp(var, str, ft_strlen(var)) == 0)
+		if (!token->content)
 		{
-			value = ft_strdup(((t_env *)node->content)->value);
-			if (!value)
-				return (NULL);
-			return (value);
+			token = token->next;
+			continue ;
 		}
-		node = node->next;
+		tmp = token->content;
+		var = expand_token(shell, tmp);
+		printf("expanded token: %s\n", var);
+		if (!var)
+			var = ft_strdup(tmp);
+		free(tmp);
+		token->content = ft_strdup(var);
+		free(var);
+		token = token->next;
 	}
-	return (NULL);
+}
+
+//separate token string into substrings by quotes
+//expand substrings separately with expand_substr function
+//returns the expanded string
+char	*expand_token(t_shell *shell, char *str)
+{
+	char	*q_substr;
+	char	*expanded;
+	char	*res;
+	int		len;
+	int		i;
+
+	i = 0;
+	res = NULL;
+	while (str[i])
+	{
+		len = q_substr_len(str, i);
+		q_substr = ft_substr(str, i, len);
+		expanded = expand_q_substr(shell, q_substr);
+		if (!expanded || !q_substr)
+			return (NULL);
+		free(q_substr);
+		res = ft_strjoin_free(res, expanded);
+		i += len;
+	}
+	return (res);
 }
 
 //counts the length of a substring starting at i
-int	substr_len(char *str, int i)
+int	q_substr_len(char *str, int i)
 {
 	int		len;
 	char	q;
@@ -68,41 +92,10 @@ int	substr_len(char *str, int i)
 	return (len);
 }
 
-//takes token string, separates into substrings and expands them separately
-//returns the expanded string
-char	*expand_token(t_shell *shell, char *str)
-{
-	char	*substr;
-	char	*expanded;
-	char	*res;
-	char	*tmp;
-	int		len;
-	int		i;
-
-	i = 0;
-	res = NULL;
-	while (str[i])
-	{
-		len = substr_len(str, i);
-		substr = ft_substr(str, i, len);
-		expanded = expand_substr(shell, substr);
-		if (!expanded || !substr)
-			return (NULL);
-		tmp = ft_strdup(res);
-		free(res);
-		free(substr);
-		res = ft_strjoin(tmp, expanded);
-		free(tmp);
-		free(expanded);
-		i += len;
-	}
-	return (res);
-}
-
 //expands a substring and depending on the dominant quote type
 //returns the expanded substring
 //free the original substring
-char	*expand_substr(t_shell *shell, char *substr)
+char	*expand_q_substr(t_shell *shell, char *substr)
 {
 	char	dom_q;
 	char	*res;
@@ -117,114 +110,6 @@ char	*expand_substr(t_shell *shell, char *substr)
 		return (ft_strdup(substr));
 	res = expand_vars(shell, substr);
 	return (res);
-}
-
-//expand variables in a substring
-//finds all variables starting with $ and expands them if they exist
-//adds all the skipped characters to the new string
-char	*expand_vars(t_shell *shell, char *substr)
-{
-	char	*var;
-	char	*value;
-	int		i;
-	int		len;
-	char	*res;
-	char	*tmp;
-
-	i = 0;
-	res = ft_strdup("");
-	while (substr && substr[i])
-	{
-		res = copy_until_dollar(res, substr, &i);
-		if (substr[i] == '$')
-		{
-			if (substr[i + 1] == '?')
-			{
-				value = ft_strdup(ft_itoa(shell->exitcode));
-				tmp = ft_strdup(res);
-				free(res);
-				res = ft_strjoin(tmp, value);
-				free(value);
-				free(tmp);
-				i += 2;
-				continue ;
-			}
-			len = var_len(substr + i);
-			var = ft_substr(substr, i, len);
-			if (!is_possible_var(var))
-			{
-				tmp = ft_strdup(res);
-				free(res);
-				res = ft_strjoin(tmp, var);
-				free(tmp);
-			}
-			else if (is_var(shell, var))
-			{
-				value = get_env_value(shell, var + 1);
-				tmp = ft_strdup(res);
-				free(res);
-				res = ft_strjoin(tmp, value);
-				free(value);
-				free(tmp);
-			}
-			else
-			{
-				tmp = ft_strdup(res);
-				free(res);
-				res = ft_strjoin(tmp, NULL);
-				free(tmp);
-			}
-			free(var);
-			i += len;
-		}
-	}
-	return (res);
-}
-
-//copy skipped characters to the new string until a dollar sign is found
-char	*copy_until_dollar(char *res, char *substr, int *i)
-{
-	int		len;
-	char	*tmp;
-	char	*tmp2;
-
-	len = len_until_dollar(substr, *i);
-	tmp = ft_substr(substr, *i, len);
-	tmp2 = ft_strdup(res);
-	free(res);
-	res = ft_strjoin(tmp2, tmp);
-	if (!res)
-		return (NULL);
-	free(tmp2);
-	free(tmp);
-	*i += len;
-	return (res);
-}
-
-//expands variables in the tokens
-void	expander(t_shell *shell)
-{
-	t_token	*token;
-	char	*tmp;
-	char	*var;
-
-	token = shell->tokens;
-	while (token)
-	{
-		if (!token->content)
-		{
-			token = token->next;
-			continue ;
-		}
-		tmp = token->content;
-		var = expand_token(shell, tmp);
-		if (!var)
-			var = ft_strdup(tmp);
-		free(tmp);
-		token->content = ft_strdup(var);
-		free(var);
-		token = token->next;
-	}
 }
 
 //check if $ is followed by a valid variable

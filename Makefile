@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
+#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/22 15:52:15 by jseidere         ###   ########.fr        #
+#    Updated: 2024/05/09 11:46:51 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ EXECUTOR =	executor/pipex.c \
 
 EXPANDER =	expander/expander.c \
 			expander/expander_utils.c \
+			expander/expander_utils2.c
 		
 
 INIT = init/init.c

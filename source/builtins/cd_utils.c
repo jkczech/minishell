@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:02:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/09 11:11:12 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 15:59:00 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,6 @@ void	set_env_var(t_shell *shell, char *var, char *value)
 		}
 		tmp = tmp->next;
 	}
-}
-
-//get env var
-char	*get_env_var(t_shell *shell, char *var)
-{
-	t_list	*tmp;
-	int		len;
-
-	tmp = shell->env_list;
-	len = ft_strlen(var);
-	while (tmp)
-	{
-		if (ft_strncmp(((t_env *)tmp->content)->var, var, len) == 0)
-			return (((t_env *)tmp->content)->value);
-		tmp = tmp->next;
-	}
-	return (NULL);
 }
 
 //cd old pwd
@@ -84,7 +67,7 @@ void	update_pwd_n_oldpwd(t_shell *shell)
 	pwd = getcwd(NULL, 0);
 	add_oldpwd_to_env(shell);
 	oldpwd = get_env_var(shell, "PWD");
-	if (!find_var(shell, "PWD"))
+	if (!is_var(shell, "PWD"))
 		add_pwd_to_env(shell);
 	if (oldpwd)
 	{
