@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/09 19:32:39 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:04:34 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,23 +79,13 @@ void	process_character(char *str, char *result, int *i, int *j)
 	if (((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
 				&& (is_sep(str[*j]) && !is_sep(str[*j - 1]))))
 		&& str[*j - 1] != ' ')
-	{
-		result[(*i)] = ' ';
-		(*i)++;
-	}
-	if(str[*j] != '\0')
-	{
-		result[*i] = str[*j];
-		(*i)++;
-		(*j)++;
-	}
+		result[(*i)++] = ' ';
+	if (str[*j] != '\0')
+		result[(*i)++] = str[(*j)++];
 	if ((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
 			&& (!is_sep(str[*j]) && is_sep(str[*j - 1])))
 		&& str[*j] != ' ')
-	{
-		result[(*i)] = ' ';
-		(*i)++;
-	}
+		result[(*i)++] = ' ';
 }
 
 //get input and return a normed input

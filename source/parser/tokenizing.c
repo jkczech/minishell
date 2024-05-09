@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/09 19:34:16 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:13:00 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	process_token(char *str, int *i, int token_type, t_token **head)
 	t_quote	quote;
 
 	quote.q_closed = false;
+	quote.type = 0;
 	new_token = NULL;
 	token_content = allocate_token_content(str, i);
 	if (token_content == NULL)

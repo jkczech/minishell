@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:46:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/08 13:31:58 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:02:35 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,12 @@ bool	cmd_not_found(t_shell *shell, int i)
 	ft_putstr_fd("\n", 2);
 	shell->exitcode = 127;
 	return (true);
+}
+
+void	cd_error(t_shell *shell, char *path)
+{
+	ft_putstr_fd("cd: ", 2);
+	ft_putstr_fd(path, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	shell->exitcode = 1;
 }

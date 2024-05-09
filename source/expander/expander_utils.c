@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/09 17:24:20 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:02:56 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	handle_vars(t_shell *shell, char *substr, int *i, char **res)
 {
 	char	*var;
 
-	if(!substr)
+	if (!substr)
 		return ;
 	var = ft_substr(substr, *i, var_len(substr + *i));
 	if (!is_possible_var(var))

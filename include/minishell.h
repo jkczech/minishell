@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/09 17:20:43 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:21:22 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ void	unset_command(t_shell *shell, t_cmd *cmd);
 
 //cd.c
 void	cd_forward(t_shell *shell, char *path);
-void	cd_back(t_shell *shell);
+void	cd_back(t_shell *shell, char *path);
 void	cd_home(t_shell *shell);
 void	cd_command(t_shell *shell, t_cmd *cmd);
 char	*get_env_var(t_shell *shell, char *var);
@@ -195,6 +195,7 @@ void	child(t_shell *shell, int i, int input, int output);
 //error.c
 void	error_msg(t_shell *shell, char *file);
 bool	cmd_not_found(t_shell *shell, int i);
+void	cd_error(t_shell *shell, char *path);
 
 //pipex_utils.c
 void	copy_pipes(t_shell *shell);

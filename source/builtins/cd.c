@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:35:34 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/09 15:59:01 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 20:22:48 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,25 @@ void	cd_forward(t_shell *shell, char *path)
 	char	*tmp;
 
 	tmp = getcwd(NULL, 0);
-	path = ft_strjoin3(tmp, "/", path);
-	free(tmp);
-	if (chdir(path) == -1)
+	if (path[0] == '/')
 	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		shell->exitcode = 1;
+		if (chdir(path) == -1)
+			cd_error(shell, path);
 	}
-	free(path);
+	else
+	{
+		tmp = ft_strjoin3(tmp, "/", path);
+		free(tmp);
+		if (chdir(path) == -1)
+			cd_error(shell, path);
+	}
 }
 
-void	cd_back(t_shell *shell)
+void	cd_back(t_shell *shell, char *path)
 {
-	if (chdir("..") == -1)
+	if (chdir(path) == -1)
 	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd("No such file or directory\n", 2);
-		shell->exitcode = 1;
+		cd_error(shell, path);
 	}
 }
 
@@ -65,7 +65,7 @@ void	cd_command(t_shell *shell, t_cmd *cmd)
 	else if (cmd->args[1])
 		cd_forward(shell, cmd->args[1]);
 	else if (ft_strncmp(cmd->args[1], "..", 2) == 0)
-		cd_back(shell);
+		cd_back(shell, cmd->args[1]);
 	else if (ft_strncmp(cmd->args[1], "-", 2) == 0)
 		cd_oldpwd(shell);
 	else
