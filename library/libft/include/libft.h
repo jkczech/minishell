@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 10:54:04 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 17:34:21 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/22 12:37:20 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdlib.h>
 //write
 # include <unistd.h>
+//NULL
+# include <stdio.h>
 
 //Part 1 - Libc functions
 int		ft_isalpha(int c);

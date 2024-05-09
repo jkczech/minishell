@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 20:52:57 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/08 15:42:33 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 bool	parse(t_shell *shell)
 {
 	get_tokens(shell);
+	//print_tokens(shell->tokens);
 	get_size(shell);
 	expander(shell);
 	quote_token(shell);
@@ -24,15 +25,6 @@ bool	parse(t_shell *shell)
 	get_commands(shell);
 	find_commands(shell);
 	return (true);
-}
-
-//assigns token types to the tokens
-//TODO: delete print
-void	get_tokens(t_shell *shell)
-{
-	shell->tokens = assign_token_types(shell);
-	if (shell->tokens)
-		print_tokens(shell->tokens);
 }
 
 //counts the number of commands needed
@@ -56,6 +48,7 @@ void	get_size(t_shell *shell)
 
 //creates command table
 //TODO: don't split by space
+//print_cmds(shell);
 void	get_commands(t_shell *shell)
 {
 	t_token	*token;
@@ -70,13 +63,13 @@ void	get_commands(t_shell *shell)
 		else if (token->token == WORD)
 			add_args(&shell->cmds[i], token->content);
 		else if (token->token == INPUT)
-			open_input(&shell->cmds[i], token->content);
+			open_input(shell, &shell->cmds[i], token->content);
 		else if (token->token == OUTPUT)
-			open_output(&shell->cmds[i], token->content);
+			open_output(shell, &shell->cmds[i], token->content);
 		else if (token->token == HEREDOC)
-			open_heredoc(&shell->cmds[i], token->content, shell->hd_i++);
+			open_heredoc(shell, &shell->cmds[i], token->content, shell->hd_i++);
 		else if (token->token == APPEND)
-			open_append(&shell->cmds[i], token->content);
+			open_append(shell, &shell->cmds[i], token->content);
 		token = token->next;
 	}
 }
