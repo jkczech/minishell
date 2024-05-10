@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/09 16:50:29 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:37:11 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*expand_token(t_shell *shell, char *str)
 		expanded = expand_q_substr(shell, q_substr);
 		if (!expanded || !q_substr)
 			return (NULL);
+		if (expanded[0] == '\'' || expanded[0] == '\"')
+			remove_first_and_last_char(&expanded);
 		free(q_substr);
 		res = ft_strjoin_free(res, expanded);
 		i += len;
@@ -109,6 +111,27 @@ char	*expand_q_substr(t_shell *shell, char *substr)
 		return (ft_strdup(substr));
 	res = expand_vars(shell, substr);
 	return (res);
+}
+
+void	remove_first_and_last_char(char **str)
+{
+	char	*new_str;
+	int		i;
+	int		len;
+
+	len = ft_strlen(*str);
+	new_str = (char *)malloc(sizeof(char) * len - 1);
+	if (!new_str)
+		return ;
+	i = 1;
+	while (i < len - 1)
+	{
+		new_str[i - 1] = (*str)[i];
+		i++;
+	}
+	new_str[i - 1] = '\0';
+	free(*str);
+	*str = new_str;
 }
 
 //check if $ is followed by a valid variable
