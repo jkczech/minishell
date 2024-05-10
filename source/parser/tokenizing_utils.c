@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 16:00:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 19:30:10 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 18:55:07 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,59 @@ int	is_delimiter(char c, const char *delim)
 }
 
 //returns the length of a token
-int	token_len(char *str, int index, const char *delim)
+int	token_len(char *str, int i, const char *delim)
 {
-	int	i;
-	int	len;
-
-	i = index;
+	t_quote	quote;
+	int		len;
+	
+	quote.q_closed = true;
+	quote.type = 0;
 	len = 0;
-	while (str[i] && !is_delimiter(str[i], delim))
+	while (str[i] && (!is_delimiter(str[i], delim) || !quote.q_closed))
 	{
+		if (is_quote(str[i]) && quote.q_closed)
+		{
+			quote.type = str[i];
+			quote.q_closed = false;
+		}
+		else if (str[i] == quote.type && !quote.q_closed)
+		{
+			quote.q_closed = true;
+			quote.type = 0;
+		}
 		len++;
 		i++;
 	}
+	len++;
+	/* int	i;
+	int	len;
+	t_quote q;
+
+	i = index;
+	len = 0;
+	q.q_closed = true; */
+	/* if (is_quote(str[i]))
+	{
+		q.q_closed = false;
+		q.type = str[i];
+		i++;
+	} */
+	/* while (str[i] && (!is_delimiter(str[i], delim) || !q.q_closed))
+	{
+		if (str[i] == q.type && !q.q_closed)
+		{
+			q.q_closed = true;
+			q.type = 0;
+		}
+		else if (q.q_closed && is_quote(str[i]))
+		{
+			q.q_closed = false;
+			q.type = str[i];
+		}
+		len++;
+		i++;
+	}
+	return (len); */
 	return (len);
 }
 
