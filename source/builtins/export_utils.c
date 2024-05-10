@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 20:48:43 by jkoupy           ###   ########.fr       */
+/*   Created: 2024/04/22 15:48:04 by jseidere          #+#    #+#             */
+/*   Updated: 2024/05/09 11:07:53 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+// checks if variable is valid
+bool	is_valid_var(char *str)
 {
-	t_shell		shell;
+	int	i;
 
-	argc_check(argc, argv);
-	init_shell(&shell, envp);
-	minishell(&shell);
-	return (shell.exitcode);
-}
-
-void	argc_check(int argc, char **argv)
-{
-	if (argc > 1)
+	i = 0;
+	if (!ft_isalpha(str[0]) && str[0] != '_')
+		return (false);
+	i++;
+	while (str[i] && str[i] != '=')
 	{
-		ft_putstr_fd("minishell: too many arguments\n", 2);
-		exit(EXIT_SUCCESS);
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (false);
+		i++;
 	}
-	if (count_args(argv) > 1)
-	{
-		ft_putstr_fd("minishell: too many arguments\n", 2);
-		exit(EXIT_SUCCESS);
-	}
+	return (true);
 }

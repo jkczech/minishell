@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 10:17:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/18 02:14:25 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/20 14:45:23 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//Prints the argument of the echo command
+//print the argument of the echo command
 void	print_echo(t_cmd *cmd, int *i)
 {
-	ft_putstr_fd(cmd->args[*i], cmd->output);
+	ft_putstr_fd(cmd->args[*i], 1);
 	if (cmd->args[*i + 1])
-		ft_putstr_fd(" ", cmd->output);
+		ft_putstr_fd(" ", 1);
 }
 
 //Check if -n flag
-//printf("str[%d] = %c\n", i, str[i]);
 bool	check_newline(char *str)
 {
 	int	i;
@@ -79,12 +78,12 @@ void	simple_echo(t_cmd *cmd)
 		print_echo(cmd, &i);
 		i++;
 	}
-	ft_putstr_fd("\n", cmd->output);
+	ft_putstr_fd("\n", 1);
 }
 
 //check if the echo command is with or without newline
-//and print; if no argument print newline
-void	echo_command(t_cmd *cmd)
+//and print; if no argument - print newline
+void	echo_command(t_shell *shell, t_cmd *cmd)
 {
 	if (cmd->args[1])
 	{
@@ -94,5 +93,6 @@ void	echo_command(t_cmd *cmd)
 			simple_echo(cmd);
 	}
 	else
-		ft_putstr_fd("\n", cmd->output);
+		ft_putstr_fd("\n", 1);
+	shell->exitcode = 0;
 }

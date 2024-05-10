@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/04/18 08:49:30 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 12:17:58 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,28 @@ bool	double_sep(char *str, int i)
 	return (false);
 }
 
-//deletes quotes at the beginning and the end of a str
-void	del_quotes(char **str)
+//check if pipe is last character
+bool	check_pipe_last(char *str)
 {
-	char	*tmp;
-	int		i;
-	int		len;
+	int	i;
+	int	j;
 
 	i = 0;
-	len = ft_strlen(*str);
-	tmp = (char *)malloc(sizeof(char) * (len - 1));
-	if (!tmp)
-		return ;
-	while ((*str)[i + 1])
+	while (str[i])
 	{
-		tmp[i] = (*str)[i + 1];
+		if (str[i] == '|')
+		{
+			j = i + 1;
+			while (str[j] == ' ')
+				j++;
+			if (str[j] == '\0')
+				return (true);
+			else
+				return (false);
+		}
 		i++;
 	}
-	tmp[i - 1] = '\0';
-	free(*str);
-	*str = tmp;
+	return (false);
 }
 
 //checks the input and saves it in a list of tokens
@@ -67,6 +69,12 @@ bool	check_input(t_shell *shell)
 {
 	if (!shell->input || !*shell->input)
 		return (false);
+	if (!quotes_checker(shell->input) || check_pipe_last(shell->input))
+	{
+		ft_putstr_fd("MiNiSHell: syntax error\n", 2);
+		shell->exitcode = 2;
+		return (false);
+	}
 	norm_input(shell);
 	if (!shell->norm_input)
 		return (false);

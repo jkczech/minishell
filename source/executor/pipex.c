@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 20:41:51 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/08 13:33:00 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 bool	execute(t_shell *shell)
 {
 	if (shell->size > 1 && !create_pipes(shell))
-		return (error_msg(NULL), false);
+		return (error_msg(shell, NULL), false);
 	if (shell->size == 1 && !execute_simple(shell))
-		return (error_msg(NULL), false);
+		return (error_msg(shell, NULL), false);
 	else if (shell->size > 1 && !execute_pipeline(shell))
-		return (error_msg(NULL), false);
+		return (error_msg(shell, NULL), false);
 	return (true);
 }
 
@@ -27,6 +27,7 @@ bool	execute(t_shell *shell)
 //shell->size - 1 pipes are created
 //shell->pipes is NOT NULL terminated
 //TODO: delete print
+//	print_cmds(shell);
 bool	create_pipes(t_shell *shell)
 {
 	int	i;
@@ -45,7 +46,6 @@ bool	create_pipes(t_shell *shell)
 		i++;
 	}
 	copy_pipes(shell);
-	print_cmds(shell);
 	return (true);
 }
 
@@ -114,7 +114,7 @@ bool	execute_simple(t_shell *shell)
 	{
 		redirect(shell, shell->cmds[0].input, shell->cmds[0].output);
 		if (execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp) == -1)
-			error_msg(NULL);
+			error_msg(shell, NULL);
 		free_pipes(shell);
 		exit(1);
 	}

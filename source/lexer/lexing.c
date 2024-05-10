@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/18 08:51:13 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 16:56:37 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 //counts the number of characters in a string
 int	count_chars(char *str)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		count;
+	char	quote;
 
 	i = 0;
 	count = 0;
-	if (!str)
-		return (0);
-	while (str[i])
+	while (str && str[i])
 	{
 		while ((str[i] == ' ' || str[i] == '\t'))
 			i++;
@@ -30,9 +29,9 @@ int	count_chars(char *str)
 			count++;
 		if (str[i] && is_quote(str[i]))
 		{
+			quote = str[i++];
 			count++;
-			i++;
-			while (!is_quote(str[i]))
+			while (str[i] != quote && str[i])
 			{
 				count++;
 				i++;
@@ -46,15 +45,20 @@ int	count_chars(char *str)
 //processes char in quotes
 void	process_char_quotes(char *str, char *result, int *i, int *j)
 {
+	t_quote	quote;
+
+	quote.type = str[*j];
 	result[(*i)] = str[*j];
 	(*i)++;
 	(*j)++;
-	while (str[*j] != '\0' && !is_quote(str[*j]))
+	while (str[*j] != '\0' && quote.type != str[*j])
 	{
 		result[(*i)] = str[*j];
 		(*i)++;
 		(*j)++;
 	}
+	if(str[*j] == '\0')
+		return ;
 	result[(*i)] = str[*j];
 	(*i)++;
 	(*j)++;
@@ -65,13 +69,14 @@ void	process_character(char *str, char *result, int *i, int *j)
 {
 	if (is_quote(str[*j]))
 		process_char_quotes(str, result, i, j);
-	if (str[*j] == ' ')
+	if (str[*j] && str[*j] == ' ')
 	{
-		while (str[*j] == ' ' && str[*j + 1] == ' ')
+		while (str[*j] && str[*j] == ' ' && str[*j + 1] == ' ')
 			(*j)++;
 	}
-	if (((*j > 0 && (is_sep(str[*j]) && !is_sep(str[*j - 1]))))
-		&& str[*j - 1] != ' ' && str[*j] != '\0')
+	if (((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
+				&& (is_sep(str[*j]) && !is_sep(str[*j - 1]))))
+		&& str[*j - 1] != ' ')
 	{
 		result[(*i)] = ' ';
 		(*i)++;
@@ -79,8 +84,9 @@ void	process_character(char *str, char *result, int *i, int *j)
 	result[*i] = str[*j];
 	(*i)++;
 	(*j)++;
-	if ((*j > 0 && (!is_sep(str[*j]) && is_sep(str[*j - 1])))
-		&& str[*j] != ' ' && str[*j] != '\0')
+	if ((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
+			&& (!is_sep(str[*j]) && is_sep(str[*j - 1])))
+		&& str[*j] != ' ')
 	{
 		result[(*i)] = ' ';
 		(*i)++;
@@ -98,7 +104,7 @@ void	norm_input(t_shell *shell)
 
 	if (!shell->input)
 		return ;
-	len = token_count(shell->input) - 1 + count_chars(shell->input);
+	len = token_count(shell->input) - 1 + count_chars(shell->input) + 1;
 	if (!quotes_checker(shell->input))
 		return ;
 	shell->norm_input = malloc(sizeof(char) * (len + 1));

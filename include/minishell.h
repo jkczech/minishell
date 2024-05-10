@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/18 08:51:20 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 16:40:39 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # define PROMPT "MiNiSHell: "
 # define ERR_PROMPT "err_shell: "
 # define DELIMITER " <>|"
-# define SEPARATOR "&|><%"
+# define SEPARATOR "&|><"
 # define FAKE_VAR 2
 # define ENV_VAR 1
 # define QUESTION_MARK 3
@@ -144,7 +144,7 @@ void	print_echo(t_cmd *cmd, int *i);
 bool	check_newline(char *str);
 void	nnl_echo(t_cmd *cmd);
 void	simple_echo(t_cmd *cmd);
-void	echo_command(t_cmd *cmd);
+void	echo_command(t_shell *shell, t_cmd *cmd);
 
 //env.c
 t_list	*ft_envnew_l(void *content);
@@ -153,6 +153,8 @@ bool	envp_into_list(char **envp, t_list **env_list);
 
 //env_utils.c
 int		check_env_var(char *var);
+char	**envp_list_into_char(t_list *env_list);
+void	sort_env(t_shell *shell);
 
 //pwd.c
 void	pwd_command(t_shell *shell, t_cmd *cmd);
@@ -162,6 +164,9 @@ void	add_env_var(t_shell *shell, char *arg);
 void	export_command(t_shell *shell, t_cmd *cmd);
 int		strlen_before_char(char *str, char c);
 
+//export_utils.c
+bool	is_valid_var(char *var);
+
 //unset.c
 void	free_env_var(t_env *env);
 void	unset_command(t_shell *shell, t_cmd *cmd);
@@ -169,15 +174,19 @@ void	unset_command(t_shell *shell, t_cmd *cmd);
 //cd.c
 void	cd_command(t_shell *shell, t_cmd *cmd);
 
+//cd_utils.c
+void	cd_oldpwd(t_shell *shell);
+void	add_oldpwd(t_shell *shell);
+void	update_pwd_n_oldpwd(t_shell *shell);
+
 ////////////////////////////////EXECUTOR////////////////////////////////////////
 
 //child.c
-
 void	redirect(t_shell *shell, int input, int output);
 void	child(t_shell *shell, int i, int input, int output);
 
 //error.c
-void	error_msg(char *file);
+void	error_msg(t_shell *shell, char *file);
 bool	cmd_not_found(t_shell *shell, int i);
 
 //pipex_utils.c
@@ -197,14 +206,17 @@ bool	execute_simple(t_shell *shell);
 char	*get_env_value(t_shell *shell, char *str);
 bool	is_var(t_shell *shell, char *str);
 void	expander(t_shell *shell);
+char	*expand_substr(t_shell *shell, char *substr);
+//char	*add_char(char *str, char c);
+char	*copy_until_dollar(char *res, char *substr, int *i);
+char	*expand_vars(t_shell *shell, char *substr);
 
 //expander_utils.c
 bool	find_var(t_shell *shell, char *str);
-int		strlen_b_sc(char *str);
-int		strlen_before_a(char *str);
+int		var_len(char *str);
+int		len_until_dollar(char *str, int i);
 bool	is_var(t_shell *shell, char *str);
-bool	is_fake_var(t_shell *shell, char *str);
-
+bool	is_possible_var(char *str);
 //////////////////////////////////INIT//////////////////////////////////////////
 
 //init.c
@@ -232,7 +244,6 @@ bool	is_sep(char c);
 bool	double_sep(char *str, int i);
 bool	quotes_checker(char *str);
 bool	check_input(t_shell *shell);
-void	del_quotes(char **str);
 
 //lexing.c
 int		count_chars(char *str);
@@ -264,7 +275,6 @@ void	argc_check(int argc, char **argv);
 //shell.c
 void	minishell(t_shell *shell);
 bool	read_line(t_shell *shell);
-void	signal_handler(int signum);
 
 ////////////////////////////////PARSER//////////////////////////////////////////
 
@@ -276,10 +286,10 @@ bool	find_commands(t_shell *shell);
 bool	save_command(t_shell *shell, int i, char *command);
 
 //open_utils.c
-void	open_input(t_cmd *cmd, char *file);
-void	open_output(t_cmd *cmd, char *file);
-void	open_heredoc(t_cmd *cmd, char *delimiter, int hd_i);
-void	open_append(t_cmd *cmd, char *file);
+void	open_input(t_shell *shell, t_cmd *cmd, char *file);
+void	open_output(t_shell *shell, t_cmd *cmd, char *file);
+void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i);
+void	open_append(t_shell *shell, t_cmd *cmd, char *file);
 void	heredoc(int fd, char *delimiter);
 
 //parse.c
@@ -298,14 +308,15 @@ void	add_null_pipe(t_token **head, t_token *token, char *content);
 //tokenizing.c
 void	process_token(char *str, int *index, int token_type, t_token **head);
 char	*allocate_token_content(char *str, int *index);
-t_token	*assign_token_types(t_shell *shell);
 int		what_token(char *str, int index);
 int		is_delimiter(char c, const char *delim);
 
 ///////////////////////////////SIGNALS//////////////////////////////////////////
 
-//signals.c
+//signals.c currently in main.c
+void	set_signals(void);
 void	signal_handler(int signum);
+void	check_g_sig(t_shell *shell);
 
 ////////////////////////////////UTILS///////////////////////////////////////////
 
@@ -325,5 +336,8 @@ void	print_list(t_token *head);
 void	print_cmds(t_shell *shell);
 void	print_env_list(t_list *env_list);
 void	print_export_list(t_list *env_list);
+
+//print2.c
+void	print_cmd(t_cmd *cmd);
 
 #endif

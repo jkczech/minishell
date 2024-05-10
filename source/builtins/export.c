@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/17 20:41:23 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 11:38:48 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	add_env_var(t_shell *shell, char *arg)
 //TODO: delete print
 bool	simple_export(t_shell *shell, t_cmd *cmd)
 {
+	sort_env(shell);
 	if (!cmd->args[1])
 	{
 		print_export_list(shell->env_list);
@@ -54,27 +55,44 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 {
 	int		len;
 	t_list	*tmp;
+	int		i;
+	bool	swap;
 
+	i = 1;
 	if (simple_export(shell, cmd))
 		return ;
-	tmp = shell->env_list;
-	while (tmp)
+	while (cmd->args[i])
 	{
-		len = strlen_before_char(cmd->args[1], '=');
-		if (ft_strncmp(((t_env *)tmp->content)->var, cmd->args[1], len) == 0)
+		swap = false;
+		tmp = shell->env_list;
+		if (!is_valid_var(cmd->args[i]))
 		{
-			if (((t_env *)tmp->content)->value && cmd->args[1][len] == '=')
-			{
-				free(((t_env *)tmp->content)->value);
-				((t_env *)tmp->content)->value = \
-				ft_strdup (cmd->args[1] + len + 1);
-				((t_env *)tmp->content)->flag = 1;
-				shell->exitcode = 0;
-			}
-			return ;
+			shell->exitcode = 1;
+			ft_putstr_fd("MiNiSHell: export: `", 2);
+			ft_putstr_fd(cmd->args[i], 2);
+			ft_putstr_fd("\': not valid identifier\n", 2);
+			i++;
+			continue ;
 		}
-		tmp = tmp->next;
+		while (tmp)
+		{
+			len = strlen_before_char(((t_env *)tmp->content)->var, '=');
+			if (ft_strncmp(((t_env *)tmp->content)->var, cmd->args[i], len) == 0)
+			{
+				if (((t_env *)tmp->content)->value && cmd->args[i][len] == '=')
+				{
+					free(((t_env *)tmp->content)->value);
+					((t_env *)tmp->content)->value = \
+					ft_strdup (cmd->args[i] + len + 1);
+					((t_env *)tmp->content)->flag = 1;
+					shell->exitcode = 0;
+					swap = true;
+				}
+			}
+			tmp = tmp->next;
+		}
+		if (!swap)
+			add_env_var(shell, cmd->args[i]);
+		i++;
 	}
-	add_env_var(shell, cmd->args[1]);
-	shell->exitcode = 0;
 }

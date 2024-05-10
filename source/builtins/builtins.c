@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/18 08:42:47 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/04/19 20:59:53 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	builtin_handler(t_shell *shell, int i)
 
 	cmd = shell->cmds + i;
 	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
-		echo_command(cmd);
+		echo_command(shell, cmd);
 	else if (ft_strncmp(shell->cmds[i].args[0], "exit", 5) == 0)
 		exit_command(shell, cmd);
 	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 23:01:35 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 10:56:43 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@
 //free things needed to be freed after every iteration
 //pipes are freed in the parent process elsewhere
 //printf("free_iter\n");
+	/* if (shell->envp)
+		free_array(shell->envp); */
 void	free_iter(t_shell *shell)
 {
+	char	*tmp;
+	char	*tmp2;
+
 	if (shell->input)
 		free(shell->input);
 	if (shell->norm_input)
@@ -30,7 +35,11 @@ void	free_iter(t_shell *shell)
 		free(shell->child_pids);
 	while (shell->hd_i > 0)
 	{
-		unlink(ft_strjoin("heredocs/.heredoc", ft_itoa(shell->hd_i)));
+		tmp2 = ft_itoa(shell->hd_i);
+		tmp = ft_strjoin("heredocs/.heredoc", tmp2);
+		unlink(tmp);
+		free(tmp);
+		free(tmp2);
 		shell->hd_i--;
 	}
 }

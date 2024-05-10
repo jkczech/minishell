@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:46:33 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/02 11:00:42 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:58:20 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	is_numeric(char *str)
 			i++;
 		if (str[i] == '0')
 		{
-			while (str[i] == '0')
+			while (str[i] == '0' && str[i + 1] == '0')
 				i++;
 		}
 		if (!ft_isdigit(str[i]))
