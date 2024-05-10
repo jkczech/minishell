@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/10 15:32:55 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/10 19:03:59 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ bool	parse(t_shell *shell)
 	get_tokens(shell);
 	get_size(shell);
 	expander(shell);
-	//quote_token(shell);
 	if (!init_cmds(shell))
 		return (false);
 	get_commands(shell);

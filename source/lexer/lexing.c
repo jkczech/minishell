@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/10 16:19:45 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/10 19:04:07 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	process_character(char *str, char *result, int *i, int *j)
 	}
 	if (((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
 				&& (is_sep(str[*j]) && !is_sep(str[*j - 1])))
-		&& str[*j - 1] != ' ') || (*j == 0 && is_sep(str[*j])))
+			&& str[*j - 1] != ' ') || (*j == 0 && is_sep(str[*j])))
 		result[(*i)++] = ' ';
 	if (str[*j] != '\0')
 		result[(*i)++] = str[(*j)++];

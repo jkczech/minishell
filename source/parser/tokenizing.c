@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/09 20:13:00 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/10 19:05:49 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //process_quoted_token
-void	process_quoted_token(char *str, int *index, char *token_content, int *j)
+/* void	process_quoted_token(char *str, int *index, char *token_content, int *j)
 {
 	char	quote;
 
@@ -26,7 +26,7 @@ void	process_quoted_token(char *str, int *index, char *token_content, int *j)
 		token_content[(*j)++] = str[*index];
 		(*index)++;
 	}
-}
+} */
 
 //creates a token
 void	process_token(char *str, int *i, int token_type, t_token **head)
@@ -48,10 +48,7 @@ void	process_token(char *str, int *i, int token_type, t_token **head)
 	while (str[*i] && (!is_delimiter(str[*i], DELIMITER) || quote.q_closed))
 	{
 		if (is_quote(str[*i]))
-		{
-			//process_quoted_token(str, i, token_content, &j);
 			quote.q_closed = !quote.q_closed;
-		}
 		token_content[j++] = str[(*i)++];
 	}
 	token_content[j++] = '\0';
@@ -60,7 +57,7 @@ void	process_token(char *str, int *i, int token_type, t_token **head)
 }
 
 //count len between quotes including quotes
-int count_quotes(char *str, int *index)
+int	count_quotes(char *str, int *index)
 {
 	int		len;
 	char	quote;
@@ -82,8 +79,6 @@ char	*allocate_token_content(char *str, int *index)
 	char	*token_content;
 
 	len = token_len(str, *index, DELIMITER);
-	/* if (is_quote(str[*index]))
-		len = token_len(str, *index, "<>|"); */
 	token_content = malloc(sizeof(char) * (len));
 	return (token_content);
 }
