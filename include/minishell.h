@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/10 15:35:58 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/10 16:07:53 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ long	ft_atol(const char *nptr);
 
 //exit.c
 void	exit_shell_status(t_shell *shell, int status);
-void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status);
+void	exit_error_msg(char *msg, char *cmd);
 void	easy_exit(t_shell *shell, int status);
 void	exit_command(t_shell *shell, t_cmd *cmd);
 

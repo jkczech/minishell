@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 10:17:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/04/20 14:45:23 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:45:32 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ bool	check_newline(char *str)
 	return (true);
 }
 
-//Prints the argument of the echo command with out newline
-//Still needs to be fixed with more args
+//print the argument of the echo command with out newline
+//TODO: still needs to be fixed with more args (?)
 void	nnl_echo(t_cmd *cmd)
 {
 	int	i;
