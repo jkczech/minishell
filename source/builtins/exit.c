@@ -6,14 +6,13 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/09 11:10:39 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/10 16:09:11 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 // Exit shell with exit status
-//TODO: delete printf
 void	exit_shell_status(t_shell *shell, int status)
 {
 	free_iter(shell);
@@ -21,9 +20,8 @@ void	exit_shell_status(t_shell *shell, int status)
 	exit(status);
 }
 
-//Exit error message
-//TODO: delete printf
-void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status)
+//exit error message, not exiting
+void	exit_error_msg(char *msg, char *cmd)
 {
 	ft_putstr_fd("exit\n", 2);
 	ft_putstr_fd(PROMPT, 2);
@@ -32,12 +30,10 @@ void	exit_error_msg(t_shell *shell, char *msg, char *cmd, int status)
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
-	exit_shell_status(shell, status);
 }
 
 //exit shell without exit status
 //needed to safe exitcode before freeing shell
-//TODO: delete printf
 void	easy_exit(t_shell *shell, int status)
 {
 	free_iter(shell);
@@ -48,21 +44,17 @@ void	easy_exit(t_shell *shell, int status)
 }
 
 //Exit with argument
-//TODO: delete printf
 void	exit_argument(t_shell *shell, t_cmd *cmd)
 {
 	if (cmd->args[2] && cmd->args[1] && is_numeric(cmd->args[1]))
 	{
-		ft_putstr_fd("exit\n", 2);
-		ft_putstr_fd("exit: too many arguments\n", 2);
-		ft_putstr_fd(PROMPT, 2);
-		exit_error_msg(shell, "too many arguments", cmd->args[1], 2);
+		exit_error_msg("too many arguments", cmd->args[1]);
 		shell->exitcode = 1;
 	}
 	else if (!is_numeric(cmd->args[1]) || !check_overflow(cmd->args[1]))
 	{
+		exit_error_msg("numeric argument required", cmd->args[1]);
 		shell->exitcode = 2;
-		exit_error_msg(shell, "numeric argument required", cmd->args[1], 2);
 	}
 	else
 		easy_exit(shell, convert_exit_status(cmd));

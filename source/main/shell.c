@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/09 10:55:09 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/11 10:30:32 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 int	g_sig = 0;
 
+void	exit_ctrl_d(t_shell *shell);
 //main shell loop, that reads input, checks it and executes it
 //TODO: error handling
 // MAIN for testing	
 void	minishell(t_shell *shell)
 {
+	char	*line;
+
 	while (true)
 	{
 		set_signals();
@@ -26,10 +29,13 @@ void	minishell(t_shell *shell)
 	/* 	if (!read_line(shell))
 			break ; */
 		if (isatty(fileno(stdin)))
+		{
 			shell->input = readline(PROMPT);
+			if(!shell->input)
+				exit_ctrl_d(shell);
+		}
 		else
 		{
-			char	*line;
 			line = get_next_line(fileno(stdin));
 			shell->input = ft_strtrim(line, "\n");
 			if (!shell->input)
@@ -42,15 +48,15 @@ void	minishell(t_shell *shell)
 		free_iter(shell);
 	}
 }
+//exit if ctrl+d
+void	exit_ctrl_d(t_shell *shell)
+{
+		printf("exit\n");
+		free_shell(shell);
+		exit(shell->exitcode);
+}
 
-//not sure in which cases this was necessary - for norm I deleted it
-//it was after parse()
-//
-// if (shell->size == 1 && !shell->cmds[0].path && !is_builtin(shell, 0))
-// {
-// 	free_iter(shell);
-// 	continue ;
-// }
+
 bool	read_line(t_shell *shell)
 {
 	shell->input = readline(PROMPT);

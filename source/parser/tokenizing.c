@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/09 12:26:02 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:13:00 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	process_token(char *str, int *i, int token_type, t_token **head)
 	t_quote	quote;
 
 	quote.q_closed = false;
+	quote.type = 0;
 	new_token = NULL;
 	token_content = allocate_token_content(str, i);
 	if (token_content == NULL)
@@ -48,15 +49,31 @@ void	process_token(char *str, int *i, int token_type, t_token **head)
 	{
 		if (is_quote(str[*i]))
 		{
-			quote.q_closed = !quote.q_closed;
 			//process_quoted_token(str, i, token_content, &j);
+			quote.q_closed = !quote.q_closed;
 		}
 		token_content[j++] = str[(*i)++];
-		//printf("Str[%d]: %c\n", *i, str[*i]);
 	}
 	token_content[j++] = '\0';
 	new_token = create_token(token_content, token_type);
 	add_token(head, new_token);
+}
+
+//count len between quotes including quotes
+int count_quotes(char *str, int *index)
+{
+	int		len;
+	char	quote;
+
+	len = 0;
+	quote = str[*index];
+	while (str[*index] != quote)
+	{
+		len++;
+		(*index)++;
+	}
+	len++;
+	return (len);
 }
 
 char	*allocate_token_content(char *str, int *index)
@@ -65,9 +82,9 @@ char	*allocate_token_content(char *str, int *index)
 	char	*token_content;
 
 	len = token_len(str, *index, DELIMITER);
-	if (is_quote(str[*index]))
-		len = token_len(str, *index, "<>|");
-	token_content = malloc(sizeof(char) * (len + 1));
+	/* if (is_quote(str[*index]))
+		len = token_len(str, *index, "<>|"); */
+	token_content = malloc(sizeof(char) * (len));
 	return (token_content);
 }
 

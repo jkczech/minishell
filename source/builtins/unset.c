@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:15:35 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/09 11:09:58 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 20:34:22 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	unset_command(t_shell *shell, t_cmd *cmd)
 
 	prev = NULL;
 	curr = shell->env_list;
+	if (cmd->args[1] == NULL)
+		return ;
 	while (curr != NULL)
 	{
 		len = strlen_before_char(cmd->args[1], '=');

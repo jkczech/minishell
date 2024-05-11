@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:17:20 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/07 11:46:00 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:32:29 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	len_w_q(char *str)
 	return (len);
 }
 
-//removes quotes from a string
+//removes quotes from a token string
 char	*remove_quotes(char *str)
 {
 	int		i;
@@ -99,7 +99,7 @@ char	*remove_quotes(char *str)
 	return (new_str);
 }
 
-//parse token
+//iterate through tokens and remove quotes for each token
 void	quote_token(t_shell *shell)
 {
 	t_token	*head;

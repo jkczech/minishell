@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/09 16:56:37 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:04:28 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,45 +57,42 @@ void	process_char_quotes(char *str, char *result, int *i, int *j)
 		(*i)++;
 		(*j)++;
 	}
-	if(str[*j] == '\0')
+	if (str[*j] == '\0')
 		return ;
 	result[(*i)] = str[*j];
 	(*i)++;
 	(*j)++;
 }
 
+//void process_char (t_shell *shell,)
+
 //processes a character
 void	process_character(char *str, char *result, int *i, int *j)
 {
-	if (is_quote(str[*j]))
+	if (str[*j] && is_quote(str[*j]))
 		process_char_quotes(str, result, i, j);
-	if (str[*j] && str[*j] == ' ')
+	if (str[*j] && (str[*j] == ' ' || str[*j] == '\t'))
 	{
-		while (str[*j] && str[*j] == ' ' && str[*j + 1] == ' ')
+		while (str[*j] && ((str[*j] == ' ' && str[*j + 1] == ' ') || (str[*j] == '\t')))
+		{
+			if(str[*j] == '\t')
+				result[(*i)++] = ' ';
 			(*j)++;
+		}
 	}
 	if (((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
-				&& (is_sep(str[*j]) && !is_sep(str[*j - 1]))))
-		&& str[*j - 1] != ' ')
-	{
-		result[(*i)] = ' ';
-		(*i)++;
-	}
-	result[*i] = str[*j];
-	(*i)++;
-	(*j)++;
+				&& (is_sep(str[*j]) && !is_sep(str[*j - 1])))
+		&& str[*j - 1] != ' ') || (*j == 0 && is_sep(str[*j])))
+		result[(*i)++] = ' ';
+	if (str[*j] != '\0')
+		result[(*i)++] = str[(*j)++];
 	if ((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
 			&& (!is_sep(str[*j]) && is_sep(str[*j - 1])))
 		&& str[*j] != ' ')
-	{
-		result[(*i)] = ' ';
-		(*i)++;
-	}
+		result[(*i)++] = ' ';
 }
 
 //get input and return a normed input
-//TODO: delete printf
-//printf("Normed input: %s\n", shell->norm_input);
 void	norm_input(t_shell *shell)
 {
 	int		i;
@@ -112,7 +109,7 @@ void	norm_input(t_shell *shell)
 		return ;
 	i = 0;
 	j = 0;
-	while (i < len)
+	while (i < len && shell->input[j])
 		process_character(shell->input, shell->norm_input, &i, &j);
 	shell->norm_input[i] = '\0';
 }

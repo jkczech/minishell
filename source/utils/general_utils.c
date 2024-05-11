@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:18:03 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/10 15:21:35 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/09 14:33:58 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,25 @@ int	count_args(char **args)
 	while (args[i])
 		i++;
 	return (i);
+}
+
+//joins strings and reallocates memory while freeing the old string
+char	*ft_strjoin_free(char *res, char *str)
+{
+	char	*tmp;
+
+	if (!res)
+		return (str);
+	tmp = ft_strdup(res);
+	if (!tmp)
+		return (NULL);
+	free(res);
+	if (!str)
+		return (tmp);
+	res = ft_strjoin(tmp, str);
+	if (!res)
+		return (NULL);
+	free(tmp);
+	free(str);
+	return (res);
 }

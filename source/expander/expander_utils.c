@@ -6,14 +6,58 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/09 16:39:44 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/11 10:48:54 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+//expand variables in a substring (already dealt with quotes)
+//finds all variables starting with $ and expands them if they exist
+//adds all the skipped characters to the new string
+char	*expand_vars(t_shell *shell, char *substr)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	res = ft_strdup("");
+	while (substr && substr[i])
+	{
+		res = copy_until_dollar(res, substr, &i);
+		if (substr[i] == '$' && substr[i + 1] == '?')
+		{
+			res = ft_strjoin_free(res, ft_itoa(shell->exitcode));
+			i += 2;
+		}
+		else if (substr[i] == '$' && !substr[i + 1])
+		{
+			res = ft_strjoin_free(res, ft_strdup("$"));
+			i++;
+		}
+		else if (substr[i] == '$')
+			handle_vars(shell, substr, &i, &res);
+	}
+	return (res);
+}
+
+//handle the dollar sign
+void	handle_vars(t_shell *shell, char *substr, int *i, char **res)
+{
+	char	*var;
+
+	if (!substr)
+		return ;
+	var = ft_substr(substr, *i, var_len(substr + *i));
+	if (!is_possible_var(var))
+		*res = ft_strjoin_free(*res, var);
+	else if (is_var(shell, var + 1))
+		*res = ft_strjoin_free(*res, get_env_value(shell, var + 1));
+	*i += var_len(substr + *i);
+}
+
 //finds a variable in the environment
-bool	find_var(t_shell *shell, char *str)
+bool	is_var(t_shell *shell, char *str)
 {
 	t_list	*node;
 	char	*var;
@@ -25,57 +69,6 @@ bool	find_var(t_shell *shell, char *str)
 		if (ft_strncmp(var, str, ft_strlen(str)) == 0)
 			return (true);
 		node = node->next;
-	}
-	return (false);
-}
-
-//strlen before a non alpha character
-int	var_len(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '$')
-		i++;
-	if (str[i] == '?')
-		i++;
-	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_') && str[i] != '$')
-		i++;
-	return (i);
-}
-
-//strlen before a character
-int	len_until_dollar(char *str, int i)
-{
-	int	len;
-
-	len = 0;
-	while (str[i] && str[i] != '$')
-	{
-		i++;
-		len++;
-	}
-	return (len);
-}
-
-//checks if a string is a environment variable
-bool	is_var(t_shell *shell, char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (false);
-	while (str[i])
-	{
-		if (str[i] == '$')
-		{
-			if (find_var(shell, str + i + 1))
-				return (true);
-			else
-				return (false);
-		}
-		i++;
 	}
 	return (false);
 }

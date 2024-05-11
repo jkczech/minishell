@@ -3,6 +3,8 @@
         "libft.h": "c",
         "minishell.h": "c",
         "string.h": "c",
-        "functional": "c"
+        "functional": "c",
+        "string": "c",
+        "string_view": "c"
     }
 }

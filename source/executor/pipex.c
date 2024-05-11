@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/08 13:33:00 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:10:21 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ bool	execute(t_shell *shell)
 //create all pipes needed
 //shell->size - 1 pipes are created
 //shell->pipes is NOT NULL terminated
-//TODO: delete print
-//	print_cmds(shell);
 bool	create_pipes(t_shell *shell)
 {
 	int	i;
