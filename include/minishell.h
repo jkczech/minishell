@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/10 16:07:53 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/11 13:13:37 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,7 @@ bool	is_sep(char c);
 bool	double_sep(char *str, int i);
 bool	quotes_checker(char *str);
 bool	check_input(t_shell *shell);
+bool	check_empty_input(char *str);
 
 //lexing.c
 int		count_chars(char *str);
