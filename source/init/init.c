@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/08 15:39:55 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:59:36 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@
 bool	init_shell(t_shell *shell, char **envp)
 {
 	shell->env_list = NULL;
-	shell->envp = envp;
+	shell->envp = copy_array(envp);
+	if (!shell->envp)
+		return (false);
 	shell->env_list = NULL;
 	envp_into_list(envp, &shell->env_list);
 	shell->paths = NULL;
@@ -97,4 +99,7 @@ void	init_iter(t_shell *shell)
 	shell->pipes = NULL;
 	shell->child_pids = NULL;
 	shell->hd_i = 0;
+	if (shell->envp)
+		free_array(shell->envp);
+	shell->envp = envp_list_into_char(shell->env_list);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/10 16:07:53 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/11 18:37:01 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,10 @@ bool	init_shell(t_shell *shell, char **envp);
 bool	init_path(t_shell *shell);
 bool	init_cmds(t_shell *shell);
 void	init_iter(t_shell *shell);
+
+//init_utils.c
+char	**copy_array(char **arr);
+void	print_two_d(char **arr);
 
 ////////////////////////////////LEXER///////////////////////////////////////////
 

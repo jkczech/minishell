@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/10 17:04:28 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:16:49 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,17 @@ void	process_character(char *str, char *result, int *i, int *j)
 		process_char_quotes(str, result, i, j);
 	if (str[*j] && (str[*j] == ' ' || str[*j] == '\t'))
 	{
-		while (str[*j] && ((str[*j] == ' ' && str[*j + 1] == ' ') || (str[*j] == '\t')))
+		while (str[*j] && ((str[*j] == ' ' && str[*j + 1] == ' ')
+				|| (str[*j] == '\t')))
 		{
-			if(str[*j] == '\t')
+			if (str[*j] == '\t')
 				result[(*i)++] = ' ';
 			(*j)++;
 		}
 	}
 	if (((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
 				&& (is_sep(str[*j]) && !is_sep(str[*j - 1])))
-		&& str[*j - 1] != ' ') || (*j == 0 && is_sep(str[*j])))
+			&& str[*j - 1] != ' ') || (*j == 0 && is_sep(str[*j])))
 		result[(*i)++] = ' ';
 	if (str[*j] != '\0')
 		result[(*i)++] = str[(*j)++];
