@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 16:51:32 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 17:56:33 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,8 @@ void	init_iter(t_shell *shell);
 //init_utils.c
 char	**copy_array(char **arr);
 void	print_two_d(char **arr);
+void	update_shell_lvl(t_shell *shell);
+void	update_shell_(t_shell *shell);
 
 ////////////////////////////////LEXER///////////////////////////////////////////
 
