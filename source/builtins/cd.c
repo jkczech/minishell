@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:35:34 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/11 17:55:29 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:43:56 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	cd_forward(t_shell *shell, char *path)
 {
 	char	*tmp;
+	char	*cwd;
 
 	tmp = getcwd(NULL, 0);
 	if (path[0] == '/')
@@ -25,7 +26,7 @@ void	cd_forward(t_shell *shell, char *path)
 	}
 	else
 	{
-		tmp = ft_strjoin3(tmp, "/", path);
+		cwd = ft_strjoin3(tmp, "/", path);
 		free(tmp);
 		if (chdir(path) == -1)
 			cd_error(shell, path);
