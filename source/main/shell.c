@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 13:40:52 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 13:41:22 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@ void	minishell(t_shell *shell)
 	/* 	if (!read_line(shell))
 			break ; */
 		if (isatty(fileno(stdin)))
-		{
 			shell->input = readline(PROMPT);
-			if(!shell->input)
-				exit_ctrl_d(shell);
-		}
 		else
 		{
 			line = get_next_line(fileno(stdin));
