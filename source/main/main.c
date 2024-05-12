@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:14:21 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 20:48:43 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 22:16:25 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,12 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell		shell;
-
+	
+	if(!envp || !envp[0])
+	{
+		ft_putstr_fd("minishell: no environment\n", 2);
+		return (false);
+	}
 	argc_check(argc, argv);
 	init_shell(&shell, envp);
 	minishell(&shell);

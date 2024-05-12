@@ -3,71 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 12:15:18 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 23:27:14 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//process_quoted_token
-/* void	process_quoted_token(char *str, int *index, char *token_content, int *j)
+//copy token content to a new string
+void	copy_token_content(char *token_content, char *str, int *i)
 {
-	char	quote;
+	t_quote	quote;
+	int		j;
 
-	quote = str[*index];
-	token_content[*j] = str[*index];
-	(*j)++;
-	(*index)++;
-	while (quote != str[*index])
+	quote.in_quotes = false;
+	quote.type = 0;
+	j = 0;
+	while (str[*i] && (!is_delimiter(str[*i], DELIMITER) || quote.in_quotes))
 	{
-		token_content[(*j)++] = str[*index];
-		(*index)++;
+		if (is_quote(str[*i]) && !quote.in_quotes)
+		{
+			quote.type = str[*i];
+			token_content[j++] = str[(*i)++];
+			while (quote.type != str[*i])
+				token_content[j++] = str[(*i)++];
+			token_content[j++] = str[(*i)++];
+			continue ;
+		}
+		token_content[j++] = str[(*i)++];
 	}
-} */
+	token_content[j++] = '\0';
+}
 
 //creates a token
 void	process_token(char *str, int *i, int token_type, t_token **head)
 {
 	t_token	*new_token;
 	char	*token_content;
-	int		j;
-	t_quote	quote;
 
-	quote.q_closed = false;
-	quote.type = 0;
 	new_token = NULL;
+	token_content = NULL;
 	token_content = allocate_token_content(str, i);
 	if (token_content == NULL)
 		return ;
-	j = 0;
 	if (token_type == PIPE && is_delimiter(str[*i], DELIMITER))
 		return (add_null_pipe(head, new_token, token_content));
-	while (str[*i] && (!is_delimiter(str[*i], DELIMITER) || quote.q_closed))
-	{
-		if (is_quote(str[*i]))
-			quote.q_closed = !quote.q_closed;
-		token_content[j++] = str[(*i)++];
-	}
-	token_content[j++] = '\0';
+	copy_token_content(token_content, str, i);
 	new_token = create_token(token_content, token_type);
 	add_token(head, new_token);
 }
-
+//echo "$USER" '$USER' "  adasd '  hehe "
 //count len between quotes including quotes
-int	count_quotes(char *str, int *index)
+int	count_quotes(char *str, int *i)
 {
 	int		len;
 	char	quote;
 
 	len = 0;
-	quote = str[*index];
-	while (str[*index] != quote)
+	quote = str[*i];
+	while (str[*i] != quote)
 	{
 		len++;
-		(*index)++;
+		(*i)++;
 	}
 	len++;
 	return (len);

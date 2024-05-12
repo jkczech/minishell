@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 16:00:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 12:14:46 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 22:50:23 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ int	token_len(char *str, int i, const char *delim)
 	t_quote	quote;
 	int		len;
 
-	quote.q_closed = true;
+	quote.in_quotes = true;
 	quote.type = 0;
 	len = 0;
-	while (str[i] && (!is_delimiter(str[i], delim) || !quote.q_closed))
+	while (str[i] && (!is_delimiter(str[i], delim) || !quote.in_quotes))
 	{
-		if (is_quote(str[i]) && quote.q_closed)
+		if (is_quote(str[i]) && quote.in_quotes)
 		{
 			quote.type = str[i];
-			quote.q_closed = false;
+			quote.in_quotes = false;
 		}
-		else if (str[i] == quote.type && !quote.q_closed)
+		else if (str[i] == quote.type && !quote.in_quotes)
 		{
-			quote.q_closed = true;
+			quote.in_quotes = true;
 			quote.type = 0;
 		}
 		len++;
