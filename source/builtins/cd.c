@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:35:34 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/12 12:39:54 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 15:50:13 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ void	cd_home(t_shell *shell)
 
 void	cd_command(t_shell *shell, t_cmd *cmd)
 {
-	char	*cwd;
-	char	*path;
-	char	*new_path;
-
+	if(cmd->args[1] && cmd->args[2])
+	{
+		ft_putstr_fd("MiNiSHell: cd: too many arguments\n", 2);
+		shell->exitcode = 1;
+		return ;
+	}
 	if (cmd->args[1] == NULL)
 		cd_home(shell);
 	else if (ft_strncmp(cmd->args[1], "..", 2) == 0)
@@ -67,16 +69,6 @@ void	cd_command(t_shell *shell, t_cmd *cmd)
 		cd_oldpwd(shell);
 	else if (cmd->args[1])
 		cd_forward(shell, cmd->args[1]);
-	else
-	{
-		cwd = getcwd(NULL, 0);
-		path = ft_strjoin(cwd, "/");
-		new_path = ft_strjoin(path, cmd->args[1]);
-		cd_forward(shell, new_path);
-		free(cwd);
-		free(path);
-		free(new_path);
-	}
 	update_pwd_n_oldpwd(shell);
 }
 

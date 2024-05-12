@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:15:35 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 14:21:46 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 15:55:21 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,6 @@ void	free_env_var(t_env *env)
 	free(env->var);
 	free(env->value);
 	free(env);
-}
-
-//find env var
-t_env	*find_env_var(t_shell *shell, char *var)
-{
-	t_list	*tmp;
-	int		len;
-
-	tmp = shell->env_list;
-	len = strlen_before_char(var, '=');
-	while (tmp)
-	{
-		if (ft_strncmp(((t_env *)tmp->content)->var, var, len) == 0)
-			return ((t_env *)tmp->content);
-		tmp = tmp->next;
-	}
-	return (NULL);
 }
 
 //delete env var
@@ -63,7 +46,7 @@ void	delete_env_var(t_shell *shell, char *var)
 }
 
 // Unset command
-void	unset_command(t_shell *shell, t_cmd *cmd)
+void	unset(t_shell *shell, char *args)
 {
 	int			len;
 	t_list		*prev;
@@ -71,14 +54,14 @@ void	unset_command(t_shell *shell, t_cmd *cmd)
 
 	prev = NULL;
 	curr = shell->env_list;
-	if (cmd->args[1] == NULL)
-		return ;
+	/* if (cmd->args[1] == NULL)
+		return ; */
 	while (curr != NULL)
 	{
-		len = strlen_before_char(cmd->args[1], '=');
-		if (ft_strncmp(((t_env *)curr->content)->var, cmd->args[1], len) == 0)
+		len = strlen_before_char(args, '=');
+		if (ft_strncmp(((t_env *)curr->content)->var, args, len) == 0)
 		{
-			delete_env_var(shell, cmd->args[1]);
+			delete_env_var(shell, args);
 			if (prev == NULL)
 				shell->env_list = curr->next;
 			else
@@ -91,6 +74,19 @@ void	unset_command(t_shell *shell, t_cmd *cmd)
 	}
 	shell->exitcode = 0;
 }
+
+void   unset_command(t_shell *shell, t_cmd *cmd)
+{
+	int i;
+
+	i = 1;
+	while (cmd->args[i])
+	{
+		unset(shell, cmd->args[i]);
+		i++;
+	}
+}
+
 	// Variable not found
 	// Add logic to handle the case where the variable isn't found
 	// variable still in export list with last command 
