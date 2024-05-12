@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 11:01:04 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 13:40:52 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ void	minishell(t_shell *shell)
 	/* 	if (!read_line(shell))
 			break ; */
 		if (isatty(fileno(stdin)))
+		{
 			shell->input = readline(PROMPT);
+			if(!shell->input)
+				exit_ctrl_d(shell);
+		}
 		else
 		{
 			line = get_next_line(fileno(stdin));
@@ -46,15 +50,14 @@ void	minishell(t_shell *shell)
 		free_iter(shell);
 	}
 }
+//exit if ctrl+d
+void	exit_ctrl_d(t_shell *shell)
+{
+		printf("exit\n");
+		free_shell(shell);
+		exit(shell->exitcode);
+}
 
-//not sure in which cases this was necessary - for norm I deleted it
-//it was after parse()
-//
-// if (shell->size == 1 && !shell->cmds[0].path && !is_builtin(shell, 0))
-// {
-// 	free_iter(shell);
-// 	continue ;
-// }
 bool	read_line(t_shell *shell)
 {
 	shell->input = readline(PROMPT);

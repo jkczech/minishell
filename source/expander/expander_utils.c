@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/11 12:02:59 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 13:38:50 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*expand_vars(t_shell *shell, char *substr)
 		res = copy_until_dollar(res, substr, &i);
 		if (substr[i] == '$' && substr[i + 1] == '?')
 		{
-			res = ft_strjoin_free(res, ft_strdup(ft_itoa(shell->exitcode)));
+			res = ft_strjoin_free(res, ft_itoa(shell->exitcode));
 			i += 2;
 		}
 		else if (substr[i] == '$' && !substr[i + 1])
