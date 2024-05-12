@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 18:35:05 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/11 18:57:45 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:02:22 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,34 @@ void	print_two_d(char **arr)
 		printf("%s\n", arr[i]);
 		i++;
 	}
+}
+
+//update env var SHLVL
+void	update_shell_lvl(t_shell *shell)
+{
+	char	*env;
+	char	*lvl;
+	int		lvl_int;
+
+	env = get_env_var(shell, "SHLVL");
+	if (!env)
+		return ;
+	lvl_int = ft_atoi(env);
+	if (lvl_int < 0)
+		lvl_int = 0;
+	lvl_int++;
+	lvl = ft_itoa(lvl_int);
+	if (!lvl)
+		return ;
+	set_env_var(shell, "SHLVL", lvl);
+	free(lvl);
+}
+
+//update env var _
+void	update_shell_(t_shell *shell)
+{
+	char	*env;
+
+	env = get_env_var(shell, "_");
+	set_env_var(shell, "_", "/usr/bin/env");
 }

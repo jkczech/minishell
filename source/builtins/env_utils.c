@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:21:18 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/12 15:57:32 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 20:16:50 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,9 @@ char	**envp_list_into_char(t_list *env_list)
 	{
 		envp[i] = ft_strjoin3(((t_env *)env_list->content)->var, "=",
 				((t_env *)env_list->content)->value);
-		if (!envp[i])
+		if (!envp[i++])
 			return (NULL);
 		env_list = env_list->next;
-		i++;
 	}
 	envp[i] = NULL;
 	return (envp);
