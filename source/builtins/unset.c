@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:15:35 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 13:27:12 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:21:46 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	delete_env_var(t_shell *shell, char *var)
 	{
 		if (ft_strncmp(((t_env *)curr->content)->var, var, len) == 0)
 		{
+			free_env_var(((t_env *)curr->content));
 			if (prev == NULL)
 				shell->env_list = curr->next;
 			else
 				prev->next = curr->next;
-			free_env_var(((t_env *)curr->content));
 			return ;
 		}
 		prev = curr;
@@ -83,7 +83,7 @@ void	unset_command(t_shell *shell, t_cmd *cmd)
 				shell->env_list = curr->next;
 			else
 				prev->next = curr->next;
-			//free_env_var(((t_env *)curr->content));
+			free(curr);
 			return ;
 		}
 		prev = curr;
