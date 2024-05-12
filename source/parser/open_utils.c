@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/08 15:42:15 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 12:06:57 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i)
 	cmd->input = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (cmd->input < 0)
 		return (error_msg(shell, file));
-	heredoc(cmd->input, delimiter);
+	heredoc(shell, cmd->input, delimiter);
 	close(cmd->input);
 	cmd->input = open(file, O_RDONLY);
 	if (cmd->input < 0)
@@ -60,10 +60,11 @@ void	open_append(t_shell *shell, t_cmd *cmd, char *file)
 		error_msg(shell, file);
 }
 
-void	heredoc(int fd, char *delimiter)
+void	heredoc(t_shell *shell, int fd, char *delimiter)
 {
 	char	*buf;
 
+	mode(shell, HEREDOC);
 	while (1)
 	{
 		write(1, "minishell heredoc> ", 19);
@@ -84,5 +85,6 @@ void	heredoc(int fd, char *delimiter)
 		write(fd, "\n", 1);
 		free(buf);
 	}
+	mode(shell, EMPTY);
 	free(buf);
 }
