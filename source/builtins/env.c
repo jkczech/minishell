@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/11 18:40:41 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 20:01:41 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_list	*ft_envnew_l(void *content)
 	return (list);
 }
 
-//Init the environment variables
+//init the environment variables
 bool	envp_into_list(char **envp, t_list **env_list)
 {
 	int		i;

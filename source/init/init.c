@@ -6,28 +6,11 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 16:07:14 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 20:07:23 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/* typedef struct s_shell
-{
-	t_list			*env_list;
-	char			**envp;
-	char			**paths;
-	int				exitcode;
-	char			*input;
-	char			*norm_input;
-	int				size;
-	t_token			**tokens;
-	t_cmd			*cmds;
-	int				**pipes;
-	int				*child_pids;
-	bool			heredoc; //
-	//int				hd_i;
-}	t_shell; */
 
 //init all the shell variables
 bool	init_shell(t_shell *shell, char **envp)
@@ -104,8 +87,6 @@ void	init_iter(t_shell *shell)
 	if (shell->envp)
 		free_array(shell->envp);
 	shell->envp = envp_list_into_char(shell->env_list);
-	free_array(shell->paths);
-	init_path(shell);
 }
 
 //duplicates envp array
