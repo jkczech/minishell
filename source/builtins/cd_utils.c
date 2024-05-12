@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:02:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 15:35:29 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 17:16:35 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	set_env_var(t_shell *shell, char *var, char *value)
 	{
 		if (ft_strncmp(((t_env *)tmp->content)->var, var, len) == 0)
 		{
+			if (((t_env *)tmp->content)->value)
+				free(((t_env *)tmp->content)->value);
 			((t_env *)tmp->content)->value = ft_strdup(value);
 			if (!((t_env *)tmp->content)->value)
 				((t_env *)tmp->content)->value = NULL;
@@ -40,10 +42,7 @@ void	cd_oldpwd(t_shell *shell)
 
 	oldpwd = get_env_var(shell, "OLDPWD");
 	if (oldpwd)
-	{
 		chdir(oldpwd);
-		free(oldpwd);
-	}
 }
 
 void	add_oldpwd_to_env(t_shell *shell)
@@ -69,16 +68,13 @@ void	update_pwd_n_oldpwd(t_shell *shell)
 	oldpwd = get_env_var(shell, "PWD");
 	if (!is_var(shell, "PWD"))
 		add_pwd_to_env(shell);
+	if (oldpwd)
+		set_env_var(shell, "OLDPWD", oldpwd);
+	else if (!oldpwd)
+		set_env_var(shell, "OLDPWD", 0);
 	if (pwd)
 	{
 		set_env_var(shell, "PWD", pwd);
 		free(pwd);
 	}
-	if (oldpwd)
-	{
-		set_env_var(shell, "OLDPWD", oldpwd);
-		free(oldpwd);
-	}
-	if (!oldpwd)
-		set_env_var(shell, "OLDPWD", 0);
 }

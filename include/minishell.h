@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 14:25:31 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:51:32 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ bool	is_valid_var(char *var);
 //unset.c
 void	free_env_var(t_env *env);
 void	unset_command(t_shell *shell, t_cmd *cmd);
+void	delete_env_var(t_shell *shell, char *var);
 
 //cd.c
 void	cd_forward(t_shell *shell, char *path);

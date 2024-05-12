@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:15:35 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 15:55:21 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:35:51 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	unset(t_shell *shell, char *args)
 
 	prev = NULL;
 	curr = shell->env_list;
-	/* if (cmd->args[1] == NULL)
-		return ; */
 	while (curr != NULL)
 	{
 		len = strlen_before_char(args, '=');
@@ -80,8 +78,15 @@ void   unset_command(t_shell *shell, t_cmd *cmd)
 	int i;
 
 	i = 1;
+	if (cmd->args[1] == NULL)
+		return ;
 	while (cmd->args[i])
 	{
+		if(ft_strncmp(cmd->args[i], "_", 1) == 0)
+		{
+			i++;
+			continue ;
+		}
 		unset(shell, cmd->args[i]);
 		i++;
 	}
