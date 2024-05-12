@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/12 13:38:50 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 17:18:53 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	handle_vars(t_shell *shell, char *substr, int *i, char **res)
 		*res = ft_strjoin_free(*res, get_env_value(shell, tmp));
 		free(tmp);
 	}
+	else if (!is_var(shell, var + 1))
+		free(var);
 	*i += var_len(substr + *i);
 }
 
