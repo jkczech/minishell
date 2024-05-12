@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 12:21:40 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:26:31 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	process_character(char *str, char *result, int *i, int *j)
 	}
 	if (((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
 				&& (is_sep(str[*j]) && !is_sep(str[*j - 1])))
-			&& str[*j - 1] != ' ') || (*j == 0 && is_sep(str[*j])
+				&& str[*j - 1] != ' ') || (*j == 0 && is_sep(str[*j])
 			&& !is_sep(str[0])))
 		result[(*i)++] = ' ';
 	if (str[*j] != '\0')

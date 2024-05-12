@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/11 16:39:56 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:25:41 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	child(t_shell *shell, int i, int input, int output)
 		builtin_handler(shell, i);
 		exit(shell->exitcode);
 	}
+	mode(shell, CHILD);
 	if (!shell->cmds[i].path)
 		free_iter(shell);
 	else if (execve(shell->cmds[i].path,

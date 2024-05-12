@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/10 16:21:04 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 12:29:19 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,22 @@ bool	check_input(t_shell *shell)
 		return (false);
 	if (!check_parse_errors(shell))
 		return (false);
+	if (!check_empty_input(shell->norm_input))
+		return (false);
 	return (true);
+}
+
+//checks if the input is empty
+bool	check_empty_input(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isspace(str[i]))
+			return (true);
+		i++;
+	}
+	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/11 18:37:01 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:25:31 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include <readline/history.h>
 # include <limits.h>
 # include <signal.h>	//signal
+# include <sys/ioctl.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////DEFINES/////////////////////////////////////////
@@ -54,11 +55,18 @@
 # define QUESTION_MARK 3
 # define DOLLAR_SIGN 4
 
+# define EMPTY 0
+# define WRITTEN 1
+# define CHILD 2
+# define HEREDOC 3
+
 //error messages
 # define ERR_ARG_1 	"Error: Wrong number of arguments\n"
 # define ERR_ARG_2 	"Error: Not enough arguments\n"
 # define ERR_IN 	"Error: infile undefined\n"
 # define ERR_OUT	"Error: outfile undefined\n"
+
+extern int			g_sig;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////STRUCTS/////////////////////////////////////////
@@ -108,6 +116,7 @@ typedef struct s_shell
 	int				**pipes;
 	int				*child_pids;
 	int				hd_i;
+	int				mode;
 }	t_shell;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -260,6 +269,7 @@ bool	is_sep(char c);
 bool	double_sep(char *str, int i);
 bool	quotes_checker(char *str);
 bool	check_input(t_shell *shell);
+bool	check_empty_input(char *str);
 
 //lexing.c
 int		count_chars(char *str);
@@ -306,7 +316,7 @@ void	open_input(t_shell *shell, t_cmd *cmd, char *file);
 void	open_output(t_shell *shell, t_cmd *cmd, char *file);
 void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i);
 void	open_append(t_shell *shell, t_cmd *cmd, char *file);
-void	heredoc(int fd, char *delimiter);
+void	heredoc(t_shell *shell, int fd, char *delimiter);
 
 //parse.c
 bool	parse(t_shell *shell);
@@ -324,15 +334,15 @@ void	add_null_pipe(t_token **head, t_token *token, char *content);
 //tokenizing.c
 void	process_token(char *str, int *index, int token_type, t_token **head);
 char	*allocate_token_content(char *str, int *index);
-int		what_token(char *str, int index);
 int		is_delimiter(char c, const char *delim);
 
 ///////////////////////////////SIGNALS//////////////////////////////////////////
 
 //signals.c currently in main.c
-void	set_signals(void);
+void	set_signals(t_shell *shell);
 void	signal_handler(int signum);
-void	check_g_sig(t_shell *shell);
+void	heredoc_signal(int status);
+void	mode(t_shell *shell, int mode);
 
 ////////////////////////////////UTILS///////////////////////////////////////////
 

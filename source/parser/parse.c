@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:44:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/10 17:01:14 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 13:38:56 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ bool	parse(t_shell *shell)
 	get_tokens(shell);
 	get_size(shell);
 	expander(shell);
-	//quote_token(shell);
 	if (!init_cmds(shell))
 		return (false);
 	get_commands(shell);
