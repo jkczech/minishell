@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 13:39:05 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 15:20:09 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ void	process_character(char *str, char *result, int *i, int *j)
 		process_char_quotes(str, result, i, j);
 	if (str[*j] && (str[*j] == ' ' || str[*j] == '\t'))
 	{
-		while (str[*j] && ((str[*j] == ' ' && str[*j + 1] == ' ') || (str[*j] == '\t')))
+		while (str[*j] && ((str[*j] == ' ' && str[*j + 1] == ' ') || \
+			(str[*j] == '\t')))
 		{
-			if(str[*j] == '\t')
+			if (str[*j] == '\t')
 				result[(*i)++] = ' ';
 			(*j)++;
 		}

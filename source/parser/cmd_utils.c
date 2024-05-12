@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakob <jakob@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/17 14:33:22 by jakob            ###   ########.fr       */
+/*   Updated: 2024/05/12 15:18:58 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ bool	is_command(char *command)
 {
 	if (!command)
 		return (false);
-	if (access(command, F_OK) == 0 && ft_strncmp(command, "/", 1) == 0)
+	if (access(command, F_OK) == 0)
 		return (true);
 	return (false);
 }

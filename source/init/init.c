@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/11 19:41:37 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 15:09:34 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 bool	init_shell(t_shell *shell, char **envp)
 {
 	shell->env_list = NULL;
-	shell->envp = envp;
+	shell->envp = ft_strdup_array(envp);
 	shell->env_list = NULL;
 	envp_into_list(envp, &shell->env_list);
 	shell->paths = NULL;
@@ -52,7 +52,10 @@ bool	init_path(t_shell *shell)
 
 	path = get_path(shell);
 	if (!path)
-		return (false);
+	{
+		shell->paths = NULL;
+		return (true);
+	}
 	shell->paths = ft_split(path, ':');
 	if (path)
 		free(path);
@@ -98,4 +101,28 @@ void	init_iter(t_shell *shell)
 	shell->pipes = NULL;
 	shell->child_pids = NULL;
 	shell->hd_i = 0;
+}
+
+//duplicates envp array
+char	**ft_strdup_array(char **array)
+{
+	int		i;
+	char	**res;
+
+	i = 0;
+	while (array[i])
+		i++;
+	res = malloc(sizeof(char *) * (i + 1));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (array[i])
+	{
+		res[i] = ft_strdup(array[i]);
+		if (!res[i])
+			return (NULL);
+		i++;
+	}
+	res[i] = NULL;
+	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 12:21:17 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 15:25:19 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,7 @@ bool	init_shell(t_shell *shell, char **envp);
 bool	init_path(t_shell *shell);
 bool	init_cmds(t_shell *shell);
 void	init_iter(t_shell *shell);
+char	**ft_strdup_array(char **array);
 
 ////////////////////////////////LEXER///////////////////////////////////////////
 
@@ -352,6 +353,7 @@ void	destroy_token(t_token *token);
 void	add_token(t_token **head, t_token *new_token);
 void	remove_token(t_token **head, t_token *token);
 void	free_tokens(t_token *tokens);
+int		t_list_size(t_list *list);
 
 //print.c
 void	print_tokens(t_token *tokens);

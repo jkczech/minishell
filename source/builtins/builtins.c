@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 20:59:53 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 15:07:11 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_path(t_shell *shell)
 	char	*path;
 
 	i = 0;
-	while (shell->envp[i])
+	while (shell->envp && shell->envp[i])
 	{
 		if (ft_strncmp(shell->envp[i], "PATH=", 5) == 0)
 		{

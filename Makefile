@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/09 11:46:51 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/05/12 15:25:36 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SIGNALS = signals/signals.c
 
 UTILS = utils/general_utils.c \
 		utils/tlist.c \
+		utils/tlist2.c \
 		utils/print.c \
 		utils/print2.c \
 
