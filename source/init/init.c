@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 15:09:34 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 16:07:14 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ void	init_iter(t_shell *shell)
 	shell->pipes = NULL;
 	shell->child_pids = NULL;
 	shell->hd_i = 0;
+	if (shell->envp)
+		free_array(shell->envp);
+	shell->envp = envp_list_into_char(shell->env_list);
+	free_array(shell->paths);
+	init_path(shell);
 }
 
 //duplicates envp array

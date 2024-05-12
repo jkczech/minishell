@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 15:25:19 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 15:57:27 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,10 @@ bool	init_path(t_shell *shell);
 bool	init_cmds(t_shell *shell);
 void	init_iter(t_shell *shell);
 char	**ft_strdup_array(char **array);
+
+//init_utils.c
+char	**copy_array(char **arr);
+void	print_two_d(char **arr);
 
 ////////////////////////////////LEXER///////////////////////////////////////////
 

@@ -6,7 +6,7 @@
 #    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/12 15:25:36 by jkoupy           ###   ########.fr        #
+#    Updated: 2024/05/12 15:56:44 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ EXPANDER =	expander/expander.c \
 			expander/expander_utils2.c
 		
 
-INIT = init/init.c
+INIT =	init/init.c \
+		init/init_utils.c
 
 LEXER =	lexer/check_error.c \
 		lexer/check_input.c \

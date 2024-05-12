@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 15:19:32 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 16:06:38 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,6 @@ void	minishell(t_shell *shell)
 			shell->exitcode = 130;
 		if (!shell->input)
 			exit_command(shell, NULL);
-		free_array(shell->envp);
-		shell->envp = envp_list_into_char(shell->env_list);
-		free_array(shell->paths);
-		init_path(shell);
 		if (check_input(shell) && parse(shell))
 			execute(shell);
 		add_history(shell->input);

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 15:20:09 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 16:05:45 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	count_chars(char *str)
 	count = 0;
 	while (str && str[i])
 	{
-		while ((str[i] == ' ' || str[i] == '\t'))
+		while (str[i + 1] && (str[i] == ' ' || str[i] == '\t'))
 			i++;
 		if (str[i] != ' ' || str[i] != '\t')
 			count++;
@@ -73,8 +73,8 @@ void	process_character(char *str, char *result, int *i, int *j)
 		process_char_quotes(str, result, i, j);
 	if (str[*j] && (str[*j] == ' ' || str[*j] == '\t'))
 	{
-		while (str[*j] && ((str[*j] == ' ' && str[*j + 1] == ' ') || \
-			(str[*j] == '\t')))
+		while (str[*j] && ((str[*j] == ' ' && str[*j + 1] == ' ')
+				|| (str[*j] == '\t')))
 		{
 			if (str[*j] == '\t')
 				result[(*i)++] = ' ';
@@ -83,7 +83,8 @@ void	process_character(char *str, char *result, int *i, int *j)
 	}
 	if (((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
 				&& (is_sep(str[*j]) && !is_sep(str[*j - 1])))
-			&& str[*j - 1] != ' ') || (*j == 0 && is_sep(str[*j])))
+			&& str[*j - 1] != ' ') || (*j == 0 && is_sep(str[*j])
+			&& !is_sep(str[0])))
 		result[(*i)++] = ' ';
 	if (str[*j] != '\0')
 		result[(*i)++] = str[(*j)++];

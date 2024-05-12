@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:02:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/09 20:29:46 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:14:41 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ void	update_pwd_n_oldpwd(t_shell *shell)
 	oldpwd = get_env_var(shell, "PWD");
 	if (!is_var(shell, "PWD"))
 		add_pwd_to_env(shell);
+	if (pwd)
+	{
+		set_env_var(shell, "PWD", pwd);
+		free(pwd);
+	}
 	if (oldpwd)
 	{
 		set_env_var(shell, "OLDPWD", oldpwd);
@@ -76,9 +81,4 @@ void	update_pwd_n_oldpwd(t_shell *shell)
 	}
 	if (!oldpwd)
 		set_env_var(shell, "OLDPWD", 0);
-	if (pwd)
-	{
-		set_env_var(shell, "PWD", pwd);
-		free(pwd);
-	}
 }
