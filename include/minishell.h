@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 23:27:18 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:51:41 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,9 +237,9 @@ bool	is_var(t_shell *shell, char *str);
 bool	is_possible_var(char *str);
 char	*get_env_value(t_shell *shell, char *str);
 bool	is_var(t_shell *shell, char *str);
-char	*expand_q_substr(t_shell *shell, char *substr);
+char	*expand_q_substr(t_shell *shell, char *substr, bool last);
 char	*copy_until_dollar(char *res, char *substr, int *i);
-char	*expand_vars(t_shell *shell, char *substr);
+char	*expand_vars(t_shell *shell, char *substr, bool last);
 //////////////////////////////////INIT//////////////////////////////////////////
 
 //init.c
