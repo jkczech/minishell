@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/11 18:31:52 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 20:02:19 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	free_shell(t_shell *shell)
 	i = 0;
 	if (shell->env_list)
 		ft_free_list(shell->env_list);
+	if (shell->envp)
+		free_array(shell->envp);
 	if (shell->paths)
 	{
 		while (shell->paths[i])
