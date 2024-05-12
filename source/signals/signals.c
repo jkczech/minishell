@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:24 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 12:21:09 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 12:29:58 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	heredoc_signal(int status)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		g_sig = 1;
-
 	}
 }
 
