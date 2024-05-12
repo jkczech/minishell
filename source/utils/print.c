@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:08:40 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 13:44:40 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 15:09:33 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ void	print_env_list(t_list *env_list)
 	var = NULL;
 	value = NULL;
 	flag = 0;
-		int i = 0;
 	while (env_list)
 	{
-		i++;
 		var = ((t_env *)env_list->content)->var;
 		value = ((t_env *)env_list->content)->value;
 		flag = ((t_env *)env_list->content)->flag;
@@ -74,7 +72,6 @@ void	print_env_list(t_list *env_list)
 			printf("%s=%s\n", var, value);
 		env_list = env_list->next;
 	}
-	printf("i: %d\n", i);
 }
 
 //print export_list

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 20:07:23 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 20:18:16 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ bool	init_shell(t_shell *shell, char **envp)
 	shell->envp = ft_strdup_array(envp);
 	shell->env_list = NULL;
 	envp_into_list(envp, &shell->env_list);
+	update_shell_lvl(shell);
+	update_shell_(shell);
 	shell->paths = NULL;
 	init_path(shell);
 	if (!shell->paths)

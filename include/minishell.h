@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 15:57:27 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 20:16:37 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ bool	is_valid_var(char *var);
 //unset.c
 void	free_env_var(t_env *env);
 void	unset_command(t_shell *shell, t_cmd *cmd);
+void	delete_env_var(t_shell *shell, char *var);
 
 //cd.c
 void	cd_forward(t_shell *shell, char *path);
@@ -250,6 +251,8 @@ char	**ft_strdup_array(char **array);
 //init_utils.c
 char	**copy_array(char **arr);
 void	print_two_d(char **arr);
+void	update_shell_lvl(t_shell *shell);
+void	update_shell_(t_shell *shell);
 
 ////////////////////////////////LEXER///////////////////////////////////////////
 
