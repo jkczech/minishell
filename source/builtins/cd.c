@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:35:34 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/12 17:28:29 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:00:47 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	cd_home(t_shell *shell)
 
 void	cd_command(t_shell *shell, t_cmd *cmd)
 {
-	if(cmd->args[1] && cmd->args[2])
+	if (cmd->args[1] && cmd->args[2])
 	{
 		ft_putstr_fd("MiNiSHell: cd: too many arguments\n", 2);
 		shell->exitcode = 1;

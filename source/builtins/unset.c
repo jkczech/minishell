@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:15:35 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 16:35:51 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:01:48 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,16 @@ void	unset(t_shell *shell, char *args)
 	shell->exitcode = 0;
 }
 
-void   unset_command(t_shell *shell, t_cmd *cmd)
+void	unset_command(t_shell *shell, t_cmd *cmd)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (cmd->args[1] == NULL)
 		return ;
 	while (cmd->args[i])
 	{
-		if(ft_strncmp(cmd->args[i], "_", 1) == 0)
+		if (ft_strncmp(cmd->args[i], "_", 1) == 0)
 		{
 			i++;
 			continue ;

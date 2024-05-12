@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 18:35:05 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 17:56:40 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:02:22 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	update_shell_lvl(t_shell *shell)
 	if (!env)
 		return ;
 	lvl_int = ft_atoi(env);
-	if(lvl_int < 0)
+	if (lvl_int < 0)
 		lvl_int = 0;
 	lvl_int++;
 	lvl = ft_itoa(lvl_int);

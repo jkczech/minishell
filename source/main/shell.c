@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 14:26:39 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:03:53 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@ void	minishell(t_shell *shell)
 		free_iter(shell);
 	}
 }
+
 //exit if ctrl+d
 void	exit_ctrl_d(t_shell *shell)
 {
-		printf("exit\n");
-		free_shell(shell);
-		exit(shell->exitcode);
+	printf("exit\n");
+	free_shell(shell);
+	exit(shell->exitcode);
 }
 
 bool	read_line(t_shell *shell)
