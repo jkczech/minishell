@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 03:21:00 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/22 12:23:14 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 21:35:47 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ bool	check_parse_errors(t_shell *shell)
 		error = "syntax error near unexpected token `>'\n";
 	else if (ends_with_redir(shell->norm_input))
 		error = "syntax error near unexpected token `newline'\n";
+	else if (check_for(shell->norm_input, ">>>", "<<<", "|||"))
+		error = "syntax error near unexpected symbol\n";
 	if (error)
 	{
 		ft_putstr_fd(ERR_PROMPT, STDERR_FILENO);
 		ft_putstr_fd(error, STDERR_FILENO);
 		shell->exitcode = 2;
-		return (false);
 	}
-	return (true);
+	return (error == NULL);
 }
 //the NULLS were previously "| >" and "| <" but those are possible
 
