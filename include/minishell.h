@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 23:51:41 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:39:12 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,8 @@ int		strlen_before_char(char *str, char c);
 
 //export_utils.c
 bool	is_valid_var(char *var);
+void	export_error_minus(t_shell *shell, char c);
+void	export_error(t_shell *shell, char *arg);
 
 //unset.c
 void	free_env_var(t_env *env);

@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:46:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/11 20:30:36 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:59:51 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	cmd_not_found(t_shell *shell, int i)
 
 void	cd_error(t_shell *shell, char *path)
 {
-	ft_putstr_fd("cd: ", 2);
+	ft_putstr_fd("MiNiSHell: cd: ", 2);
 	ft_putstr_fd(path, 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
 	shell->exitcode = 1;
