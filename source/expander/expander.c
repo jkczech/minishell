@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 23:54:13 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:24:55 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ char	*expand_token(t_shell *shell, char *str)
 	{
 		len = q_substr_len(str, i);
 		q_substr = ft_substr(str, i, len);
-		expanded = expand_q_substr(shell, q_substr, (int)ft_strlen(str + i) == len);
+		expanded = expand_q_substr(shell, q_substr, \
+		(int)ft_strlen(str + i) == len);
 		if (!expanded || !q_substr)
 			return (NULL);
 		if (expanded[0] == '\'' || expanded[0] == '\"')

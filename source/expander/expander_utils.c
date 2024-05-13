@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/13 00:20:43 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:23:45 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	*expand_vars(t_shell *shell, char *substr, bool last)
 	while (substr && substr[i])
 	{
 		res = copy_until_dollar(res, substr, &i);
-		//printf("substr[i] = %s\n", substr);
 		if (substr[i] == '$' && substr[i + 1] == '?')
 		{
 			res = ft_strjoin_free(res, ft_itoa(shell->exitcode));

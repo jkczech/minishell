@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:42:17 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 23:27:14 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:27:20 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,6 @@ void	process_token(char *str, int *i, int token_type, t_token **head)
 	copy_token_content(token_content, str, i);
 	new_token = create_token(token_content, token_type);
 	add_token(head, new_token);
-}
-//echo "$USER" '$USER' "  adasd '  hehe "
-//count len between quotes including quotes
-int	count_quotes(char *str, int *i)
-{
-	int		len;
-	char	quote;
-
-	len = 0;
-	quote = str[*i];
-	while (str[*i] != quote)
-	{
-		len++;
-		(*i)++;
-	}
-	len++;
-	return (len);
 }
 
 char	*allocate_token_content(char *str, int *index)
