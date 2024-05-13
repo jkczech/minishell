@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/12 20:18:03 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:23:45 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //expand variables in a substring (already dealt with quotes)
 //finds all variables starting with $ and expands them if they exist
 //adds all the skipped characters to the new string
-char	*expand_vars(t_shell *shell, char *substr)
+char	*expand_vars(t_shell *shell, char *substr, bool last)
 {
 	int		i;
 	char	*res;
@@ -30,7 +30,7 @@ char	*expand_vars(t_shell *shell, char *substr)
 			res = ft_strjoin_free(res, ft_itoa(shell->exitcode));
 			i += 2;
 		}
-		else if (substr[i] == '$' && !substr[i + 1])
+		else if (substr[i] == '$' && !substr[i + 1] && last)
 		{
 			res = ft_strjoin_free(res, ft_strdup("$"));
 			i++;
@@ -53,7 +53,12 @@ void	handle_vars(t_shell *shell, char *substr, int *i, char **res)
 	if (!var)
 		return ;
 	if (!is_possible_var(var))
-		*res = ft_strjoin_free(*res, var);
+	{
+		if (ft_strlen(var) > 1)
+			*res = ft_strjoin_free(*res, var);
+	}
+	else if (!is_possible_var(var) && ft_strlen(var) == 1)
+		*res = ft_strjoin_free(*res, "$");
 	else if (is_var(shell, var + 1))
 	{
 		tmp = ft_strdup(var + 1);
@@ -93,7 +98,7 @@ bool	is_possible_var(char *str)
 	if (str[i] != '$')
 		return (false);
 	i++;
-	if (!ft_isalpha(str[i]) && str[i] != '_')
+	if (!ft_isalnum(str[i]) && str[i] != '_')
 		return (false);
 	i++;
 	while (str[i])

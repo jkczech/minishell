@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:17:20 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/10 15:32:29 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/12 22:50:06 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ char	*remove_quotes(char *str)
 	char	*new_str;
 	t_quote	quote;
 
-	init_variables(&i, &j, &quote.type, &quote.q_closed);
+	init_variables(&i, &j, &quote.type, &quote.in_quotes);
 	new_str = (char *)malloc(sizeof(char) * len_w_q(str) + 1);
 	if (!new_str)
 		return (NULL);
 	while (str && str[i])
 	{
-		determine_quote(str, &i, &quote.type, &quote.q_closed);
+		determine_quote(str, &i, &quote.type, &quote.in_quotes);
 		while (str[i] && str[i] != quote.type)
 		{
 			if (is_quote(str[i]) && !quote.type)
@@ -93,7 +93,7 @@ char	*remove_quotes(char *str)
 			}
 			new_str[j++] = str[i++];
 		}
-		refresh_quote(str, &i, &quote.type, &quote.q_closed);
+		refresh_quote(str, &i, &quote.type, &quote.in_quotes);
 	}
 	new_str[j] = '\0';
 	return (new_str);

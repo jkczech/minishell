@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 20:16:37 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:51:41 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_env
 typedef struct s_quote
 {
 	char	type;
-	bool	q_closed;
+	bool	in_quotes;
 }	t_quote;
 
 typedef struct s_shell
@@ -164,6 +164,7 @@ bool	envp_into_list(char **envp, t_list **env_list);
 int		check_env_var(char *var);
 char	**envp_list_into_char(t_list *env_list);
 void	sort_env(t_shell *shell);
+char	**handle_empty_env(void);
 
 //pwd.c
 void	pwd_command(t_shell *shell, t_cmd *cmd);
@@ -236,9 +237,9 @@ bool	is_var(t_shell *shell, char *str);
 bool	is_possible_var(char *str);
 char	*get_env_value(t_shell *shell, char *str);
 bool	is_var(t_shell *shell, char *str);
-char	*expand_q_substr(t_shell *shell, char *substr);
+char	*expand_q_substr(t_shell *shell, char *substr, bool last);
 char	*copy_until_dollar(char *res, char *substr, int *i);
-char	*expand_vars(t_shell *shell, char *substr);
+char	*expand_vars(t_shell *shell, char *substr, bool last);
 //////////////////////////////////INIT//////////////////////////////////////////
 
 //init.c
