@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 20:17:09 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:05:00 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	child(t_shell *shell, int i, int input, int output)
 	if (is_builtin(shell, i))
 	{
 		builtin_handler(shell, i);
+		free_iter(shell);
+		free_shell(shell);
 		exit(shell->exitcode);
 	}
 	mode(shell, CHILD);

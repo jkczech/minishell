@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 11:07:52 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/14 17:09:08 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,10 @@ bool	execute_simple(t_shell *shell)
 	{
 		redirect(shell, shell->cmds[0].input, shell->cmds[0].output);
 		if (execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp) == -1)
+		{
+			free_iter(shell);
 			error_msg(shell, NULL);
+		}
 		free_pipes(shell);
 		exit(1);
 	}
