@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/14 12:02:42 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 12:22:38 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,15 @@ void	handle_vars(t_shell *shell, char *substr, int *i, char **res)
 	else if (is_var(shell, var + 1))
 	{
 		tmp = ft_strdup(var + 1);
-		free(var);
+		//free(var);
 		*res = ft_strjoin_free(*res, get_env_value(shell, tmp));
 		free(tmp);
 	}
-	else if (!is_var(shell, var + 1))
-		free(var);
+	/* else if (!is_var(shell, var + 1))
+		free(var); */
 	*i += var_len(substr + *i);
+	if(var)
+		free(var);
 }
 
 //finds a variable in the environment
