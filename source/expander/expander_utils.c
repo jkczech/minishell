@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/14 20:52:28 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/14 21:39:09 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ char	*expand_vars(t_shell *shell, char *substr, bool last)
 	res = ft_strdup("");
 	while (substr && substr[i])
 	{
-		res = copy_until_dollar(res, substr, &i);
-		if (substr[i] == '$' && substr[i + 1] == '?')
+		if (ft_strlen(substr) == 3 && substr[0] == '"'
+			&& substr[1] == '$' && substr[2] == '"')
 		{
-			res = ft_strjoin_free(res, ft_itoa(shell->exitcode));
-			i += 2;
+			res = ft_strjoin_free(res, ft_strdup("$"));
+			break ;
 		}
+		res = copy_until_dollar(res, substr, &i);
+		if (expand_exitcode(shell, substr, &i, &res))
+			continue ;
 		else if (substr[i] == '$' && !substr[i + 1] && last)
 		{
 			res = ft_strjoin_free(res, ft_strdup("$"));
@@ -39,6 +42,17 @@ char	*expand_vars(t_shell *shell, char *substr, bool last)
 			handle_vars(shell, substr, &i, &res);
 	}
 	return (res);
+}
+
+bool	expand_exitcode(t_shell *shell, char *substr, int *i, char **res)
+{
+	if (substr[*i] == '$' && substr[*i + 1] == '?')
+	{
+		*res = ft_strjoin_free(*res, ft_itoa(shell->exitcode));
+		*i += 2;
+		return (true);
+	}
+	return (false);
 }
 
 //handle the dollar sign

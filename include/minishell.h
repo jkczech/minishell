@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 20:58:20 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/14 21:40:04 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,11 @@ int		q_substr_len(char *str, int i);
 void	remove_first_and_last_char(char **str);
 
 //expander_utils.c
+char	*expand_vars(t_shell *shell, char *substr, bool last);
+bool	expand_exitcode(t_shell *shell, char *substr, int *i, char **res);
 void	handle_vars(t_shell *shell, char *substr, int *i, char **res);
+bool	is_var(t_shell *shell, char *str);
+bool	is_possible_var(char *str);
 
 //expander_utils2.c
 int		var_len(char *str);
