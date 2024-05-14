@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/11 20:41:44 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:39:36 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ void	export_command(t_shell *shell, t_cmd *cmd)
 		return ;
 	while (cmd->args[i])
 	{
+		if(cmd->args[i][0] == '-')
+		{
+			export_error_minus(shell, cmd->args[i][1]);
+			i++;
+			continue ;
+		}
 		if (!is_valid_var(cmd->args[i]))
 		{
-			shell->exitcode = 1;
-			ft_putstr_fd("MiNiSHell: export: `", 2);
-			ft_putstr_fd(cmd->args[i], 2);
-			ft_putstr_fd("\': not valid identifier\n", 2);
+			export_error(shell, cmd->args[i]);
 			i++;
 			continue ;
 		}

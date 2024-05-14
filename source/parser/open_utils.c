@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 12:06:57 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/13 15:38:10 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	heredoc(t_shell *shell, int fd, char *delimiter)
 		if (ft_strlen(delimiter) == ft_strlen(buf) - 1 && \
 			ft_strncmp(delimiter, buf, ft_strlen(delimiter)) == 0)
 			break ;
+		//expand
 		write(fd, buf, ft_strlen(buf) - 1);
 		write(fd, "\n", 1);
 		free(buf);

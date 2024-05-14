@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 21:14:07 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:10:03 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ void	minishell(t_shell *shell)
 			line = get_next_line(fileno(stdin));
 			shell->input = ft_strtrim(line, "\n");
 			if (!shell->input)
-				break ;
+			{
+				break;
+				/* free_shell(shell);
+				free(line);
+				exit(0); */
+			}
 			free(line);
 		}
 		mode(shell, WRITTEN);
