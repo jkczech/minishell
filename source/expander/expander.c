@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:05 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/13 12:24:55 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:57:41 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	expander(t_shell *shell)
 	token = shell->tokens;
 	while (token)
 	{
-		if (!token->content)
+		if (!token->content || token->token == HEREDOC)
 		{
 			token = token->next;
 			continue ;

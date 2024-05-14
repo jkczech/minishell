@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/13 16:39:12 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 12:00:22 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@
 //error messages
 # define ERR_ARG_1 	"Error: Wrong number of arguments\n"
 # define ERR_ARG_2 	"Error: Not enough arguments\n"
-# define ERR_IN 	"Error: infile undefined\n"
-# define ERR_OUT	"Error: outfile undefined\n"
+# define EOF_HD "minishell: warning - file delimited by end-of-file (wanted \""
 
 extern int			g_sig;
 
@@ -323,13 +322,14 @@ void	open_input(t_shell *shell, t_cmd *cmd, char *file);
 void	open_output(t_shell *shell, t_cmd *cmd, char *file);
 void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i);
 void	open_append(t_shell *shell, t_cmd *cmd, char *file);
-void	heredoc(t_shell *shell, int fd, char *delimiter);
+void	heredoc(t_shell *shell, int fd, char *delimiter, bool expand);
 
 //parse.c
 bool	parse(t_shell *shell);
 void	get_tokens(t_shell *shell);
 void	get_size(t_shell *shell);
 void	get_commands(t_shell *shell);
+bool	quote_in_string(char *str);
 
 //tokenizing_utils.c
 int		is_delimiter(char c, const char *delim);

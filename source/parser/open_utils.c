@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/13 15:38:10 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 12:01:10 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i)
 {
 	char	*file;
 	char	*tmp;
+	bool 	expand;
 
 	if (cmd->input != STDIN_FILENO && cmd->input != -1)
 		close(cmd->input);
@@ -42,7 +43,9 @@ void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i)
 	cmd->input = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (cmd->input < 0)
 		return (error_msg(shell, file));
-	heredoc(shell, cmd->input, delimiter);
+	expand = !quote_in_string(delimiter);
+	delimiter = expand_token(shell, delimiter);
+	heredoc(shell, cmd->input, delimiter, expand);
 	close(cmd->input);
 	cmd->input = open(file, O_RDONLY);
 	if (cmd->input < 0)
@@ -60,7 +63,7 @@ void	open_append(t_shell *shell, t_cmd *cmd, char *file)
 		error_msg(shell, file);
 }
 
-void	heredoc(t_shell *shell, int fd, char *delimiter)
+void	heredoc(t_shell *shell, int fd, char *delimiter, bool expand)
 {
 	char	*buf;
 
@@ -72,8 +75,7 @@ void	heredoc(t_shell *shell, int fd, char *delimiter)
 		if (buf == NULL || *buf == '\0')
 		{
 			write(1, "\n", 1);
-			write(2, "minishell: warning - file delimited by end-of-file ", 51);
-			write(2, "(wanted \"", 9);
+			write(2, EOF_HD, 60);
 			write(2, delimiter, ft_strlen(delimiter));
 			write(2, "\")\n", 3);
 			break ;
@@ -81,7 +83,8 @@ void	heredoc(t_shell *shell, int fd, char *delimiter)
 		if (ft_strlen(delimiter) == ft_strlen(buf) - 1 && \
 			ft_strncmp(delimiter, buf, ft_strlen(delimiter)) == 0)
 			break ;
-		//expand
+		if (expand)
+			buf = expand_token(shell, buf);
 		write(fd, buf, ft_strlen(buf) - 1);
 		write(fd, "\n", 1);
 		free(buf);
