@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 12:01:10 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/14 12:34:24 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i)
 	char	*file;
 	char	*tmp;
 	bool 	expand;
+	char	*exp_del;
 
 	if (cmd->input != STDIN_FILENO && cmd->input != -1)
 		close(cmd->input);
@@ -44,8 +45,9 @@ void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i)
 	if (cmd->input < 0)
 		return (error_msg(shell, file));
 	expand = !quote_in_string(delimiter);
-	delimiter = expand_token(shell, delimiter);
-	heredoc(shell, cmd->input, delimiter, expand);
+	exp_del = expand_token(shell, delimiter);
+	heredoc(shell, cmd->input, exp_del, expand);
+	free(exp_del);
 	close(cmd->input);
 	cmd->input = open(file, O_RDONLY);
 	if (cmd->input < 0)
