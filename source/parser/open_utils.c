@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 12:34:24 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/14 12:47:31 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	open_append(t_shell *shell, t_cmd *cmd, char *file)
 void	heredoc(t_shell *shell, int fd, char *delimiter, bool expand)
 {
 	char	*buf;
+	char	*tmp;
 
 	mode(shell, HEREDOC);
 	while (1)
@@ -86,10 +87,13 @@ void	heredoc(t_shell *shell, int fd, char *delimiter, bool expand)
 			ft_strncmp(delimiter, buf, ft_strlen(delimiter)) == 0)
 			break ;
 		if (expand)
-			buf = expand_token(shell, buf);
-		write(fd, buf, ft_strlen(buf) - 1);
+			tmp = expand_token(shell, buf);
+		else
+			tmp = ft_strdup(buf);
+		write(fd, tmp, ft_strlen(tmp) - 1);
 		write(fd, "\n", 1);
 		free(buf);
+		free(tmp);
 	}
 	mode(shell, EMPTY);
 	free(buf);

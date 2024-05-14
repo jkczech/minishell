@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:35:34 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/14 11:36:48 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:10:13 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	cd_forward(t_shell *shell, char *path)
 	{
 		cwd = ft_strjoin3(tmp, "/", path);
 		if (chdir(path) == -1)
-		{
 			cd_error(shell, path);
-		}
 		free(cwd);
 	}
 	free(tmp);
@@ -38,24 +36,10 @@ void	cd_forward(t_shell *shell, char *path)
 
 void	cd_back(t_shell *shell, char *path)
 {
-	char	*tmp;
-	char	*cwd;
-	int		len;
-	
-	tmp = get_env_value(shell, "PWD");
-	if(!tmp)
-		return ;
-	cwd = ft_strjoin("..", tmp);
-	
-	len = ft_strlen(cwd);
 	if (chdir(path) == -1)
 	{
 		cd_error(shell, path);
-		if(ft_strncmp(path, cwd, len) != 0)
-			free(path);
 	}
-	free(tmp);
-	free(cwd);
 }
 
 void	cd_home(t_shell *shell)
@@ -70,6 +54,7 @@ void	cd_home(t_shell *shell)
 	}
 	else
 		cd_forward(shell, home);
+	free(home);
 }
 
 void	cd_command(t_shell *shell, t_cmd *cmd)
