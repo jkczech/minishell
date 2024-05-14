@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/13 15:34:36 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:07:52 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,20 @@ bool	create_pipes(t_shell *shell)
 bool	wait_pids(t_shell *shell)
 {
 	int	i;
+	int status;
 
 	i = 0;
 	while (i < shell->size && shell->child_pids[i] > 0)
 	{
-		waitpid(shell->child_pids[i], NULL, 0);
+		waitpid(shell->child_pids[i], &status, 0);
 		i++;
+	}
+	if (shell->cmds[i - 1].path)
+	{
+		if (WIFEXITED(status))
+			shell->exitcode = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			shell->exitcode = WTERMSIG(status) + 128;
 	}
 	return (true);
 }
@@ -97,6 +105,7 @@ bool	execute_pipeline(t_shell *shell)
 bool	execute_simple(t_shell *shell)
 {
 	int	pid;
+	int	status;
 
 	if (shell->size != 1 || !shell->cmds || !shell->cmds[0].args)
 		return (false);
@@ -117,8 +126,15 @@ bool	execute_simple(t_shell *shell)
 		exit(1);
 	}
 	else if (pid > 0)
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
 	else
 		return (false);
+	if (shell->cmds[0].path)
+	{
+		if (WIFEXITED(status))
+			shell->exitcode = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			shell->exitcode = WTERMSIG(status) + 128;
+	}
 	return (free_pipes(shell));
 }
