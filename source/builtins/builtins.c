@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:55 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 17:04:46 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/14 21:00:04 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,23 @@ char	*get_path(t_shell *shell)
 bool	builtin_handler(t_shell *shell, int i)
 {
 	t_cmd	*cmd;
+	int		out;
 
 	cmd = shell->cmds + i;
+	if (shell->size > 1)
+		out = STDOUT_FILENO;
+	else
+		out = cmd->output;
 	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
-		echo_command(shell, cmd);
+		echo_command(shell, cmd, out);
 	else if (ft_strncmp(shell->cmds[i].args[0], "exit", 5) == 0)
 		exit_command(shell, cmd);
 	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
-		env_command(shell, cmd);
+		env_command(shell, cmd, out);
 	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
-		pwd_command(shell, cmd);
+		pwd_command(shell, cmd, out);
 	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
-		export_command(shell, cmd);
+		export_command(shell, cmd, out);
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
 		unset_command(shell, cmd);
 	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)

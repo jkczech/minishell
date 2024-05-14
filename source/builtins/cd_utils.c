@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:02:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/14 16:10:12 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 21:01:25 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_env_var(t_shell *shell, char *var, char *value)
 	}
 }
 
-void unset_OLDPWD(t_shell *shell)
+/* void	unset_oldpwd(t_shell *shell)
 {
 	t_list	*prev;
 	t_list	*curr;
@@ -56,7 +56,7 @@ void unset_OLDPWD(t_shell *shell)
 		prev = curr;
 		curr = curr->next;
 	}
-}
+} */
 
 //cd old pwd
 void	cd_oldpwd(t_shell *shell)
@@ -64,7 +64,7 @@ void	cd_oldpwd(t_shell *shell)
 	char	*oldpwd;
 
 	oldpwd = get_env_var(shell, "OLDPWD");
-	if(chdir(oldpwd) == -1)
+	if (chdir(oldpwd) == -1)
 		ft_putstr_fd("cd: OLDPWD not set\n", 2);
 	if (oldpwd)
 		chdir(oldpwd);

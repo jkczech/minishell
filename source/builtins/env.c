@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:32:23 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 20:16:56 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:21:29 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ bool	envp_into_list(char **envp, t_list **env_list)
 	return (true);
 }
 
-//Prints the environment variables
+//print the environment variables
 bool	copy_envp(t_shell *shell, char **envp)
 {
 	int	i;
@@ -105,7 +105,7 @@ bool	copy_envp(t_shell *shell, char **envp)
 }
 
 //Handles the env command
-void	env_command(t_shell *shell, t_cmd *cmd)
+void	env_command(t_shell *shell, t_cmd *cmd, int out)
 {
 	if (count_args(cmd->args) > 1)
 	{
@@ -117,5 +117,5 @@ void	env_command(t_shell *shell, t_cmd *cmd)
 		shell->exitcode = 127;
 		return ;
 	}
-	print_env_list(shell->env_list);
+	print_env_list(shell->env_list, out);
 }

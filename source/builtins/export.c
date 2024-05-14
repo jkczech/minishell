@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/13 16:39:36 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 21:00:15 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	add_env_var(t_shell *shell, char *arg)
 	ft_lstadd_back(&shell->env_list, node);
 }
 
-bool	simple_export(t_shell *shell, t_cmd *cmd)
+bool	simple_export(t_shell *shell, t_cmd *cmd, int out)
 {
 	sort_env(shell);
 	if (!cmd->args[1])
 	{
-		print_export_list(shell->env_list);
+		print_export_list(shell->env_list, out);
 		shell->exitcode = 0;
 		return (true);
 	}
@@ -50,17 +50,17 @@ bool	simple_export(t_shell *shell, t_cmd *cmd)
 }
 
 //export command
-void	export_command(t_shell *shell, t_cmd *cmd)
+void	export_command(t_shell *shell, t_cmd *cmd, int out)
 {
 	int		i;
 	bool	swap;
 
 	i = 1;
-	if (simple_export(shell, cmd))
+	if (simple_export(shell, cmd, out))
 		return ;
 	while (cmd->args[i])
 	{
-		if(cmd->args[i][0] == '-')
+		if (cmd->args[i][0] == '-')
 		{
 			export_error_minus(shell, cmd->args[i][1]);
 			i++;

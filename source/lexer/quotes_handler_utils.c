@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:28:55 by jakob             #+#    #+#             */
-/*   Updated: 2024/04/17 19:00:58 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/14 20:49:35 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ void	determine_quote(char *str, int *i, char *q, bool *q_closed)
 		*q_closed = false;
 		*q = str[*i];
 		(*i)++;
+	}
+}
+
+//set quote
+void	set_quote(char c, t_quote *quote)
+{
+	if (is_quote(c) && !quote->in_quotes)
+	{
+		quote->type = c;
+		quote->in_quotes = true;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 17:09:08 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/14 20:59:25 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	create_pipes(t_shell *shell)
 bool	wait_pids(t_shell *shell)
 {
 	int	i;
-	int status;
+	int	status;
 
 	i = 0;
 	while (i < shell->size && shell->child_pids[i] > 0)
@@ -60,13 +60,7 @@ bool	wait_pids(t_shell *shell)
 		waitpid(shell->child_pids[i], &status, 0);
 		i++;
 	}
-	if (shell->cmds[i - 1].path)
-	{
-		if (WIFEXITED(status))
-			shell->exitcode = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			shell->exitcode = WTERMSIG(status) + 128;
-	}
+	handle_exitcode(shell, i - 1, status);
 	return (true);
 }
 
@@ -107,6 +101,7 @@ bool	execute_simple(t_shell *shell)
 	int	pid;
 	int	status;
 
+	status = 0;
 	if (shell->size != 1 || !shell->cmds || !shell->cmds[0].args)
 		return (false);
 	if (is_builtin(shell, 0))
@@ -118,26 +113,11 @@ bool	execute_simple(t_shell *shell)
 		exit(shell->exitcode);
 	}
 	if (pid == 0)
-	{
-		redirect(shell, shell->cmds[0].input, shell->cmds[0].output);
-		if (execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp) == -1)
-		{
-			free_iter(shell);
-			error_msg(shell, NULL);
-		}
-		free_pipes(shell);
-		exit(1);
-	}
+		simple_child(shell);
 	else if (pid > 0)
 		waitpid(pid, &status, 0);
 	else
 		return (false);
-	if (shell->cmds[0].path)
-	{
-		if (WIFEXITED(status))
-			shell->exitcode = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			shell->exitcode = WTERMSIG(status) + 128;
-	}
+	handle_exitcode(shell, 0, status);
 	return (free_pipes(shell));
 }

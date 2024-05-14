@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   open_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 11:38:07 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/14 20:16:43 by jkoupy           ###   ########.fr       */
+/*   Created: 2024/05/14 20:26:27 by jkoupy            #+#    #+#             */
+/*   Updated: 2024/05/14 20:32:54 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//Prints the current working directory
-void	pwd_command(t_shell *shell, t_cmd *cmd, int out)
+void	expand_and_write(t_shell *shell, int fd, char *buf, bool expand)
 {
-	char	*cwd;
+	char	*tmp;
 
-	(void)cmd;
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-	{
-		perror("Error");
-		shell->exitcode = 1;
-		return ;
-	}
-	ft_putstr_fd(cwd, out);
-	ft_putstr_fd("\n", out);
-	free(cwd);
-	shell->exitcode = 0;
+	if (expand)
+		tmp = expand_token(shell, buf);
+	else
+		tmp = ft_strdup(buf);
+	write(fd, tmp, ft_strlen(tmp) - 1);
+	write(fd, "\n", 1);
+	free(tmp);
 }

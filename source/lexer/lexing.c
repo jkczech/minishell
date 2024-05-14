@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 13:30:39 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:39:23 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,35 +67,32 @@ void	process_char_quotes(char *str, char *result, int *i, int *j)
 //void process_char (t_shell *shell,)
 
 //processes a character
-void	process_character(char *str, char *result, int *i, int *j)
+void	process_character(char *s, char *result, int *i, int *j)
 {
-	if (str[*j] && is_quote(str[*j]))
-		process_char_quotes(str, result, i, j);
-	if (str[*j] && (str[*j] == ' ' || str[*j] == '\t'))
+	if (s[*j] && is_quote(s[*j]))
+		process_char_quotes(s, result, i, j);
+	if (s[*j] && (s[*j] == ' ' || s[*j] == '\t'))
 	{
-		while (str[*j] && ((str[*j] == ' ' && str[*j + 1] == ' ')
-				|| (str[*j] == '\t')))
+		while (s[*j] && ((s[*j] == ' ' && s[*j + 1] == ' ')
+				|| (s[*j] == '\t')))
 		{
-			if (str[*j] == '\t')
+			if (s[(*j)++] == '\t')
 				result[(*i)++] = ' ';
-			(*j)++;
 		}
 	}
-	if(*j == 0 && (is_sep(str[*j]) && is_sep(str[*j + 1])) && !double_sep(str, *j))
+	if (*j == 0 && (is_sep(s[*j]) && is_sep(s[*j + 1])) && !double_sep(s, *j))
 	{
-		result[(*i)++] = str[(*j)++];
+		result[(*i)++] = s[(*j)++];
 		result[(*i)++] = ' ';
 	}
-	if (((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
-				&& (is_sep(str[*j]) && !is_sep(str[*j - 1])))
-			&& str[*j - 1] != ' ') || (*j == 0 && is_sep(str[*j])
-			&& !is_sep(str[0])))
+	if (((*j > 0 && s[*j - 1] != '\0' && s[*j] != '\0'
+				&& (is_sep(s[*j]) && !is_sep(s[*j - 1])))
+			&& s[*j - 1] != ' ') || (*j == 0 && is_sep(s[*j]) && !is_sep(s[0])))
 		result[(*i)++] = ' ';
-	if (str[*j] != '\0')
-		result[(*i)++] = str[(*j)++];
-	if ((*j > 0 && str[*j - 1] != '\0' && str[*j] != '\0'
-			&& (!is_sep(str[*j]) && is_sep(str[*j - 1])))
-		&& str[*j] != ' ')
+	if (s[*j] != '\0')
+		result[(*i)++] = s[(*j)++];
+	if ((*j > 0 && s[*j - 1] != '\0' && s[*j] != '\0'
+			&& (!is_sep(s[*j]) && is_sep(s[*j - 1]))) && s[*j] != ' ')
 		result[(*i)++] = ' ';
 }
 
@@ -119,5 +116,4 @@ void	norm_input(t_shell *shell)
 	while (i < len && shell->input[j])
 		process_character(shell->input, shell->norm_input, &i, &j);
 	shell->norm_input[i] = '\0';
-	//printf("Normed input: %s\n", shell->norm_input);
 }

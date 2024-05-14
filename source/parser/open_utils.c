@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 12:47:31 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:30:41 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i)
 {
 	char	*file;
 	char	*tmp;
-	bool 	expand;
+	bool	expand;
 	char	*exp_del;
 
 	if (cmd->input != STDIN_FILENO && cmd->input != -1)
@@ -68,7 +68,6 @@ void	open_append(t_shell *shell, t_cmd *cmd, char *file)
 void	heredoc(t_shell *shell, int fd, char *delimiter, bool expand)
 {
 	char	*buf;
-	char	*tmp;
 
 	mode(shell, HEREDOC);
 	while (1)
@@ -77,23 +76,17 @@ void	heredoc(t_shell *shell, int fd, char *delimiter, bool expand)
 		buf = get_next_line(STDIN_FILENO);
 		if (buf == NULL || *buf == '\0')
 		{
-			write(1, "\n", 1);
+			write(2, "\n", 1);
 			write(2, EOF_HD, 60);
 			write(2, delimiter, ft_strlen(delimiter));
-			write(2, "\")\n", 3);
+			write(2, "')\n", 3);
 			break ;
 		}
 		if (ft_strlen(delimiter) == ft_strlen(buf) - 1 && \
 			ft_strncmp(delimiter, buf, ft_strlen(delimiter)) == 0)
 			break ;
-		if (expand)
-			tmp = expand_token(shell, buf);
-		else
-			tmp = ft_strdup(buf);
-		write(fd, tmp, ft_strlen(tmp) - 1);
-		write(fd, "\n", 1);
+		expand_and_write(shell, fd, buf, expand);
 		free(buf);
-		free(tmp);
 	}
 	mode(shell, EMPTY);
 	free(buf);

@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:23 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/04/19 15:36:31 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/14 20:58:10 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,27 @@ bool	allocate_pids(t_shell *shell)
 		i++;
 	}
 	return (true);
+}
+
+void	handle_exitcode(t_shell *shell, int i, int status)
+{
+	if (shell->cmds[i].path)
+	{
+		if (WIFEXITED(status))
+			shell->exitcode = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			shell->exitcode = WTERMSIG(status) + 128;
+	}
+}
+
+void	simple_child(t_shell *shell)
+{
+	redirect(shell, shell->cmds[0].input, shell->cmds[0].output);
+	if (execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp) == -1)
+	{
+		free_iter(shell);
+		error_msg(shell, NULL);
+	}
+	free_pipes(shell);
+	exit(1);
 }

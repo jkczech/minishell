@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+         #
+#    By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/12 23:31:42 by jseidere         ###   ########.fr        #
+#    Updated: 2024/05/14 20:31:22 by jkoupy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ MAIN = 	main/free.c \
 
 PARSER = parser/cmd_utils.c \
 		 parser/open_utils.c \
+		 parser/open_utils2.c \
 		 parser/parse.c \
  		 parser/tokenizing_utils.c \
 		 parser/tokenizing.c

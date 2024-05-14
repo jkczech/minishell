@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:35:37 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/14 12:22:38 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:52:28 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,11 @@ void	handle_vars(t_shell *shell, char *substr, int *i, char **res)
 	else if (is_var(shell, var + 1))
 	{
 		tmp = ft_strdup(var + 1);
-		//free(var);
 		*res = ft_strjoin_free(*res, get_env_value(shell, tmp));
 		free(tmp);
 	}
-	/* else if (!is_var(shell, var + 1))
-		free(var); */
 	*i += var_len(substr + *i);
-	if(var)
+	if (var)
 		free(var);
 }
 

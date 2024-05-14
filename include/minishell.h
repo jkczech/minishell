@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 13:28:03 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:58:20 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,16 +148,18 @@ long	convert_exit_status(t_cmd *cmd);
 bool	check_overflow(char *str);
 
 //echo.c
-void	print_echo(t_cmd *cmd, int *i);
+void	print_echo(t_cmd *cmd, int *i, int out);
 bool	check_newline(char *str);
-void	nnl_echo(t_cmd *cmd);
-void	simple_echo(t_cmd *cmd);
-void	echo_command(t_shell *shell, t_cmd *cmd);
+void	nnl_echo(t_cmd *cmd, int out);
+void	simple_echo(t_cmd *cmd, int out);
+void	echo_command(t_shell *shell, t_cmd *cmd, int out);
 
 //env.c
+t_env	*ft_fillenv(char *str);
 t_list	*ft_envnew_l(void *content);
-void	env_command(t_shell *shell, t_cmd *cmd);
 bool	envp_into_list(char **envp, t_list **env_list);
+bool	copy_envp(t_shell *shell, char **envp);
+void	env_command(t_shell *shell, t_cmd *cmd, int out);
 
 //env_utils.c
 int		check_env_var(char *var);
@@ -166,13 +168,14 @@ void	sort_env(t_shell *shell);
 char	**handle_empty_env(void);
 
 //pwd.c
-void	pwd_command(t_shell *shell, t_cmd *cmd);
+void	pwd_command(t_shell *shell, t_cmd *cmd, int out);
 
 //export.c
 void	add_env_var(t_shell *shell, char *arg);
-void	export_command(t_shell *shell, t_cmd *cmd);
+void	export_command(t_shell *shell, t_cmd *cmd, int out);
 void	export_loop(t_shell *shell, t_cmd *cmd, int *i, bool *swap);
 int		strlen_before_char(char *str, char c);
+bool	simple_export(t_shell *shell, t_cmd *cmd, int out);
 
 //export_utils.c
 bool	is_valid_var(char *var);
@@ -212,6 +215,8 @@ void	cd_error(t_shell *shell, char *path);
 //pipex_utils.c
 void	copy_pipes(t_shell *shell);
 bool	allocate_pids(t_shell *shell);
+void	handle_exitcode(t_shell *shell, int i, int status);
+void	simple_child(t_shell *shell);
 
 //pipex.c
 bool	execute(t_shell *shell);
@@ -268,6 +273,7 @@ void	quote_token(t_shell *shell);
 bool	is_quote(char c);
 void	init_variables(int *i, int *len, char *q, bool *q_closed);
 void	determine_quote(char *str, int *i, char *q, bool *q_closed);
+void	set_quote(char c, t_quote *quote);
 void	refresh_quote(char *str, int *i, char *q, bool *q_closed);
 
 //check_input.c
@@ -291,7 +297,8 @@ void	token_count_util(char *str, int *i, int *count);
 bool	check_parse_errors(t_shell *shell);
 bool	check_for(char *input, char *str1, char *str2, char *str3);
 bool	ends_with_redir(char *input);
-void 	do_error(t_shell *shell, char *error);
+void	do_error(t_shell *shell, char *error);
+bool	compare_strs(char *input, char *str1, char *str2, char *str3);
 
 /////////////////////////////////MAIN///////////////////////////////////////////
 
@@ -324,6 +331,9 @@ void	open_output(t_shell *shell, t_cmd *cmd, char *file);
 void	open_heredoc(t_shell *shell, t_cmd *cmd, char *delimiter, int hd_i);
 void	open_append(t_shell *shell, t_cmd *cmd, char *file);
 void	heredoc(t_shell *shell, int fd, char *delimiter, bool expand);
+
+//open_utils2.c
+void	expand_and_write(t_shell *shell, int fd, char *buf, bool expand);
 
 //parse.c
 bool	parse(t_shell *shell);
@@ -369,11 +379,12 @@ int		t_list_size(t_list *list);
 //print.c
 void	print_tokens(t_token *tokens);
 void	print_list(t_token *head);
-void	print_cmds(t_shell *shell);
-void	print_env_list(t_list *env_list);
-void	print_export_list(t_list *env_list);
+void	print_env_list(t_list *env_list, int out);
+void	print_export_list(t_list *env_list, int out);
+void	print_export_var(char *var, char *value, int flag, int out);
 
 //print2.c
 void	print_cmd(t_cmd *cmd);
+void	print_cmds(t_shell *shell);
 
 #endif
