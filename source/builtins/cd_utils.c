@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:02:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/12 20:16:42 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:10:12 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,37 @@ void	set_env_var(t_shell *shell, char *var, char *value)
 	}
 }
 
+void unset_OLDPWD(t_shell *shell)
+{
+	t_list	*prev;
+	t_list	*curr;
+
+	prev = NULL;
+	curr = shell->env_list;
+	while (curr != NULL)
+	{
+		if (ft_strncmp(((t_env *)curr->content)->var, "OLDPWD", 6) == 0)
+		{
+			free_env_var(((t_env *)curr->content));
+			if (prev == NULL)
+				shell->env_list = curr->next;
+			else
+				prev->next = curr->next;
+			return ;
+		}
+		prev = curr;
+		curr = curr->next;
+	}
+}
+
 //cd old pwd
 void	cd_oldpwd(t_shell *shell)
 {
 	char	*oldpwd;
 
 	oldpwd = get_env_var(shell, "OLDPWD");
+	if(chdir(oldpwd) == -1)
+		ft_putstr_fd("cd: OLDPWD not set\n", 2);
 	if (oldpwd)
 		chdir(oldpwd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 12:00:22 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/14 13:28:03 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,6 +291,7 @@ void	token_count_util(char *str, int *i, int *count);
 bool	check_parse_errors(t_shell *shell);
 bool	check_for(char *input, char *str1, char *str2, char *str3);
 bool	ends_with_redir(char *input);
+void 	do_error(t_shell *shell, char *error);
 
 /////////////////////////////////MAIN///////////////////////////////////////////
 

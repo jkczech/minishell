@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/13 16:20:38 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:30:39 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	process_character(char *str, char *result, int *i, int *j)
 			(*j)++;
 		}
 	}
-	if(*j == 0 && (is_sep(str[*j]) && is_sep(str[*j + 1])))
+	if(*j == 0 && (is_sep(str[*j]) && is_sep(str[*j + 1])) && !double_sep(str, *j))
 	{
 		result[(*i)++] = str[(*j)++];
 		result[(*i)++] = ' ';
