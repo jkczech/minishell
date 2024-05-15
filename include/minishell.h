@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 17:22:55 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:45:59 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ bool	simple_export(t_shell *shell, t_cmd *cmd, int out);
 
 //export_utils.c
 bool	is_valid_var(char *var);
-void	export_error_minus(t_shell *shell, char c);
+void	export_error_minus(t_shell *shell, char *str);
 void	export_error(t_shell *shell, char *arg);
 
 //unset.c

@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:02:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/15 16:39:12 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:39:17 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,14 @@ void	cd_oldpwd(t_shell *shell)
 	if (!oldpwd)
 	{
 		ft_putstr_fd("cd: OLDPWD not set\n", 2);
+		shell->exitcode = 1;
 		return ;
 	}
 	if (chdir(oldpwd) == -1)
+	{
 		ft_putstr_fd("cd: OLDPWD not set\n", 2);
+		shell->exitcode = 1;
+	}
 	if (oldpwd)
 	{
 		ft_putstr_fd(oldpwd, 1);
