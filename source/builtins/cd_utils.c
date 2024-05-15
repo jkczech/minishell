@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:02:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/15 17:39:17 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 20:43:04 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	set_env_var(t_shell *shell, char *var, char *value)
 			((t_env *)tmp->content)->value = ft_strdup(value);
 			if (!((t_env *)tmp->content)->value)
 				((t_env *)tmp->content)->value = NULL;
+			((t_env *)tmp->content)->flag = 1;
 			return ;
 		}
 		tmp = tmp->next;
