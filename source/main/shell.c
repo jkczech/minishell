@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:36:46 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/14 21:41:36 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 12:20:42 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ void	minishell(t_shell *shell)
 			exit_command(shell, NULL);
 		if (check_input(shell) && parse(shell))
 			execute(shell);
-		add_history(shell->input);
+		if (shell->input && *shell->input)
+			add_history(shell->input);
 		free_iter(shell);
-	}
+	}			
 }
 
 bool	read_line(t_shell *shell)
