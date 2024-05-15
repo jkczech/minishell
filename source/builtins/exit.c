@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/15 21:26:09 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:54:56 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exit_error_msg(char *msg, char *cmd)
 void	easy_exit(t_shell *shell, int status)
 {
 	free_iter(shell);
-	ft_putstr_fd("exit\n", 2);
+	ft_putstr_fd("exit\n", 1);
 	if (shell)
 		free_shell(shell);
 	exit(status);
@@ -51,7 +51,8 @@ void	exit_argument(t_shell *shell, t_cmd *cmd)
 		exit_error_msg("too many arguments", cmd->args[1]);
 		shell->exitcode = 1;
 	}
-	else if (!is_numeric(cmd->args[1]) || !check_overflow(cmd->args[1]))
+	else if (!cmd->args[1][0] || !is_numeric(cmd->args[1]) \
+		|| !check_overflow(cmd->args[1]))
 	{
 		exit_error_msg("numeric argument required", cmd->args[1]);
 		shell->exitcode = 2;
@@ -69,7 +70,7 @@ void	exit_command(t_shell *shell, t_cmd *cmd)
 {
 	if (!cmd)
 		easy_exit(shell, shell->exitcode);
-	if (!cmd->args[1] || !cmd->args[1][0])
+	if (!cmd->args[1])
 		easy_exit(shell, shell->exitcode);
 	else if (cmd->args[1])
 		exit_argument(shell, cmd);

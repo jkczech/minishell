@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:55:08 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 13:16:58 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:35:24 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	find_command(t_shell *shell, int i)
 		&& is_command(shell->cmds[i].args[0]))
 		return (save_command(shell, i, shell->cmds[i].args[0]));
 	j = 0;
-	if (!shell->paths)
+	if (!shell->paths || !shell->paths[j])
 		return (cmd_not_found(shell, i));
 	while (shell->paths && shell->paths[j])
 	{
