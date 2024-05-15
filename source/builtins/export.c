@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/15 16:20:40 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:23:05 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,12 @@ void	export_command(t_shell *shell, t_cmd *cmd, int out)
 	{
 		if (cmd->args[i][0] == '-')
 		{
-			export_error_minus(shell, cmd->args[i][1]);
-			i++;
+			export_error_minus(shell, cmd->args[i++][1]);
 			continue ;
 		}
 		if (!is_valid_var(cmd->args[i]))
 		{
-			export_error(shell, cmd->args[i]);
-			i++;
+			export_error(shell, cmd->args[i++]);
 			continue ;
 		}
 		export_loop(shell, cmd, &i, &swap);
@@ -76,6 +74,8 @@ void	export_command(t_shell *shell, t_cmd *cmd, int out)
 			add_env_var(shell, cmd->args[i]);
 		i++;
 	}
+	free_array(shell->envp);
+	shell->envp = envp_list_into_char(shell->env_list);
 }
 
 //export loop

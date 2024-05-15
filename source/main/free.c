@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:08:25 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 17:16:22 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:23:13 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 //free things needed to be freed after every iteration
 //pipes are freed in the parent process elsewhere
-//printf("free_iter\n");
-	/* if (shell->envp)
-		free_array(shell->envp); */
 void	free_iter(t_shell *shell)
 {
 	char	*tmp;
@@ -45,9 +42,6 @@ void	free_iter(t_shell *shell)
 }
 
 //free the shell
-//printf("free_shell\n");
-// if (shell->envp && shell->envp[i])
-// 	free_array(shell->envp);
 void	free_shell(t_shell *shell)
 {
 	int	i;

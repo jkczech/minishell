@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:23 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 20:58:10 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 16:37:50 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,14 @@ void	handle_exitcode(t_shell *shell, int i, int status)
 
 void	simple_child(t_shell *shell)
 {
-	redirect(shell, shell->cmds[0].input, shell->cmds[0].output);
-	if (execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp) == -1)
+	if (shell->cmds[0].path != NULL)
 	{
-		free_iter(shell);
-		error_msg(shell, NULL);
+		redirect(shell, shell->cmds[0].input, shell->cmds[0].output);
+		if (execve(shell->cmds[0].path, shell->cmds[0].args, shell->envp) == -1)
+			error_msg(shell, NULL);
 	}
 	free_pipes(shell);
+	free_iter(shell);
+	free_shell(shell);
 	exit(1);
 }

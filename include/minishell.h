@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 14:36:39 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:22:55 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ extern int			g_sig;
 
 typedef struct s_cmd
 {
+	bool				execute;
 	char				*path;
 	char				**args;
 	int					input;
@@ -165,7 +166,6 @@ void	env_command(t_shell *shell, t_cmd *cmd, int out);
 int		check_env_var(char *var);
 char	**envp_list_into_char(t_list *env_list);
 void	sort_env(t_shell *shell);
-char	**handle_empty_env(void);
 
 //pwd.c
 void	pwd_command(t_shell *shell, t_cmd *cmd, int out);

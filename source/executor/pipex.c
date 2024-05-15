@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 20:59:25 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 17:17:03 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ bool	execute_pipeline(t_shell *shell)
 			if (!shell->cmds[i].args)
 			{
 				free_iter(shell);
+				free_shell(shell);
 				exit(1);
 			}
 			child(shell, i, shell->cmds[i].input, shell->cmds[i].output);
@@ -103,15 +104,10 @@ bool	execute_simple(t_shell *shell)
 
 	status = 0;
 	if (shell->size != 1 || !shell->cmds || !shell->cmds[0].args)
-		return (false);
+		return (true);
 	if (is_builtin(shell, 0))
 		return (builtin_handler(shell, 0));
 	pid = fork();
-	if (pid == 0 && shell->cmds[0].path == NULL)
-	{
-		free_pipes(shell);
-		exit(shell->exitcode);
-	}
 	if (pid == 0)
 		simple_child(shell);
 	else if (pid > 0)

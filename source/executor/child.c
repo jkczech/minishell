@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 17:05:00 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 17:14:27 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	redirect(t_shell *shell, int input, int output)
 	if (dup2(input, STDIN_FILENO) == -1)
 	{
 		free_iter(shell);
+		free_shell(shell);
 		exit(1);
 	}
 	if (input != STDIN_FILENO)
@@ -26,6 +27,7 @@ void	redirect(t_shell *shell, int input, int output)
 	if (dup2(output, STDOUT_FILENO) == -1)
 	{
 		free_iter(shell);
+		free_shell(shell);
 		exit(1);
 	}
 	if (output != STDOUT_FILENO)
@@ -53,5 +55,6 @@ void	child(t_shell *shell, int i, int input, int output)
 		free_iter(shell);
 		error_msg(shell, NULL);
 	}
+	free_shell(shell);
 	exit(1);
 }

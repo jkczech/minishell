@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:15:35 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/14 15:56:58 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:49:50 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	unset_command(t_shell *shell, t_cmd *cmd)
 		unset(shell, cmd->args[i]);
 		i++;
 	}
+	free_array(shell->envp);
+	shell->envp = envp_list_into_char(shell->env_list);
 }
 
 	// Variable not found
