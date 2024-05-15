@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 12:05:00 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 13:15:07 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ void	exit_command(t_shell *shell, t_cmd *cmd);
 //exit_util.c
 bool	check_amount_of_args(char **args);
 bool	is_numeric(char *str);
-char	*ft_ltoa(long n);
 long	convert_exit_status(t_cmd *cmd);
 bool	check_overflow(char *str);
 
@@ -165,7 +164,6 @@ void	env_command(t_shell *shell, t_cmd *cmd, int out);
 int		check_env_var(char *var);
 char	**envp_list_into_char(t_list *env_list);
 void	sort_env(t_shell *shell);
-char	**handle_empty_env(void);
 
 //pwd.c
 void	pwd_command(t_shell *shell, t_cmd *cmd, int out);
