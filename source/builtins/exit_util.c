@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:46:33 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/07 16:58:20 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:13:17 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ bool	check_overflow(char *str)
 		while (*str == '0')
 			str++;
 	}
+	if (ft_strlen(str) > 20)
+		return (false);
 	input = ft_atol(str);
 	input_str = ft_ltoa(input);
 	if (!input_str)
@@ -92,5 +94,6 @@ bool	check_overflow(char *str)
 		free(input_str);
 		return (true);
 	}
+	free(input_str);
 	return (false);
 }
