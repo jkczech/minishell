@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:26 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 17:05:00 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 14:43:41 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void	child(t_shell *shell, int i, int input, int output)
 		free_iter(shell);
 		error_msg(shell, NULL);
 	}
+	free_shell(shell);
 	exit(1);
 }

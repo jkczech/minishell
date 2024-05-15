@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 14:02:23 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 14:46:00 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ bool	execute_simple(t_shell *shell)
 
 	status = 0;
 	if (shell->size != 1 || !shell->cmds || !shell->cmds[0].args)
-		return (false);
+		return (true);
 	if (is_builtin(shell, 0))
 		return (builtin_handler(shell, 0));
 	pid = fork();
