@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 11:34:49 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 17:17:03 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 19:32:15 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,7 @@ bool	execute_pipeline(t_shell *shell)
 		if (pid == 0)
 		{
 			if (!shell->cmds[i].args)
-			{
-				free_iter(shell);
-				free_shell(shell);
-				exit(1);
-			}
+				frexit(shell, 1);
 			child(shell, i, shell->cmds[i].input, shell->cmds[i].output);
 		}
 		else if (pid > 0)

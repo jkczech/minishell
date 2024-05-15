@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:24 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/12 12:29:58 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 18:46:35 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,27 @@ void	set_signals(t_shell *shell)
 	}
 	else if (shell->mode == WRITTEN)
 	{
-		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, &c_signal);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (shell->mode == CHILD)
 	{
-		signal(SIGINT, SIG_DFL);
+		signal(SIGINT, &c_signal);
 		signal(SIGQUIT, SIG_DFL);
 	}
 	else if (shell->mode == HEREDOC)
 	{
 		signal(SIGINT, &heredoc_signal);
 		signal(SIGQUIT, SIG_IGN);
+	}
+}
+
+void	c_signal(int status)
+{
+	if (status == SIGINT)
+	{
+		write(STDERR_FILENO, "\n", 1);
+		g_sig = 1;
 	}
 }
 
