@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:06:22 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/15 17:24:58 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:11:07 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ bool	check_input(t_shell *shell)
 		shell->exitcode = 2;
 		return (false);
 	}
+	convert_whitespace(shell->input);
 	norm_input(shell);
 	if (!shell->norm_input)
 		return (false);

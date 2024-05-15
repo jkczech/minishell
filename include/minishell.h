@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 17:45:59 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:07:37 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,6 +296,7 @@ void	norm_input(t_shell *shell);
 //lexing_utils.c
 int		token_count(char *str);
 void	token_count_util(char *str, int *i, int *count);
+void	convert_whitespace(char *str);
 
 //check_error.c
 bool	check_parse_errors(t_shell *shell);
