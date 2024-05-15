@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:21:18 by jakob             #+#    #+#             */
-/*   Updated: 2024/05/12 22:16:58 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:20:19 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,34 +53,4 @@ char	**envp_list_into_char(t_list *env_list)
 	}
 	envp[i] = NULL;
 	return (envp);
-}
-
-//sort environment export in alphabetical order
-void	sort_env(t_shell *shell)
-{
-	t_list	*t;
-	t_list	*t2;
-	char	*tmp_str;
-
-	t = shell->env_list;
-	while (t)
-	{
-		t2 = t->next;
-		while (t2)
-		{
-			if (ft_strncmp(((t_env *)t->content)->var,
-					((t_env *)t2->content)->var,
-					ft_strlen(((t_env *)t->content)->var)) > 0)
-			{
-				tmp_str = ((t_env *)t->content)->var;
-				((t_env *)t->content)->var = ((t_env *)t2->content)->var;
-				((t_env *)t2->content)->var = tmp_str;
-				tmp_str = ((t_env *)t->content)->value;
-				((t_env *)t->content)->value = ((t_env *)t2->content)->value;
-				((t_env *)t2->content)->value = tmp_str;
-			}
-			t2 = t2->next;
-		}
-		t = t->next;
-	}
 }

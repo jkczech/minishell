@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:23:44 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/15 15:51:11 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:20:40 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	add_env_var(t_shell *shell, char *arg)
 
 bool	simple_export(t_shell *shell, t_cmd *cmd, int out)
 {
-	sort_env(shell);
 	if (!cmd->args[1])
 	{
 		print_export_list(shell->env_list, out);

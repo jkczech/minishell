@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:02:06 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/14 21:01:25 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 16:39:12 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,19 @@ void	cd_oldpwd(t_shell *shell)
 	char	*oldpwd;
 
 	oldpwd = get_env_var(shell, "OLDPWD");
+	if (!oldpwd)
+	{
+		ft_putstr_fd("cd: OLDPWD not set\n", 2);
+		return ;
+	}
 	if (chdir(oldpwd) == -1)
 		ft_putstr_fd("cd: OLDPWD not set\n", 2);
 	if (oldpwd)
+	{
+		ft_putstr_fd(oldpwd, 1);
+		ft_putstr_fd("\n", 1);
 		chdir(oldpwd);
+	}
 }
 
 void	add_oldpwd_to_env(t_shell *shell)
