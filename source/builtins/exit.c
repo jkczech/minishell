@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:23:37 by jseidere          #+#    #+#             */
-/*   Updated: 2024/05/15 14:21:56 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:26:09 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ void	exit_argument(t_shell *shell, t_cmd *cmd)
 		easy_exit(shell, shell->exitcode);
 	}
 	else
-		easy_exit(shell, convert_exit_status(cmd));
+	{
+		shell->exitcode = convert_exit_status(cmd);
+		easy_exit(shell, shell->exitcode);
+	}
 }
 
 //check if exit command is called

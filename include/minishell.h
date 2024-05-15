@@ -6,7 +6,7 @@
 /*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 19:07:37 by jseidere         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:25:55 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ void	copy_pipes(t_shell *shell);
 bool	allocate_pids(t_shell *shell);
 void	handle_exitcode(t_shell *shell, int i, int status);
 void	simple_child(t_shell *shell);
+void	frexit(t_shell *shell, int exitcode);
 
 //pipex.c
 bool	execute(t_shell *shell);
@@ -363,6 +364,7 @@ int		is_delimiter(char c, const char *delim);
 
 //signals.c currently in main.c
 void	set_signals(t_shell *shell);
+void	c_signal(int status);
 void	signal_handler(int signum);
 void	heredoc_signal(int status);
 void	mode(t_shell *shell, int mode);

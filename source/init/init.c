@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 16:24:02 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 20:51:37 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ bool	init_shell(t_shell *shell, char **envp)
 		return (false);
 	shell->exitcode = 0;
 	shell->mode = EMPTY;
+	free_array(shell->envp);
+	shell->envp = envp_list_into_char(shell->env_list);
 	return (true);
 }
 
