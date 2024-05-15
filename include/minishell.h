@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:04:06 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 13:15:07 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 16:23:32 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ extern int			g_sig;
 
 typedef struct s_cmd
 {
+	bool				execute;
 	char				*path;
 	char				**args;
 	int					input;

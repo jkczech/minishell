@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:54:13 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 14:01:52 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 16:24:02 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ bool	init_cmds(t_shell *shell)
 	i = 0;
 	while (i < shell->size)
 	{
+		shell->cmds[i].execute = true;
 		shell->cmds[i].args = NULL;
 		shell->cmds[i].path = NULL;
 		if (i == 0)
