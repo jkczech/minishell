@@ -6,7 +6,7 @@
 /*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:23 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/15 19:32:02 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 20:42:28 by jkoupy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ bool	allocate_pids(t_shell *shell)
 
 void	handle_exitcode(t_shell *shell, int i, int status)
 {
-	if (shell->cmds[i].path)
+	if (shell->cmds[i].path || is_builtin(shell, i))
 	{
 		if (WIFEXITED(status))
 			shell->exitcode = WEXITSTATUS(status);
