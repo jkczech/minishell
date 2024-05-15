@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 11:46:33 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/09 15:51:58 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 21:19:13 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_env_value(t_shell *shell, char *str)
 	while (node)
 	{
 		var = ((t_env *)node->content)->var;
-		if (ft_strncmp(var, str, ft_strlen(var)) == 0)
+		if (ft_strncmp(var, str, ft_strlen(var) + 1) == 0)
 		{
 			value = ft_strdup(((t_env *)node->content)->value);
 			if (!value)
