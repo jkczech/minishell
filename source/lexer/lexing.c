@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkoupy <jkoupy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jseidere <jseidere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:13:58 by jkoupy            #+#    #+#             */
-/*   Updated: 2024/05/14 20:39:23 by jkoupy           ###   ########.fr       */
+/*   Updated: 2024/05/15 17:17:29 by jseidere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	process_character(char *s, char *result, int *i, int *j)
 		while (s[*j] && ((s[*j] == ' ' && s[*j + 1] == ' ')
 				|| (s[*j] == '\t')))
 		{
-			if (s[(*j)++] == '\t')
+			if (s[(*j)++] == '\t' && s[*j] != '\t')
 				result[(*i)++] = ' ';
 		}
 	}
